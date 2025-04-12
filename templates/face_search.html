@@ -1,0 +1,191 @@
+<html>
+<head>
+    <title>Face Search</title>
+    <meta name="description" content="Search for similar faces across the web with advanced AI. Perfect for finding matches, verifying identities, and more.">
+    <meta name="keywords" content="face search, find similar faces, AI face search tool">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .hero {
+            background-color: #6f42c1;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .input-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .input-section input {
+            padding: 10px;
+            width: 70%;
+            max-width: 400px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .input-section button {
+            padding: 10px 20px;
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .input-section button:hover {
+            background-color: #5a379e;
+        }
+        .how-to {
+            margin: 40px 0;
+        }
+        .how-to h2 {
+            text-align: center;
+            color: #333;
+        }
+        .how-to-steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .step {
+            text-align: center;
+            flex: 1 1 30%;
+            margin: 10px;
+        }
+        .step span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background-color: #6f42c1;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .features, .faq {
+            margin: 40px 0;
+        }
+        .features h2, .faq h2 {
+            text-align: center;
+            color: #333;
+        }
+        .features ul {
+            list-style: disc;
+            margin-left: 20px;
+            color: #555;
+        }
+        .faq-item {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .how-to-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            .input-section input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Face Search</h1>
+        <p>Search for similar faces across the web with advanced AI. Perfect for finding matches, verifying identities, and more.</p>
+    </div>
+
+    <div class="container">
+        <div class="input-section">
+            <form action="/tools/image-editing/face-search" method="post" enctype="multipart/form-data">
+                <input type="file" id="image" name="image" required>
+                <button type="submit">Search Face</button>
+            </form>
+        </div>
+
+        <div class="how-to">
+            <h2>How to Use the Face Search Tool</h2>
+            <div class="how-to-steps">
+                <div class="step">
+                    <span>1</span>
+                    <p>Upload your image file.</p>
+                </div>
+                <div class="step">
+                    <span>2</span>
+                    <p>Click the "Search Face" button.</p>
+                </div>
+                <div class="step">
+                    <span>3</span>
+                    <p>View the results to find similar faces or matches.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>Features of Our Face Search Tool</h2>
+            <ul>
+                <li>Find similar faces or matches using advanced AI.</li>
+                <li>Supports multiple image formats like PNG, JPG, and JPEG.</li>
+                <li>Fast and secure processing.</li>
+                <li>Completely free to use.</li>
+                <li>Compatible with all modern browsers and devices.</li>
+            </ul>
+        </div>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What is face search?</h3>
+                <p>Face search allows you to find similar faces or matches by uploading an image file.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is it safe to use face search online?</h3>
+                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I search for multiple faces at once?</h3>
+                <p>Currently, the tool supports one image at a time. Batch processing will be added soon.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 Free AI Tools. All rights reserved.</p>
+            <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-use">Terms of Use</a></p>
+        </footer>
+    </div>
+</body>
+</html>

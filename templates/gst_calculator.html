@@ -1,0 +1,121 @@
+<html>
+<head>
+    <title>GST Calculator</title>
+    <meta name="description" content="Calculate Goods and Services Tax (GST) easily. Get accurate GST-inclusive and GST-exclusive amounts.">
+    <meta name="keywords" content="gst calculator, goods and services tax, online gst calculator">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .hero {
+            background-color: #ffc107;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .calculator {
+            text-align: center;
+        }
+        .calculator input {
+            padding: 10px;
+            margin: 5px;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .calculator select {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .calculator button {
+            padding: 10px 20px;
+            background-color: #ffc107;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .calculator button:hover {
+            background-color: #e0a800;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>GST Calculator</h1>
+        <p>Calculate Goods and Services Tax (GST) easily. Get accurate GST-inclusive and GST-exclusive amounts.</p>
+    </div>
+
+    <div class="container">
+        <div class="calculator">
+            <form id="gst-calculator-form">
+                <input type="number" id="amount" placeholder="Amount" required>
+                <select id="gst-rate">
+                    <option value="5">5%</option>
+                    <option value="12">12%</option>
+                    <option value="18">18%</option>
+                    <option value="28">28%</option>
+                </select>
+                <button type="button" onclick="calculateGST()">Calculate</button>
+            </form>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function calculateGST() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const gstRate = parseFloat(document.getElementById('gst-rate').value);
+
+            if (isNaN(amount) || amount <= 0) {
+                document.getElementById('result').textContent = 'Please enter a valid amount.';
+                return;
+            }
+
+            const gstAmount = (amount * gstRate) / 100;
+            const totalAmount = amount + gstAmount;
+
+            document.getElementById('result').innerHTML = `
+                <p>GST Amount: $${gstAmount.toFixed(2)}</p>
+                <p>Total Amount (Including GST): $${totalAmount.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

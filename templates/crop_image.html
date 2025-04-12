@@ -1,0 +1,194 @@
+<html>
+<head>
+    <title>Crop Image</title>
+    <meta name="description" content="Crop your images to focus on the most important parts. Perfect for social media, websites, and more.">
+    <meta name="keywords" content="crop image, image cropping tool, online image cropper">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .hero {
+            background-color: #28a745;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .input-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .input-section input {
+            padding: 10px;
+            width: 70%;
+            max-width: 400px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .input-section button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .input-section button:hover {
+            background-color: #218838;
+        }
+        .how-to {
+            margin: 40px 0;
+        }
+        .how-to h2 {
+            text-align: center;
+            color: #333;
+        }
+        .how-to-steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .step {
+            text-align: center;
+            flex: 1 1 30%;
+            margin: 10px;
+        }
+        .step span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .features, .faq {
+            margin: 40px 0;
+        }
+        .features h2, .faq h2 {
+            text-align: center;
+            color: #333;
+        }
+        .features ul {
+            list-style: disc;
+            margin-left: 20px;
+            color: #555;
+        }
+        .faq-item {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .how-to-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            .input-section input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Crop Image</h1>
+        <p>Crop your images to focus on the most important parts. Perfect for social media, websites, and more.</p>
+    </div>
+
+    <div class="container">
+        <div class="input-section">
+            <form action="/tools/image-editing/crop-image" method="post" enctype="multipart/form-data">
+                <input type="file" id="image" name="image" required>
+                <input type="number" id="x" name="x" placeholder="X Coordinate" required>
+                <input type="number" id="y" name="y" placeholder="Y Coordinate" required>
+                <input type="number" id="width" name="width" placeholder="Width (px)" required>
+                <input type="number" id="height" name="height" placeholder="Height (px)" required>
+                <button type="submit">Crop Image</button>
+            </form>
+        </div>
+
+        <div class="how-to">
+            <h2>How to Use the Crop Image Tool</h2>
+            <div class="how-to-steps">
+                <div class="step">
+                    <span>1</span>
+                    <p>Upload your image file.</p>
+                </div>
+                <div class="step">
+                    <span>2</span>
+                    <p>Enter the crop dimensions (X, Y, Width, Height).</p>
+                </div>
+                <div class="step">
+                    <span>3</span>
+                    <p>Click the "Crop Image" button and download the cropped image.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>Features of Our Crop Image Tool</h2>
+            <ul>
+                <li>Crop images to custom dimensions.</li>
+                <li>Supports multiple image formats like PNG, JPG, and JPEG.</li>
+                <li>Maintains high image quality after cropping.</li>
+                <li>Fast and secure processing.</li>
+                <li>Completely free to use.</li>
+            </ul>
+        </div>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>Why should I crop images?</h3>
+                <p>Cropping images helps focus on the most important parts and remove unnecessary elements.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is it safe to crop images online?</h3>
+                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I crop images without losing quality?</h3>
+                <p>Absolutely! Our tool uses advanced algorithms to retain image quality while cropping.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

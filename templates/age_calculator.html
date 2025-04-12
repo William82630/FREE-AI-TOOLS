@@ -1,0 +1,285 @@
+<html>
+<head>
+    <title>Age Calculator - Calculate Your Exact Age</title>
+    <meta name="description" content="Calculate your precise age in years, months, days, weeks, hours, minutes and seconds. Features include future date calculations and days until next birthday.">
+    <meta name="keywords" content="age calculator, birthday calculator, calculate age, exact age, age in days, age in weeks">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .hero {
+            background-color: #28a745;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .calculator-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin: 15px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .date-input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .calculate-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+            max-width: 200px;
+            margin: 20px auto;
+            display: block;
+        }
+        .calculate-btn:hover {
+            background-color: #218838;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .result-item {
+            margin: 10px 0;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .description {
+            margin-top: 30px;
+            line-height: 1.6;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #666;
+        }
+        .tab.active {
+            color: #28a745;
+            border-bottom: 2px solid #28a745;
+            margin-bottom: -2px;
+        }
+        .info-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 768px) {
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Age Calculator</h1>
+        <p>Calculate your exact age in multiple formats, including years, months, days, weeks, and more.</p>
+    </div>
+
+    <div class="container">
+        <div class="calculator-section">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('age')">Calculate Age</button>
+                <button class="tab" onclick="switchTab('countdown')">Days Until...</button>
+            </div>
+
+            <div class="input-group">
+                <div>
+                    <label for="birthDate">Date of Birth:</label>
+                    <input type="date" id="birthDate" class="date-input" required>
+                </div>
+                <div>
+                    <label for="calculateDate">Calculate Age On:</label>
+                    <input type="date" id="calculateDate" class="date-input" required>
+                </div>
+            </div>
+
+            <button class="calculate-btn" onclick="calculateAge()">Calculate</button>
+
+            <div class="results" id="results">
+                <!-- Results will be displayed here -->
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>About This Age Calculator</h2>
+            <p>This comprehensive age calculator helps you determine exact age or time between dates in various formats:</p>
+            <ul>
+                <li>Years, months, and days</li>
+                <li>Total months and days</li>
+                <li>Total weeks</li>
+                <li>Total days</li>
+                <li>Hours, minutes, and seconds</li>
+            </ul>
+
+            <h3>Special Features</h3>
+            <ul>
+                <li>Accurate calculations considering leap years</li>
+                <li>Future date calculations</li>
+                <li>Days until next birthday</li>
+                <li>Infant age in weeks (for newborns)</li>
+            </ul>
+
+            <h3>How Age is Calculated</h3>
+            <p>The calculator uses two methods to ensure accuracy:</p>
+            <ol>
+                <li>Standard calculation in years, months, and days, treating months as an average of 30.4167 days</li>
+                <li>Precise calculation in total days, accounting for leap years and exact month lengths</li>
+            </ol>
+
+            <div class="month-days">
+                <h3>Days per Month Reference</h3>
+                <ul>
+                    <li>31 days: January, March, May, July, August, October, December</li>
+                    <li>30 days: April, June, September, November</li>
+                    <li>28/29 days: February (29 in leap years)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date as default for "Calculate Age On" field
+        document.getElementById('calculateDate').valueAsDate = new Date();
+
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('birthDate').value);
+            const calculateDate = new Date(document.getElementById('calculateDate').value);
+            
+            if (!birthDate || !calculateDate) {
+                alert('Please enter both dates');
+                return;
+            }
+
+            if (birthDate > calculateDate) {
+                alert('Birth date cannot be in the future');
+                return;
+            }
+
+            const diff = calculateDate - birthDate;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const weeks = Math.floor(days / 7);
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor(diff / (1000 * 60));
+            const seconds = Math.floor(diff / 1000);
+
+            // Calculate years, months, and remaining days
+            let years = calculateDate.getFullYear() - birthDate.getFullYear();
+            let months = calculateDate.getMonth() - birthDate.getMonth();
+            let remainingDays = calculateDate.getDate() - birthDate.getDate();
+
+            if (remainingDays < 0) {
+                months--;
+                const lastMonth = new Date(calculateDate.getFullYear(), calculateDate.getMonth() - 1, birthDate.getDate());
+                remainingDays += Math.floor((calculateDate - lastMonth) / (1000 * 60 * 60 * 24));
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            // Calculate next birthday
+            const nextBirthday = new Date(calculateDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+            if (nextBirthday < calculateDate) {
+                nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+            }
+            const daysUntilBirthday = Math.ceil((nextBirthday - calculateDate) / (1000 * 60 * 60 * 24));
+
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <div class="result-item">
+                    <strong>Age:</strong> ${years} years, ${months} months, ${remainingDays} days
+                </div>
+                <div class="result-item">
+                    <strong>Total Months:</strong> ${years * 12 + months} months, ${remainingDays} days
+                </div>
+                <div class="result-item">
+                    <strong>Total Weeks:</strong> ${weeks} weeks
+                </div>
+                <div class="result-item">
+                    <strong>Total Days:</strong> ${days} days
+                </div>
+                <div class="result-item">
+                    <strong>Total Hours:</strong> ${hours} hours
+                </div>
+                <div class="result-item">
+                    <strong>Total Minutes:</strong> ${minutes} minutes
+                </div>
+                <div class="result-item">
+                    <strong>Total Seconds:</strong> ${seconds} seconds
+                </div>
+                <div class="result-item">
+                    <strong>Days Until Next Birthday:</strong> ${daysUntilBirthday} days
+                </div>
+            `;
+
+            // Special display for infants (less than 2 years old)
+            if (years < 2) {
+                results.innerHTML += `
+                    <div class="result-item">
+                        <strong>Age in Weeks:</strong> ${weeks} weeks
+                        ${days % 7 > 0 ? ` and ${days % 7} days` : ''}
+                    </div>
+                `;
+            }
+        }
+
+        function switchTab(tab) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update labels and functionality based on selected tab
+            if (tab === 'countdown') {
+                document.querySelector('label[for="birthDate"]').textContent = 'Start Date:';
+                document.querySelector('label[for="calculateDate"]').textContent = 'End Date:';
+            } else {
+                document.querySelector('label[for="birthDate"]').textContent = 'Date of Birth:';
+                document.querySelector('label[for="calculateDate"]').textContent = 'Calculate Age On:';
+            }
+        }
+    </script>
+</body>
+</html>

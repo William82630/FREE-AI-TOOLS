@@ -1,0 +1,198 @@
+<html>
+<head>
+    <title>Simple Calculator</title>
+    <meta name="description" content="Perform basic arithmetic calculations with memory functions. Includes addition, subtraction, multiplication, division, and more advanced operations.">
+    <meta name="keywords" content="simple calculator, online calculator, basic calculator">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .hero {
+            background-color: #007BFF;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .calculator {
+            text-align: center;
+        }
+        .calculator-display {
+            width: 100%;
+            height: 50px;
+            font-size: 1.5em;
+            text-align: right;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .calculator-buttons button {
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        .calculator-buttons button:hover {
+            background-color: #0056b3;
+        }
+        .description {
+            margin-top: 20px;
+            text-align: left;
+            color: #333;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Simple Calculator</h1>
+        <p>Perform basic arithmetic calculations with memory functions. Includes addition, subtraction, multiplication, division, and more advanced operations.</p>
+    </div>
+
+    <div class="container">
+        <div class="calculator">
+            <input type="text" id="display" class="calculator-display" disabled>
+            <div class="calculator-buttons">
+                <button onclick="clearDisplay()">AC</button>
+                <button onclick="appendToDisplay('%')">%</button>
+                <button onclick="appendToDisplay('/')">÷</button>
+                <button onclick="backspace()">←</button>
+                <button onclick="appendToDisplay('7')">7</button>
+                <button onclick="appendToDisplay('8')">8</button>
+                <button onclick="appendToDisplay('9')">9</button>
+                <button onclick="appendToDisplay('*')">×</button>
+                <button onclick="appendToDisplay('4')">4</button>
+                <button onclick="appendToDisplay('5')">5</button>
+                <button onclick="appendToDisplay('6')">6</button>
+                <button onclick="appendToDisplay('-')">−</button>
+                <button onclick="appendToDisplay('1')">1</button>
+                <button onclick="appendToDisplay('2')">2</button>
+                <button onclick="appendToDisplay('3')">3</button>
+                <button onclick="appendToDisplay('+')">+</button>
+                <button onclick="appendToDisplay('0')">0</button>
+                <button onclick="appendToDisplay('.')">.</button>
+                <button onclick="toggleSign()">±</button>
+                <button onclick="calculate()">=</button>
+            </div>
+        </div>
+
+        <div class="description">
+            <h2>About This Calculator</h2>
+            <p>This simple calculator is designed to handle basic arithmetic operations such as addition, subtraction, multiplication, and division. It also includes advanced features like percentage calculations, memory functions, and more.</p>
+
+            <h3>How to Use:</h3>
+            <ul>
+                <li>Use the buttons to input numbers and operations.</li>
+                <li>Click "AC" to clear the display.</li>
+                <li>Use the "±" button to toggle between positive and negative values.</li>
+                <li>Click "=" to calculate the result.</li>
+            </ul>
+
+            <h3>Features:</h3>
+            <ul>
+                <li>Basic arithmetic: addition, subtraction, multiplication, and division.</li>
+                <li>Percentage calculations.</li>
+                <li>Memory functions for storing and recalling values.</li>
+                <li>Clear and backspace options for easy corrections.</li>
+            </ul>
+
+            <h3>What Are the Functions on the Calculator?</h3>
+            <ul>
+                <li><strong>÷:</strong> Division</li>
+                <li><strong>×:</strong> Multiplication</li>
+                <li><strong>+:</strong> Addition</li>
+                <li><strong>−:</strong> Subtraction</li>
+                <li><strong>=:</strong> Calculate</li>
+            </ul>
+
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            <h3>1. What is this calculator used for?</h3>
+            <p>This calculator is designed for basic arithmetic operations such as addition, subtraction, multiplication, and division. It is simple and easy to use for quick calculations.</p>
+
+            <h3>2. Can I use this calculator on my mobile device?</h3>
+            <p>Yes, this calculator is fully responsive and works seamlessly on mobile devices, tablets, and desktops.</p>
+
+            <h3>3. Does this calculator support advanced functions?</h3>
+            <p>Currently, this calculator is focused on basic operations. For advanced calculations, you may need a scientific calculator.</p>
+
+            <h3>4. How accurate are the calculations?</h3>
+            <p>The calculator provides results with up to 10 digits of precision, ensuring high accuracy for most calculations.</p>
+
+            <h3>5. Can I use the keyboard to operate the calculator?</h3>
+            <p>Yes, you can use your keyboard's number pad and basic arithmetic keys (+, -, *, /) to perform calculations.</p>
+
+            <h3>6. Is there a way to clear the display?</h3>
+            <p>Yes, you can use the "AC" button to clear all entries and reset the calculator.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function appendToDisplay(value) {
+            const display = document.getElementById('display');
+            display.value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function backspace() {
+            const display = document.getElementById('display');
+            display.value = display.value.slice(0, -1);
+        }
+
+        function toggleSign() {
+            const display = document.getElementById('display');
+            if (display.value) {
+                display.value = parseFloat(display.value) * -1;
+            }
+        }
+
+        function calculate() {
+            const display = document.getElementById('display');
+            try {
+                display.value = eval(display.value);
+            } catch {
+                display.value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>

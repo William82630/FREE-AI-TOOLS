@@ -1,0 +1,138 @@
+<html>
+<head>
+    <title>Unit Converter</title>
+    <meta name="description" content="Convert units of measurement quickly and accurately. Supports length, weight, temperature, and more.">
+    <meta name="keywords" content="unit converter, measurement converter, online unit converter">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .hero {
+            background-color: #28a745;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .converter {
+            text-align: center;
+        }
+        .converter input, .converter select {
+            padding: 10px;
+            margin: 5px;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .converter button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .converter button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Unit Converter</h1>
+        <p>Convert units of measurement quickly and accurately. Supports length, weight, temperature, and more.</p>
+    </div>
+
+    <div class="container">
+        <div class="converter">
+            <form id="unit-converter-form">
+                <input type="number" id="value" placeholder="Value" required>
+                <select id="from-unit">
+                    <option value="meters">Meters</option>
+                    <option value="kilometers">Kilometers</option>
+                    <option value="grams">Grams</option>
+                    <option value="kilograms">Kilograms</option>
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                </select>
+                <select id="to-unit">
+                    <option value="meters">Meters</option>
+                    <option value="kilometers">Kilometers</option>
+                    <option value="grams">Grams</option>
+                    <option value="kilograms">Kilograms</option>
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                </select>
+                <button type="button" onclick="convertUnit()">Convert</button>
+            </form>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function convertUnit() {
+            const value = parseFloat(document.getElementById('value').value);
+            const fromUnit = document.getElementById('from-unit').value;
+            const toUnit = document.getElementById('to-unit').value;
+
+            if (isNaN(value)) {
+                document.getElementById('result').textContent = 'Please enter a valid value.';
+                return;
+            }
+
+            let convertedValue;
+
+            if (fromUnit === 'meters' && toUnit === 'kilometers') {
+                convertedValue = value / 1000;
+            } else if (fromUnit === 'kilometers' && toUnit === 'meters') {
+                convertedValue = value * 1000;
+            } else if (fromUnit === 'grams' && toUnit === 'kilograms') {
+                convertedValue = value / 1000;
+            } else if (fromUnit === 'kilograms' && toUnit === 'grams') {
+                convertedValue = value * 1000;
+            } else if (fromUnit === 'celsius' && toUnit === 'fahrenheit') {
+                convertedValue = (value * 9/5) + 32;
+            } else if (fromUnit === 'fahrenheit' && toUnit === 'celsius') {
+                convertedValue = (value - 32) * 5/9;
+            } else {
+                convertedValue = value; // Same unit conversion
+            }
+
+            document.getElementById('result').textContent = `Converted Value: ${convertedValue}`;
+        }
+    </script>
+</body>
+</html>

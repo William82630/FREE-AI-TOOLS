@@ -1,0 +1,212 @@
+<html>
+<head>
+    <title>Image Resizer</title>
+    <meta name="description" content="Resize your images to custom dimensions quickly and easily. Perfect for social media, websites, and more.">
+    <meta name="keywords" content="image resizer, resize images, online image resizer">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .hero {
+            background-color: #007BFF;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .input-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .input-section input {
+            padding: 10px;
+            width: 70%;
+            max-width: 400px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .input-section button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .input-section button:hover {
+            background-color: #0056b3;
+        }
+        .how-to {
+            margin: 40px 0;
+        }
+        .how-to h2 {
+            text-align: center;
+            color: #333;
+        }
+        .how-to-steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .step {
+            text-align: center;
+            flex: 1 1 30%;
+            margin: 10px;
+        }
+        .step span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .features, .faq {
+            margin: 40px 0;
+        }
+        .features h2, .faq h2 {
+            text-align: center;
+            color: #333;
+        }
+        .features ul {
+            list-style: disc;
+            margin-left: 20px;
+            color: #555;
+        }
+        .faq-item {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        footer {
+            background: #1e3c72;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        footer a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .how-to-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            .input-section input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Image Resizer</h1>
+        <p>Resize your images to custom dimensions quickly and easily. Perfect for social media, websites, and more.</p>
+    </div>
+
+    <div class="container">
+        <div class="input-section">
+            <form action="/tools/image-editing/image-resizer" method="post" enctype="multipart/form-data">
+                <input type="file" id="image" name="image" required>
+                <input type="number" id="width" name="width" placeholder="Width (px)" required>
+                <input type="number" id="height" name="height" placeholder="Height (px)" required>
+                <button type="submit">Resize Image</button>
+            </form>
+        </div>
+
+        <div class="how-to">
+            <h2>How to Use the Image Resizer</h2>
+            <div class="how-to-steps">
+                <div class="step">
+                    <span>1</span>
+                    <p>Upload your image file.</p>
+                </div>
+                <div class="step">
+                    <span>2</span>
+                    <p>Enter the desired width and height in pixels.</p>
+                </div>
+                <div class="step">
+                    <span>3</span>
+                    <p>Click the "Resize Image" button and download the resized image.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>Features of Our Image Resizer</h2>
+            <ul>
+                <li>Resize images to custom dimensions.</li>
+                <li>Supports multiple image formats like PNG, JPG, and JPEG.</li>
+                <li>Maintains high image quality after resizing.</li>
+                <li>Fast and secure processing.</li>
+                <li>Completely free to use.</li>
+            </ul>
+        </div>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>Why should I resize images?</h3>
+                <p>Resizing images helps optimize them for specific uses, such as social media, websites, or email attachments.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is it safe to resize images online?</h3>
+                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I resize images without losing quality?</h3>
+                <p>Absolutely! Our tool uses advanced algorithms to retain image quality while resizing.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2023-2025 Free AI Tools. All rights reserved.</p>
+            <p>
+                <a href="/">Home</a> |
+                <a href="/privacy-policy">Privacy Policy</a> |
+                <a href="/terms-of-use">Terms of Use</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
