@@ -1,190 +1,38 @@
-<html>
-<head>
-    <title>Convert SVG to PNG</title>
-    <meta name="description" content="Easily convert SVG images to PNG format. Upload your SVG file and get a PNG version instantly.">
-    <meta name="keywords" content="SVG to PNG, image converter, convert SVG">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .hero {
-            background-color: #6f42c1;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .hero p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .input-section {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .input-section input {
-            padding: 10px;
-            width: 70%;
-            max-width: 400px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .input-section button {
-            padding: 10px 20px;
-            background-color: #6f42c1;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .input-section button:hover {
-            background-color: #5a379e;
-        }
-        .how-to {
-            margin: 40px 0;
-        }
-        .how-to h2 {
-            text-align: center;
-            color: #333;
-        }
-        .how-to-steps {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .step {
-            text-align: center;
-            flex: 1 1 30%;
-            margin: 10px;
-        }
-        .step span {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            background-color: #6f42c1;
-            color: white;
-            border-radius: 50%;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        .features, .faq {
-            margin: 40px 0;
-        }
-        .features h2, .faq h2 {
-            text-align: center;
-            color: #333;
-        }
-        .features ul {
-            list-style: disc;
-            margin-left: 20px;
-            color: #555;
-        }
-        .faq-item {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px 0;
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #666;
-        }
+{% extends 'base.html' %}
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .how-to-steps {
-                flex-direction: column;
-                align-items: center;
-            }
-            .input-section input {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="hero">
-        <h1>Convert SVG to PNG</h1>
-        <p>Upload your SVG image to convert it to PNG format. Our tool ensures high-quality conversions in seconds.</p>
-    </div>
+{% block title %}Convert SVG to PNG{% endblock %}
 
-    <div class="container">
-        <div class="input-section">
-            <form action="/tools/image-editing/convert-svg-to-png" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required>
-                <button type="submit">Convert to PNG</button>
-            </form>
-        </div>
+{% block hero_title %}Convert SVG to PNG{% endblock %}
+{% block hero_description %}Upload your SVG file to convert it to PNG format. Our tool ensures high-quality conversions in seconds.{% endblock %}
 
-        <div class="how-to">
-            <h2>How to Use the Convert SVG to PNG Tool</h2>
-            <div class="how-to-steps">
-                <div class="step">
-                    <span>1</span>
-                    <p>Upload your SVG image file.</p>
-                </div>
-                <div class="step">
-                    <span>2</span>
-                    <p>Click the "Convert to PNG" button.</p>
-                </div>
-                <div class="step">
-                    <span>3</span>
-                    <p>Download the converted PNG image.</p>
-                </div>
-            </div>
-        </div>
+{% block content %}
+<div class="input-section" style="text-align: center; margin: 20px 0;">
+    <form action="/tools/image-editing/convert-svg-to-png" method="post" enctype="multipart/form-data">
+        <input type="file" id="image" name="image" required style="padding: 10px; width: 70%; max-width: 400px; margin-right: 10px; border: 1px solid #ddd; border-radius: 4px;">
+        <button type="submit" style="padding: 10px 20px; background-color: #ffc107; color: white; border: none; border-radius: 4px; cursor: pointer;">Convert to PNG</button>
+    </form>
+</div>
 
-        <div class="features">
-            <h2>Features of Our Convert SVG to PNG Tool</h2>
-            <ul>
-                <li>Supports SVG to PNG conversion.</li>
-                <li>Maintains high image quality after conversion.</li>
-                <li>Fast and secure processing.</li>
-                <li>Completely free to use.</li>
-                <li>Compatible with all modern browsers and devices.</li>
-            </ul>
-        </div>
+<div class="features" style="margin: 20px auto; max-width: 1200px; padding: 30px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+    <h2 style="text-align: center; font-size: 1.8em; color: #333;">🔧 Features of Our Convert SVG to PNG Tool</h2>
+    <ul style="list-style: none; padding: 0; font-size: 1.2em; line-height: 1.6;">
+        <li><strong>🖼️ Seamless SVG to PNG Conversion:</strong> Our tool efficiently converts Scalable Vector Graphics (SVG) files into Portable Network Graphics (PNG) format. SVG files, known for their scalability and resolution independence, are ideal for web and print graphics. However, not all platforms support SVG. Converting to PNG ensures broader compatibility across various applications and devices.</li>
+        <li><strong>🎯 High-Quality Output Preservation:</strong> We prioritize maintaining the integrity of your images. During the conversion process, our tool ensures that the resulting PNG files retain the original's clarity, color depth, and resolution. This is crucial for preserving the visual quality of graphics, especially for professional use.</li>
+        <li><strong>⚡ Fast and Secure Processing:</strong> Experience swift conversions without compromising security. Our tool processes files in real-time, ensuring minimal wait times. Additionally, we respect your privacy—uploaded files are handled securely and are not stored on our servers post-conversion.</li>
+        <li><strong>💰 Completely Free to Use:</strong> Enjoy unrestricted access to our conversion tool at no cost. There are no hidden fees, subscriptions, or usage limits. Whether you're converting a single file or multiple, our service remains entirely free.</li>
+        <li><strong>🌐 Universal Compatibility:</strong> Designed with user convenience in mind, our tool operates seamlessly across all modern web browsers, including Chrome, Firefox, Safari, and Edge. It's also optimized for various devices—be it desktops, laptops, tablets, or smartphones—ensuring you can convert files anytime, anywhere.</li>
+    </ul>
+</div>
 
-        <div class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3>Why should I convert SVG to PNG?</h3>
-                <p>PNG is widely supported and ideal for high-quality images with transparency, making it suitable for various purposes.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Is it safe to convert SVG to PNG online?</h3>
-                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Can I convert multiple SVG images at once?</h3>
-                <p>Currently, the tool supports one image at a time. Batch processing will be added soon.</p>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
-        </footer>
-    </div>
-</body>
-</html>
+<div class="why-convert" style="margin: 40px 0;">
+    <h2 style="text-align: center; color: #333;">Why Convert SVG to PNG?</h2>
+    <p style="font-size: 1.2em; line-height: 1.6; text-align: justify;">
+        While SVG files are excellent for scalability and are widely used in web design, they may not be supported by all platforms or applications. Converting SVG to PNG:
+    </p>
+    <ul style="list-style: disc; padding-left: 40px; font-size: 1.2em; line-height: 1.6;">
+        <li>Ensures compatibility with a broader range of software and devices.</li>
+        <li>Allows for easy inclusion in documents, presentations, and other media where SVG support is limited.</li>
+        <li>Provides a rasterized version of your vector graphics, suitable for various use cases.</li>
+    </ul>
+</div>
+{% endblock %}

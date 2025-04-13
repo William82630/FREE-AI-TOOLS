@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Free AI Tools{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .hero {
+            background-color: #ffc107;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            width: 100%;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>{% block hero_title %}Welcome to Free AI Tools{% endblock %}</h1>
+        <p>{% block hero_description %}Your one-stop solution for free online tools{% endblock %}</p>
+    </div>
+
+    <div class="container">
+        {% block content %}
+        <!-- Page-specific content goes here -->
+        {% endblock %}
+
+        <div class="user-engagement" style="margin-top: 40px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+            <h3 style="text-align: center; color: #333;">Are you a happy user?</h3>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 20px;">
+                <div style="text-align: center; margin: 10px;">
+                    <p>Want more features?</p>
+                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 4px;">Donate</a>
+                </div>
+                <div style="text-align: center; margin: 10px;">
+                    <p>Sharing is caring</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <a href="https://www.facebook.com/sharer/sharer.php" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #4267B2;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 20px; height: 20px; margin-right: 5px;"> Facebook
+                        </a>
+                        <a href="https://twitter.com/intent/tweet" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #1DA1F2;">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg" alt="Twitter" style="width: 20px; height: 20px; margin-right: 5px;"> Twitter
+                        </a>
+                        <a href="https://www.reddit.com/submit" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #FF4500;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Reddit_logo_new.svg" alt="Reddit" style="width: 20px; height: 20px; margin-right: 5px;"> Reddit
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #0077B5;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Linkedin_icon.svg" alt="LinkedIn" style="width: 20px; height: 20px; margin-right: 5px;"> LinkedIn
+                        </a>
+                    </div>
+                </div>
+                <div style="text-align: center; margin: 10px;">
+                    <p>Come back!</p>
+                    <button onclick="window.alert('Press Ctrl+D to bookmark this page!')" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Bookmark Page</button>
+                </div>
+                <div style="text-align: center; margin: 10px;">
+                    <p>Rate Us!</p>
+                    <a href="https://www.trustpilot.com" target="_blank" style="text-decoration: none; color: white; background-color: #28a745; padding: 10px 20px; border-radius: 4px;">Review us on Trustpilot</a>
+                </div>
+                <div style="text-align: center; margin: 10px;">
+                    <p>Send Feedback</p>
+                    <a href="https://willsblogger.com/about/" target="_blank" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 4px;">Contact us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+        <p>
+            <a href="/privacy-policy" target="_blank">Privacy Policy</a> |
+            <a href="/terms-of-use" target="_blank">Terms of Use</a>
+        </p>
+    </footer>
+</body>
+</html>

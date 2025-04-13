@@ -215,22 +215,86 @@ def image_resizer():
 @app.route('/tools/image-editing/crop-image', methods=['GET', 'POST'])
 def crop_image():
     if request.method == 'POST':
-        # Handle image cropping logic here
-        return 'Crop Image functionality is under development.'
+        if 'image' not in request.files:
+            return 'No file part', 400
+        file = request.files['image']
+        if file.filename == '':
+            return 'No selected file', 400
+
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+
+        # Get crop parameters
+        try:
+            x = int(request.form.get('x', 0))
+            y = int(request.form.get('y', 0))
+            width = int(request.form.get('width', 0))
+            height = int(request.form.get('height', 0))
+            
+            if width <= 0 or height <= 0:
+                return 'Invalid dimensions. Width and height must be positive values.', 400
+        except ValueError:
+            return 'Invalid crop parameters. Please enter valid numbers.', 400
+
+        # Crop the image
+        cropped_filename = f"cropped_{file.filename}"
+        cropped_path = os.path.join(COMPRESSED_FOLDER, cropped_filename)
+        
+        try:
+            with Image.open(filepath) as img:
+                # Ensure crop dimensions are within image bounds
+                img_width, img_height = img.size
+                if x < 0 or y < 0 or x + width > img_width or y + height > img_height:
+                    return 'Crop dimensions exceed image bounds.', 400
+                
+                # Perform the crop
+                cropped_img = img.crop((x, y, x + width, y + height))
+                cropped_img.save(cropped_path)
+                
+            return send_file(cropped_path, as_attachment=True)
+        except Exception as e:
+            return f'Error processing image: {str(e)}', 500
+
     return render_template('crop_image.html')
 
 @app.route('/tools/image-editing/reverse-image-search', methods=['GET', 'POST'])
 def reverse_image_search():
     if request.method == 'POST':
-        # Handle reverse image search logic here
-        return 'Reverse Image Search functionality is under development.'
+        if 'image' not in request.files:
+            return 'No file part', 400
+        file = request.files['image']
+        if file.filename == '':
+            return 'No selected file', 400
+
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+
+        # For demonstration purposes, we'll return a message with instructions
+        # In a real implementation, you would integrate with a reverse image search API
+        return render_template('reverse_image_search_results.html', 
+                              filename=file.filename,
+                              filepath=filepath)
+
     return render_template('reverse_image_search.html')
 
 @app.route('/tools/image-editing/face-search', methods=['GET', 'POST'])
 def face_search():
     if request.method == 'POST':
-        # Handle face search logic here
-        return 'Face Search functionality is under development.'
+        if 'image' not in request.files:
+            return 'No file part', 400
+        file = request.files['image']
+        if file.filename == '':
+            return 'No selected file', 400
+
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+
+        # For demonstration purposes, we'll return a message with instructions
+        # In a real implementation, you would integrate with a face recognition API
+        return render_template('face_search_results.html', 
+                              filename=file.filename,
+                              filepath=filepath)
+
     return render_template('face_search.html')
 
 @app.route('/tools/online-calculators/simple-calculator', methods=['GET'])
@@ -268,6 +332,133 @@ def qr_code_generator():
 @app.route('/tools/online-calculators/gst-calculator', methods=['GET'])
 def gst_calculator():
     return render_template('gst_calculator.html')
+
+@app.route('/privacy-policy')
+def privacy_policy():
+    return render_template('privacy-policy.html')
+
+@app.route('/terms-of-use')
+def terms_of_use():
+    return render_template('terms-of-use.html')
+
+# New category: Keyword Research Tools
+@app.route('/tools/keyword-research/keyword-generator', methods=['GET', 'POST'])
+def keyword_generator():
+    if request.method == 'POST':
+        seed_keyword = request.form.get('seed_keyword', '')
+        if not seed_keyword:
+            return 'No seed keyword provided', 400
+            
+        # For demonstration purposes, generate some related keywords
+        # In a real implementation, you would use a keyword research API
+        related_keywords = [
+            f"{seed_keyword} tools",
+            f"{seed_keyword} online",
+            f"best {seed_keyword}",
+            f"{seed_keyword} free",
+            f"{seed_keyword} software",
+            f"how to use {seed_keyword}",
+            f"{seed_keyword} alternatives",
+            f"{seed_keyword} tutorial"
+        ]
+        
+        return render_template('keyword_generator_results.html', 
+                              seed_keyword=seed_keyword,
+                              related_keywords=related_keywords)
+        
+    return render_template('keyword_generator.html')
+
+@app.route('/tools/keyword-research/keyword-difficulty-checker', methods=['GET', 'POST'])
+def keyword_difficulty_checker():
+    if request.method == 'POST':
+        keyword = request.form.get('keyword', '')
+        if not keyword:
+            return 'No keyword provided', 400
+            
+        # For demonstration purposes, generate a random difficulty score
+        # In a real implementation, you would use an SEO API
+        import random
+        difficulty_score = random.randint(1, 100)
+        
+        difficulty_level = "Easy"
+        if difficulty_score > 70:
+            difficulty_level = "Hard"
+        elif difficulty_score > 40:
+            difficulty_level = "Medium"
+            
+        return render_template('keyword_difficulty_results.html', 
+                              keyword=keyword,
+                              difficulty_score=difficulty_score,
+                              difficulty_level=difficulty_level)
+        
+    return render_template('keyword_difficulty_checker.html')
+
+# New category: PDF Solutions
+@app.route('/tools/pdf-solutions/pdf-to-text', methods=['GET', 'POST'])
+def pdf_to_text():
+    if request.method == 'POST':
+        if 'pdf' not in request.files:
+            return 'No file part', 400
+        file = request.files['pdf']
+        if file.filename == '':
+            return 'No selected file', 400
+            
+        if not file.filename.lower().endswith('.pdf'):
+            return 'Invalid file type. Please upload a PDF file.', 400
+            
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+        
+        # For demonstration purposes
+        # In a real implementation, you would use a PDF parsing library like PyPDF2
+        text_content = "This is a placeholder for the extracted text content from your PDF."
+        text_filename = os.path.splitext(file.filename)[0] + '.txt'
+        text_path = os.path.join(COMPRESSED_FOLDER, text_filename)
+        
+        with open(text_path, 'w') as f:
+            f.write(text_content)
+            
+        return send_file(text_path, as_attachment=True)
+        
+    return render_template('pdf_to_text.html')
+
+@app.route('/tools/pdf-solutions/pdf-merger', methods=['GET', 'POST'])
+def pdf_merger():
+    if request.method == 'POST':
+        if 'pdfs' not in request.files:
+            return 'No file part', 400
+            
+        files = request.files.getlist('pdfs')
+        if not files or files[0].filename == '':
+            return 'No selected files', 400
+            
+        # Check if all files are PDFs
+        for file in files:
+            if not file.filename.lower().endswith('.pdf'):
+                return 'All files must be PDFs', 400
+                
+        # Save all files
+        filepaths = []
+        for file in files:
+            filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+            file.save(filepath)
+            filepaths.append(filepath)
+            
+        # For demonstration purposes
+        # In a real implementation, you would use a PDF library to merge the files
+        merged_filename = "merged_document.pdf"
+        merged_path = os.path.join(COMPRESSED_FOLDER, merged_filename)
+        
+        # Placeholder for actual merging logic
+        # Here we would use PyPDF2 or a similar library to merge the PDFs
+        
+        # For now, just copy the first PDF as a placeholder
+        import shutil
+        shutil.copy(filepaths[0], merged_path)
+            
+        return send_file(merged_path, as_attachment=True)
+        
+    return render_template('pdf_merger.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

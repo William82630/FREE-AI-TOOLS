@@ -1,196 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Compress Image Files to PNG/JPG/JPEG</title>
-    <meta charset="UTF-8">
-    <meta name="description" content="Compress your image files to PNG, JPG, or JPEG formats without losing quality. Fast, secure, and easy-to-use image compression tool.">
-    <meta name="keywords" content="compress image, image compression tool, compress PNG, compress JPG, compress JPEG">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .hero {
-            background-color: #007BFF;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .hero p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .input-section {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .input-section input {
-            padding: 10px;
-            width: 70%;
-            max-width: 400px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .input-section button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .input-section button:hover {
-            background-color: #0056b3;
-        }
-        .how-to {
-            margin: 40px 0;
-        }
-        .how-to h2 {
-            text-align: center;
-            color: #333;
-        }
-        .how-to-steps {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .step {
-            text-align: center;
-            flex: 1 1 30%;
-            margin: 10px;
-        }
-        .step span {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            background-color: #007BFF;
-            color: white;
-            border-radius: 50%;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        .faq {
-            margin: 40px 0;
-        }
-        .faq h2 {
-            text-align: center;
-            color: #333;
-        }
-        .faq-item {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px 0;
-        }
-        footer {
-            background: #1e3c72;
-            color: white;
-            padding: 40px 20px;
-            margin-top: 60px;
-            text-align: center;
-        }
-        footer p {
-            margin: 10px 0;
-        }
-        footer a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-        footer a:hover {
-            opacity: 1;
-        }
+{% extends 'base.html' %}
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .how-to-steps {
-                flex-direction: column;
-                align-items: center;
-            }
-            .input-section input {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="hero">
-        <h1>Compress Image Files to PNG/JPG/JPEG</h1>
-        <p>Reduce the size of your image files without compromising quality. Fast, secure, and easy-to-use.</p>
-    </div>
+{% block title %}Compress Image{% endblock %}
 
-    <div class="container">
-        <div class="input-section">
-            <form action="/tools/image-editing/compress-image" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required>
-                <button type="submit">Compress Image</button>
-            </form>
-        </div>
+{% block hero_title %}Compress Image{% endblock %}
+{% block hero_description %}Reduce the size of your image files without compromising quality. Upload your image and compress it instantly.{% endblock %}
 
-        <div class="how-to">
-            <h2>How to Use the Compress Image Tool</h2>
-            <div class="how-to-steps">
-                <div class="step">
-                    <span>1</span>
-                    <p>Upload your image file.</p>
-                </div>
-                <div class="step">
-                    <span>2</span>
-                    <p>Click the "Compress Image" button.</p>
-                </div>
-                <div class="step">
-                    <span>3</span>
-                    <p>Download the compressed image.</p>
-                </div>
-            </div>
-        </div>
+{% block content %}
+<div class="input-section" style="text-align: center; margin: 20px 0;">
+    <form action="/tools/image-editing/compress-image" method="post" enctype="multipart/form-data">
+        <input type="file" id="image" name="image" required style="padding: 10px; width: 70%; max-width: 400px; margin-right: 10px; border: 1px solid #ddd; border-radius: 4px;">
+        <button type="submit" style="padding: 10px 20px; background-color: #ffc107; color: white; border: none; border-radius: 4px; cursor: pointer;">Compress Image</button>
+    </form>
+</div>
 
-        <div class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3>Why do I need to compress image files?</h3>
-                <p>Large image files can slow down websites and take up storage space. Compressing them improves loading speed and saves storage.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Is it safe to compress images online?</h3>
-                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Can I compress images without losing quality?</h3>
-                <p>Absolutely! Our tool uses advanced algorithms to retain image quality while reducing file size.</p>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2023-2025 Free AI Tools. All rights reserved.</p>
-            <p>
-                <a href="/">Home</a> |
-                <a href="/privacy-policy">Privacy Policy</a> |
-                <a href="/terms-of-use">Terms of Use</a>
-            </p>
-        </footer>
-    </div>
-</body>
-</html>
+<div class="features" style="margin: 20px auto; max-width: 1200px; padding: 30px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+    <h2 style="text-align: center; font-size: 1.8em; color: #333;">🔍 Features of Our Compress Image Tool</h2>
+    <ul style="list-style: none; padding: 0; font-size: 1.2em; line-height: 1.6;">
+        <li><strong>✅ High-Quality Compression:</strong> Reduce image size without compromising quality.</li>
+        <li><strong>⚡ Fast & Secure:</strong> Compress images in seconds with secure file handling.</li>
+        <li><strong>💸 Free to Use:</strong> No hidden fees or subscriptions required.</li>
+        <li><strong>🌐 Compatible Across Devices:</strong> Works seamlessly on all modern devices and browsers.</li>
+    </ul>
+</div>
+{% endblock %}

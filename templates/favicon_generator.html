@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
+            font-size: 1.2em;
         }
         .hero {
             background-color: #28a745;
@@ -38,23 +39,26 @@
             text-align: center;
             margin: 20px 0;
         }
-        .input-section input {
-            padding: 10px;
-            width: 70%;
-            max-width: 400px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
+        input[type="file"] {
+            padding: 6px;
+            font-size: 1em;
+            border: 1px solid #ccc;
             border-radius: 4px;
+            width: auto; /* Adjust width to fit "No file chosen" text */
+            display: inline-block;
         }
-        .input-section button {
-            padding: 10px 20px;
+        button[type="submit"] {
+            padding: 6px 12px;
+            font-size: 1em;
             background-color: #28a745;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            display: inline-block;
+            margin-left: 10px;
         }
-        .input-section button:hover {
+        button[type="submit"]:hover {
             background-color: #218838;
         }
         .how-to {
@@ -86,17 +90,12 @@
             font-size: 1.5em;
             margin-bottom: 10px;
         }
-        .features, .faq {
+        .faq {
             margin: 40px 0;
         }
-        .features h2, .faq h2 {
+        .faq h2 {
             text-align: center;
             color: #333;
-        }
-        .features ul {
-            list-style: disc;
-            margin-left: 20px;
-            color: #555;
         }
         .faq-item {
             background: #f9f9f9;
@@ -106,9 +105,14 @@
             margin: 10px 0;
         }
         footer {
+            background-color: #000;
+            color: white;
             text-align: center;
+            padding: 20px 0;
             margin-top: 40px;
-            color: #666;
+            width: 100%;
+            position: relative;
+            bottom: 0;
         }
 
         /* Responsive Design */
@@ -117,7 +121,7 @@
                 flex-direction: column;
                 align-items: center;
             }
-            .input-section input {
+            input[type="file"] {
                 width: 100%;
                 margin-bottom: 10px;
             }
@@ -156,14 +160,14 @@
             </div>
         </div>
 
-        <div class="features">
-            <h2>Features of Our Favicon Generator</h2>
-            <ul>
-                <li>Supports multiple image formats like PNG, JPG, and JPEG.</li>
-                <li>Generates high-quality favicon files.</li>
-                <li>Fast and secure processing.</li>
-                <li>Completely free to use.</li>
-                <li>Compatible with all modern browsers and devices.</li>
+        <div class="features" style="margin: 20px auto; max-width: 800px; padding: 30px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+            <h2 style="text-align: center; font-size: 1.8em; color: #333;">Features of Our Favicon Generator</h2>
+            <ul style="list-style: none; padding: 0; font-size: 1.2em; line-height: 1.6;">
+                <li><strong>Format Support:</strong> Our tool accepts various popular image formats, including PNG, JPG, and JPEG, making it easy for users to upload the files they already have without needing to convert them beforehand.</li>
+                <li><strong>High Quality:</strong> It generates crisp, high-resolution favicon files that retain the clarity and detail of your original image—perfect for professional websites and apps.</li>
+                <li><strong>Speed & Security:</strong> Enjoy fast processing times without compromising security. Your files are handled securely and never stored, ensuring your data remains private and protected.</li>
+                <li><strong>Free Access:</strong> The tool is completely free to use—no subscriptions, sign-ups, or hidden costs. Simply upload your image and get your favicons instantly.</li>
+                <li><strong>Full Compatibility:</strong> Designed to work seamlessly across all modern browsers and devices, so you can generate and use your favicon files with confidence anywhere, anytime.</li>
             </ul>
         </div>
 
@@ -188,7 +192,7 @@
         </div>
 
         <footer>
-            <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
+            <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
         </footer>
     </div>
 </body>
