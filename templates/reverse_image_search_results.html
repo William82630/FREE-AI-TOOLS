@@ -103,9 +103,20 @@
             color: #555;
         }
         footer {
+            background-color: #000;
+            color: white;
             text-align: center;
+            padding: 20px 0;
             margin-top: 40px;
-            color: #666;
+            width: 100%;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -173,8 +184,47 @@
             <a href="/tools/image-editing/reverse-image-search" class="back-button">Search Another Image</a>
         </div>
 
+        <div class="user-engagement" style="margin-top: 40px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+            <h3 style="text-align: center; color: #333;">Are you a happy user?</h3>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 20px;">
+                <div style="text-align: center; margin: 10px;">
+                    <p>Want more features?</p>
+                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 4px;">Donate</a>
+                </div>
+                <div style="text-align: center; margin: 10px;">
+                    <p>Sharing is caring</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <a href="https://www.facebook.com/sharer/sharer.php" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #4267B2;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 20px; height: 20px; margin-right: 5px;"> Facebook
+                        </a>
+                        <a href="https://twitter.com/intent/tweet" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #1DA1F2;">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg" alt="Twitter" style="width: 20px; height: 20px; margin-right: 5px;"> Twitter
+                        </a>
+                        <a href="https://www.reddit.com/submit" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #FF4500;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Reddit_logo_new.svg" alt="Reddit" style="width: 20px; height: 20px; margin-right: 5px;"> Reddit
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #0077B5;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Linkedin_icon.svg" alt="LinkedIn" style="width: 20px; height: 20px; margin-right: 5px;"> LinkedIn
+                        </a>
+                    </div>
+                </div>
+                <div style="text-align: center; margin: 10px;">
+                    <p>Come back!</p>
+                    <button onclick="window.alert('Press Ctrl+D to bookmark this page!')" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Bookmark Page</button>
+                </div>
+                <div style="text-align: center; margin: 10px;">
+                    <p>Rate Us!</p>
+                    <a href="https://www.trustpilot.com" target="_blank" style="text-decoration: none; color: white; background-color: #28a745; padding: 10px 20px; border-radius: 4px;">Review us on Trustpilot</a>
+                </div>
+                <div style="text-align: center; margin: 10px;">
+                    <p>Send Feedback</p>
+                    <a href="https://willsblogger.com/about/" target="_blank" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 4px;">Contact us</a>
+                </div>
+            </div>
+        </div>
+
         <footer>
-            <p>&copy; 2025 Free AI Tools. All rights reserved.</p>
+            <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
             <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-use">Terms of Use</a></p>
         </footer>
     </div>
