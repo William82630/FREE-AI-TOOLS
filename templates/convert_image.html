@@ -1,65 +1,215 @@
-{% extends 'base.html' %}
+<html>
+<head>
+    <title>Convert Image to PNG/JPG/JPEG</title>
+    <meta name="description" content="Easily convert images to PNG, JPG, or JPEG formats. Upload your image and choose the desired format for conversion.">
+    <meta name="keywords" content="image converter, convert to PNG, convert to JPG, convert to JPEG">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .hero {
+            background-color: #17a2b8;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .input-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .input-section input, .input-section select {
+            padding: 10px;
+            width: 70%;
+            max-width: 400px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .input-section button {
+            padding: 10px 20px;
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .input-section button:hover {
+            background-color: #138496;
+        }
+        .how-to {
+            margin: 40px 0;
+        }
+        .how-to h2 {
+            text-align: center;
+            color: #333;
+        }
+        .how-to-steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .step {
+            text-align: center;
+            flex: 1 1 30%;
+            margin: 10px;
+        }
+        .step span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background-color: #17a2b8;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .features, .faq {
+            margin: 40px 0;
+        }
+        .features h2, .faq h2 {
+            text-align: center;
+            color: #333;
+        }
+        .features ul {
+            list-style: disc;
+            margin-left: 20px;
+            color: #555;
+        }
+        .faq-item {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        footer {
+            background: #1e3c72;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        footer a:hover {
+            opacity: 1;
+        }
 
-{% block title %}Convert Image to PNG/JPG/JPEG{% endblock %}
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .how-to-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            .input-section input, .input-section select {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Convert Image to PNG/JPG/JPEG</h1>
+        <p>Upload your image and select the format you want to convert it to. Our tool ensures high-quality conversions in seconds.</p>
+    </div>
 
-{% block hero_title %}Convert Image to PNG/JPG/JPEG{% endblock %}
-{% block hero_description %}Upload your image and select the format you want to convert it to. Our tool ensures high-quality conversions in seconds.{% endblock %}
-
-{% block content %}
-<div class="input-section" style="text-align: center; margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-    <form action="/tools/image-editing/convert-image" method="post" enctype="multipart/form-data">
-        <input type="file" id="image" name="image" required style="padding: 12px; width: 70%; max-width: 400px; margin-right: 10px; border: 2px solid #007BFF; border-radius: 4px; font-size: 13px; font-weight: bold;">
-        <select id="format" name="format" required style="padding: 12px; border: 2px solid #007BFF; border-radius: 4px; font-size: 13px; font-weight: bold;">
-            <option value="PNG">PNG</option>
-            <option value="JPG">JPG</option>
-            <option value="JPEG">JPEG</option>
-        </select>
-        <button type="submit" style="padding: 12px 20px; background-color: #ffc107; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold;">Convert Image</button>
-    </form>
-</div>
-
-<div class="how-to" style="margin: 40px auto; max-width: 1200px; padding: 30px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-    <h2 style="text-align: center; color: #333;">How to Use the Convert Image Tool</h2>
-    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 20px;">
-        <div style="text-align: center; flex: 1 1 30%; margin: 10px;">
-            <span style="display: inline-block; width: 50px; height: 50px; line-height: 50px; background-color: #ffc107; color: white; border-radius: 50%; font-size: 1.5em; margin-bottom: 10px;">1</span>
-            <p>Upload your image file.</p>
+    <div class="container">
+        <div class="input-section">
+            <form action="/tools/image-editing/convert-image" method="post" enctype="multipart/form-data">
+                <input type="file" id="image" name="image" required>
+                <select id="format" name="format" required>
+                    <option value="PNG">PNG</option>
+                    <option value="JPG">JPG</option>
+                    <option value="JPEG">JPEG</option>
+                </select>
+                <button type="submit">Convert Image</button>
+            </form>
         </div>
-        <div style="text-align: center; flex: 1 1 30%; margin: 10px;">
-            <span style="display: inline-block; width: 50px; height: 50px; line-height: 50px; background-color: #ffc107; color: white; border-radius: 50%; font-size: 1.5em; margin-bottom: 10px;">2</span>
-            <p>Select the desired format (PNG, JPG, or JPEG).</p>
-        </div>
-        <div style="text-align: center; flex: 1 1 30%; margin: 10px;">
-            <span style="display: inline-block; width: 50px; height: 50px; line-height: 50px; background-color: #ffc107; color: white; border-radius: 50%; font-size: 1.5em; margin-bottom: 10px;">3</span>
-            <p>Click the "Convert Image" button and download the result.</p>
-        </div>
-    </div>
-</div>
 
-<div class="features" style="margin: 20px auto; max-width: 1200px; padding: 30px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-    <h2 style="text-align: center; font-size: 1.8em; color: #333;">🔍 Features of Our Convert Image Tool</h2>
-    <ul style="list-style: none; padding: 0; font-size: 1.2em; line-height: 1.6;">
-        <li><strong>✅ Supports Multiple Image Formats:</strong> Convert images to PNG, JPG, or JPEG formats effortlessly.</li>
-        <li><strong>🖼️ Maintains High Image Quality:</strong> Ensures minimal quality loss during conversion.</li>
-        <li><strong>⚡ Fast & Secure Processing:</strong> Quick conversions with secure file handling.</li>
-        <li><strong>💸 100% Free to Use:</strong> No hidden fees or subscriptions required.</li>
-        <li><strong>🌐 Fully Compatible Across Devices & Browsers:</strong> Works seamlessly on all modern devices and browsers.</li>
-    </ul>
-</div>
+        <div class="how-to">
+            <h2>How to Use the Convert Image Tool</h2>
+            <div class="how-to-steps">
+                <div class="step">
+                    <span>1</span>
+                    <p>Upload your image file.</p>
+                </div>
+                <div class="step">
+                    <span>2</span>
+                    <p>Select the desired format (PNG, JPG, or JPEG).</p>
+                </div>
+                <div class="step">
+                    <span>3</span>
+                    <p>Click the "Convert Image" button and download the result.</p>
+                </div>
+            </div>
+        </div>
 
-<div class="faq" style="margin: 40px 0;">
-    <h2 style="text-align: center; color: #333;">Frequently Asked Questions</h2>
-    <div class="faq-item" style="background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 10px 0;">
-        <h3>What image formats can I convert?</h3>
-        <p>You can convert images to PNG, JPG, or JPEG formats.</p>
+        <div class="features">
+            <h2>Features of Our Convert Image Tool</h2>
+            <ul>
+                <li>Supports PNG, JPG, and JPEG formats.</li>
+                <li>Maintains high image quality after conversion.</li>
+                <li>Fast and secure processing.</li>
+                <li>Completely free to use.</li>
+                <li>Compatible with all modern browsers and devices.</li>
+            </ul>
+        </div>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>Why should I convert images to different formats?</h3>
+                <p>Different formats are optimized for various purposes. For example, PNG is ideal for transparency, while JPG is better for smaller file sizes.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is it safe to convert images online?</h3>
+                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I convert multiple images at once?</h3>
+                <p>Currently, the tool supports one image at a time. Batch processing will be added soon.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2023-2025 Free AI Tools. All rights reserved.</p>
+            <p>
+                <a href="/">Home</a> |
+                <a href="/privacy-policy">Privacy Policy</a> |
+                <a href="/terms-of-use">Terms of Use</a>
+            </p>
+        </footer>
     </div>
-    <div class="faq-item" style="background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 10px 0;">
-        <h3>Is the conversion process secure?</h3>
-        <p>Yes, all files are processed securely and are not stored on our servers.</p>
-    </div>
-    <div class="faq-item" style="background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 10px 0;">
-        <h3>Can I convert multiple images at once?</h3>
-        <p>Currently, the tool supports one image at a time. Batch processing will be added soon.</p>
-    </div>
-</div>
-{% endblock %}
+</body>
+</html>

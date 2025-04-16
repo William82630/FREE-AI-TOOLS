@@ -1,416 +1,194 @@
-{% extends 'base.html' %}
-
-{% block title %}Crop Image{% endblock %}
-
-{% block hero_title %}<div style="background-color: #ffc935; color: white; padding: 20px; text-align: center; border-radius: 8px;">Crop Image</div>{% endblock %}
-
-{% block hero_description %}<div style="background-color: #efbd09; color: white; padding: 10px; text-align: center; border-radius: 8px;">Crop your images to perfection with our easy-to-use tool. Perfect for social media, websites, and more.</div>{% endblock %}
-
-{% block content %}
-<style>
-    .input-section {
-        text-align: center;
-        margin: 40px 0;
-        padding: 30px;
-        background: linear-gradient(145deg, #f6f9fe, #e6f0ff);
-        border-radius: 15px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(0, 123, 255, 0.2);
-    }
-    .input-section form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    .input-section .file-input {
-        padding: 15px 20px;
-        width: 80%;
-        max-width: 500px;
-        border: 2px solid #007BFF;
-        border-radius: 10px;
-        font-size: 1.1em;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        background: white url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23007BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.08V8l-6-6H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h6"/><path d="M14 3v5h5M9 18l6-6"/><path d="M16 10l2 2-2 2"/></svg>') no-repeat;
-        background-position: 15px center;
-        padding-left: 50px;
-    }
-    .input-section .file-input:hover {
-        border-color: #0069d9;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    }
-    .input-section .file-input:focus {
-        outline: none;
-        border-color: #007BFF;
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
-    }
-    .input-section .coordinates-row,
-    .input-section .dimensions-row {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        width: 80%;
-        max-width: 500px;
-    }
-    .input-section .crop-input {
-        padding: 15px;
-        width: 50%;
-        border: 2px solid #007BFF;
-        border-radius: 10px;
-        font-size: 1em;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        text-align: center;
-    }
-    .input-section .crop-input:hover {
-        border-color: #0069d9;
-        transform: translateY(-2px);
-    }
-    .input-section .crop-input:focus {
-        outline: none;
-        border-color: #007BFF;
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
-    }
-    .input-section .coordinates-label,
-    .input-section .dimensions-label,
-    .input-section .aspect-ratio-label {
-        font-weight: 600;
-        color: #007BFF;
-        margin-bottom: 5px;
-        display: block;
-        text-align: left;
-        width: 80%;
-        max-width: 500px;
-    }
-    .input-section .aspect-ratio-select {
-        padding: 15px;
-        width: 80%;
-        max-width: 500px;
-        border: 2px solid #007BFF;
-        border-radius: 10px;
-        font-size: 1em;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    }
-    .input-section .aspect-ratio-select:hover {
-        border-color: #0069d9;
-        transform: translateY(-2px);
-    }
-    .input-section .aspect-ratio-select:focus {
-        outline: none;
-        border-color: #007BFF;
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
-    }
-    .preset-category {
-        font-weight: bold;
-        color: #007BFF;
-        background-color: #e6f0ff;
-    }
-    .input-section button {
-        padding: 15px 30px;
-        background: linear-gradient(45deg, #007BFF, #0069d9);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        font-size: 1.2em;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        min-width: 200px;
-        margin-top: 10px;
-    }
-    .input-section button:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5);
-        background: linear-gradient(45deg, #0056b3, #007BFF);
-    }
-    .input-section button:active {
-        transform: translateY(0) scale(1);
-    }
-    .input-section button::after {
-        content: "✂️";
-        font-size: 1.2em;
-    }
-    .input-section p {
-        color: #666;
-        margin-top: 15px;
-        font-size: 0.9em;
-    }
-    .input-section .hint {
-        color: #666;
-        font-size: 0.9em;
-        max-width: 600px;
-        margin: 5px auto 0;
-    }
-    .how-to {
-        margin: 40px auto; 
-        max-width: 1200px; 
-        padding: 30px; 
-        border: 1px solid #ddd; 
-        border-radius: 8px; 
-        background-color: #f9f9f9;
-    }
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .input-section .coordinates-row,
-        .input-section .dimensions-row {
-            flex-direction: column;
-            width: 95%;
+<html>
+<head>
+    <title>Crop Image</title>
+    <meta name="description" content="Crop your images to focus on the most important parts. Perfect for social media, websites, and more.">
+    <meta name="keywords" content="crop image, image cropping tool, online image cropper">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
         }
-        .input-section .crop-input {
-            width: 100%;
+        .hero {
+            background-color: #28a745;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
         }
-        .input-section .aspect-ratio-select {
-            width: 95%;
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
         }
-    }
-</style>
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .input-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .input-section input {
+            padding: 10px;
+            width: 70%;
+            max-width: 400px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .input-section button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .input-section button:hover {
+            background-color: #218838;
+        }
+        .how-to {
+            margin: 40px 0;
+        }
+        .how-to h2 {
+            text-align: center;
+            color: #333;
+        }
+        .how-to-steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .step {
+            text-align: center;
+            flex: 1 1 30%;
+            margin: 10px;
+        }
+        .step span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .features, .faq {
+            margin: 40px 0;
+        }
+        .features h2, .faq h2 {
+            text-align: center;
+            color: #333;
+        }
+        .features ul {
+            list-style: disc;
+            margin-left: 20px;
+            color: #555;
+        }
+        .faq-item {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
 
-<div class="input-section">
-    <form action="/tools/image-editing/crop-image" method="post" enctype="multipart/form-data">
-        <input type="file" id="image" name="image" required class="file-input" onchange="loadImage(this)">
-        
-        <label class="aspect-ratio-label">Choose Aspect Ratio Preset:</label>
-        <select id="aspect-ratio" class="aspect-ratio-select" onchange="applyAspectRatio()">
-            <option value="custom">Custom (Manual Input)</option>
-            <option value="original">Original Dimensions</option>
-            
-            <option class="preset-category" disabled>--- Social Media ---</option>
-            <option value="1:1">Instagram Post (1:1)</option>
-            <option value="4:5">Instagram Portrait (4:5)</option>
-            <option value="1.91:1">Instagram Landscape (1.91:1)</option>
-            <option value="9:16">Instagram/TikTok Story (9:16)</option>
-            <option value="16:9">YouTube Thumbnail (16:9)</option>
-            <option value="2:1">Twitter Post (2:1)</option>
-            <option value="1.91:1">Facebook Post (1.91:1)</option>
-            <option value="9:16">Facebook Story (9:16)</option>
-            <option value="3:4">Pinterest Pin (3:4)</option>
-            <option value="1:2.1">Pinterest Idea Pin (1:2.1)</option>
-            <option value="3:2">LinkedIn Shared Image (3:2)</option>
-            
-            <option class="preset-category" disabled>--- Standard Ads ---</option>
-            <option value="300:250">Medium Rectangle (300x250)</option>
-            <option value="336:280">Large Rectangle (336x280)</option>
-            <option value="728:90">Leaderboard (728x90)</option>
-            <option value="300:600">Half Page (300x600)</option>
-            <option value="320:50">Mobile Banner (320x50)</option>
-            <option value="970:90">Large Leaderboard (970x90)</option>
-            
-            <option class="preset-category" disabled>--- Print/Document ---</option>
-            <option value="3:2">4×6 (3:2)</option>
-            <option value="5:3">5×3 (5:3)</option>
-            <option value="5:4">5×4 (5:4)</option>
-            <option value="4:3">8×6 (4:3)</option>
-            <option value="5:7">5×7 (5:7)</option>
-            <option value="1:1.414">A4 (1:1.414)</option>
-            <option value="1:1.333">Letter (1:1.333)</option>
-        </select>
-        
-        <label class="coordinates-label">Position (X, Y):</label>
-        <div class="coordinates-row">
-            <input type="number" id="x" name="x" placeholder="X (px)" required class="crop-input" value="0">
-            <input type="number" id="y" name="y" placeholder="Y (px)" required class="crop-input" value="0">
-        </div>
-        
-        <label class="dimensions-label">Dimensions (Width, Height):</label>
-        <div class="dimensions-row">
-            <input type="number" id="width" name="width" placeholder="Width (px)" required class="crop-input" oninput="updateAspectRatio()">
-            <input type="number" id="height" name="height" placeholder="Height (px)" required class="crop-input" oninput="updateAspectRatio()">
-        </div>
-        
-        <p class="hint">Specify the starting position and dimensions to crop your image, or select an aspect ratio preset.</p>
-        
-        <button type="submit">Crop Image</button>
-    </form>
-</div>
-
-<script>
-    let originalWidth = 0;
-    let originalHeight = 0;
-    
-    function loadImage(input) {
-        if (input.files && input.files[0]) {
-            const img = new Image();
-            img.onload = function() {
-                originalWidth = this.width;
-                originalHeight = this.height;
-                
-                // Set default crop to full image
-                document.getElementById('x').value = 0;
-                document.getElementById('y').value = 0;
-                document.getElementById('width').value = originalWidth;
-                document.getElementById('height').value = originalHeight;
-                
-                // Update dropdown to "Original Dimensions"
-                document.getElementById('aspect-ratio').value = "original";
-            };
-            img.src = URL.createObjectURL(input.files[0]);
-        }
-    }
-    
-    function applyAspectRatio() {
-        const ratio = document.getElementById('aspect-ratio').value;
-        
-        if (ratio === "custom") {
-            // Do nothing, let user input manually
-            return;
-        }
-        
-        if (ratio === "original" && originalWidth > 0 && originalHeight > 0) {
-            document.getElementById('width').value = originalWidth;
-            document.getElementById('height').value = originalHeight;
-            return;
-        }
-        
-        if (ratio.includes(':')) {
-            const [widthRatio, heightRatio] = ratio.split(':').map(Number);
-            
-            // If original dimensions are available, calculate best fit
-            if (originalWidth > 0 && originalHeight > 0) {
-                const originalAspectRatio = originalWidth / originalHeight;
-                const targetAspectRatio = widthRatio / heightRatio;
-                
-                if (originalAspectRatio > targetAspectRatio) {
-                    // Image is wider than target ratio, constrain height
-                    const newHeight = originalHeight;
-                    const newWidth = newHeight * (widthRatio / heightRatio);
-                    
-                    // Center crop horizontally
-                    document.getElementById('x').value = Math.floor((originalWidth - newWidth) / 2);
-                    document.getElementById('y').value = 0;
-                    document.getElementById('width').value = Math.floor(newWidth);
-                    document.getElementById('height').value = newHeight;
-                } else {
-                    // Image is taller than target ratio, constrain width
-                    const newWidth = originalWidth;
-                    const newHeight = newWidth * (heightRatio / widthRatio);
-                    
-                    // Center crop vertically
-                    document.getElementById('x').value = 0;
-                    document.getElementById('y').value = Math.floor((originalHeight - newHeight) / 2);
-                    document.getElementById('width').value = newWidth;
-                    document.getElementById('height').value = Math.floor(newHeight);
-                }
-            } else {
-                // No image loaded yet, just use some reasonable defaults
-                document.getElementById('width').value = widthRatio * 100;
-                document.getElementById('height').value = heightRatio * 100;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .how-to-steps {
+                flex-direction: column;
+                align-items: center;
             }
-        } else if (ratio.includes('x')) {
-            // Handle exact pixel dimensions for ad sizes
-            const [exactWidth, exactHeight] = ratio.split('x').map(Number);
-            
-            if (originalWidth > 0 && originalHeight > 0) {
-                // Center the crop area
-                document.getElementById('x').value = Math.max(0, Math.floor((originalWidth - exactWidth) / 2));
-                document.getElementById('y').value = Math.max(0, Math.floor((originalHeight - exactHeight) / 2));
-            } else {
-                document.getElementById('x').value = 0;
-                document.getElementById('y').value = 0;
+            .input-section input {
+                width: 100%;
+                margin-bottom: 10px;
             }
-            
-            document.getElementById('width').value = exactWidth;
-            document.getElementById('height').value = exactHeight;
         }
-    }
-    
-    function updateAspectRatio() {
-        // When user manually changes width/height, set dropdown to "Custom"
-        document.getElementById('aspect-ratio').value = "custom";
-    }
-</script>
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Crop Image</h1>
+        <p>Crop your images to focus on the most important parts. Perfect for social media, websites, and more.</p>
+    </div>
 
-<div class="how-to">
-    <h2 style="text-align: center; color: #333;">How to Use the Crop Image Tool</h2>
-    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 20px;">
-        <div style="text-align: center; flex: 1 1 30%; margin: 10px;">
-            <span style="display: inline-block; width: 50px; height: 50px; line-height: 50px; background-color: #007BFF; color: white; border-radius: 50%; font-size: 1.5em; margin-bottom: 10px;">1</span>
-            <p>Upload your image file.</p>
+    <div class="container">
+        <div class="input-section">
+            <form action="/tools/image-editing/crop-image" method="post" enctype="multipart/form-data">
+                <input type="file" id="image" name="image" required>
+                <input type="number" id="x" name="x" placeholder="X Coordinate" required>
+                <input type="number" id="y" name="y" placeholder="Y Coordinate" required>
+                <input type="number" id="width" name="width" placeholder="Width (px)" required>
+                <input type="number" id="height" name="height" placeholder="Height (px)" required>
+                <button type="submit">Crop Image</button>
+            </form>
         </div>
-        <div style="text-align: center; flex: 1 1 30%; margin: 10px;">
-            <span style="display: inline-block; width: 50px; height: 50px; line-height: 50px; background-color: #007BFF; color: white; border-radius: 50%; font-size: 1.5em; margin-bottom: 10px;">2</span>
-            <p>Select an aspect ratio preset or enter custom dimensions.</p>
+
+        <div class="how-to">
+            <h2>How to Use the Crop Image Tool</h2>
+            <div class="how-to-steps">
+                <div class="step">
+                    <span>1</span>
+                    <p>Upload your image file.</p>
+                </div>
+                <div class="step">
+                    <span>2</span>
+                    <p>Enter the crop dimensions (X, Y, Width, Height).</p>
+                </div>
+                <div class="step">
+                    <span>3</span>
+                    <p>Click the "Crop Image" button and download the cropped image.</p>
+                </div>
+            </div>
         </div>
-        <div style="text-align: center; flex: 1 1 30%; margin: 10px;">
-            <span style="display: inline-block; width: 50px; height: 50px; line-height: 50px; background-color: #007BFF; color: white; border-radius: 50%; font-size: 1.5em; margin-bottom: 10px;">3</span>
-            <p>Click the "Crop Image" button and download the cropped image.</p>
+
+        <div class="features">
+            <h2>Features of Our Crop Image Tool</h2>
+            <ul>
+                <li>Crop images to custom dimensions.</li>
+                <li>Supports multiple image formats like PNG, JPG, and JPEG.</li>
+                <li>Maintains high image quality after cropping.</li>
+                <li>Fast and secure processing.</li>
+                <li>Completely free to use.</li>
+            </ul>
         </div>
-    </div>
-</div>
 
-<div class="features" style="margin: 20px auto; max-width: 1200px; padding: 30px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-    <h2 style="text-align: center; font-size: 1.8em; color: #333;">✂️ Features of Our Crop Image Tool</h2>
-    <ul style="list-style: none; padding: 0; font-size: 1.2em; line-height: 1.6;">
-        <li><strong>📏 Crop Images to Custom Dimensions:</strong> Gain full control over how your images appear by cropping them to specific dimensions. Simply adjust the width and height according to your needs or select from various aspect ratios. Whether you're creating banners, profile pictures, or simply focusing on a specific part of an image, our tool helps you get the exact result you want.</li>
-        <li><strong>🎯 Pre-set Aspect Ratios:</strong> Save time with our selection of commonly used aspect ratios for social media platforms and digital advertising. Instantly crop your images to the perfect dimensions for Instagram posts, Facebook covers, YouTube thumbnails, banner ads, and more.</li>
-        <li><strong>📂 Supports Multiple Image Formats:</strong> No need to worry about the format of your image. Our crop tool supports popular image formats including PNG, JPG, and JPEG, ensuring versatility no matter the source of your images. Whether you're working with photographs, logos, or other types of graphics, you'll have no problem cropping them.</li>
-        <li><strong>🌟 Maintains High Image Quality:</strong> We prioritize quality! After cropping, your image will retain its sharpness and clarity. No pixelation or loss of detail—just high-quality results that keep your image looking professional and crisp, regardless of the cropping adjustments.</li>
-        <li><strong>⚡ Fast & Secure Processing:</strong> Our tool is optimized for speed, providing instant cropping with minimal wait time. You can expect fast processing without compromising security. We use top-notch encryption to keep your files safe throughout the entire process. Plus, once the cropping is complete, your images are not stored on our servers, so your privacy is always protected.</li>
-        <li><strong>💯 Completely Free to Use:</strong> You can crop images as many times as you like, all for free. There's no need to sign up or pay for any features—our tool is completely accessible with no hidden fees or restrictions.</li>
-        <li><strong>🔄 Batch Cropping (Coming Soon):</strong> For users who need to crop multiple images at once, we're working on a batch cropping feature. This will let you upload and crop several images simultaneously, saving you valuable time.</li>
-    </ul>
-</div>
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>Why should I crop images?</h3>
+                <p>Cropping images helps focus on the most important parts and remove unnecessary elements.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is it safe to crop images online?</h3>
+                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I crop images without losing quality?</h3>
+                <p>Absolutely! Our tool uses advanced algorithms to retain image quality while cropping.</p>
+            </div>
+        </div>
 
-<div class="how-to">
-    <h2 style="color: #007BFF; margin-bottom: 20px; text-align: center;">How to Crop an Image</h2>
-    <ol style="margin-left: 20px; line-height: 1.6;">
-        <li>Upload your image using the file selector.</li>
-        <li>Choose a preset aspect ratio or set custom dimensions.</li>
-        <li>Adjust the X and Y coordinates if needed to position your crop.</li>
-        <li>Click "Crop Image" to process your image.</li>
-        <li>Download your cropped image when processing is complete.</li>
-    </ol>
-</div>
-
-<div class="faq-section" style="margin: 40px auto; max-width: 1200px; padding: 30px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-    <h2 style="color: #007BFF; margin-bottom: 20px; text-align: center;">Frequently Asked Questions</h2>
-    
-    <div class="faq-item" style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-        <h3 style="color: #007BFF; font-size: 1.2em;">What file formats can I crop?</h3>
-        <p>Our tool supports common image formats including JPG, JPEG, PNG, GIF, and WEBP files.</p>
+        <footer>
+            <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
+        </footer>
     </div>
-    
-    <div class="faq-item" style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-        <h3 style="color: #007BFF; font-size: 1.2em;">Is there a file size limit?</h3>
-        <p>Yes, the maximum file size is 10MB. For larger files, consider compressing your image first with our image compression tool.</p>
-    </div>
-    
-    <div class="faq-item" style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-        <h3 style="color: #007BFF; font-size: 1.2em;">What are aspect ratios and why are they important?</h3>
-        <p>Aspect ratio is the proportional relationship between an image's width and height. Using common aspect ratios (like 1:1 for Instagram or 16:9 for YouTube) ensures your images fit perfectly on various platforms without unwanted cropping.</p>
-    </div>
-    
-    <div class="faq-item" style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-        <h3 style="color: #007BFF; font-size: 1.2em;">How do I crop to exact pixel dimensions?</h3>
-        <p>Select "Custom" from the aspect ratio dropdown, then enter your desired width and height in pixels in the dimensions fields.</p>
-    </div>
-    
-    <div class="faq-item" style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-        <h3 style="color: #007BFF; font-size: 1.2em;">What are the X and Y coordinates for?</h3>
-        <p>X and Y coordinates determine where the cropping starts on your image. X=0, Y=0 starts the crop from the top-left corner of your image. Increasing these values moves the starting point right (X) and down (Y).</p>
-    </div>
-    
-    <div class="faq-item" style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-        <h3 style="color: #007BFF; font-size: 1.2em;">Will cropping reduce my image quality?</h3>
-        <p>Cropping only removes portions of your image without affecting the quality of the remaining part. However, enlarging a small crop too much may result in pixelation.</p>
-    </div>
-    
-    <div class="faq-item" style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-        <h3 style="color: #007BFF; font-size: 1.2em;">Can I crop multiple images at once?</h3>
-        <p>Currently, this tool processes one image at a time to ensure precision and optimal results.</p>
-    </div>
-    
-    <div class="faq-item">
-        <h3 style="color: #007BFF; font-size: 1.2em;">Is my data private and secure?</h3>
-        <p>Yes, we process all images on our secure servers. Your images are not stored permanently and are automatically deleted after processing. We respect your privacy and do not share your data with third parties.</p>
-    </div>
-</div>
-
-{% endblock %}
+</body>
+</html>

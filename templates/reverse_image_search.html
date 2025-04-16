@@ -1,454 +1,190 @@
-{% extends "base.html" %}
-
-{% block title %}Reverse Image Search - Free AI Tools{% endblock %}
-
-{% block hero_title %}Reverse Image Search{% endblock %}
-{% block hero_description %}Upload an image to find similar images and their sources across the web{% endblock %}
-
-{% block content %}
-<div class="tool-container">
-    <div class="upload-section">
-        <h2>Upload Your Image</h2>
-        <form action="/tools/image-editing/reverse-image-search" method="post" enctype="multipart/form-data" class="upload-form">
-            <div class="form-group">
-                <label for="imageUpload" class="upload-label">
-                    <div class="upload-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                    </div>
-                    <div class="upload-text">
-                        <span>Drop your image here or click to browse</span>
-                        <small>Supports PNG, JPG, JPEG and other common formats</small>
-                    </div>
-                </label>
-                <input type="file" id="imageUpload" name="image" accept="image/*" required class="file-input">
-            </div>
-            <button type="submit" class="search-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                Search Image
-            </button>
-        </form>
-    </div>
-
-    <div class="features-section">
-        <h2>🔍 Features of Our Reverse Image Search Tool</h2>
-        <p class="feature-intro">Our Reverse Image Search Tool is a powerful solution designed to help you discover the origin of an image, find visually similar content, or verify authenticity online. Whether you're a content creator, researcher, or simply curious, our tool makes it incredibly easy to track images across the internet with just a few clicks.</p>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 17.5 4.5 13 9 8.5"></polyline><polyline points="15 8.5 19.5 13 15 17.5"></polyline></svg>
-                </div>
-                <h3>Quick and Easy to Use</h3>
-                <p>Upload any image and instantly search the web to find where else it appears. Our reverse image search helps you identify the original source, discover visually similar images, track down copyright issues, or verify authenticity.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="15" x2="7" y2="15"></line><line x1="3" y1="18" x2="4" y2="18"></line><rect x="8" y="3" width="13" height="9" rx="2" ry="2"></rect></svg>
-                </div>
-                <h3>Crop Image to Any Size</h3>
-                <p>Crop your image to an exact pixel size to share them without leaving out parts or distorting them. Our tool automatically processes the image to find the best matches.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                </div>
-                <h3>Multiple Format Support</h3>
-                <p>You don't need to worry about converting your files before uploading. Our tool supports popular image formats like PNG, JPG, and JPEG, giving you full flexibility.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"></path><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                </div>
-                <h3>Find Similar Images</h3>
-                <p>Whether you need to verify the legitimacy of an image, track down potential copyright infringement, or see if someone is using your work without permission.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                </div>
-                <h3>Privacy Protected</h3>
-                <p>We crop image files right on the browser. Since your images never get uploaded to our servers, no one can access them. Your privacy is our top priority.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                </div>
-                <h3>100% Free</h3>
-                <p>This image search tool is entirely free to use. There are no registrations, file size limits, or annoying watermarks. Use it as many times as you need.</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="faq-section">
-        <h2>Frequently Asked Questions</h2>
-        
-        <div class="faq-item">
-            <div class="faq-question">
-                <h3>How does reverse image search work?</h3>
-                <div class="faq-toggle">+</div>
-            </div>
-            <div class="faq-answer">
-                <p>Reverse image search uses computer vision technology to analyze your uploaded image and find visually similar images across the web. Our tool examines the visual characteristics of your image (like colors, shapes, and patterns) and compares them with indexed images online to find matches or similar content.</p>
-            </div>
-        </div>
-        
-        <div class="faq-item">
-            <div class="faq-question">
-                <h3>What can I use this tool for?</h3>
-                <div class="faq-toggle">+</div>
-            </div>
-            <div class="faq-answer">
-                <p>You can use our reverse image search tool to:</p>
-                <ul>
-                    <li>Find the original source of an image</li>
-                    <li>Discover where your images are being used online</li>
-                    <li>Verify if an image has been altered or manipulated</li>
-                    <li>Find higher resolution versions of an image</li>
-                    <li>Identify products, landmarks, or artwork</li>
-                    <li>Check for copyright infringement of your visual content</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="faq-item">
-            <div class="faq-question">
-                <h3>Is there a limit to how many images I can search?</h3>
-                <div class="faq-toggle">+</div>
-            </div>
-            <div class="faq-answer">
-                <p>No, there are no limits to how many images you can search with our tool. It's completely free to use as many times as you need without any restrictions.</p>
-            </div>
-        </div>
-        
-        <div class="faq-item">
-            <div class="faq-question">
-                <h3>Do you store the images I upload?</h3>
-                <div class="faq-toggle">+</div>
-            </div>
-            <div class="faq-answer">
-                <p>No, we don't permanently store any images you upload. Your images are only temporarily processed to perform the search and are automatically deleted afterward. Your privacy and data security are important to us.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Make the file input look nicer with a custom label
-    const fileInput = document.getElementById('imageUpload');
-    const fileLabel = document.querySelector('.upload-label');
-    
-    fileLabel.addEventListener('click', function(e) {
-        fileInput.click();
-    });
-    
-    fileInput.addEventListener('change', function() {
-        if (fileInput.files.length > 0) {
-            const fileName = fileInput.files[0].name;
-            document.querySelector('.upload-text span').textContent = `Selected: ${fileName}`;
+<html>
+<head>
+    <title>Reverse Image Search</title>
+    <meta name="description" content="Find the source or similar images using reverse image search. Perfect for identifying objects, verifying image authenticity, and more.">
+    <meta name="keywords" content="reverse image search, find similar images, image search tool">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
         }
-    });
-    
-    // Add drag and drop functionality
-    const uploadForm = document.querySelector('.upload-form');
-    
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        uploadForm.addEventListener(eventName, preventDefaults, false);
-    });
-    
-    function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-    
-    ['dragenter', 'dragover'].forEach(eventName => {
-        uploadForm.addEventListener(eventName, highlight, false);
-    });
-    
-    ['dragleave', 'drop'].forEach(eventName => {
-        uploadForm.addEventListener(eventName, unhighlight, false);
-    });
-    
-    function highlight() {
-        uploadForm.classList.add('highlight');
-    }
-    
-    function unhighlight() {
-        uploadForm.classList.remove('highlight');
-    }
-    
-    uploadForm.addEventListener('drop', handleDrop, false);
-    
-    function handleDrop(e) {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        
-        if (files.length > 0) {
-            fileInput.files = files;
-            document.querySelector('.upload-text span').textContent = `Selected: ${files[0].name}`;
+        .hero {
+            background-color: #17a2b8;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
         }
-    }
-    
-    // FAQ toggle functionality
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        const answer = item.querySelector('.faq-answer');
-        const toggle = item.querySelector('.faq-toggle');
-        
-        question.addEventListener('click', () => {
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                    otherItem.querySelector('.faq-toggle').textContent = '+';
-                }
-            });
-            
-            item.classList.toggle('active');
-            toggle.textContent = item.classList.contains('active') ? '−' : '+';
-        });
-    });
-});
-</script>
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .input-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .input-section input {
+            padding: 10px;
+            width: 70%;
+            max-width: 400px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .input-section button {
+            padding: 10px 20px;
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .input-section button:hover {
+            background-color: #138496;
+        }
+        .how-to {
+            margin: 40px 0;
+        }
+        .how-to h2 {
+            text-align: center;
+            color: #333;
+        }
+        .how-to-steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .step {
+            text-align: center;
+            flex: 1 1 30%;
+            margin: 10px;
+        }
+        .step span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background-color: #17a2b8;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .features, .faq {
+            margin: 40px 0;
+        }
+        .features h2, .faq h2 {
+            text-align: center;
+            color: #333;
+        }
+        .features ul {
+            list-style: disc;
+            margin-left: 20px;
+            color: #555;
+        }
+        .faq-item {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
 
-<style>
-/* Main container styles */
-.tool-container {
-    max-width: 1200px;
-    margin: 0 auto 40px;
-    color: #333;
-}
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .how-to-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            .input-section input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Reverse Image Search</h1>
+        <p>Find the source or similar images using reverse image search. Perfect for identifying objects, verifying image authenticity, and more.</p>
+    </div>
 
-/* Upload section styles */
-.upload-section {
-    background: white;
-    border-radius: 10px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    text-align: center;
-}
+    <div class="container">
+        <div class="input-section">
+            <form action="/tools/image-editing/reverse-image-search" method="post" enctype="multipart/form-data">
+                <input type="file" id="image" name="image" required>
+                <button type="submit">Search Image</button>
+            </form>
+        </div>
 
-.upload-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
+        <div class="how-to">
+            <h2>How to Use the Reverse Image Search Tool</h2>
+            <div class="how-to-steps">
+                <div class="step">
+                    <span>1</span>
+                    <p>Upload your image file.</p>
+                </div>
+                <div class="step">
+                    <span>2</span>
+                    <p>Click the "Search Image" button.</p>
+                </div>
+                <div class="step">
+                    <span>3</span>
+                    <p>View the results to find similar images or the source.</p>
+                </div>
+            </div>
+        </div>
 
-.upload-label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 2px dashed #6c5ce7;
-    border-radius: 8px;
-    padding: 40px 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: rgba(108, 92, 231, 0.05);
-    margin-bottom: 20px;
-}
+        <div class="features">
+            <h2>Features of Our Reverse Image Search Tool</h2>
+            <ul>
+                <li>Find similar images or the source of an image.</li>
+                <li>Supports multiple image formats like PNG, JPG, and JPEG.</li>
+                <li>Fast and secure processing.</li>
+                <li>Completely free to use.</li>
+                <li>Compatible with all modern browsers and devices.</li>
+            </ul>
+        </div>
 
-.upload-label:hover, .upload-form.highlight .upload-label {
-    background-color: rgba(108, 92, 231, 0.1);
-    border-color: #5649c0;
-}
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What is reverse image search?</h3>
+                <p>Reverse image search allows you to find the source or similar images by uploading an image file.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is it safe to use reverse image search online?</h3>
+                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I search for multiple images at once?</h3>
+                <p>Currently, the tool supports one image at a time. Batch processing will be added soon.</p>
+            </div>
+        </div>
 
-.upload-icon {
-    color: #6c5ce7;
-    margin-bottom: 15px;
-}
-
-.upload-text {
-    text-align: center;
-}
-
-.upload-text span {
-    font-size: 18px;
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-.upload-text small {
-    color: #666;
-    font-size: 14px;
-}
-
-.file-input {
-    display: none;
-}
-
-.search-button {
-    background-color: #6c5ce7;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.search-button svg {
-    margin-right: 8px;
-}
-
-.search-button:hover {
-    background-color: #5649c0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(108, 92, 231, 0.3);
-}
-
-/* Features section styles */
-.features-section {
-    background: #1a1e23;
-    color: white;
-    border-radius: 10px;
-    padding: 40px 30px;
-    margin-bottom: 30px;
-}
-
-.features-section h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: white;
-}
-
-.feature-intro {
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto 40px;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.6;
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 25px;
-}
-
-.feature-card {
-    background: rgba(255,255,255,0.05);
-    border-radius: 10px;
-    padding: 25px;
-    transition: all 0.3s ease;
-    border-left: 4px solid #6c5ce7;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    background: rgba(255,255,255,0.08);
-}
-
-.feature-icon {
-    color: #6c5ce7;
-    margin-bottom: 15px;
-}
-
-.feature-card h3 {
-    color: white;
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.3rem;
-}
-
-.feature-card p {
-    color: rgba(255,255,255,0.7);
-    line-height: 1.6;
-    margin: 0;
-}
-
-/* FAQ section styles */
-.faq-section {
-    background: white;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.faq-section h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
-}
-
-.faq-item {
-    border-bottom: 1px solid #eee;
-    margin-bottom: 15px;
-}
-
-.faq-question {
-    padding: 15px 0;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.faq-question h3 {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #333;
-}
-
-.faq-toggle {
-    color: #6c5ce7;
-    font-size: 24px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    padding: 0 15px;
-}
-
-.faq-item.active .faq-answer {
-    max-height: 500px;
-    padding-bottom: 15px;
-}
-
-.faq-answer p {
-    margin-top: 0;
-    color: #555;
-    line-height: 1.6;
-}
-
-.faq-answer ul {
-    padding-left: 20px;
-    color: #555;
-}
-
-.faq-answer li {
-    margin-bottom: 5px;
-}
-
-@media (max-width: 768px) {
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .upload-label {
-        padding: 20px;
-    }
-    
-    .feature-card {
-        padding: 20px;
-    }
-}
-</style>
-{% endblock %}
+        <footer>
+            <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

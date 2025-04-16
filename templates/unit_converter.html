@@ -1,354 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unit Converter</title>
+    <meta name="description" content="Convert units of measurement quickly and accurately. Supports length, weight, temperature, and more.">
+    <meta name="keywords" content="unit converter, measurement converter, online unit converter">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(45deg, #1a1a1a, #232946);
-            color: #fff;
             margin: 0;
             padding: 0;
+            background-color: #f9f9f9;
         }
-        .ads-layout {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 24px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        .ad-corner {
-            width: 160px;
-            min-width: 120px;
-            max-width: 180px;
-            min-height: 600px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-        }
-        .main-unit-content {
-            flex: 1 1 500px;
-            max-width: 900px;
-            background: #181f2a;
-            border-radius: 18px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
-            padding: 30px 20px 20px 20px;
-            margin: 0 auto;
-        }
-        .hero-section {
-            text-align: center;
-            color: #fff;
-            margin-bottom: 30px;
-        }
-        .hero-section h1 {
-            font-size: 2.2em;
-            margin-bottom: 10px;
-            color: #00ff9d;
-        }
-        .hero-section p {
-            font-size: 1.1em;
-            color: #b8c1ec;
-        }
-        .unit-converter-section {
-            background: #232946;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            padding: 24px 18px 18px 18px;
-            margin-bottom: 20px;
+        .hero {
+            background-color: #28a745;
+            color: white;
+            padding: 40px 20px;
             text-align: center;
         }
-        .unit-converter-section input[type="number"],
-        .unit-converter-section select {
-            background: #181f2a !important;
-            color: #fff !important;
-            border: 1px solid #444 !important;
-            width: 120px !important;
-            min-width: 80px;
-            max-width: 140px;
-            font-size: 1em;
-            padding: 6px 10px;
-            border-radius: 6px;
-            margin: 0 4px 8px 0;
-            display: inline-block;
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
         }
-        .unit-converter-section input[type="number"]::placeholder {
-            color: #b8c1ec !important;
-            opacity: 1;
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
         }
-        .convert-btn {
-            background-color: #00ff9d;
-            color: #232946;
-            padding: 10px 24px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1em;
-            font-weight: bold;
-            margin-top: 10px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .convert-btn:hover {
-            background-color: #00c97b;
-        }
-        .unit-result {
-            margin-top: 20px;
-            font-size: 1.3em;
-            color: #00ff9d;
-            word-break: break-all;
-            background: #181f2a;
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
             border-radius: 8px;
-            padding: 12px 10px;
-            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .features-section {
-            margin-top: 30px;
+        .converter {
             text-align: center;
         }
-        .features-section h2 {
-            color: #00ff9d;
-            margin-bottom: 20px;
-        }
-        .features-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        .feature-item {
-            background: #181f2a;
-            border-radius: 10px;
-            padding: 20px;
+        .converter input, .converter select {
+            padding: 10px;
+            margin: 5px;
             width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .converter button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .converter button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        footer {
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-        }
-        .feature-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-            color: #00ff9d;
-        }
-        .faq-section {
-            margin-top: 30px;
-            text-align: center;
-        }
-        .faq-section h2 {
-            color: #00ff9d;
-            margin-bottom: 20px;
-        }
-        .faq-item {
-            background: #181f2a;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-        }
-        .happy-user-section {
-            margin-top: 30px;
-            text-align: center;
-        }
-        .happy-user-section h2 {
-            color: #00ff9d;
-            margin-bottom: 20px;
-        }
-        .happy-user-links a {
-            color: #00ff9d;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-        .footer-section {
-            margin-top: 30px;
-            text-align: center;
-            color: #b8c1ec;
-        }
-        .footer-links a {
-            color: #00ff9d;
-            text-decoration: none;
-            margin: 0 10px;
+            margin-top: 40px;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <div class="ads-layout">
-        <div class="ad-corner ad-left">
-            <!-- Google AdSense Left Ad Placeholder -->
-            <ins class="adsbygoogle"
-                style="display:block;width:160px;height:600px;background:#181f2a;border-radius:12px;"
-                data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
-                data-ad-slot="left-ad"></ins>
-        </div>
-        <div class="main-unit-content">
-            <!-- Hero Section -->
-            <div class="hero-section">
-                <h1>Unit Converter</h1>
-                <p>Convert between different units of measurement instantly. Supports length, weight, temperature, and more.</p>
-            </div>
-            <div class="unit-converter-section">
-                <input type="number" id="unit-value" placeholder="Enter value">
-                <select id="unit-type" onchange="populateUnits()">
-                    <option value="length">Length</option>
-                    <option value="weight">Weight</option>
-                    <option value="temperature">Temperature</option>
+    <div class="hero">
+        <h1>Unit Converter</h1>
+        <p>Convert units of measurement quickly and accurately. Supports length, weight, temperature, and more.</p>
+    </div>
+
+    <div class="container">
+        <div class="converter">
+            <form id="unit-converter-form">
+                <input type="number" id="value" placeholder="Value" required>
+                <select id="from-unit">
+                    <option value="meters">Meters</option>
+                    <option value="kilometers">Kilometers</option>
+                    <option value="grams">Grams</option>
+                    <option value="kilograms">Kilograms</option>
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
                 </select>
-                <select id="from-unit"></select>
-                <span style="font-size:1.5em; color:#00ff9d; margin:0 8px;">→</span>
-                <select id="to-unit"></select>
-                <button class="convert-btn" onclick="convertUnit()">Convert</button>
-                <div class="unit-result" id="unit-result"></div>
-            </div>
-            <!-- Features Section -->
-            <div class="features-section">
-                <h2>📏 Features of Our Unit Converter</h2>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <span class="feature-icon">📐</span>
-                        <h3>Multiple Categories</h3>
-                        <p>Convert length, weight, and temperature units easily.</p>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">⚡</span>
-                        <h3>Instant Results</h3>
-                        <p>Get conversion results instantly as you type or select units.</p>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🔒</span>
-                        <h3>Private & Secure</h3>
-                        <p>All calculations are performed locally in your browser. No data is sent anywhere.</p>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🌐</span>
-                        <h3>Works Anywhere</h3>
-                        <p>Use on desktop, tablet, or mobile—no installation required.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- FAQ Section -->
-            <div class="faq-section">
-                <h2>Frequently Asked Questions</h2>
-                <div class="faq-item">
-                    <h3>What units can I convert?</h3>
-                    <p>You can convert between common length, weight, and temperature units. More categories coming soon!</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Is my data private?</h3>
-                    <p>Yes, all conversions are done locally in your browser. Nothing is sent to any server.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Can I use this on my phone?</h3>
-                    <p>Absolutely! The tool is fully responsive and works on any device.</p>
-                </div>
-            </div>
-            <!-- Are you a happy user? Section -->
-            <div class="happy-user-section">
-                <h2>Are you a happy user?</h2>
-                <p>If you enjoy this unit converter, please consider sharing it or supporting us!</p>
-                <div class="happy-user-links">
-                    <a href="/" class="home-link">🏠 Home</a>
-                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank">☕ Buy Me a Coffee</a>
-                    <a href="https://twitter.com/intent/tweet" target="_blank">🐦 Share on Twitter</a>
-                </div>
-            </div>
-            <!-- Footer Section -->
-            <footer class="footer-section">
-                <div class="footer-links">
-                    <a href="/privacy-policy.html">Privacy Policy</a> |
-                    <a href="/terms-of-use.html">Terms of Use</a> |
-                    <a href="/">Home</a> |
-                    <a href="/contact.html">Contact</a>
-                </div>
-                <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-            </footer>
-        </div>
-        <div class="ad-corner ad-right">
-            <!-- Google AdSense Right Ad Placeholder -->
-            <ins class="adsbygoogle"
-                style="display:block;width:160px;height:600px;background:#181f2a;border-radius:12px;"
-                data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
-                data-ad-slot="right-ad"></ins>
+                <select id="to-unit">
+                    <option value="meters">Meters</option>
+                    <option value="kilometers">Kilometers</option>
+                    <option value="grams">Grams</option>
+                    <option value="kilograms">Kilograms</option>
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                </select>
+                <button type="button" onclick="convertUnit()">Convert</button>
+            </form>
+            <div class="result" id="result"></div>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
+    </footer>
+
     <script>
-        const units = {
-            length: [
-                { name: 'Meter', value: 'm' },
-                { name: 'Kilometer', value: 'km' },
-                { name: 'Centimeter', value: 'cm' },
-                { name: 'Millimeter', value: 'mm' },
-                { name: 'Mile', value: 'mi' },
-                { name: 'Yard', value: 'yd' },
-                { name: 'Foot', value: 'ft' },
-                { name: 'Inch', value: 'in' }
-            ],
-            weight: [
-                { name: 'Kilogram', value: 'kg' },
-                { name: 'Gram', value: 'g' },
-                { name: 'Milligram', value: 'mg' },
-                { name: 'Pound', value: 'lb' },
-                { name: 'Ounce', value: 'oz' }
-            ],
-            temperature: [
-                { name: 'Celsius', value: 'c' },
-                { name: 'Fahrenheit', value: 'f' },
-                { name: 'Kelvin', value: 'k' }
-            ]
-        };
-        function populateUnits() {
-            const type = document.getElementById('unit-type').value;
-            const fromUnit = document.getElementById('from-unit');
-            const toUnit = document.getElementById('to-unit');
-            fromUnit.innerHTML = '';
-            toUnit.innerHTML = '';
-            units[type].forEach(u => {
-                fromUnit.innerHTML += `<option value="${u.value}">${u.name}</option>`;
-                toUnit.innerHTML += `<option value="${u.value}">${u.name}</option>`;
-            });
-            toUnit.selectedIndex = 1;
-        }
         function convertUnit() {
-            const value = parseFloat(document.getElementById('unit-value').value);
-            const type = document.getElementById('unit-type').value;
-            const from = document.getElementById('from-unit').value;
-            const to = document.getElementById('to-unit').value;
+            const value = parseFloat(document.getElementById('value').value);
+            const fromUnit = document.getElementById('from-unit').value;
+            const toUnit = document.getElementById('to-unit').value;
+
             if (isNaN(value)) {
-                document.getElementById('unit-result').textContent = 'Please enter a valid value.';
+                document.getElementById('result').textContent = 'Please enter a valid value.';
                 return;
             }
-            let result = '';
-            if (type === 'length') {
-                result = convertLength(value, from, to);
-            } else if (type === 'weight') {
-                result = convertWeight(value, from, to);
-            } else if (type === 'temperature') {
-                result = convertTemperature(value, from, to);
+
+            let convertedValue;
+
+            if (fromUnit === 'meters' && toUnit === 'kilometers') {
+                convertedValue = value / 1000;
+            } else if (fromUnit === 'kilometers' && toUnit === 'meters') {
+                convertedValue = value * 1000;
+            } else if (fromUnit === 'grams' && toUnit === 'kilograms') {
+                convertedValue = value / 1000;
+            } else if (fromUnit === 'kilograms' && toUnit === 'grams') {
+                convertedValue = value * 1000;
+            } else if (fromUnit === 'celsius' && toUnit === 'fahrenheit') {
+                convertedValue = (value * 9/5) + 32;
+            } else if (fromUnit === 'fahrenheit' && toUnit === 'celsius') {
+                convertedValue = (value - 32) * 5/9;
+            } else {
+                convertedValue = value; // Same unit conversion
             }
-            document.getElementById('unit-result').innerHTML = `${value} ${from} = <span style='color:#00ff9d;font-weight:bold;'>${result} ${to}</span>`;
+
+            document.getElementById('result').textContent = `Converted Value: ${convertedValue}`;
         }
-        function convertLength(val, from, to) {
-            const toMeters = {
-                m: 1, km: 1000, cm: 0.01, mm: 0.001, mi: 1609.34, yd: 0.9144, ft: 0.3048, in: 0.0254
-            };
-            return (val * toMeters[from] / toMeters[to]).toFixed(6).replace(/\.0+$/, '');
-        }
-        function convertWeight(val, from, to) {
-            const toKg = {
-                kg: 1, g: 0.001, mg: 0.000001, lb: 0.453592, oz: 0.0283495
-            };
-            return (val * toKg[from] / toKg[to]).toFixed(6).replace(/\.0+$/, '');
-        }
-        function convertTemperature(val, from, to) {
-            let celsius;
-            if (from === 'c') celsius = val;
-            else if (from === 'f') celsius = (val - 32) * 5/9;
-            else if (from === 'k') celsius = val - 273.15;
-            let result;
-            if (to === 'c') result = celsius;
-            else if (to === 'f') result = celsius * 9/5 + 32;
-            else if (to === 'k') result = celsius + 273.15;
-            return result.toFixed(2);
-        }
-        window.onload = populateUnits;
     </script>
 </body>
 </html>
