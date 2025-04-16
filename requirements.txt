@@ -1,3 +1,4 @@
 Flask
 Pillow
 cairosvg
+google-cloud-vision

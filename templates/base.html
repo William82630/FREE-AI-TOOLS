@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Free AI Tools{% endblock %}</title>
+    
+    <!-- Google AdSense Auto Ads Code - This single script handles all ad placements -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273"
+     crossorigin="anonymous"></script>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,10 +17,11 @@
             background-color: #f9f9f9;
         }
         .hero {
-            background-color: #ffc107;
+            background-color: #3498db; /* Changed from #ffc107 (yellow) to #3498db (blue) */
             color: white;
             padding: 40px 20px;
             text-align: center;
+            position: relative;
         }
         .hero h1 {
             font-size: 2.5em;
@@ -25,14 +31,68 @@
             font-size: 1.2em;
             margin: 10px 0 0;
         }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
+        
+        /* New layout styles */
+        .page-wrapper {
+            display: flex;
+            justify-content: center;
+            max-width: 1600px;
+            margin: 0 auto;
+            background: #fff;
+        }
+        
+        /* Left sidebar */
+        .sidebar-left {
+            width: 300px;
+            padding: 20px 0;
+            background-color: #f9f9f9;
+        }
+        
+        /* Main container */
+        .main-container {
+            flex: 1;
+            max-width: 1000px;
             padding: 20px;
             background: #fff;
-            border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+        
+        /* Right sidebar */
+        .sidebar-right {
+            width: 300px;
+            padding: 20px 0;
+            background-color: #f9f9f9;
+        }
+        
+        /* Ad container styles */
+        .top-ad-banner {
+            width: 100%;
+            padding: 15px 0;
+            background-color: #f8f8f8;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .ad-container-sidebar {
+            width: 300px;
+            margin: 20px auto;
+            min-height: 600px;
+            background-color: #f8f8f8;
+            border: 1px dashed #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .ad-container-inline {
+            width: 100%;
+            margin: 20px 0;
+            padding: 15px 0;
+            background-color: #f8f8f8;
+            border: 1px dashed #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
         footer {
             background-color: #000;
             color: white;
@@ -41,67 +101,240 @@
             margin-top: 40px;
             width: 100%;
         }
+        
         footer a {
             color: #fff;
             text-decoration: none;
             margin: 0 10px;
         }
+        
         footer a:hover {
             text-decoration: underline;
         }
+        
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .page-wrapper {
+                flex-direction: column;
+            }
+            
+            .sidebar-left, .sidebar-right {
+                width: 100%;
+                order: 2;
+            }
+            
+            .main-container {
+                order: 1;
+                max-width: 100%;
+            }
+            
+            .ad-container-sidebar {
+                min-height: 250px;
+            }
+        }
+
+        .home-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 10px;
+            transition: background-color 0.3s;
+        }
+        .home-link:hover {
+            background-color: #45a049;
+        }
+        .home-link i {
+            margin-right: 5px;
+        }
+
+        .home-nav {
+            padding: 10px;
+            background-color: #f8f9fa;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .home-nav a {
+            text-decoration: none;
+            color: #0d6efd;
+            font-weight: bold;
+        }
+        .home-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .home-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        .home-btn {
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .home-btn:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
     </style>
+    <!-- Google AdSense Code -->
+    {% block adsense %}
+    <!-- Replace this with your actual Google AdSense code -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script> -->
+    {% endblock %}
 </head>
 <body>
+    <nav class="home-nav" style="padding: 10px; background-color: #f8f9fa;">
+        <a href="{{ url_for('index') }}" style="text-decoration: none; color: #333; font-weight: bold;">
+            <i class="fas fa-home"></i> Back to Homepage
+        </a>
+    </nav>
+    <header>
+        <nav class="main-nav">
+            <a href="/" class="home-link" title="Back to Homepage">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </nav>
+    </header>
+    <!-- Hero section -->
     <div class="hero">
+        <div style="position: absolute; top: 20px; left: 20px;">
+            <a href="/" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 4px; display: inline-flex; align-items: center;">
+                <span style="margin-right: 5px;">🏠</span> Home
+            </a>
+        </div>
         <h1>{% block hero_title %}Welcome to Free AI Tools{% endblock %}</h1>
         <p>{% block hero_description %}Your one-stop solution for free online tools{% endblock %}</p>
     </div>
 
-    <div class="container">
-        {% block content %}
-        <!-- Page-specific content goes here -->
+    <!-- Top banner ad (across the entire width) -->
+    <div class="top-ad-banner">
+        {% block top_banner_ad %}
+        <!-- Replace with your Google AdSense ad code -->
+        <div style="height: 90px; line-height: 90px; text-align: center; color: #888; width: 728px; margin: 0 auto;">
+            Top Banner Ad (728×90)
+        </div>
         {% endblock %}
+    </div>
 
-        <div class="user-engagement" style="margin-top: 40px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-            <h3 style="text-align: center; color: #333;">Are you a happy user?</h3>
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 20px;">
-                <div style="text-align: center; margin: 10px;">
-                    <p>Want more features?</p>
-                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 4px;">Donate</a>
-                </div>
-                <div style="text-align: center; margin: 10px;">
-                    <p>Sharing is caring</p>
-                    <div style="display: flex; justify-content: center; gap: 10px;">
-                        <a href="https://www.facebook.com/sharer/sharer.php" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #4267B2;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 20px; height: 20px; margin-right: 5px;"> Facebook
-                        </a>
-                        <a href="https://twitter.com/intent/tweet" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #1DA1F2;">
-                            <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg" alt="Twitter" style="width: 20px; height: 20px; margin-right: 5px;"> Twitter
-                        </a>
-                        <a href="https://www.reddit.com/submit" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #FF4500;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Reddit_logo_new.svg" alt="Reddit" style="width: 20px; height: 20px; margin-right: 5px;"> Reddit
-                        </a>
-                        <a href="https://www.linkedin.com/shareArticle" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #0077B5;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Linkedin_icon.svg" alt="LinkedIn" style="width: 20px; height: 20px; margin-right: 5px;"> LinkedIn
-                        </a>
-                    </div>
-                </div>
-                <div style="text-align: center; margin: 10px;">
-                    <p>Come back!</p>
-                    <button onclick="window.alert('Press Ctrl+D to bookmark this page!')" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Bookmark Page</button>
-                </div>
-                <div style="text-align: center; margin: 10px;">
-                    <p>Rate Us!</p>
-                    <a href="https://www.trustpilot.com" target="_blank" style="text-decoration: none; color: white; background-color: #28a745; padding: 10px 20px; border-radius: 4px;">Review us on Trustpilot</a>
-                </div>
-                <div style="text-align: center; margin: 10px;">
-                    <p>Send Feedback</p>
-                    <a href="https://willsblogger.com/about/" target="_blank" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 4px;">Contact us</a>
+    <!-- Three-column layout -->
+    <div class="page-wrapper">
+        <!-- Left sidebar with ads -->
+        <div class="sidebar-left">
+            {% block left_sidebar_ad %}
+            <div class="ad-container-sidebar">
+                <!-- Replace with your Google AdSense ad code -->
+                <div style="height: 600px; line-height: 600px; text-align: center; color: #888;">
+                    Left Sidebar Ad (300×600)
                 </div>
             </div>
+            
+            <!-- Optional second ad unit -->
+            <div class="ad-container-sidebar" style="min-height: 250px;">
+                <div style="height: 250px; line-height: 250px; text-align: center; color: #888;">
+                    Left Sidebar Ad (300×250)
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+
+        <!-- Main content area -->
+        <div class="main-container">
+            {% block content %}
+            <!-- Page-specific content goes here -->
+            {% endblock %}
+
+            <!-- Middle ad inserted between content -->
+            <div class="ad-container-inline">
+                {% block middle_ad %}
+                <!-- Replace with your Google AdSense ad code -->
+                <div style="height: 250px; line-height: 250px; text-align: center; color: #888; width: 728px; margin: 0 auto;">
+                    Middle Ad (728×250)
+                </div>
+                {% endblock %}
+            </div>
+
+            <!-- User engagement section -->
+            <div class="user-engagement" style="margin-top: 40px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+                <h3 style="text-align: center; color: #333;">Are you a happy user?</h3>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 20px;">
+                    <div style="text-align: center; margin: 10px;">
+                        <p>Want more features?</p>
+                        <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 4px;">Donate</a>
+                    </div>
+                    <div style="text-align: center; margin: 10px;">
+                        <p>Sharing is caring</p>
+                        <div style="display: flex; justify-content: center; gap: 10px;">
+                            <a href="https://www.facebook.com/sharer/sharer.php" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #4267B2;">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 20px; height: 20px; margin-right: 5px;"> Facebook
+                            </a>
+                            <a href="https://twitter.com/intent/tweet" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #1DA1F2;">
+                                <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg" alt="Twitter" style="width: 20px; height: 20px; margin-right: 5px;"> Twitter
+                            </a>
+                            <a href="https://www.reddit.com/submit" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #FF4500;">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Reddit_logo_new.svg" alt="Reddit" style="width: 20px; height: 20px; margin-right: 5px;"> Reddit
+                            </a>
+                            <a href="https://www.linkedin.com/shareArticle" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #0077B5;">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Linkedin_icon.svg" alt="LinkedIn" style="width: 20px; height: 20px; margin-right: 5px;"> LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin: 10px;">
+                        <p>Come back!</p>
+                        <button onclick="window.alert('Press Ctrl+D to bookmark this page!')" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Bookmark Page</button>
+                    </div>
+                    <div style="text-align: center; margin: 10px;">
+                        <p>Rate Us!</p>
+                        <a href="https://www.trustpilot.com" target="_blank" style="text-decoration: none; color: white; background-color: #28a745; padding: 10px 20px; border-radius: 4px;">Review us on Trustpilot</a>
+                    </div>
+                    <div style="text-align: center; margin: 10px;">
+                        <p>Send Feedback</p>
+                        <a href="https://willsblogger.com/about/" target="_blank" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 4px;">Contact us</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom ad before footer -->
+            <div class="ad-container-inline">
+                {% block bottom_ad %}
+                <!-- Replace with your Google AdSense ad code -->
+                <div style="height: 90px; line-height: 90px; text-align: center; color: #888; width: 728px; margin: 0 auto;">
+                    Bottom Banner Ad (728×90)
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+
+        <!-- Right sidebar with ads -->
+        <div class="sidebar-right">
+            {% block right_sidebar_ad %}
+            <div class="ad-container-sidebar">
+                <!-- Replace with your Google AdSense ad code -->
+                <div style="height: 600px; line-height: 600px; text-align: center; color: #888;">
+                    Right Sidebar Ad (300×600)
+                </div>
+            </div>
+            
+            <!-- Optional second ad unit -->
+            <div class="ad-container-sidebar" style="min-height: 250px;">
+                <div style="height: 250px; line-height: 250px; text-align: center; color: #888;">
+                    Right Sidebar Ad (300×250)
+                </div>
+            </div>
+            {% endblock %}
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
         <p>

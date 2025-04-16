@@ -1,319 +1,241 @@
-<html>
-<head>
-    <title>Face Search</title>
-    <meta name="description" content="Search for similar faces across the web with advanced AI. Perfect for finding matches, verifying identities, and more.">
-    <meta name="keywords" content="face search, find similar faces, AI face search tool">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .hero {
-            background-color: #6f42c1;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .hero p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .input-section {
-            text-align: center;
-            margin: 40px 0;
-            padding: 30px;
-            background: linear-gradient(145deg, #f6f9fe, #e6f0ff);
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(111, 66, 193, 0.2);
-        }
-        .input-section form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-        .input-section input {
-            padding: 15px 20px;
-            width: 80%;
-            max-width: 500px;
-            border: 2px solid #6f42c1;
-            border-radius: 10px;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            background: white url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%236f42c1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.08V8l-6-6H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h6"/><path d="M14 3v5h5M9 18l6-6"/><path d="M16 10l2 2-2 2"/></svg>') no-repeat;
-            background-position: 15px center;
-            padding-left: 50px;
-        }
-        .input-section input:hover {
-            border-color: #9a77d9;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        }
-        .input-section input:focus {
-            outline: none;
-            border-color: #6f42c1;
-            box-shadow: 0 0 0 3px rgba(111, 66, 193, 0.3);
-        }
-        .input-section button {
-            padding: 15px 30px;
-            background: linear-gradient(45deg, #6f42c1, #9a77d9);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(111, 66, 193, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            min-width: 200px;
-        }
-        .input-section button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(111, 66, 193, 0.5);
-            background: linear-gradient(45deg, #5a379e, #6f42c1);
-        }
-        .input-section button:active {
-            transform: translateY(0) scale(1);
-        }
-        .input-section button::after {
-            content: "🔍";
-            font-size: 1.2em;
-        }
-        .input-section p {
-            color: #666;
-            margin-top: 15px;
-            font-size: 0.9em;
-        }
-        .how-to {
-            margin: 40px 0;
-        }
-        .how-to h2 {
-            text-align: center;
-            color: #333;
-        }
-        .how-to-steps {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .step {
-            text-align: center;
-            flex: 1 1 30%;
-            margin: 10px;
-        }
-        .step span {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            background-color: #6f42c1;
-            color: white;
-            border-radius: 50%;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        .features, .faq {
-            margin: 40px 0;
-        }
-        .features h2, .faq h2 {
-            text-align: center;
-            color: #333;
-        }
-        .features ul {
-            list-style: disc;
-            margin-left: 20px;
-            color: #555;
-        }
-        .faq-item {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px 0;
-        }
-        footer {
-            background-color: #000;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-            width: 100%;
-        }
-        footer a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
+{% extends "base.html" %}
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .how-to-steps {
-                flex-direction: column;
-                align-items: center;
-            }
-            .input-section input {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="hero">
-        <h1>Face Search</h1>
-        <p>Search for similar faces across the web with advanced AI. Perfect for finding matches, verifying identities, and more.</p>
+{% block title %}Face Search Tool - Free AI Tools{% endblock %}
+
+{% block hero_title %}Face Search Tool{% endblock %}
+{% block hero_description %}Find similar faces and people across the web using advanced AI technology{% endblock %}
+
+{% block content %}
+<div class="tool-container">
+    <h2>Face Search Tool</h2>
+    
+    <p>Upload a photo containing a face and our AI will search the web for similar faces and images.</p>
+    
+    <!-- Upload form moved to the top for better UX -->
+    <div class="upload-form">
+        <form action="/tools/image-editing/face-search" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="image">Select an image file:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <small>Supported formats: JPG, JPEG, PNG, WEBP</small>
+            </div>
+            <button type="submit" class="submit-btn">Search Now</button>
+        </form>
     </div>
-
-    <div class="container">
-        <div class="input-section">
-            <form action="/tools/image-editing/face-search" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required>
-                <button type="submit">Search Face</button>
-            </form>
+    
+    <!-- Instructions and other info moved below the form -->
+    <div class="tool-info">
+        <div class="instructions">
+            <h3>How to use:</h3>
+            <ol>
+                <li>Click the "Choose File" button above</li>
+                <li>Select a clear image containing a face</li>
+                <li>Click "Search Now" to begin facial recognition</li>
+                <li>View the results of similar faces found online</li>
+            </ol>
         </div>
-
-        <div class="how-to">
-            <h2>How to Use the Face Search Tool</h2>
-            <div class="how-to-steps">
-                <div class="step">
-                    <span>1</span>
-                    <p>Upload your image file.</p>
+        
+        <!-- New feature section styled like the screenshot -->
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 1 0 0-8z"></path><path d="M16 2H8a4 4 0 0 0-4 4v12c0 2.2 1.8 4 4 4h8c2.2 0 4-1.8 4-4V6c0-2.2-1.8-4-4-4z"></path></svg>
                 </div>
-                <div class="step">
-                    <span>2</span>
-                    <p>Click the "Search Face" button.</p>
+                <h4>Advanced AI Recognition</h4>
+                <p>Our intelligent face recognition system analyzes facial features to find similar matches across the web with remarkable precision.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                 </div>
-                <div class="step">
-                    <span>3</span>
-                    <p>View the results to find similar faces or matches.</p>
+                <h4>Multiple Image Formats</h4>
+                <p>Upload images in popular formats like PNG, JPG, and JPEG without any conversion needed.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
                 </div>
-            </div>
-        </div>
-
-        <div class="features">
-            <h2>🧠 Features of Our Face Search Tool</h2>
-            <p>Our Face Search Tool leverages cutting-edge AI technology to help you find visually similar faces, verify identities, or trace online image appearances with remarkable precision. Whether you're conducting personal research, verifying image authenticity, or exploring facial recognition technology, this tool delivers fast, accurate results—right from your browser.</p>
-            
-            <div class="faq-item">
-                <h3>🧬 Find Similar Faces or Matches Using Advanced AI</h3>
-                <p>Upload a photo, and our intelligent face recognition system will analyze the facial features to find similar matches across the web or within databases. Whether you're identifying someone, spotting duplicates, or finding look-alikes, our tool provides highly accurate results powered by next-gen artificial intelligence.</p>
+                <h4>Fast Processing</h4>
+                <p>Get instant face-matching results with real-time processing that delivers accurate results in seconds.</p>
             </div>
             
-            <div class="faq-item">
-                <h3>📁 Supports Multiple Image Formats</h3>
-                <p>You can upload images in popular formats like PNG, JPG, and JPEG without the need for conversions. This ensures you can work with any standard image, regardless of its source or size.</p>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <h4>Privacy Protected</h4>
+                <p>We process your images securely while maintaining your privacy. Your photos aren't stored on our servers.</p>
             </div>
             
-            <div class="faq-item">
-                <h3>⚡ Fast & Secure Processing</h3>
-                <p>Enjoy instant face-matching results with enterprise-grade security. Our tool processes your images in real-time without storing them—your photos remain private and protected at all times. We take your privacy seriously.</p>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"></path></svg>
+                </div>
+                <h4>100% Free</h4>
+                <p>This face search tool is entirely free to use with no registrations, file size limits, or annoying watermarks.</p>
             </div>
             
-            <div class="faq-item">
-                <h3>💯 Completely Free to Use</h3>
-                <p>There's no charge to access our face search tool—ever. It's 100% free, with no sign-ups, no premium tiers, and no hidden restrictions. Whether you're a casual user or a professional, you get full access to all features.</p>
-            </div>
-            
-            <div class="faq-item">
-                <h3>🌐 Compatible with All Modern Browsers & Devices</h3>
-                <p>Use the tool from any browser on any device—Chrome, Firefox, Safari, Edge, or others. It works seamlessly on desktop, tablet, and mobile, so you can search and verify faces wherever you are.</p>
-            </div>
-            
-            <div class="faq-item">
-                <h3>📲 Mobile-Friendly & User-Centric Interface</h3>
-                <p>Our clean, responsive design makes face searching a smooth experience on both small and large screens. Upload an image directly from your phone, drag and drop from your desktop, or take a new photo—everything is optimized for ease of use.</p>
-            </div>
-            
-            <div class="faq-item">
-                <h3>🛡️ Great for Verification, Research, and Fun</h3>
-                <p>Use our face search tool to verify if an image is real or fake, track potential identity misuse, reconnect with people, or simply find your celebrity doppelgänger. It's a versatile tool that's as practical as it is fun.</p>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M15.21 8.79l4.29-4.29M15.21 8.79C14.12 7.71 12.71 7.06 11.22 7.06 8.17 7.06 5.7 9.53 5.7 12.58c0 1.49.65 2.9 1.73 3.99m3.79 3.79l-4.29 4.29m4.29-4.29c1.09 1.08 2.5 1.73 3.99 1.73 3.05 0 5.52-2.47 5.52-5.52 0-1.49-.65-2.9-1.73-3.99"></path></svg>
+                </div>
+                <h4>Browser Compatible</h4>
+                <p>Works seamlessly on all modern browsers and devices, including mobile phones and tablets.</p>
             </div>
         </div>
-
-        <div class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3>What is face search?</h3>
-                <p>Face search allows you to find similar faces or matches by uploading an image file.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Is it safe to use face search online?</h3>
-                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Can I search for multiple faces at once?</h3>
-                <p>Currently, the tool supports one image at a time. Batch processing will be added soon.</p>
-            </div>
+        
+        <div class="privacy-notice">
+            <h3>Privacy Notice</h3>
+            <p>Face recognition technology should be used responsibly and in accordance with applicable laws and regulations. Always respect privacy and obtain proper consent when using facial recognition for identifying individuals. This tool is for educational and personal use only.</p>
         </div>
-
-        <div class="user-engagement" style="margin-top: 40px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-            <h3 style="text-align: center; color: #333;">Are you a happy user?</h3>
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 20px;">
-                <div style="text-align: center; margin: 10px;">
-                    <p>Want more features?</p>
-                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 4px;">Donate</a>
-                </div>
-                <div style="text-align: center; margin: 10px;">
-                    <p>Sharing is caring</p>
-                    <div style="display: flex; justify-content: center; gap: 10px;">
-                        <a href="https://www.facebook.com/sharer/sharer.php" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #4267B2;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 20px; height: 20px; margin-right: 5px;"> Facebook
-                        </a>
-                        <a href="https://twitter.com/intent/tweet" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #1DA1F2;">
-                            <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg" alt="Twitter" style="width: 20px; height: 20px; margin-right: 5px;"> Twitter
-                        </a>
-                        <a href="https://www.reddit.com/submit" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #FF4500;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Reddit_logo_new.svg" alt="Reddit" style="width: 20px; height: 20px; margin-right: 5px;"> Reddit
-                        </a>
-                        <a href="https://www.linkedin.com/shareArticle" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #0077B5;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Linkedin_icon.svg" alt="LinkedIn" style="width: 20px; height: 20px; margin-right: 5px;"> LinkedIn
-                        </a>
-                    </div>
-                </div>
-                <div style="text-align: center; margin: 10px;">
-                    <p>Come back!</p>
-                    <button onclick="window.alert('Press Ctrl+D to bookmark this page!')" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Bookmark Page</button>
-                </div>
-                <div style="text-align: center; margin: 10px;">
-                    <p>Rate Us!</p>
-                    <a href="https://www.trustpilot.com" target="_blank" style="text-decoration: none; color: white; background-color: #28a745; padding: 10px 20px; border-radius: 4px;">Review us on Trustpilot</a>
-                </div>
-                <div style="text-align: center; margin: 10px;">
-                    <p>Send Feedback</p>
-                    <a href="https://willsblogger.com/about/" target="_blank" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 4px;">Contact us</a>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-            <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-use">Terms of Use</a></p>
-        </footer>
     </div>
-</body>
-</html>
+</div>
+
+<style>
+    .tool-container {
+        padding: 20px 0;
+    }
+    
+    /* Improved upload form styling */
+    .upload-form {
+        margin: 30px 0;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        text-align: center;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+    
+    .form-group small {
+        display: block;
+        margin-top: 8px;
+        color: #6c757d;
+    }
+    
+    .submit-btn {
+        padding: 12px 30px;
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        margin-top: 10px;
+    }
+    
+    .submit-btn:hover {
+        background-color: #c0392b;
+        transform: translateY(-2px);
+    }
+    
+    /* Tool info section styling */
+    .tool-info {
+        margin-top: 40px;
+    }
+    
+    .instructions, .privacy-notice {
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    
+    .instructions {
+        background-color: #f8f9fa;
+        border-left: 4px solid #007bff;
+    }
+    
+    .privacy-notice {
+        background-color: #fff3cd;
+        border-left: 4px solid #ffc107;
+    }
+    
+    .instructions h3, .privacy-notice h3 {
+        margin-top: 0;
+        color: #333;
+    }
+    
+    .instructions ol {
+        padding-left: 25px;
+        line-height: 1.6;
+    }
+    
+    .instructions li {
+        margin-bottom: 8px;
+    }
+    
+    /* New feature grid styling similar to screenshot */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin: 40px 0;
+    }
+    
+    .feature-item {
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .feature-icon {
+        margin-bottom: 15px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .feature-icon svg {
+        width: 40px;
+        height: 40px;
+        stroke: #e74c3c;
+    }
+    
+    .feature-item h4 {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+        color: white;
+    }
+    
+    .feature-item p {
+        font-size: 0.95em;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Dark background for features section like in screenshot */
+    .features-grid {
+        background-color: #1a1e23;
+        padding: 40px;
+        border-radius: 8px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}

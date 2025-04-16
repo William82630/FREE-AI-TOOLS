@@ -1,198 +1,829 @@
-<html>
-<head>
-    <title>Simple Calculator</title>
-    <meta name="description" content="Perform basic arithmetic calculations with memory functions. Includes addition, subtraction, multiplication, division, and more advanced operations.">
-    <meta name="keywords" content="simple calculator, online calculator, basic calculator">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .hero {
-            background-color: #007BFF;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .hero p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .calculator {
-            text-align: center;
-        }
-        .calculator-display {
-            width: 100%;
-            height: 50px;
-            font-size: 1.5em;
-            text-align: right;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-        }
-        .calculator-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        .calculator-buttons button {
-            padding: 15px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 4px;
-            background-color: #007BFF;
-            color: white;
-            cursor: pointer;
-        }
-        .calculator-buttons button:hover {
-            background-color: #0056b3;
-        }
-        .description {
-            margin-top: 20px;
-            text-align: left;
-            color: #333;
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #666;
-        }
-    </style>
-</head>
-<body>
-    <div class="hero">
-        <h1>Simple Calculator</h1>
-        <p>Perform basic arithmetic calculations with memory functions. Includes addition, subtraction, multiplication, division, and more advanced operations.</p>
-    </div>
+{% extends "base.html" %}
 
-    <div class="container">
+{% block title %}Simple Calculator - Free Online Calculator{% endblock %}
+
+{% block content %}
+<div class="container content-box">
+    <div class="calculator-wrapper">
+        <div class="calculator-container">
+            <h1>Simple Calculator</h1>
+            <p>Perform calculations with memory functions and calculation history.</p>
+        </div>
+        
         <div class="calculator">
-            <input type="text" id="display" class="calculator-display" disabled>
-            <div class="calculator-buttons">
-                <button onclick="clearDisplay()">AC</button>
-                <button onclick="appendToDisplay('%')">%</button>
-                <button onclick="appendToDisplay('/')">÷</button>
-                <button onclick="backspace()">←</button>
-                <button onclick="appendToDisplay('7')">7</button>
-                <button onclick="appendToDisplay('8')">8</button>
-                <button onclick="appendToDisplay('9')">9</button>
-                <button onclick="appendToDisplay('*')">×</button>
-                <button onclick="appendToDisplay('4')">4</button>
-                <button onclick="appendToDisplay('5')">5</button>
-                <button onclick="appendToDisplay('6')">6</button>
-                <button onclick="appendToDisplay('-')">−</button>
-                <button onclick="appendToDisplay('1')">1</button>
-                <button onclick="appendToDisplay('2')">2</button>
-                <button onclick="appendToDisplay('3')">3</button>
-                <button onclick="appendToDisplay('+')">+</button>
-                <button onclick="appendToDisplay('0')">0</button>
-                <button onclick="appendToDisplay('.')">.</button>
-                <button onclick="toggleSign()">±</button>
-                <button onclick="calculate()">=</button>
+            <div class="calculator-history" id="history-tape">
+                <div class="history-title">History</div>
+                <div class="history-content" id="history-content"></div>
+            </div>
+            
+            <div class="calculator-main">
+                <div class="calculator-memory-display">
+                    <span id="memory-indicator">M</span>
+                </div>
+                <input type="text" id="display" class="calculator-display" disabled>
+                <div class="calculator-buttons">
+                    <button class="btn-memory" onclick="memoryClear()">MC</button>
+                    <button class="btn-memory" onclick="memoryRecall()">MR</button>
+                    <button class="btn-memory" onclick="memoryAdd()">M+</button>
+                    <button class="btn-memory" onclick="memorySubtract()">M-</button>
+                    
+                    <button class="btn-function" onclick="clearDisplay()">AC</button>
+                    <button class="btn-function" onclick="toggleSign()">±</button>
+                    <button class="btn-function" onclick="appendToDisplay('%')">%</button>
+                    <button class="btn-operator" onclick="appendToDisplay('/')">÷</button>
+                    
+                    <button class="btn-number" onclick="appendToDisplay('7')">7</button>
+                    <button class="btn-number" onclick="appendToDisplay('8')">8</button>
+                    <button class="btn-number" onclick="appendToDisplay('9')">9</button>
+                    <button class="btn-operator" onclick="appendToDisplay('*')">×</button>
+                    
+                    <button class="btn-number" onclick="appendToDisplay('4')">4</button>
+                    <button class="btn-number" onclick="appendToDisplay('5')">5</button>
+                    <button class="btn-number" onclick="appendToDisplay('6')">6</button>
+                    <button class="btn-operator" onclick="appendToDisplay('-')">−</button>
+                    
+                    <button class="btn-number" onclick="appendToDisplay('1')">1</button>
+                    <button class="btn-number" onclick="appendToDisplay('2')">2</button>
+                    <button class="btn-number" onclick="appendToDisplay('3')">3</button>
+                    <button class="btn-operator" onclick="appendToDisplay('+')">+</button>
+                    
+                    <button class="btn-number btn-zero" onclick="appendToDisplay('0')">0</button>
+                    <button class="btn-number" onclick="appendToDisplay('.')">.</button>
+                    <button class="btn-function" onclick="backspace()">←</button>
+                    <button class="btn-equals" onclick="calculate()">=</button>
+                </div>
             </div>
         </div>
 
         <div class="description">
-            <h2>About This Calculator</h2>
-            <p>This simple calculator is designed to handle basic arithmetic operations such as addition, subtraction, multiplication, and division. It also includes advanced features like percentage calculations, memory functions, and more.</p>
+            <h2>About This Simple Calculator</h2>
+            <p>This advanced calculator is designed to handle everyday arithmetic operations with professional features like memory functions and calculation history to track your work.</p>
 
             <h3>How to Use:</h3>
             <ul>
-                <li>Use the buttons to input numbers and operations.</li>
-                <li>Click "AC" to clear the display.</li>
-                <li>Use the "±" button to toggle between positive and negative values.</li>
-                <li>Click "=" to calculate the result.</li>
+                <li>Use the number buttons to input values and operators for calculations.</li>
+                <li>View your calculation history in the tape on the left side.</li>
+                <li>Use memory functions to store and recall values:
+                    <ul>
+                        <li><strong>MC</strong> - Memory Clear: Clears the stored value.</li>
+                        <li><strong>MR</strong> - Memory Recall: Displays the stored value.</li>
+                        <li><strong>M+</strong> - Memory Add: Adds the displayed value to memory.</li>
+                        <li><strong>M-</strong> - Memory Subtract: Subtracts the displayed value from memory.</li>
+                    </ul>
+                </li>
+                <li>Use keyboard input for faster calculations.</li>
             </ul>
-
-            <h3>Features:</h3>
-            <ul>
-                <li>Basic arithmetic: addition, subtraction, multiplication, and division.</li>
-                <li>Percentage calculations.</li>
-                <li>Memory functions for storing and recalling values.</li>
-                <li>Clear and backspace options for easy corrections.</li>
-            </ul>
-
-            <h3>What Are the Functions on the Calculator?</h3>
-            <ul>
-                <li><strong>÷:</strong> Division</li>
-                <li><strong>×:</strong> Multiplication</li>
-                <li><strong>+:</strong> Addition</li>
-                <li><strong>−:</strong> Subtraction</li>
-                <li><strong>=:</strong> Calculate</li>
-            </ul>
-
-            <h2>Frequently Asked Questions (FAQs)</h2>
-            <h3>1. What is this calculator used for?</h3>
-            <p>This calculator is designed for basic arithmetic operations such as addition, subtraction, multiplication, and division. It is simple and easy to use for quick calculations.</p>
-
-            <h3>2. Can I use this calculator on my mobile device?</h3>
-            <p>Yes, this calculator is fully responsive and works seamlessly on mobile devices, tablets, and desktops.</p>
-
-            <h3>3. Does this calculator support advanced functions?</h3>
-            <p>Currently, this calculator is focused on basic operations. For advanced calculations, you may need a scientific calculator.</p>
-
-            <h3>4. How accurate are the calculations?</h3>
-            <p>The calculator provides results with up to 10 digits of precision, ensuring high accuracy for most calculations.</p>
-
-            <h3>5. Can I use the keyboard to operate the calculator?</h3>
-            <p>Yes, you can use your keyboard's number pad and basic arithmetic keys (+, -, *, /) to perform calculations.</p>
-
-            <h3>6. Is there a way to clear the display?</h3>
-            <p>Yes, you can use the "AC" button to clear all entries and reset the calculator.</p>
+        </div>
+    </div>
+    
+    <!-- Feature cards section -->
+    <div class="feature-section">
+        <h2 class="section-title">Simple Calculator Features</h2>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-name">Calculation History</div>
+                <div class="feature-description">
+                    Keep track of your previous calculations with an integrated history tape.
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <div class="feature-name">Memory Functions</div>
+                <div class="feature-description">
+                    Store, recall, add to, and subtract from memory for complex calculations.
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <div class="feature-name">Percentage Calculations</div>
+                <div class="feature-description">
+                    Calculate percentages with a single click for tax, discount, or tip calculations.
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⌨️</div>
+                <div class="feature-name">Keyboard Support</div>
+                <div class="feature-description">
+                    Use your keyboard for faster input with support for all operations.
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <div class="feature-name">Responsive Design</div>
+                <div class="feature-description">
+                    Use seamlessly on any device with an optimized layout for all screen sizes.
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-name">Privacy-Focused</div>
+                <div class="feature-description">
+                    All calculations are performed locally in your browser with no data sent to our servers.
+                </div>
+            </div>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
-    </footer>
+    <div class="faq-section">
+        <h2>Frequently Asked Questions (FAQs)</h2>
+        <div class="faq-item">
+            <h3>1. How do the memory functions work?</h3>
+            <p>Memory functions let you store values during calculations. Use M+ to add the current display to memory, M- to subtract, MR to recall the stored value, and MC to clear memory.</p>
+        </div>
 
-    <script>
-        function appendToDisplay(value) {
-            const display = document.getElementById('display');
-            display.value += value;
+        <div class="faq-item">
+            <h3>2. Can I use my keyboard with this calculator?</h3>
+            <p>Yes! You can use the number keys, operators (+, -, *, /), Enter key for equals, Backspace for deletion, and Escape to clear the display.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>3. What is the calculation history feature?</h3>
+            <p>The history tape shows your recent calculations, making it easy to track your work and refer back to previous results.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>4. How accurate are the calculations?</h3>
+            <p>The calculator provides results with high precision, ensuring accuracy for most everyday calculations and financial tasks.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>5. Can I save or export my calculation history?</h3>
+            <p>Currently, the history is stored for the duration of your session. We're working on adding export functionality in a future update.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>6. Does this calculator work offline?</h3>
+            <p>Yes, once the page is loaded, all calculations are performed in your browser and will continue to work even without an internet connection.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 0;
+    }
+    
+    .content-box {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        padding: 35px;
+        margin-bottom: 30px;
+        border: 1px solid #eaeaea;
+    }
+    
+    .calculator-wrapper {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    
+    .tool-title {
+        font-size: 2.4em;
+        margin: 0 0 10px;
+        color: #1a1a1a;
+        font-weight: 700;
+    }
+    
+    .tool-description {
+        font-size: 1.2em;
+        color: #555;
+        margin: 0 0 30px;
+    }
+    
+    .calculator {
+        max-width: 600px;
+        margin: 0 auto 40px;
+        padding: 25px;
+        background: linear-gradient(145deg, #fafafa, #f2f2f2);
+        border-radius: 20px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        border: 1px solid #e0e0e0;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+    
+    @media (max-width: 700px) {
+        .calculator {
+            flex-direction: column-reverse;
+            padding: 20px;
         }
-
-        function clearDisplay() {
-            document.getElementById('display').value = '';
+    }
+    
+    .calculator-history {
+        flex: 0 0 200px;
+        border-radius: 12px;
+        background-color: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    @media (max-width: 700px) {
+        .calculator-history {
+            flex: none;
+            height: 150px;
+            width: 100%;
         }
-
-        function backspace() {
-            const display = document.getElementById('display');
-            display.value = display.value.slice(0, -1);
+    }
+    
+    .history-title {
+        background-color: #444;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+        border-bottom: 1px solid #333;
+    }
+    
+    .history-content {
+        overflow-y: auto;
+        padding: 10px;
+        flex-grow: 1;
+        font-family: 'Consolas', monospace;
+        font-size: 0.85em;
+        text-align: right;
+    }
+    
+    .history-entry {
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed #ddd;
+    }
+    
+    .history-expression {
+        color: #555;
+        margin-bottom: 3px;
+    }
+    
+    .history-result {
+        color: #1a1a1a;
+        font-weight: bold;
+    }
+    
+    .calculator-main {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .calculator-memory-display {
+        height: 20px;
+        text-align: right;
+        padding-right: 10px;
+        margin-bottom: 5px;
+    }
+    
+    #memory-indicator {
+        display: none;
+        font-weight: bold;
+        color: #f1a33c;
+    }
+    
+    .calculator-display {
+        width: 100%;
+        height: 80px;
+        font-size: 2.2em;
+        text-align: right;
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background-color: #fff;
+        box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        font-family: 'Roboto Mono', 'Courier New', monospace;
+        color: #333;
+        transition: all 0.2s;
+    }
+    
+    .calculator-buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+    }
+    
+    .calculator-buttons button {
+        padding: 20px 0;
+        font-size: 1.4em;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        font-weight: 600;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .calculator-buttons button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+    
+    .calculator-buttons button:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    /* Button ripple effect */
+    .calculator-buttons button:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+        transition: transform 0.5s, opacity 0.5s;
+    }
+    
+    .calculator-buttons button:active:after {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        transition: 0s;
+    }
+    
+    .btn-number {
+        background-color: #fff;
+        color: #333;
+        border: 1px solid #e0e0e0;
+    }
+    
+    .btn-number:hover {
+        background-color: #f9f9f9;
+    }
+    
+    .btn-operator {
+        background-color: #f1a33c;
+        color: white;
+    }
+    
+    .btn-operator:hover {
+        background-color: #e09730;
+    }
+    
+    .btn-function {
+        background-color: #e0e0e0;
+        color: #333;
+    }
+    
+    .btn-function:hover {
+        background-color: #d5d5d5;
+    }
+    
+    .btn-memory {
+        background-color: #3a3a3a;
+        color: white;
+        font-size: 1.2em;
+    }
+    
+    .btn-memory:hover {
+        background-color: #2a2a2a;
+    }
+    
+    .btn-equals {
+        background-color: #4CAF50;
+        color: white;
+    }
+    
+    .btn-equals:hover {
+        background-color: #3e8e41;
+    }
+    
+    .btn-zero {
+        grid-column: span 2;
+    }
+    
+    .description {
+        text-align: left;
+        color: #333;
+        margin-top: 40px;
+        padding: 0 10px;
+        line-height: 1.8;
+    }
+    
+    .description h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        color: #222;
+        position: relative;
+        padding-bottom: 12px;
+    }
+    
+    .description h2:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 70px;
+        height: 4px;
+        background-color: #f1a33c;
+    }
+    
+    .description h3 {
+        font-size: 1.4em;
+        margin: 30px 0 15px;
+        color: #333;
+    }
+    
+    .description p, .description li {
+        line-height: 1.9;
+        margin-bottom: 15px;
+        color: #444;
+        font-size: 1.05em;
+    }
+    
+    /* Feature section styling */
+    .feature-section {
+        margin: 60px 0;
+        padding: 40px;
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        border: 1px solid #eaeaea;
+    }
+    
+    .section-title {
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 40px;
+        color: #222;
+        position: relative;
+        padding-bottom: 15px;
+    }
+    
+    .section-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90px;
+        height: 4px;
+        background-color: #f1a33c;
+    }
+    
+    .feature-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    
+    @media (max-width: 900px) {
+        .feature-cards {
+            grid-template-columns: repeat(2, 1fr);
         }
+        
+        .container {
+            max-width: 95%;
+        }
+    }
+    
+    @media (max-width: 600px) {
+        .feature-cards {
+            grid-template-columns: 1fr;
+        }
+        
+        .calculator {
+            max-width: 100%;
+        }
+    }
+    
+    .feature-card {
+        padding: 30px;
+        text-align: center;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+        transition: transform 0.4s, box-shadow 0.4s;
+        border: 1px solid #eaeaea;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+    
+    .feature-icon {
+        font-size: 3.5em;
+        margin-bottom: 25px;
+        color: #f1a33c;
+    }
+    
+    .feature-name {
+        font-weight: bold;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+        color: #222;
+    }
+    
+    .feature-description {
+        font-size: 1.05em;
+        line-height: 1.7;
+        color: #555;
+    }
+    
+    /* FAQ section styling */
+    .faq-section {
+        margin: 60px 0 30px;
+        padding: 0 10px;
+    }
+    
+    .faq-section h2 {
+        font-size: 2em;
+        margin-bottom: 40px;
+        color: #222;
+        position: relative;
+        padding-bottom: 15px;
+    }
+    
+    .faq-section h2:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 90px;
+        height: 4px;
+        background-color: #f1a33c;
+    }
+    
+    .faq-item {
+        margin-bottom: 30px;
+        background-color: #f9f9f9;
+        padding: 25px 30px;
+        border-radius: 12px;
+        border-left: 5px solid #f1a33c;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .faq-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+    
+    .faq-item h3 {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    
+    .faq-item p {
+        line-height: 1.7;
+        color: #444;
+        font-size: 1.05em;
+    }
+</style>
+{% endblock %}
 
-        function toggleSign() {
-            const display = document.getElementById('display');
-            if (display.value) {
-                display.value = parseFloat(display.value) * -1;
+{% block scripts %}
+<script>
+    // Calculator functionality
+    let display = document.getElementById('display');
+    let historyContent = document.getElementById('history-content');
+    let memoryIndicator = document.getElementById('memory-indicator');
+    let currentInput = '';
+    let memoryValue = 0;
+    let hasMemory = false;
+    
+    function updateMemoryIndicator() {
+        if (hasMemory) {
+            memoryIndicator.style.display = 'inline-block';
+        } else {
+            memoryIndicator.style.display = 'none';
+        }
+    }
+    
+    function appendToDisplay(value) {
+        // Handle edge cases and improve UX
+        if (display.value === 'Error') {
+            clearDisplay();
+        }
+        
+        // Add space after operators for readability in display
+        if (['+', '-', '*', '/', '%'].includes(value)) {
+            // Avoid multiple operators in sequence
+            if (['+', '-', '*', '/', '%'].includes(currentInput.slice(-1))) {
+                currentInput = currentInput.slice(0, -1) + value;
+                display.value = formatDisplayValue(currentInput);
+                return;
             }
         }
-
-        function calculate() {
-            const display = document.getElementById('display');
+        
+        currentInput += value;
+        display.value = formatDisplayValue(currentInput);
+    }
+    
+    function formatDisplayValue(value) {
+        // Format for display (replace * with ×, / with ÷)
+        return value
+            .replace(/\*/g, '×')
+            .replace(/\//g, '÷');
+    }
+    
+    function parseInputForCalculation(input) {
+        // Prepare input for calculation (replace visual symbols with operators)
+        return input
+            .replace(/×/g, '*')
+            .replace(/÷/g, '/');
+    }
+    
+    function clearDisplay() {
+        currentInput = '';
+        display.value = '';
+    }
+    
+    function calculate() {
+        try {
+            // Save the expression for history
+            const expression = currentInput;
+            const parsedExpression = parseInputForCalculation(expression);
+            
+            // Calculate result
+            const result = eval(parsedExpression);
+            
+            // Handle errors and edge cases
+            if (!isFinite(result)) {
+                throw new Error('Division by zero');
+            }
+            
+            // Format the result (limit decimal places if needed)
+            const formattedResult = Number.isInteger(result) ? 
+                result.toString() : 
+                parseFloat(result.toFixed(8)).toString();
+            
+            // Add to history
+            addToHistory(formatDisplayValue(expression), formattedResult);
+            
+            // Update display
+            currentInput = formattedResult;
+            display.value = formattedResult;
+        } catch (error) {
+            display.value = 'Error';
+            currentInput = '';
+        }
+    }
+    
+    function addToHistory(expression, result) {
+        const historyEntry = document.createElement('div');
+        historyEntry.className = 'history-entry';
+        
+        const expressionEl = document.createElement('div');
+        expressionEl.className = 'history-expression';
+        expressionEl.textContent = expression;
+        
+        const resultEl = document.createElement('div');
+        resultEl.className = 'history-result';
+        resultEl.textContent = '= ' + result;
+        
+        historyEntry.appendChild(expressionEl);
+        historyEntry.appendChild(resultEl);
+        
+        historyContent.appendChild(historyEntry);
+        historyContent.scrollTop = historyContent.scrollHeight;
+    }
+    
+    function backspace() {
+        if (currentInput) {
+            currentInput = currentInput.slice(0, -1);
+            display.value = formatDisplayValue(currentInput);
+        }
+    }
+    
+    function toggleSign() {
+        if (currentInput !== '') {
             try {
-                display.value = eval(display.value);
-            } catch {
+                // Find the last number in the expression
+                const regex = /(-?\d*\.?\d+)$/;
+                const match = currentInput.match(regex);
+                
+                if (match) {
+                    const number = match[0];
+                    const toggledNumber = (parseFloat(number) * -1).toString();
+                    currentInput = currentInput.substring(0, match.index) + toggledNumber;
+                    display.value = formatDisplayValue(currentInput);
+                }
+            } catch (error) {
                 display.value = 'Error';
+                currentInput = '';
             }
         }
-    </script>
-</body>
-</html>
+    }
+    
+    // Memory functions
+    function memoryClear() {
+        memoryValue = 0;
+        hasMemory = false;
+        updateMemoryIndicator();
+    }
+    
+    function memoryRecall() {
+        if (hasMemory) {
+            currentInput += memoryValue.toString();
+            display.value = formatDisplayValue(currentInput);
+        }
+    }
+    
+    function memoryAdd() {
+        try {
+            // If there's a value in the display
+            if (currentInput) {
+                // Try to evaluate the current expression first
+                let valueToAdd;
+                try {
+                    valueToAdd = eval(parseInputForCalculation(currentInput));
+                } catch {
+                    valueToAdd = parseFloat(currentInput);
+                }
+                
+                if (!isNaN(valueToAdd)) {
+                    memoryValue += valueToAdd;
+                    hasMemory = true;
+                    updateMemoryIndicator();
+                }
+            }
+        } catch (error) {
+            console.error('Memory add error:', error);
+        }
+    }
+    
+    function memorySubtract() {
+        try {
+            // If there's a value in the display
+            if (currentInput) {
+                // Try to evaluate the current expression first
+                let valueToSubtract;
+                try {
+                    valueToSubtract = eval(parseInputForCalculation(currentInput));
+                } catch {
+                    valueToSubtract = parseFloat(currentInput);
+                }
+                
+                if (!isNaN(valueToSubtract)) {
+                    memoryValue -= valueToSubtract;
+                    hasMemory = true;
+                    updateMemoryIndicator();
+                }
+            }
+        } catch (error) {
+            console.error('Memory subtract error:', error);
+        }
+    }
+    
+    // Keyboard support
+    document.addEventListener('keydown', function(event) {
+        const key = event.key;
+        
+        // Prevent default behavior for calculator keys
+        if (/[0-9+\-*/.=]|Enter|Backspace|Escape|%/.test(key)) {
+            event.preventDefault();
+        }
+        
+        // Numbers and operators
+        if (/[0-9]/.test(key)) {
+            appendToDisplay(key);
+        } else if (/[+\-*/%]/.test(key)) {
+            appendToDisplay(key);
+        } else if (key === '.') {
+            appendToDisplay('.');
+        } else if (key === '/') {
+            appendToDisplay('/');
+        } else if (key === 'Enter' || key === '=') {
+            calculate();
+        } else if (key === 'Backspace') {
+            backspace();
+        } else if (key === 'Escape') {
+            clearDisplay();
+        } else if (key === 'c' || key === 'C') {
+            clearDisplay();
+        }
+        
+        // Memory functions with keyboard shortcuts
+        else if (key === 'm' || key === 'M') {
+            memoryAdd();
+        } else if ((key === 'n' || key === 'N') || (event.shiftKey && key === 'M')) {
+            memorySubtract();
+        } else if (key === 'r' || key === 'R') {
+            memoryRecall();
+        } else if (key === 'x' || key === 'X') {
+            memoryClear();
+        }
+    });
+    
+    // Initialize the calculator
+    updateMemoryIndicator();
+</script>
+{% endblock %}

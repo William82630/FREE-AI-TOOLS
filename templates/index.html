@@ -1,198 +1,202 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>All Tools - Free AI Tools</title>
-    <meta name="description" content="Explore a wide range of free tools including image editing, online calculators, and more. Easy-to-use and SEO-optimized tools for everyone.">
-    <meta name="keywords" content="free tools, image editing tools, online calculators, favicon generator, image converter">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        p {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #555;
-        }
-        .tool-category {
-            margin-bottom: 40px;
-        }
-        .tool-category h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .tool-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .tool-card {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            flex: 1 1 calc(25% - 20px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .tool-card a {
-            text-decoration: none;
-            color: #007BFF;
-            font-weight: bold;
-        }
-        .tool-card a:hover {
-            text-decoration: underline;
-        }
-        .tool-card p {
-            margin-top: 10px;
-            color: #555;
-        }
-        footer {
-            background-color: #000;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-            width: 100%;
-        }
-        footer a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
+{% extends "base.html" %}
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .tool-card {
-                flex: 1 1 calc(50% - 20px);
-            }
-        }
+{% block title %}All Tools - Free AI Tools{% endblock %}
 
-        @media (max-width: 480px) {
-            .tool-card {
-                flex: 1 1 100%;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>All Tools</h1>
-        <p>Our collection of free tools is designed to help you optimize every aspect of your workflow. From image editing to online calculators, we've got you covered.</p>
+{% block hero_title %}Free AI Tools Collection{% endblock %}
+{% block hero_description %}Explore our wide range of free tools for image editing, calculations, and more{% endblock %}
 
-        <div class="tool-category">
-            <h2>Image Editing Tools</h2>
-            <div class="tool-list">
-                <div class="tool-card">
-                    <a href="/tools/image-editing/compress-image" target="_blank">Compress Image</a>
-                    <p>Reduce the size of your image files without compromising quality.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/image-editing/favicon-generator" target="_blank">Favicon Generator</a>
-                    <p>Create a professional favicon for your website in seconds.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/image-editing/convert-image" target="_blank">Convert Image</a>
-                    <p>Convert images to PNG, JPG, or JPEG formats easily.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/image-editing/convert-webp-to-png" target="_blank">Convert WEBP to PNG</a>
-                    <p>Transform WEBP images into PNG format quickly.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/image-editing/convert-svg-to-png" target="_blank">Convert SVG to PNG</a>
-                    <p>Convert SVG files to PNG format with high quality.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/image-editing/image-resizer" target="_blank">Image Resizer</a>
-                    <p>Resize your images to custom dimensions quickly and easily.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/image-editing/crop-image" target="_blank">Crop Image</a>
-                    <p>Crop your images to focus on the most important parts.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/image-editing/reverse-image-search" target="_blank">Reverse Image Search</a>
-                    <p>Find the source or similar images using reverse search.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/image-editing/face-search" target="_blank">Face Search</a>
-                    <p>Search for similar faces across the web with advanced AI.</p>
-                </div>
+{% block content %}
+<div class="tools-showcase">
+    <h2>Our Collection of Free Tools</h2>
+    <p>Our collection of free tools is designed to help you optimize every aspect of your workflow. From image editing to online calculators, we've got you covered.</p>
+
+    <div class="tool-category">
+        <h2>Image Editing Tools</h2>
+        <div class="tool-list">
+            <div class="tool-card">
+                <a href="/tools/image-editing/compress-image" target="_blank">Compress Image</a>
+                <p>Reduce the size of your image files without compromising quality.</p>
+            </div>
+            <div class="tool-card">
+                <a href="/tools/image-editing/favicon-generator" target="_blank">Favicon Generator</a>
+                <p>Create a professional favicon for your website in seconds.</p>
+            </div>
+            <div class="tool-card">
+                <a href="/tools/image-editing/convert-image" target="_blank">Convert Image</a>
+                <p>Convert images to PNG, JPG, or JPEG formats easily.</p>
+            </div>
+            <div class="tool-card">
+                <a href="/tools/image-editing/convert-webp-to-png" target="_blank">Convert WEBP to PNG</a>
+                <p>Transform WEBP images into PNG format quickly.</p>
+            </div>
+            <div class="tool-card">
+                <a href="/tools/image-editing/convert-svg-to-png" target="_blank">Convert SVG to PNG</a>
+                <p>Convert SVG files to PNG format with high quality.</p>
+            </div>
+            <div class="tool-card">
+                <a href="/tools/image-editing/image-resizer" target="_blank">Image Resizer</a>
+                <p>Resize your images to custom dimensions quickly and easily.</p>
+            </div>
+            <div class="tool-card">
+                <a href="/tools/image-editing/crop-image" target="_blank">Crop Image</a>
+                <p>Crop your images to focus on the most important parts.</p>
+            </div>
+            <div class="tool-card">
+                <a href="/tools/image-editing/reverse-image-search" target="_blank">Reverse Image Search</a>
+                <p>Find the source or similar images using reverse search.</p>
+            </div>
+            <div class="tool-card">
+                <a href="/tools/image-editing/face-search" target="_blank">Face Search</a>
+                <p>Search for similar faces across the web with advanced AI.</p>
             </div>
         </div>
-
-        <div class="tool-category">
-            <h2>Online Calculators</h2>
-            <div class="tool-list">
-                <div class="tool-card">
-                    <a href="/tools/online-calculators/simple-calculator" target="_blank">Simple Calculator</a>
-                    <p>Perform basic arithmetic calculations with ease.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/online-calculators/age-calculator" target="_blank">Age Calculator</a>
-                    <p>Calculate your exact age in years, months, and days.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/online-calculators/bmi-calculator" target="_blank">BMI Calculator</a>
-                    <p>Determine your Body Mass Index (BMI) quickly.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/online-calculators/currency-converter" target="_blank">Currency Converter</a>
-                    <p>Convert currencies with real-time exchange rates.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/online-calculators/password-generator" target="_blank">Password Generator</a>
-                    <p>Create strong and secure passwords instantly.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/online-calculators/loan-calculator" target="_blank">Loan Calculator</a>
-                    <p>Calculate your loan payments and interest rates easily.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/online-calculators/unit-converter" target="_blank">Unit Converter</a>
-                    <p>Convert units of measurement quickly and accurately.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/online-calculators/qr-code-generator" target="_blank">QR Code Generator</a>
-                    <p>Create QR codes for URLs, text, and more in seconds.</p>
-                </div>
-                <div class="tool-card">
-                    <a href="/tools/online-calculators/gst-calculator" target="_blank">GST Calculator</a>
-                    <p>Calculate Goods and Services Tax (GST) easily.</p>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-            <p>
-                <a href="/privacy-policy" target="_blank">Privacy Policy</a> |
-                <a href="/terms-of-use" target="_blank">Terms of Use</a>
-            </p>
-        </footer>
     </div>
-</body>
-</html>
+
+    <div class="tool-category">
+        <h2>Online Calculators</h2>
+        <div class="tools-grid">
+            <a href="{{ url_for('simple_calculator') }}" target="_blank" class="tool-card">
+                <h3>Simple Calculator</h3>
+                <p>Basic arithmetic calculations</p>
+            </a>
+            <a href="{{ url_for('bmi_calculator') }}" target="_blank" class="tool-card">
+                <h3>BMI Calculator</h3>
+                <p>Calculate Body Mass Index</p>
+            </a>
+            <a href="{{ url_for('age_calculator') }}" target="_blank" class="tool-card">
+                <h3>Age Calculator</h3>
+                <p>Calculate age from birth date</p>
+            </a>
+            <a href="{{ url_for('loan_calculator') }}" target="_blank" class="tool-card">
+                <h3>Loan Calculator</h3>
+                <p>Calculate loan EMI and interest</p>
+            </a>
+            <a href="{{ url_for('gst_calculator') }}" target="_blank" class="tool-card">
+                <h3>GST Calculator</h3>
+                <p>Calculate GST amounts</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- Keyword Research Tools Category -->
+    <div class="tool-category">
+        <h2>Keyword Research Tools</h2>
+        <div class="tool-list">
+            <div class="tool-card">
+                <a href="/tools/keyword-research/keyword-generator" target="_blank">Keyword Generator</a>
+                <p>Generate related keywords for your SEO and content marketing campaigns.</p>
+            </div>
+            <div class="tool-card">
+                <a href="/tools/keyword-research/keyword-difficulty-checker" target="_blank">Keyword Difficulty Checker</a>
+                <p>Check how competitive keywords are for SEO optimization.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Solutions Category -->
+    <div class="tool-category">
+        <h2>PDF Solutions</h2>
+        <div class="tool-list">
+            <div class="tool-card">
+                <a href="/tools/pdf-solutions/pdf-to-text" target="_blank">PDF to Text Converter</a>
+                <p>Extract text content from PDF files quickly and accurately.</p>
+            </div>
+            <div class="tool-card">
+                <a href="/tools/pdf-solutions/pdf-merger" target="_blank">PDF Merger</a>
+                <p>Combine multiple PDF files into a single document easily.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tools-showcase {
+        margin-bottom: 40px;
+    }
+    
+    .tools-showcase > h2 {
+        text-align: center;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    
+    .tools-showcase > p {
+        text-align: center;
+        margin-bottom: 40px;
+        color: #555;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .tool-category {
+        margin-bottom: 40px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+    }
+    
+    .tool-category h2 {
+        margin-bottom: 20px;
+        color: #333;
+        position: relative;
+        padding-left: 15px;
+    }
+    
+    .tool-category h2::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 5px;
+        bottom: 5px;
+        width: 5px;
+        background-color: #e74c3c;
+        border-radius: 2px;
+    }
+    
+    .tool-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .tool-card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .tool-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .tool-card a {
+        text-decoration: none;
+        color: #e74c3c;
+        font-weight: bold;
+        font-size: 1.1em;
+        display: block;
+        margin-bottom: 10px;
+    }
+    
+    .tool-card a:hover {
+        text-decoration: underline;
+    }
+    
+    .tool-card p {
+        margin-top: 10px;
+        color: #555;
+        font-size: 0.9em;
+    }
+</style>
+{% endblock %}
