@@ -1,199 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Favicon Generator</title>
-    <meta name="description" content="Create a professional favicon for your website easily. Upload an image and generate a favicon in seconds.">
-    <meta name="keywords" content="favicon generator, create favicon, favicon maker">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Generator</title>
+    <meta name="description" content="Generate a favicon for your website easily. Upload an image and convert it to a .ico file in seconds.">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            font-size: 1.2em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
         }
-        .hero {
-            background-color: #28a745;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .hero p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
+        form {
             background: #fff;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .input-section {
-            text-align: center;
-            margin: 20px 0;
-        }
         input[type="file"] {
-            padding: 6px;
-            font-size: 1em;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: auto; /* Adjust width to fit "No file chosen" text */
-            display: inline-block;
-        }
-        button[type="submit"] {
-            padding: 6px 12px;
-            font-size: 1em;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            display: inline-block;
-            margin-left: 10px;
-        }
-        button[type="submit"]:hover {
-            background-color: #218838;
-        }
-        .how-to {
-            margin: 40px 0;
-        }
-        .how-to h2 {
-            text-align: center;
-            color: #333;
-        }
-        .how-to-steps {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .step {
-            text-align: center;
-            flex: 1 1 30%;
-            margin: 10px;
-        }
-        .step span {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            background-color: #28a745;
-            color: white;
-            border-radius: 50%;
-            font-size: 1.5em;
             margin-bottom: 10px;
         }
-        .faq {
-            margin: 40px 0;
-        }
-        .faq h2 {
-            text-align: center;
-            color: #333;
-        }
-        .faq-item {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px 0;
-        }
-        footer {
-            background-color: #000;
+        button {
+            background-color: #007BFF;
             color: white;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-            width: 100%;
-            position: relative;
-            bottom: 0;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
         }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .how-to-steps {
-                flex-direction: column;
-                align-items: center;
-            }
-            input[type="file"] {
-                width: 100%;
-                margin-bottom: 10px;
-            }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>Favicon Generator</h1>
-        <p>Create a professional favicon for your website in just a few clicks. Upload your image and let our tool do the rest!</p>
-    </div>
-
-    <div class="container">
-        <div class="input-section">
-            <form action="/tools/image-editing/favicon-generator" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required>
-                <button type="submit">Generate Favicon</button>
-            </form>
-        </div>
-
-        <div class="how-to">
-            <h2>How to Use the Favicon Generator</h2>
-            <div class="how-to-steps">
-                <div class="step">
-                    <span>1</span>
-                    <p>Upload your image file.</p>
-                </div>
-                <div class="step">
-                    <span>2</span>
-                    <p>Click the "Generate Favicon" button.</p>
-                </div>
-                <div class="step">
-                    <span>3</span>
-                    <p>Download your favicon file.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="features" style="margin: 20px auto; max-width: 800px; padding: 30px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-            <h2 style="text-align: center; font-size: 1.8em; color: #333;">Features of Our Favicon Generator</h2>
-            <ul style="list-style: none; padding: 0; font-size: 1.2em; line-height: 1.6;">
-                <li><strong>Format Support:</strong> Our tool accepts various popular image formats, including PNG, JPG, and JPEG, making it easy for users to upload the files they already have without needing to convert them beforehand.</li>
-                <li><strong>High Quality:</strong> It generates crisp, high-resolution favicon files that retain the clarity and detail of your original image—perfect for professional websites and apps.</li>
-                <li><strong>Speed & Security:</strong> Enjoy fast processing times without compromising security. Your files are handled securely and never stored, ensuring your data remains private and protected.</li>
-                <li><strong>Free Access:</strong> The tool is completely free to use—no subscriptions, sign-ups, or hidden costs. Simply upload your image and get your favicons instantly.</li>
-                <li><strong>Full Compatibility:</strong> Designed to work seamlessly across all modern browsers and devices, so you can generate and use your favicon files with confidence anywhere, anytime.</li>
-            </ul>
-        </div>
-
-        <div class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3>What is a favicon?</h3>
-                <p>A favicon is a small icon that represents your website, typically displayed in the browser tab or bookmarks.</p>
-            </div>
-            <div class="faq-item">
-                <h3>What image formats are supported?</h3>
-                <p>Our tool supports PNG, JPG, and JPEG formats for favicon generation.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Is my uploaded image secure?</h3>
-                <p>Yes, all uploaded images are processed securely and are not stored on our servers.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Can I customize the favicon size?</h3>
-                <p>Currently, the tool generates a standard 64x64 favicon. Custom sizes will be supported soon.</p>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-        </footer>
-    </div>
+    <h1>Favicon Generator</h1>
+    <p>Upload an image to generate a favicon for your website. The image will be resized to 64x64 pixels and converted to a .ico file.</p>
+    <form action="/tools/image-editing/favicon-generator" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <br>
+        <button type="submit">Generate Favicon</button>
+    </form>
 </body>
 </html>

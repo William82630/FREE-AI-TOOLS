@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Generator</title>
+    <title>PDF to Text Converter – Free, Fast & Secure</title>
+    <meta name="description" content="Convert PDF files to plain text instantly with our free online PDF to Text Converter. No registration, no watermark, unlimited conversions. Secure and easy to use.">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,7 +30,7 @@
             align-items: flex-start;
             justify-content: center;
         }
-        .main-password-content {
+        .main-pdf-content {
             flex: 1 1 500px;
             max-width: 900px;
             background: #181f2a;
@@ -52,7 +53,7 @@
             font-size: 1.1em;
             color: #b8c1ec;
         }
-        .password-generator-section {
+        .pdf-converter-section {
             background: #232946;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.10);
@@ -60,24 +61,16 @@
             margin-bottom: 20px;
             text-align: center;
         }
-        .password-generator-section input[type="number"] {
+        .pdf-converter-section input[type="file"] {
             background: #181f2a !important;
             color: #fff !important;
             border: 1px solid #444 !important;
-            width: 80px !important;
             font-size: 1em;
             padding: 6px 10px;
             border-radius: 6px;
             margin: 0 4px 8px 0;
         }
-        .password-generator-section label {
-            margin: 0 8px 0 0;
-            font-size: 1em;
-        }
-        .password-generator-section input[type="checkbox"] {
-            margin: 0 6px 0 0;
-        }
-        .generate-btn {
+        .convert-btn {
             background-color: #00ff9d;
             color: #232946;
             padding: 10px 24px;
@@ -89,20 +82,22 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-        .generate-btn:hover {
+        .convert-btn:hover {
             background-color: #00c97b;
         }
-        .password-result {
+        .pdf-result {
             margin-top: 20px;
-            font-size: 1.3em;
+            font-size: 1.1em;
             color: #00ff9d;
             word-break: break-all;
             background: #181f2a;
             border-radius: 8px;
             padding: 12px 10px;
             display: inline-block;
+            max-width: 100%;
+            overflow-x: auto;
         }
-        .copy-btn {
+        .download-btn {
             margin-left: 10px;
             background: #232946;
             color: #00ff9d;
@@ -112,7 +107,7 @@
             cursor: pointer;
             font-size: 1em;
         }
-        .copy-btn:hover {
+        .download-btn:hover {
             background: #00ff9d;
             color: #232946;
         }
@@ -136,6 +131,7 @@
             padding: 20px;
             width: 200px;
             text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
         }
         .feature-icon {
             font-size: 2em;
@@ -144,18 +140,19 @@
         }
         .faq-section {
             margin-top: 30px;
-            text-align: center;
+            text-align: left;
         }
         .faq-section h2 {
             color: #00ff9d;
             margin-bottom: 20px;
+            text-align: center;
         }
         .faq-item {
             background: #181f2a;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 10px;
-            text-align: left;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
         }
         .happy-user-section {
             margin-top: 30px;
@@ -169,25 +166,16 @@
             color: #00ff9d;
             text-decoration: none;
             margin: 0 10px;
-            font-size: 1.1em;
-        }
-        .happy-user-links a:hover {
-            text-decoration: underline;
         }
         .footer-section {
             margin-top: 30px;
             text-align: center;
-            background: #181f2a;
-            padding: 20px;
-            border-radius: 10px;
+            color: #b8c1ec;
         }
         .footer-links a {
             color: #00ff9d;
             text-decoration: none;
             margin: 0 10px;
-        }
-        .footer-links a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -200,56 +188,45 @@
                 data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
                 data-ad-slot="left-ad"></ins>
         </div>
-        <div class="main-password-content">
+        <div class="main-pdf-content">
             <!-- Hero Section -->
             <div class="hero-section">
-                <h1>Password Generator</h1>
-                <p>Create strong, secure, and random passwords for your online accounts. Customize length and character types for maximum security.</p>
+                <h1>PDF to Text Converter</h1>
+                <p>Convert PDF files to plain text instantly with our free, secure, and easy-to-use online tool. No registration, no watermark, unlimited conversions.</p>
             </div>
-            <div class="password-generator-section">
-                <label>Password Length:
-                    <input type="number" id="password-length" min="4" max="64" value="12">
-                </label>
-                <label><input type="checkbox" id="include-lower" checked>Lowercase</label>
-                <label><input type="checkbox" id="include-upper" checked>Uppercase</label>
-                <label><input type="checkbox" id="include-numbers" checked>Numbers</label>
-                <label><input type="checkbox" id="include-symbols">Symbols</label>
-                <button class="generate-btn" onclick="generatePassword()">Generate Password</button>
-                <div class="password-result" id="password-result"></div>
+            <div class="pdf-converter-section">
+                <input type="file" id="pdf-file" accept="application/pdf">
+                <button class="convert-btn" onclick="convertPDFtoText()">Convert to Text</button>
+                <div class="pdf-result" id="pdf-result"></div>
             </div>
             <!-- Features Section -->
             <div class="features-section">
-                <h2>🔐 Features of Our Password Generator</h2>
+                <h2>✨ Features of Our PDF to Text Converter</h2>
                 <div class="features-grid">
                     <div class="feature-item">
                         <span class="feature-icon">⚡</span>
-                        <h3>Instant Generation</h3>
-                        <p>Create strong passwords instantly with one click.</p>
+                        <h3>Instant Conversion</h3>
+                        <p>Convert PDF files to text in seconds—no waiting, no hassle.</p>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">🔒</span>
-                        <h3>Highly Secure</h3>
-                        <p>Randomized passwords with customizable options for maximum security.</p>
+                        <h3>Secure & Private</h3>
+                        <p>All conversions happen in your browser. Your files never leave your device.</p>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon">🛡️</span>
-                        <h3>Customizable</h3>
-                        <p>Choose length and character types: lowercase, uppercase, numbers, symbols.</p>
+                        <span class="feature-icon">💡</span>
+                        <h3>Unlimited & Free</h3>
+                        <p>Convert as many PDFs as you want, completely free. No watermark, no signup.</p>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon">📋</span>
-                        <h3>Easy Copy</h3>
-                        <p>Copy your generated password with a single click.</p>
+                        <span class="feature-icon">📄</span>
+                        <h3>High Accuracy</h3>
+                        <p>Extracts text from PDFs with high accuracy, even from scanned documents.</p>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">🌐</span>
                         <h3>Works Anywhere</h3>
                         <p>Use on desktop, tablet, or mobile—no installation required.</p>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🔏</span>
-                        <h3>Private & Secure</h3>
-                        <p>All generation is done locally in your browser. No data is sent anywhere.</p>
                     </div>
                 </div>
             </div>
@@ -257,22 +234,30 @@
             <div class="faq-section">
                 <h2>Frequently Asked Questions</h2>
                 <div class="faq-item">
-                    <h3>How strong are the generated passwords?</h3>
-                    <p>Our generator uses true randomness and customizable options to create highly secure passwords.</p>
+                    <h3>How do I convert a PDF to text?</h3>
+                    <p>Simply upload your PDF file, click the convert button, and download or copy the extracted text instantly.</p>
                 </div>
                 <div class="faq-item">
-                    <h3>Is my password data private?</h3>
-                    <p>Yes, all password generation is done locally in your browser. Nothing is sent to any server.</p>
+                    <h3>Is my PDF file safe?</h3>
+                    <p>Yes! All processing is done locally in your browser. Your files are never uploaded or stored anywhere.</p>
                 </div>
                 <div class="faq-item">
-                    <h3>Can I use these passwords for any website?</h3>
-                    <p>Yes, the generated passwords are suitable for any online account, including banking, email, and social media.</p>
+                    <h3>Are there any limits or watermarks?</h3>
+                    <p>No limits, no watermarks, and no registration required. Use the tool as much as you want for free.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Does it work on scanned PDFs?</h3>
+                    <p>Our tool can extract text from most PDFs, including many scanned documents. For best results, use high-quality scans.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I use this on my phone?</h3>
+                    <p>Absolutely! The tool is fully responsive and works on any device.</p>
                 </div>
             </div>
             <!-- Are you a happy user? Section -->
             <div class="happy-user-section">
                 <h2>Are you a happy user?</h2>
-                <p>If you enjoy this password generator, please consider sharing it or supporting us!</p>
+                <p>If you enjoy this PDF to Text Converter, please consider sharing it or supporting us!</p>
                 <div class="happy-user-links">
                     <a href="/" class="home-link">🏠 Home</a>
                     <a href="https://www.buymeacoffee.com/willsblogger" target="_blank">☕ Buy Me a Coffee</a>
@@ -298,33 +283,48 @@
                 data-ad-slot="right-ad"></ins>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <script>
-        function generatePassword() {
-            const length = parseInt(document.getElementById('password-length').value) || 12;
-            const lower = document.getElementById('include-lower').checked;
-            const upper = document.getElementById('include-upper').checked;
-            const numbers = document.getElementById('include-numbers').checked;
-            const symbols = document.getElementById('include-symbols').checked;
-            let charset = '';
-            if (lower) charset += 'abcdefghijklmnopqrstuvwxyz';
-            if (upper) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            if (numbers) charset += '0123456789';
-            if (symbols) charset += '!@#$%^&*()-_=+[]{}|;:,.<>?/~';
-            if (!charset) {
-                document.getElementById('password-result').textContent = 'Select at least one character type!';
+        function convertPDFtoText() {
+            const fileInput = document.getElementById('pdf-file');
+            const resultDiv = document.getElementById('pdf-result');
+            resultDiv.textContent = '';
+            if (!fileInput.files.length) {
+                resultDiv.textContent = 'Please select a PDF file.';
                 return;
             }
-            let password = '';
-            for (let i = 0; i < length; i++) {
-                password += charset.charAt(Math.floor(Math.random() * charset.length));
-            }
-            document.getElementById('password-result').innerHTML = password +
-                `<button class='copy-btn' onclick='copyPassword()'>Copy</button>`;
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const typedarray = new Uint8Array(e.target.result);
+                pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
+                    let textPromises = [];
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        textPromises.push(pdf.getPage(i).then(function(page) {
+                            return page.getTextContent().then(function(textContent) {
+                                return textContent.items.map(item => item.str).join(' ');
+                            });
+                        }));
+                    }
+                    Promise.all(textPromises).then(function(pagesText) {
+                        const fullText = pagesText.join('\n\n');
+                        resultDiv.innerHTML = `<pre style='white-space:pre-wrap;word-break:break-word;'>${fullText}</pre>` +
+                            `<button class='download-btn' onclick='downloadText()'>Download Text</button>`;
+                        window._pdfExtractedText = fullText;
+                    });
+                }, function(error) {
+                    resultDiv.textContent = 'Failed to read PDF file.';
+                });
+            };
+            reader.readAsArrayBuffer(file);
         }
-        function copyPassword() {
-            const pass = document.getElementById('password-result').innerText.replace('Copy','').trim();
-            navigator.clipboard.writeText(pass);
-            alert('Password copied to clipboard!');
+        function downloadText() {
+            const text = window._pdfExtractedText || '';
+            const blob = new Blob([text], {type: 'text/plain'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'extracted-text.txt';
+            a.click();
         }
     </script>
 </body>

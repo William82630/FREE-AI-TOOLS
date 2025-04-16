@@ -9,108 +9,345 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background: linear-gradient(45deg, #1a1a1a, #232946);
+            color: #fff;
         }
-        .hero {
-            background-color: #ffc107;
-            color: white;
-            padding: 40px 20px;
+        .ads-layout {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 24px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .ad-corner {
+            width: 160px;
+            min-width: 120px;
+            max-width: 180px;
+            min-height: 600px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .main-gst-content {
+            flex: 1 1 500px;
+            max-width: 900px;
+            background: #181f2a;
+            border-radius: 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+            padding: 30px 20px 20px 20px;
+            margin: 0 auto;
+        }
+        .main-gst-content, .main-gst-content * {
+            color: #fff !important;
+        }
+        .main-gst-content input,
+        .main-gst-content select {
+            background: #232946 !important;
+            color: #fff !important;
+            border: 1px solid #444 !important;
+        }
+        .main-gst-content input:focus,
+        .main-gst-content select:focus {
+            outline: 2px solid #00ff9d !important;
+            background: #181f2a !important;
+        }
+        .hero-section {
             text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
         }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0;
+        .hero-section h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: #00ff9d;
         }
-        .hero p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .hero-section p {
+            font-size: 1.1em;
+            color: #b8c1ec;
         }
         .calculator {
             text-align: center;
+            margin-bottom: 30px;
         }
         .calculator input {
             padding: 10px;
             margin: 5px;
             width: 200px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .calculator select {
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ddd;
             border-radius: 4px;
         }
         .calculator button {
             padding: 10px 20px;
-            background-color: #ffc107;
-            color: white;
+            background-color: #00ff9d;
+            color: #232946;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-weight: bold;
         }
         .calculator button:hover {
-            background-color: #e0a800;
+            background-color: #00c97b;
         }
         .result {
             margin-top: 20px;
             font-size: 1.2em;
-            color: #333;
+            color: #00ff9d;
         }
-        footer {
+        .features-section {
+            background: #232946;
+            color: #fff;
+            border-radius: 18px;
+            margin: 40px auto 30px auto;
+            padding: 30px 10px 10px 10px;
+            max-width: 700px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        }
+        .features-section h2 {
             text-align: center;
+            margin-bottom: 25px;
+            color: #00ff9d;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-bottom: 10px;
+        }
+        .feature-item {
+            background: #181f2a;
+            border-radius: 12px;
+            padding: 18px 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .feature-item h3 {
+            margin: 10px 0 8px 0;
+            color: #00ff9d !important;
+            font-size: 1.1em;
+        }
+        .feature-item p {
+            color: #e0e0e0 !important;
+            font-size: 0.98em;
+        }
+        .faq-section {
+            background: #232946;
+            color: #fff;
+            border-radius: 14px;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 25px 18px 10px 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .faq-section h2 {
+            text-align: center;
+            color: #00ff9d !important;
+            margin-bottom: 18px;
+        }
+        .faq-item {
+            margin-bottom: 18px;
+        }
+        .faq-item h3 {
+            color: #00ff9d !important;
+            margin-bottom: 6px;
+            font-size: 1.05em;
+        }
+        .faq-item p {
+            color: #e0e0e0 !important;
+            font-size: 0.97em;
+        }
+        .happy-user-section {
+            background: #181f2a;
+            color: #fff;
+            border-radius: 14px;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 25px 18px 18px 18px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .happy-user-section h2 {
+            color: #00ff9d !important;
+            margin-bottom: 10px;
+        }
+        .happy-user-links a {
+            margin: 0 10px;
+            color: #00ff9d;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+        .happy-user-links a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .footer-section {
+            background: #121212;
+            color: #e0e0e0 !important;
+            text-align: center;
+            padding: 18px 0 10px 0;
             margin-top: 40px;
-            color: #666;
+            border-radius: 0 0 18px 18px;
+        }
+        .footer-links {
+            margin-bottom: 8px;
+        }
+        .footer-links a {
+            color: #00ff9d !important;
+            margin: 0 8px;
+            text-decoration: none;
+            font-size: 1em;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+            color: #fff;
+        }
+        @media (max-width: 1100px) {
+            .ads-layout { gap: 10px; }
+            .ad-corner { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>GST Calculator</h1>
-        <p>Calculate Goods and Services Tax (GST) easily. Get accurate GST-inclusive and GST-exclusive amounts.</p>
-    </div>
-
-    <div class="container">
-        <div class="calculator">
-            <form id="gst-calculator-form">
-                <input type="number" id="amount" placeholder="Amount" required>
-                <select id="gst-rate">
-                    <option value="5">5%</option>
-                    <option value="12">12%</option>
-                    <option value="18">18%</option>
-                    <option value="28">28%</option>
-                </select>
-                <button type="button" onclick="calculateGST()">Calculate</button>
-            </form>
-            <div class="result" id="result"></div>
+    <div class="ads-layout">
+        <div class="ad-corner ad-left">
+            <!-- Google AdSense Left Ad Placeholder -->
+            <ins class="adsbygoogle"
+                style="display:block;width:160px;height:600px;background:#181f2a;border-radius:12px;"
+                data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+                data-ad-slot="left-ad"></ins>
+        </div>
+        <div class="main-gst-content">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h1>GST Calculator</h1>
+                <p>Calculate GST (Goods and Services Tax) for any amount. Add or remove GST with ease.</p>
+            </div>
+            <div class="calculator">
+                <form id="gst-calculator-form">
+                    <input type="number" id="amount" placeholder="Amount" required>
+                    <select id="gst-rate-select" onchange="toggleCustomGST()">
+                        <option value="5">5%</option>
+                        <option value="12">12%</option>
+                        <option value="18">18%</option>
+                        <option value="28">28%</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                    <input type="number" id="custom-gst-rate" placeholder="Custom GST %" style="display:none; margin-top:8px;" min="0" step="0.01">
+                    <button type="button" onclick="calculateGST()">Calculate</button>
+                </form>
+                <div class="result" id="result"></div>
+            </div>
+            <!-- Features Section -->
+            <div class="features-section">
+                <h2>🧾 Features of Our GST Calculator</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">💰</span>
+                        <h3>GST Inclusive & Exclusive</h3>
+                        <p>Calculate GST to add to or remove from any amount.</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <h3>Multiple GST Rates</h3>
+                        <p>Supports 5%, 12%, 18%, 28%, or custom GST rates.</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔄</span>
+                        <h3>Instant Results</h3>
+                        <p>Get GST amount, net amount, and gross amount instantly as you type.</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🌐</span>
+                        <h3>Works in Any Browser</h3>
+                        <p>Use on desktop, tablet, or mobile—no installation required.</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔒</span>
+                        <h3>Private & Secure</h3>
+                        <p>All calculations are performed locally in your browser. No data is sent anywhere.</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <h3>Fast & User-Friendly</h3>
+                        <p>Instant results, large buttons, and a clean layout for all users.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <h3>What is GST?</h3>
+                    <p>GST (Goods and Services Tax) is a value-added tax levied on most goods and services sold for domestic consumption.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How do I use this calculator?</h3>
+                    <p>Enter the amount and select GST rate. Choose to add or remove GST, and see instant results.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is my data private?</h3>
+                    <p>Absolutely. All calculations are done in your browser and never sent to a server.</p>
+                </div>
+            </div>
+            <!-- Are you a happy user? Section -->
+            <div class="happy-user-section">
+                <h2>Are you a happy user?</h2>
+                <p>If you enjoy this GST calculator, please consider sharing it or supporting us!</p>
+                <div class="happy-user-links">
+                    <a href="/" class="home-link">🏠 Home</a>
+                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank">☕ Buy Me a Coffee</a>
+                    <a href="https://twitter.com/intent/tweet" target="_blank">🐦 Share on Twitter</a>
+                </div>
+            </div>
+            <!-- Footer Section -->
+            <footer class="footer-section">
+                <div class="footer-links">
+                    <a href="/privacy-policy.html">Privacy Policy</a> |
+                    <a href="/terms-of-use.html">Terms of Use</a> |
+                    <a href="/">Home</a> |
+                    <a href="/contact.html">Contact</a>
+                </div>
+                <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+            </footer>
+        </div>
+        <div class="ad-corner ad-right">
+            <!-- Google AdSense Right Ad Placeholder -->
+            <ins class="adsbygoogle"
+                style="display:block;width:160px;height:600px;background:#181f2a;border-radius:12px;"
+                data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+                data-ad-slot="right-ad"></ins>
         </div>
     </div>
-
-    <footer>
-        <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
-    </footer>
-
     <script>
+        function toggleCustomGST() {
+            var select = document.getElementById('gst-rate-select');
+            var customInput = document.getElementById('custom-gst-rate');
+            if (select.value === 'custom') {
+                customInput.style.display = 'inline-block';
+            } else {
+                customInput.style.display = 'none';
+            }
+        }
         function calculateGST() {
             const amount = parseFloat(document.getElementById('amount').value);
-            const gstRate = parseFloat(document.getElementById('gst-rate').value);
-
-            if (isNaN(amount) || amount <= 0) {
-                document.getElementById('result').textContent = 'Please enter a valid amount.';
+            let gstRate;
+            const select = document.getElementById('gst-rate-select');
+            if (select.value === 'custom') {
+                gstRate = parseFloat(document.getElementById('custom-gst-rate').value);
+            } else {
+                gstRate = parseFloat(select.value);
+            }
+            if (isNaN(amount) || amount <= 0 || isNaN(gstRate) || gstRate < 0) {
+                document.getElementById('result').textContent = 'Please enter a valid amount and GST rate.';
                 return;
             }
-
             const gstAmount = (amount * gstRate) / 100;
             const totalAmount = amount + gstAmount;
-
             document.getElementById('result').innerHTML = `
                 <p>GST Amount: $${gstAmount.toFixed(2)}</p>
                 <p>Total Amount (Including GST): $${totalAmount.toFixed(2)}</p>

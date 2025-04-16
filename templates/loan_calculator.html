@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Loan Calculator</title>
+    <title>Simple Loan Calculator</title>
     <meta name="description" content="Calculate your loan payments and interest rates easily. Get detailed monthly payment breakdowns.">
     <meta name="keywords" content="loan calculator, EMI calculator, online loan calculator">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,105 +9,348 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background: linear-gradient(45deg, #1a1a1a, #232946);
+            color: #fff;
         }
-        .hero {
-            background-color: #007BFF;
-            color: white;
-            padding: 40px 20px;
+        .ads-layout {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 24px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .ad-corner {
+            width: 160px;
+            min-width: 120px;
+            max-width: 180px;
+            min-height: 600px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .main-loan-content {
+            flex: 1 1 500px;
+            max-width: 900px;
+            background: #181f2a;
+            border-radius: 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+            padding: 30px 20px 20px 20px;
+            margin: 0 auto;
+        }
+        .main-loan-content, .main-loan-content * {
+            color: #fff !important;
+        }
+        .main-loan-content input,
+        .main-loan-content select {
+            background: #232946 !important;
+            color: #fff !important;
+            border: 1px solid #444 !important;
+        }
+        .main-loan-content input:focus,
+        .main-loan-content select:focus {
+            outline: 2px solid #00ff9d !important;
+            background: #181f2a !important;
+        }
+        .hero-section {
             text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
         }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0;
+        .hero-section h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: #00ff9d;
         }
-        .hero p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .hero-section p {
+            font-size: 1.1em;
+            color: #b8c1ec;
         }
         .calculator {
             text-align: center;
+            margin-bottom: 30px;
         }
         .calculator input {
             padding: 10px;
             margin: 5px;
             width: 200px;
-            border: 1px solid #ddd;
             border-radius: 4px;
         }
         .calculator button {
             padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
+            background-color: #00ff9d;
+            color: #232946;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-weight: bold;
         }
         .calculator button:hover {
-            background-color: #0056b3;
+            background-color: #00c97b;
         }
         .result {
             margin-top: 20px;
             font-size: 1.2em;
-            color: #333;
+            color: #00ff9d;
         }
-        footer {
-            background: #1e3c72;
-            color: white;
-            padding: 40px 20px;
-            margin-top: 60px;
+        .features-section {
+            background: #232946;
+            color: #fff;
+            border-radius: 18px;
+            margin: 40px auto 30px auto;
+            padding: 30px 10px 10px 10px;
+            max-width: 700px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        }
+        .features-section h2 {
             text-align: center;
+            margin-bottom: 25px;
+            color: #00ff9d;
         }
-        footer p {
-            margin: 10px 0;
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-bottom: 10px;
         }
-        footer a {
-            color: white;
-            text-decoration: none;
+        .feature-item {
+            background: #181f2a;
+            border-radius: 12px;
+            padding: 18px 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .feature-item h3 {
+            margin: 10px 0 8px 0;
+            color: #00ff9d !important;
+            font-size: 1.1em;
+        }
+        .feature-item p {
+            color: #e0e0e0 !important;
+            font-size: 0.98em;
+        }
+        .faq-section {
+            background: #232946;
+            color: #fff;
+            border-radius: 14px;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 25px 18px 10px 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .faq-section h2 {
+            text-align: center;
+            color: #00ff9d !important;
+            margin-bottom: 18px;
+        }
+        .faq-item {
+            margin-bottom: 18px;
+        }
+        .faq-item h3 {
+            color: #00ff9d !important;
+            margin-bottom: 6px;
+            font-size: 1.05em;
+        }
+        .faq-item p {
+            color: #e0e0e0 !important;
+            font-size: 0.97em;
+        }
+        .happy-user-section {
+            background: #181f2a;
+            color: #fff;
+            border-radius: 14px;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 25px 18px 18px 18px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .happy-user-section h2 {
+            color: #00ff9d !important;
+            margin-bottom: 10px;
+        }
+        .happy-user-links a {
             margin: 0 10px;
-            opacity: 0.8;
-            transition: opacity 0.3s;
+            color: #00ff9d;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
         }
-        footer a:hover {
-            opacity: 1;
+        .happy-user-links a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .footer-section {
+            background: #121212;
+            color: #e0e0e0 !important;
+            text-align: center;
+            padding: 18px 0 10px 0;
+            margin-top: 40px;
+            border-radius: 0 0 18px 18px;
+        }
+        .footer-links {
+            margin-bottom: 8px;
+        }
+        .footer-links a {
+            color: #00ff9d !important;
+            margin: 0 8px;
+            text-decoration: none;
+            font-size: 1em;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+            color: #fff;
+        }
+        @media (max-width: 1100px) {
+            .ads-layout { gap: 10px; }
+            .ad-corner { display: none; }
+        }
+        .amortization-section {
+            margin: 30px 0 0 0;
+            background: #232946;
+            border-radius: 12px;
+            padding: 18px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .amortization-section h3 {
+            color: #00ff9d;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .amortization-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #fff;
+            font-size: 0.98em;
+        }
+        .amortization-table th, .amortization-table td {
+            border: 1px solid #444;
+            padding: 6px 8px;
+            text-align: right;
+        }
+        .amortization-table th {
+            background: #181f2a;
+            color: #00ff9d;
+        }
+        .amortization-table tr:nth-child(even) {
+            background: #232946;
+        }
+        .amortization-table tr:nth-child(odd) {
+            background: #181f2a;
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>Loan Calculator</h1>
-        <p>Calculate your loan payments and interest rates easily. Get detailed monthly payment breakdowns.</p>
-    </div>
-
-    <div class="container">
-        <div class="calculator">
-            <form id="loan-calculator-form">
-                <input type="number" id="loan-amount" placeholder="Loan Amount" required>
-                <input type="number" id="interest-rate" placeholder="Annual Interest Rate (%)" required>
-                <input type="number" id="loan-term" placeholder="Loan Term (Years)" required>
-                <button type="button" onclick="calculateLoan()">Calculate</button>
-            </form>
-            <div class="result" id="result"></div>
+    <div class="ads-layout">
+        <div class="ad-corner ad-left">
+            <!-- Google AdSense Left Ad Placeholder -->
+            <ins class="adsbygoogle"
+                style="display:block;width:160px;height:600px;background:#181f2a;border-radius:12px;"
+                data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+                data-ad-slot="left-ad"></ins>
+        </div>
+        <div class="main-loan-content">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h1>Loan Calculator</h1>
+                <p>Calculate your loan payments and interest rates easily. Get detailed monthly payment breakdowns.</p>
+            </div>
+            <div class="calculator">
+                <form id="loan-calculator-form">
+                    <input type="number" id="loan-amount" placeholder="Loan Amount" required>
+                    <input type="number" id="interest-rate" placeholder="Annual Interest Rate (%)" required>
+                    <input type="number" id="loan-term" placeholder="Loan Term (Years)" required>
+                    <button type="button" onclick="calculateLoan()">Calculate</button>
+                </form>
+                <div class="result" id="result"></div>
+                <div id="amortization-table"></div>
+            </div>
+            <!-- Features Section -->
+            <div class="features-section">
+                <h2>💸 Features of Our Loan Calculator</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">📈</span>
+                        <h3>Accurate EMI Calculation</h3>
+                        <p>Get precise monthly payment (EMI) based on your loan amount, interest rate, and term.</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <h3>Amortization Breakdown</h3>
+                        <p>See how much you pay in principal and interest over the life of your loan.</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔄</span>
+                        <h3>Flexible Inputs</h3>
+                        <p>Supports different loan amounts, interest rates, and terms for any scenario.</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🌐</span>
+                        <h3>Works in Any Browser</h3>
+                        <p>Use on desktop, tablet, or mobile—no installation required.</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔒</span>
+                        <h3>Private & Secure</h3>
+                        <p>All calculations are performed locally in your browser. No data is sent anywhere.</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <h3>Fast & User-Friendly</h3>
+                        <p>Instant results, large buttons, and a clean layout for all users.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <h3>How is the EMI calculated?</h3>
+                    <p>The EMI is calculated using the standard formula for loan amortization, considering principal, interest rate, and term.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I use this for any type of loan?</h3>
+                    <p>Yes! This calculator works for home, car, personal, and other loans.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is my data private?</h3>
+                    <p>Absolutely. All calculations are done in your browser and never sent to a server.</p>
+                </div>
+            </div>
+            <!-- Are you a happy user? Section -->
+            <div class="happy-user-section">
+                <h2>Are you a happy user?</h2>
+                <p>If you enjoy this loan calculator, please consider sharing it or supporting us!</p>
+                <div class="happy-user-links">
+                    <a href="/" class="home-link">🏠 Home</a>
+                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank">☕ Buy Me a Coffee</a>
+                    <a href="https://twitter.com/intent/tweet" target="_blank">🐦 Share on Twitter</a>
+                </div>
+            </div>
+            <!-- Footer Section -->
+            <footer class="footer-section">
+                <div class="footer-links">
+                    <a href="/privacy-policy.html">Privacy Policy</a> |
+                    <a href="/terms-of-use.html">Terms of Use</a> |
+                    <a href="/">Home</a> |
+                    <a href="/contact.html">Contact</a>
+                </div>
+                <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+            </footer>
+        </div>
+        <div class="ad-corner ad-right">
+            <!-- Google AdSense Right Ad Placeholder -->
+            <ins class="adsbygoogle"
+                style="display:block;width:160px;height:600px;background:#181f2a;border-radius:12px;"
+                data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+                data-ad-slot="right-ad"></ins>
         </div>
     </div>
-
-    <footer>
-        <p>&copy; 2023-2025 Free AI Tools. All rights reserved.</p>
-        <p>
-            <a href="/">Home</a> |
-            <a href="/privacy-policy">Privacy Policy</a> |
-            <a href="/terms-of-use">Terms of Use</a>
-        </p>
-    </footer>
-
     <script>
         function calculateLoan() {
             const loanAmount = parseFloat(document.getElementById('loan-amount').value);
@@ -116,6 +359,7 @@
 
             if (isNaN(loanAmount) || isNaN(annualInterestRate) || isNaN(loanTerm) || loanAmount <= 0 || annualInterestRate <= 0 || loanTerm <= 0) {
                 document.getElementById('result').textContent = 'Please enter valid loan details.';
+                document.getElementById('amortization-table').innerHTML = '';
                 return;
             }
 
@@ -124,6 +368,18 @@
             const monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
 
             document.getElementById('result').textContent = `Your monthly payment is $${monthlyPayment.toFixed(2)}.`;
+
+            // Amortization Table
+            let balance = loanAmount;
+            let table = `<div class='amortization-section'><h3>Amortization Breakdown</h3><table class='amortization-table'><thead><tr><th>Month</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody>`;
+            for (let i = 1; i <= numberOfPayments; i++) {
+                const interest = balance * monthlyInterestRate;
+                const principal = monthlyPayment - interest;
+                balance -= principal;
+                table += `<tr><td>${i}</td><td>$${principal.toFixed(2)}</td><td>$${interest.toFixed(2)}</td><td>$${Math.abs(balance).toFixed(2)}</td></tr>`;
+            }
+            table += '</tbody></table></div>';
+            document.getElementById('amortization-table').innerHTML = table;
         }
     </script>
 </body>

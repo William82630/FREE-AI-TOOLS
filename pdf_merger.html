@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Merger Tool</title>
+    <style>
+        body {
+            background: #001933;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #293344;
+            color: #fff;
+            padding: 32px 0 24px 0;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .container {
+            background: #010e39;
+            max-width: 420px;
+            margin: 40px auto;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 36px 32px 32px 32px;
+        }
+        .title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 18px;
+            color: #dfe3e9;
+            text-align: center;
+        }
+        .desc {
+            color: #d3d8e1;
+            font-size: 1rem;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d3748;
+            font-weight: 500;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            background: #f7fafc;
+        }
+        .btn {
+            width: 100%;
+            background: #3182ce;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #2563eb;
+        }
+        .footer {
+            text-align: center;
+            color: #a0aec0;
+            font-size: 0.95rem;
+            margin: 40px 0 16px 0;
+        }
+        @media (max-width: 500px) {
+            .container {
+                padding: 18px 6px 18px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">PDF Merger</div>
+    <div class="container">
+        <div class="title">Merge Multiple PDF Files</div>
+        <div class="desc">Select two or more PDF files to combine them into a single document. Fast, secure, and free.</div>
+        <form action="/merge-pdf" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="pdfs">Choose PDF files</label>
+                <input type="file" id="pdfs" name="pdfs" accept="application/pdf" multiple required>
+            </div>
+            <button class="btn" type="submit">Merge PDFs</button>
+        </form>
+    </div>
+    <div class="footer">&copy; 2025 PDF Tools Suite</div>
+</body>
+</html>
