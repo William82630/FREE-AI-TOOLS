@@ -9,42 +9,48 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #121212; /* Dark background */
+            color: #ffffff; /* Light text for contrast */
         }
         .hero {
-            background-color: #007BFF;
-            color: white;
-            padding: 40px 20px;
+            background-color: transparent; /* Removed background color */
+            padding: 20px; /* Adjusted padding to match main content size */
             text-align: center;
         }
         .hero h1 {
-            font-size: 2.5em;
+            font-size: 2em; /* Adjusted font size */
             margin: 0;
         }
         .hero p {
-            font-size: 1.2em;
+            font-size: 1em; /* Adjusted font size */
             margin: 10px 0 0;
         }
         .container {
-            max-width: 800px;
+            max-width: 600px; /* Reduced width for central alignment */
             margin: 20px auto;
             padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .calculator {
             text-align: center;
         }
+        .calculator label {
+            font-size: 1.1em; /* Increased font size for labels */
+            margin-right: 10px;
+        }
         .calculator input {
-            padding: 10px;
-            margin: 5px;
-            width: 200px;
-            border: 1px solid #ddd;
+            font-size: 1.1em; /* Increased font size for input fields */
+            padding: 8px; /* Added padding for better spacing */
+            margin: 5px 0;
+            border: 1px solid #ccc;
             border-radius: 4px;
         }
         .calculator button {
-            padding: 10px 20px;
+            font-size: 1.1em; /* Increased font size for the button */
+            padding: 12px 24px; /* Added padding for a professional look */
+            margin-top: 10px; /* Added margin to separate from other elements */
             background-color: #007BFF;
             color: white;
             border: none;
@@ -57,7 +63,27 @@
         .result {
             margin-top: 20px;
             font-size: 1.2em;
-            color: #333;
+            color: #ffffff; /* Changed text color to white for visibility */
+        }
+        .faq {
+            margin-top: 40px;
+        }
+        .faq h2 {
+            text-align: center;
+            color: #ffffff;
+        }
+        .faq-item {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        .faq-item h3 {
+            color: #007BFF;
+        }
+        .faq-item p {
+            color: #cccccc;
         }
         footer {
             background: #1e3c72;
@@ -79,6 +105,63 @@
         footer a:hover {
             opacity: 1;
         }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+            max-width: 800px; /* Centralized layout */
+        }
+        .ads {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 160px;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            color: #cccccc;
+        }
+        .ads.left {
+            left: 0;
+        }
+        .ads.right {
+            right: 0;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .feature-card {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: #cccccc;
+        }
+        .feature-card h3 {
+            color: #007BFF;
+        }
+        .feature-card p {
+            color: #cccccc;
+        }
+        .happy-user {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .happy-user a {
+            color: #007BFF;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .happy-user a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -87,15 +170,105 @@
         <p>Calculate your loan payments and interest rates easily. Get detailed monthly payment breakdowns.</p>
     </div>
 
-    <div class="container">
-        <div class="calculator">
-            <form id="loan-calculator-form">
-                <input type="number" id="loan-amount" placeholder="Loan Amount" required>
-                <input type="number" id="interest-rate" placeholder="Annual Interest Rate (%)" required>
-                <input type="number" id="loan-term" placeholder="Loan Term (Years)" required>
-                <button type="button" onclick="calculateLoan()">Calculate</button>
+    <div class="main-content">
+        <div class="ads left">
+            <p>Ad Space</p>
+        </div>
+        <div class="ads right">
+            <p>Ad Space</p>
+        </div>
+        <div class="container">
+            <div class="calculator">
+                <form id="loan-calculator-form">
+                    <label for="loan-amount">Loan Amount:</label>
+                    <input type="number" id="loan-amount" placeholder="Loan Amount" required>
+                    <label for="interest-rate">Annual Interest Rate (%):</label>
+                    <input type="number" id="interest-rate" placeholder="Annual Interest Rate (%)" required>
+                    <label for="loan-term">Loan Term (Years):</label>
+                    <input type="number" id="loan-term" placeholder="Loan Term (Years)" required>
+                    <button type="button" onclick="calculateLoan()">Calculate</button>
+                </form>
+                <div class="result" id="result"></div>
+            </div>
+        </div>
+
+        <div class="features" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+            <div class="feature-intro" style="text-align: center; margin-bottom: 20px; max-width: 800px; margin: 0 auto;">
+                <h2 style="font-size: 2em; margin-bottom: 10px;">💸 Features of Our Free Online Loan Calculator</h2>
+                <p style="font-size: 1.2em; color: #cccccc;">Take the guesswork out of loan planning. Our Loan Calculator helps you estimate your monthly payments, total interest, and more—instantly and accurately.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📊 Easy Monthly Payment Estimation</h3>
+                <p>Quickly calculate your monthly loan payments based on the loan amount, interest rate, and repayment term—ideal for personal, home, auto, or business loans.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🧠 Total Interest & Loan Cost Breakdown</h3>
+                <p>Get a detailed view of your total interest paid and the overall cost of the loan. Understand exactly what you're paying over time.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔁 Adjustable Terms & Rates</h3>
+                <p>Customize your loan term (months or years) and interest rate with simple sliders or manual input. Perfect for comparing different loan offers or scenarios.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📈 Amortization Schedule (Coming Soon!)</h3>
+                <p>We’re working on a feature that lets you view a complete amortization table showing how much of each payment goes toward interest and principal.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💾 No Sign-up or Downloads Required</h3>
+                <p>Use the calculator directly in your browser with zero registration. It’s fast, private, and works seamlessly across all devices.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🖥️ Mobile-Friendly & Cross-Device Support</h3>
+                <p>Whether you're planning on a desktop or calculating on the go, our tool is fully responsive and optimized for smartphones, tablets, and modern browsers.</p>
+            </div>
+        </div>
+
+        <div class="faq">
+            <h2>❓ Frequently Asked Questions (FAQs)</h2>
+            <div class="faq-item">
+                <h3>1. 🤔 What is a loan calculator?</h3>
+                <p>A loan calculator is an online tool that helps you estimate your monthly payments, total interest, and the overall cost of a loan based on the loan amount, interest rate, and loan term. It’s ideal for financial planning before taking out a loan.</p>
+            </div>
+            <div class="faq-item">
+                <h3>2. 🔐 Is your loan calculator free to use?</h3>
+                <p>Yes! Our loan calculator is 100% free to use with no sign-ups, hidden fees, or trial limitations. Just enter your details and get instant results—anytime.</p>
+            </div>
+            <div class="faq-item">
+                <h3>3. 🧮 How accurate are the loan estimates?</h3>
+                <p>Our calculator provides very accurate estimates based on standard amortization formulas. While actual lender terms may vary slightly, the results give you a solid understanding of what to expect financially.</p>
+            </div>
+            <div class="faq-item">
+                <h3>4. 📆 Can I calculate loans for different time periods?</h3>
+                <p>Yes! You can set your loan duration in months or years, whether you’re looking at short-term personal loans or long-term home loans. Just adjust the loan term field to your preference.</p>
+            </div>
+            <div class="faq-item">
+                <h3>5. 💼 Can this calculator be used for business or student loans?</h3>
+                <p>Absolutely. Our tool is flexible and can be used for personal loans, auto loans, mortgages, business loans, education loans, and more—just input the details relevant to your loan.</p>
+            </div>
+            <div class="faq-item">
+                <h3>6. 📱 Can I use this loan calculator on my phone?</h3>
+                <p>Yes! The calculator is fully mobile-optimized and works perfectly on all screen sizes. Whether you're at home or meeting with a lender, you can run quick calculations right from your phone.</p>
+            </div>
+        </div>
+
+        <div class="happy-user" style="margin-top: 40px; text-align: center;">
+            <h2>Support Us</h2>
+            <p>If you love our tool, consider supporting us:</p>
+            <form action="https://www.buymeacoffee.com/yourlink" method="POST" target="_blank" style="display: inline-block;">
+                <button type="submit" style="padding: 10px 20px; background-color: #FFDD00; color: #000; border: none; border-radius: 4px; cursor: pointer; font-size: 1.2em;">Buy Me a Coffee</button>
             </form>
-            <div class="result" id="result"></div>
+            <p style="margin-top: 20px;">Or share our tool with your friends:</p>
+            <div style="margin-top: 10px;">
+                <a href="https://twitter.com/share?url=yourlink" target="_blank" style="margin: 0 10px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" style="width: 32px; height: 32px;">
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=yourlink" target="_blank" style="margin: 0 10px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" style="width: 32px; height: 32px;">
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=yourlink" target="_blank" style="margin: 0 10px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" style="width: 32px; height: 32px;">
+                </a>
+            </div>
         </div>
     </div>
 
