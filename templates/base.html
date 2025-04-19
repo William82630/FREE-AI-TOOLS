@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Free AI Tools{% endblock %}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212; /* Dark background */
+      color: #ffffff; /* Light text for contrast */
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .ads {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 160px;
+      background-color: #1e1e1e;
+      color: #cccccc;
+      text-align: center;
+      padding: 10px;
+    }
+    .ads.left {
+      left: 0;
+    }
+    .ads.right {
+      right: 0;
+    }
+    .card {
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="ads left">
+    {% block left_ads %}
+    <!-- Google Ads Placeholder for Left Side -->
+    {% endblock %}
+  </div>
+
+  <div class="ads right">
+    {% block right_ads %}
+    <!-- Google Ads Placeholder for Right Side -->
+    {% endblock %}
+  </div>
+
+  <div class="container">
+    {% block hero_section %}
+    <!-- Hero Section Placeholder -->
+    {% endblock %}
+
+    {% block input_card %}
+    <div class="card">
+      <!-- Input Box and Button Placeholder -->
+    </div>
+    {% endblock %}
+
+    {% block headline_intro %}
+    <div class="card">
+      <!-- Headline and Introduction Placeholder -->
+    </div>
+    {% endblock %}
+
+    {% block feature_descriptions %}
+    <div class="card">
+      <!-- Feature Descriptions Placeholder (6 Cards) -->
+    </div>
+    {% endblock %}
+
+    {% block faq_section %}
+    <div class="card">
+      <!-- FAQ Section Placeholder -->
+    </div>
+    {% endblock %}
+
+    {% block happy_user_section %}
+    <div class="card">
+      <!-- Are You a Happy User / Buy Me a Coffee Section Placeholder -->
+    </div>
+    {% endblock %}
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Free AI Tools. All rights reserved.</p>
+    <p>
+      <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+      <a href="/terms-of-use.html" target="_blank">Terms of Use</a>
+    </p>
+  </footer>
+</body>
+</html>
