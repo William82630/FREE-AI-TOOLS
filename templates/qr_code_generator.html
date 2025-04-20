@@ -1,0 +1,280 @@
+<html>
+<head>
+    <title>QR Code Generator</title>
+    <meta name="description" content="Create QR codes for URLs, text, and more in seconds. Simple and fast QR code generator tool.">
+    <meta name="keywords" content="qr code generator, create qr code, online qr code generator">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .hero {
+            background-color: #1b004d;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .generator {
+            text-align: center;
+        }
+        .generator input {
+            padding: 12px; /* Increase padding for better visibility */
+            border: 2px solid #ffffff; /* Make the border more visible */
+            border-radius: 5px;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            text-align: center;
+            font-size: 1.2em; /* Increase font size */
+        }
+        .generator input::placeholder {
+            color: #cccccc;
+        }
+        .generator button {
+            background-color: #ff9800;
+            color: #ffffff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.4em; /* Increase font size for button text */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .generator button:hover {
+            background-color: #e68900;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .result img {
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+        .ads {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .card {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .feature-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .faq-item {
+            margin: 10px 0;
+        }
+        .donate {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .donate button {
+            background-color: #ff9800;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .donate button:hover {
+            background-color: #e68900;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>QR Code Generator</h1>
+        <p>Create QR codes for URLs, text, and more in seconds. Simple and fast QR code generator tool.</p>
+    </div>
+
+    <div class="ads left">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
+    </div>
+
+    <div class="ads right">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
+    </div>
+
+    <div class="container">
+        <div class="generator">
+            <input type="text" id="qr-text" placeholder="Enter text or URL" required>
+            <button onclick="generateQRCode()">Generate QR Code</button>
+            <div class="result" id="result"></div>
+            <div id="qr-actions" style="text-align: center; margin-top: 20px; display: none;">
+                <button id="download-btn" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Download QR Code</button>
+                <button id="share-btn" style="background-color: #008CBA; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-left: 10px;">Share QR Code</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🌟 Key Features of Our QR Code Generator</h2>
+            <div class="grid">
+                <div class="feature-card">
+                    <h3>🎯 High Accuracy</h3>
+                    <p>Our QR Code Generator ensures precise encoding, resulting in QR codes that are reliably scannable across various devices and applications. By adhering to standardized encoding protocols, we guarantee that your QR codes function seamlessly, whether they're used for marketing campaigns, event promotions, or personal projects.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Fast Processing</h3>
+                    <p>Experience instant QR code generation with our tool's optimized processing capabilities. Designed for efficiency, it allows you to create QR codes swiftly, saving you valuable time and enhancing productivity.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🧭 User-Friendly Interface</h3>
+                    <p>Our intuitive design ensures that generating QR codes is a hassle-free experience. With a clean layout and straightforward navigation, users of all technical levels can effortlessly create QR codes without the need for prior experience or technical knowledge.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Multiple Use Cases</h3>
+                    <p>Versatility is at the core of our QR Code Generator. Whether you need QR codes for URLs, plain text, contact information (vCards), email addresses, phone numbers, SMS messages, Wi-Fi credentials, or more, our tool accommodates a wide range of data types to suit your specific needs.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📱 Responsive Design</h3>
+                    <p>Access and utilize our QR Code Generator seamlessly across all devices, including desktops, tablets, and smartphones. The responsive design ensures a consistent and user-friendly experience, allowing you to generate QR codes anytime, anywhere.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💸 Completely Free</h3>
+                    <p>Enjoy unlimited QR code generation at no cost. Our tool is entirely free to use, with no hidden fees or subscription requirements, making it an ideal solution for individuals and businesses alike. You can also share with friends and loved ones.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <p><strong>Q 1. Is this tool free to use?</strong></p>
+                <p>A: Absolutely! Our QR Code Generator is completely free to use. You can create as many QR codes as you need without any charges, subscriptions, or hidden fees. It's designed to be accessible for everyone, whether you're a student, business owner, or just someone looking to generate a QR code quickly</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>Q 2. Can I generate QR codes for any type of data?</strong></p>
+                <p>A: Our tool supports a wide range of data types. You can create QR codes for plain text, URLs, contact information (vCards), email addresses, phone numbers, SMS messages, Wi-Fi network credentials, and more. This versatility ensures that you can use QR codes for various personal and professional purposes.</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>Q 3. Can I download the generated QR code?</strong></p>
+                <p>A: Yes, once you've created a QR code, you can easily download it to your device. The tool provides options to download the QR code in high-resolution formats such as PNG, SVG, or PDF, making it suitable for both digital use and high-quality printin.</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>Q 4. Is there a limit to how many QR codes I can generate?</strong></p>
+                <p>A: No, there are no limits! You can generate as many QR codes as you need. Whether you're creating a single code or multiple codes for a large project, our tool is equipped to handle your requirements without any restrictions.</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>Q 5. Do I need an account to use this tool?</strong></p>
+                <p>A: Not at all. Our QR Code Generator is designed for ease of use, allowing you to create QR codes without the need to sign up or provide any personal information. Simply access the tool, input your data, and generate your QR code instantly.</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>Q 6. Can I customize the QR code design?</strong></p>
+                <p>A: Currently, our tool generates standard black-and-white QR codes without customization options. However, we're working on adding features that will allow you to personalize your QR codes with colors, logos, and other design elements in the near future. Stay tuned for updates!​</p>
+            </div>
+        </div>
+
+        <div class="donate">
+            <h2>Support Us</h2>
+            <p>If you find this tool helpful, consider supporting us:</p>
+            <button onclick="window.open('https://www.buymeacoffee.com/yourlink', '_blank')">☕ Buy Me a Coffee</button>
+            <div class="social-icons" style="margin-top: 15px;">
+                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/qr-code-generator&text=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/qr-code-generator" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/qr-code-generator&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/qr-code-generator&description=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/qr-code-generator" target="_blank">
+                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Free AI Tools. All rights reserved.</p>
+        <p>
+            <a href="/" target="_blank">Home</a> |
+            <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+            <a href="/terms-of-use.html" target="_blank">Terms of Use</a>
+        </p>
+    </footer>
+
+    <script>
+        function generateQRCode() {
+            const text = document.getElementById('qr-text').value;
+
+            if (!text.trim()) {
+                document.getElementById('result').innerHTML = '<p>Please enter valid text or URL.</p>';
+                document.getElementById('qr-actions').style.display = 'none';
+                return;
+            }
+
+            const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(text)}&size=200x200`;
+            document.getElementById('result').innerHTML = `<p>Here is your QR Code:</p><img id="qr-image" src="${qrCodeUrl}" alt="QR Code">`;
+            document.getElementById('qr-actions').style.display = 'block';
+
+            // Set up the download button
+            const downloadBtn = document.getElementById('download-btn');
+            downloadBtn.onclick = () => {
+                const link = document.createElement('a');
+                link.href = qrCodeUrl;
+                link.download = 'qr-code.png';
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
+            // Set up the share button
+            const shareBtn = document.getElementById('share-btn');
+            shareBtn.onclick = () => {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'QR Code',
+                        text: 'Check out this QR Code I generated!',
+                        url: qrCodeUrl
+                    }).catch((error) => console.error('Error sharing:', error));
+                } else {
+                    alert('Sharing is not supported on this browser.');
+                }
+            };
+        }
+    </script>
+</body>
+</html>

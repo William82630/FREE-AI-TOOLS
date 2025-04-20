@@ -1,119 +1,331 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>GST Calculator</title>
-    <meta name="description" content="Calculate Goods and Services Tax (GST) easily. Get accurate GST-inclusive and GST-exclusive amounts.">
-    <meta name="keywords" content="gst calculator, goods and services tax, online gst calculator">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
+            color: #333;
         }
-        .hero {
-            background-color: #ffc107;
-            color: white;
-            padding: 40px 20px;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
             text-align: center;
+            padding: 40px 20px;
+            background-color: #004aad;
+            color: white;
         }
-        .hero h1 {
-            font-size: 2.5em;
+        header h1 {
+            font-size: 3em;
             margin: 0;
         }
-        .hero p {
+        header p {
             font-size: 1.2em;
             margin: 10px 0 0;
         }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
+        .card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            flex: 1;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .form-group input, .form-group select {
+            flex: 2;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .form-group button {
+            display: block;
+            margin: 0 auto;
+            background-color: #004aad;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #003a8c;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .result span {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .result .actual {
+            color: blue;
+        }
+        .result .gst {
+            color: green;
+        }
+        .result .total {
+            color: #004aad;
+        }
+        .ads {
+            width: 120px;
+            height: 600px;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .ads.left {
+            left: 10px;
+        }
+        .ads.right {
+            right: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .feature-card {
             background: #fff;
+            padding: 15px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .calculator {
-            text-align: center;
-        }
-        .calculator input {
-            padding: 10px;
-            margin: 5px;
-            width: 200px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .calculator select {
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .calculator button {
-            padding: 10px 20px;
-            background-color: #ffc107;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .calculator button:hover {
-            background-color: #e0a800;
-        }
-        .result {
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: #333;
-        }
         footer {
             text-align: center;
-            margin-top: 40px;
-            color: #666;
+            padding: 20px;
+            background-color: #004aad;
+            color: white;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>GST Calculator</h1>
-        <p>Calculate Goods and Services Tax (GST) easily. Get accurate GST-inclusive and GST-exclusive amounts.</p>
+    <div class="ads left">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
+    </div>
+
+    <div class="ads right">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
     </div>
 
     <div class="container">
-        <div class="calculator">
-            <form id="gst-calculator-form">
-                <input type="number" id="amount" placeholder="Amount" required>
-                <select id="gst-rate">
+        <header>
+            <h1>GST Calculator</h1>
+            <p>Calculate GST easily with our simple and accurate tool.</p>
+        </header>
+
+        <div class="card">
+            <h2>Calculate GST</h2>
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" placeholder="Enter amount">
+            </div>
+            <div class="form-group">
+                <label for="gst">GST %:</label>
+                <select id="gst" onchange="toggleCustomGST()">
                     <option value="5">5%</option>
                     <option value="12">12%</option>
                     <option value="18">18%</option>
                     <option value="28">28%</option>
+                    <option value="custom">Custom</option>
                 </select>
-                <button type="button" onclick="calculateGST()">Calculate</button>
-            </form>
-            <div class="result" id="result"></div>
+                <input type="number" id="custom-gst" placeholder="Enter custom GST %" style="display: none; margin-top: 10px;">
+            </div>
+            <div class="form-group">
+                <label for="type">Tax Type:</label>
+                <select id="type">
+                    <option value="inclusive">Inclusive</option>
+                    <option value="exclusive">Exclusive</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button onclick="calculateGST()">Calculate</button>
+            </div>
+            <div class="result" id="result">
+                <span class="actual">₹0 Actual Amount</span> +
+                <span class="gst">₹0 GST Amount</span> =
+                <span class="total">₹0 Total Amount</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔑 Key Features of Our GST Calculator Tool</h2>
+            <div class="grid">
+                <div class="feature-card">
+                    <h3>🎯 High Accuracy</h3>
+                    <p>Our GST Calculator ensures precise computations for both GST-inclusive and GST-exclusive amounts. Whether you're determining the tax component or the total price, our tool provides exact figures, minimizing errors and ensuring compliance with tax regulations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Fast Processing</h3>
+                    <p>Experience instant results with our optimized calculator. Designed for efficiency, it delivers swift calculations, saving you time and streamlining your financial task.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🧭 User-Friendly Interface</h3>
+                    <p>Navigate with ease using our intuitive design. The calculator's straightforward layout allows users of all backgrounds to perform GST calculations effortlessly, without any prior tax knowledge.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Multiple GST Rates</h3>
+                    <p>Our tool supports all standard GST rates, including 5%, 12%, 18%, and 28%. This flexibility ensures accurate calculations across various goods and services, catering to diverse business needs.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📱 Responsive Design</h3>
+                    <p>Access the calculator seamlessly across all devices. Whether you're on a desktop, tablet, or smartphone, our responsive design ensures a consistent and user-friendly experience.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💸 Completely Free</h3>
+                    <p>Enjoy unlimited access to our GST Calculator at no cost. There are no hidden fees or subscriptions—just reliable, free assistance for your tax calculations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card faq">
+            <h2>❓ Frequently Asked Questions (FAQs)</h2>
+            <div class="faq-item">
+                <p><strong>Q 1. What is GST?</strong></p>
+                <p>A: GST, or Goods and Services Tax, is a comprehensive indirect tax levied on the supply of goods and services in India. Implemented on July 1, 2017, GST replaced multiple indirect taxes like VAT, service tax, and excise duty, streamlining the taxation system. It's a destination-based tax, meaning it's collected at the point of consumption rather than the point of origin. GST is categorized into CGST (Central GST), SGST (State GST), IGST (Integrated GST), and UTGST (Union Territory GST), depending on the nature of the transaction.</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>Q 2. How does this calculator work?</strong></p>
+                <p>A: Our GST calculator simplifies tax computations by allowing you to:​
+
+                    Enter the amount – Input the base amount for which you want to calculate GST.
+                    
+                    Select the GST rate – Choose from standard rates like 5%, 12%, 18%, or 28%.
+                    
+                    Choose the tax type – Specify whether the amount is GST-inclusive or GST-exclusive.​
+                    
+                    The calculator will then compute:​
+                    
+                    The GST amount.
+                    
+                    The total amount including GST.
+                    
+                    A breakdown of CGST and SGST for intra-state transactions or IGST for inter-state transactions.​</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>Q 3. Is this tool free to use?</strong></p>
+                <p>A: Absolutely! Our GST calculator is completely free to use with no hidden charges or subscription fees. It's designed to assist individuals, businesses, and professionals in accurately computing GST without any cost.</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>Q 4. Can I use this tool on my phone?</strong></p>
+                <p>A: Yes, our GST calculator is fully responsive and optimized for all devices, including smartphones, tablets, and desktops. Whether you're in the office or on the go, you can access and use the calculator seamlessly.</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>Q 5. Does the calculator support all GST rates?</strong></p>
+                <p>A: Yes, the calculator supports all standard GST rates applicable in India, including 0%, 0.25%, 3%, 5%, 12%, 18%, and 28%. This ensures accurate calculations across various goods and services.​</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>Q 6. Can I calculate both GST-inclusive and GST-exclusive amounts?</strong></p>
+                <p>A: Certainly! The calculator allows you to compute both GST-inclusive and GST-exclusive amounts. Simply select the appropriate option, and the tool will provide the corresponding breakdown.​</p>
+            </div>
+        </div>
+
+        <div class="donate" style="text-align: center;">
+            <h2>Support Us</h2>
+            <p>If you find this tool helpful, consider supporting us:</p>
+            <button onclick="window.open('https://www.buymeacoffee.com/yourlink', '_blank')" style="background-color: #004aad; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1.2em; cursor: pointer;">☕ Buy Me a Coffee</button>
+            <div class="social-icons" style="margin-top: 15px;">
+                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/gst-calculator&text=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/gst-calculator" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/gst-calculator&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/gst-calculator&description=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/gst-calculator" target="_blank">
+                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
+                </a>
+            </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
+        <p>&copy; 2025 Free AI Tools. All rights reserved.</p>
+        <p>
+            <a href="/" target="_blank">Home</a> |
+            <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+            <a href="/terms-of-use.html" target="_blank">Terms of Use</a>
+        </p>
     </footer>
 
     <script>
+        function toggleCustomGST() {
+            const gstSelect = document.getElementById('gst');
+            const customGSTInput = document.getElementById('custom-gst');
+            if (gstSelect.value === 'custom') {
+                customGSTInput.style.display = 'block';
+            } else {
+                customGSTInput.style.display = 'none';
+            }
+        }
+
         function calculateGST() {
             const amount = parseFloat(document.getElementById('amount').value);
-            const gstRate = parseFloat(document.getElementById('gst-rate').value);
+            const gstSelect = document.getElementById('gst');
+            const customGSTInput = document.getElementById('custom-gst');
+            let gstRate = parseFloat(gstSelect.value);
 
-            if (isNaN(amount) || amount <= 0) {
-                document.getElementById('result').textContent = 'Please enter a valid amount.';
+            if (gstSelect.value === 'custom') {
+                gstRate = parseFloat(customGSTInput.value);
+            }
+
+            const type = document.getElementById('type').value;
+
+            if (isNaN(amount) || amount <= 0 || isNaN(gstRate) || gstRate <= 0) {
+                document.getElementById('result').innerHTML = '<p style="color: red;">Please enter valid values.</p>';
                 return;
             }
 
-            const gstAmount = (amount * gstRate) / 100;
-            const totalAmount = amount + gstAmount;
+            let gstAmount, totalAmount;
+
+            if (type === 'inclusive') {
+                gstAmount = amount - (amount / (1 + gstRate / 100));
+                totalAmount = amount;
+            } else {
+                gstAmount = (amount * gstRate) / 100;
+                totalAmount = amount + gstAmount;
+            }
 
             document.getElementById('result').innerHTML = `
-                <p>GST Amount: $${gstAmount.toFixed(2)}</p>
-                <p>Total Amount (Including GST): $${totalAmount.toFixed(2)}</p>
+                <span class="actual">₹${(amount - gstAmount).toFixed(2)} Actual Amount</span> +
+                <span class="gst">₹${gstAmount.toFixed(2)} GST Amount</span> =
+                <span class="total">₹${totalAmount.toFixed(2)} Total Amount</span>
             `;
         }
     </script>
