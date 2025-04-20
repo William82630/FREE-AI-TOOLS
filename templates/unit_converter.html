@@ -1,11 +1,9 @@
-{% extends 'base.html' %}
-{% block content %}
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Unit Converter</title>
-    <meta name="description" content="Convert units of measurement quickly and accurately. Supports length, weight, temperature, and more.">
-    <meta name="keywords" content="unit converter, measurement converter, online unit converter">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Unit Converter</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,117 +12,147 @@
             background-color: #121212; /* Dark background */
             color: #ffffff; /* Light text for contrast */
         }
-        .hero {
-            background-color: transparent; /* Removed background color */
-            padding: 20px; /* Adjusted padding to match main content size */
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 2em; /* Adjusted font size */
-            margin: 0;
-        }
-        .hero p {
-            font-size: 1em; /* Adjusted font size */
-            margin: 10px 0 0;
-        }
         .container {
-            max-width: 600px; /* Reduced width for central alignment */
-            margin: 20px auto;
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 20px;
-            background: #1e1e1e;
-            border-radius: 12px;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+        }
+        header h1 {
+            font-size: 3em; /* Larger headline */
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.4em; /* Slightly larger description */
+            color: #cccccc;
+        }
+        .card {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .converter {
+        .card h2 {
+            font-size: 1.8em; /* Larger card titles */
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 3 cards per row */
+            gap: 20px;
+        }
+        .feature-card {
             text-align: center;
-        }
-        .converter label {
-            font-size: 1.1em; /* Increased font size for labels */
-            margin-right: 10px;
-        }
-        .converter input, .converter select {
-            font-size: 1.1em; /* Increased font size for input fields */
-            padding: 8px; /* Added padding for better spacing */
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .converter button {
-            font-size: 1.1em; /* Increased font size for the button */
-            padding: 12px 24px; /* Added padding for a professional look */
-            margin-top: 10px; /* Added margin to separate from other elements */
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .converter button:hover {
-            background-color: #218838;
-        }
-        .result {
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: #ffffff; /* Changed text color to white for visibility */
-        }
-        .faq {
-            margin-top: 40px;
-        }
-        .faq h2 {
-            text-align: center;
-            color: #ffffff;
-        }
-        .faq-item {
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 8px;
             padding: 20px;
-            margin: 10px 0;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .faq-item h3 {
-            color: #28a745;
+        .feature-card img {
+            width: 60px; /* Larger icons */
+            height: 60px;
+            margin-bottom: 10px;
         }
-        .faq-item p {
-            color: #cccccc;
+        .feature-card p {
+            font-size: 1.4em; /* Adjusted font size for feature descriptions */
         }
         footer {
-            background: #1e3c72;
-            color: white;
-            padding: 40px 20px;
-            margin-top: 60px;
             text-align: center;
-        }
-        footer p {
-            margin: 10px 0;
+            padding: 20px;
+            background-color: #000000;
+            color: #cccccc;
         }
         footer a {
-            color: white;
+            color: #cccccc;
             text-decoration: none;
             margin: 0 10px;
-            opacity: 0.8;
-            transition: opacity 0.3s;
         }
         footer a:hover {
-            opacity: 1;
+            text-decoration: underline;
         }
-        .main-content {
+        .donate {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .donate button {
+            background-color: #ff9800;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .donate button:hover {
+            background-color: #e68900;
+        }
+        form {
+            text-align: center;
+        }
+        form label, form input, form select, form button {
+            font-size: 1.4em; /* Larger form elements */
+            margin: 10px 0;
+        }
+        form input, form select {
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            text-align: center;
+        }
+        form input::placeholder {
+            color: #cccccc;
+        }
+        .form-row {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0 auto;
-            max-width: 800px; /* Centralized layout */
+            justify-content: center;
+            gap: 20px;
+            margin: 10px 0;
+        }
+        .form-row select {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            text-align: center;
+        }
+        .convert-button {
+            background-color: #ff9800;
+            color: #ffffff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .convert-button:hover {
+            background-color: #e68900;
+        }
+        .faq {
+            margin: 20px 0;
+        }
+        .faq h2 {
+            font-size: 1.8em;
+        }
+        .faq-item {
+            margin-bottom: 15px;
+        }
+        .faq-item p {
+            font-size: 1.4em; /* Larger FAQ text */
         }
         .ads {
+            width: 120px;
+            height: 600px;
             position: fixed;
-            top: 0;
-            bottom: 0;
-            width: 160px;
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            color: #cccccc;
+            top: 50%;
+            transform: translateY(-50%);
         }
         .ads.left {
             left: 0;
@@ -132,203 +160,256 @@
         .ads.right {
             right: 0;
         }
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
-        }
-        .feature-card {
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 8px;
+        .main-content {
+            margin: 0 auto;
+            max-width: 800px;
             padding: 20px;
-            text-align: center;
-            color: #cccccc;
-        }
-        .feature-card h3 {
-            color: #28a745;
-        }
-        .feature-card p {
-            color: #cccccc;
-        }
-        .happy-user {
-            margin-top: 40px;
-            text-align: center;
-        }
-        .happy-user a {
-            color: #28a745;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-        .happy-user a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="hero" style="background-color: #121212; color: #ffffff; padding: 40px 20px; text-align: center;">
-        <h1 style="font-size: 2.5em; margin: 0;">Unit Converter</h1>
-        <p style="font-size: 1.2em; margin: 10px 0 0;">Convert units of measurement quickly and accurately. Supports length, weight, temperature, and more.</p>
+    <div class="ads left">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
+    </div>
+
+    <div class="ads right">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
     </div>
 
     <div class="main-content">
-        <div class="ads left" style="background-color: #1e1e1e; color: #cccccc;">
-            <p>Ad Space</p>
-        </div>
-        <div class="ads right" style="background-color: #1e1e1e; color: #cccccc;">
-            <p>Ad Space</p>
-        </div>
         <div class="container">
-            <div class="converter">
-                <form id="unit-converter-form">
-                    <label for="value">Value:</label>
-                    <input type="number" id="value" placeholder="Value" required>
-                    <label for="from-unit">From:</label>
-                    <select id="from-unit">
-                        <option value="meters">Meters</option>
-                        <option value="kilometers">Kilometers</option>
-                        <option value="grams">Grams</option>
-                        <option value="kilograms">Kilograms</option>
-                        <option value="celsius">Celsius</option>
-                        <option value="fahrenheit">Fahrenheit</option>
+            <header>
+                <h1>Universal Unit Converter</h1>
+                <p>Effortlessly convert between various units with our intuitive and accurate converter.</p>
+            </header>
+
+            <div class="ads">
+                <img src="/ads-placeholder.png" alt="Google Ads Placeholder">
+            </div>
+
+            <div class="card">
+                <h2>Unit Converter Tool</h2>
+                <p>Select a category, input a value, and view the conversion instantly:</p>
+                <form>
+                    <label for="category">Category:</label>
+                    <select id="category">
+                        <option value="length">Length</option>
+                        <option value="weight">Weight</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="volume">Volume</option>
                     </select>
-                    <label for="to-unit">To:</label>
-                    <select id="to-unit">
-                        <option value="meters">Meters</option>
-                        <option value="kilometers">Kilometers</option>
-                        <option value="grams">Grams</option>
-                        <option value="kilograms">Kilograms</option>
-                        <option value="celsius">Celsius</option>
-                        <option value="fahrenheit">Fahrenheit</option>
-                    </select>
-                    <button type="button" onclick="convertUnit()">Convert</button>
+                    <br><br>
+                    <label for="inputValue">Value:</label>
+                    <input type="number" id="inputValue" placeholder="Enter value">
+                    <br><br>
+                    <div class="form-row">
+                        <div>
+                            <label for="unitFrom">From:</label>
+                            <select id="unitFrom">
+                                <option value="">Select unit</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="unitTo">To:</label>
+                            <select id="unitTo">
+                                <option value="">Select unit</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="button" class="convert-button">Convert</button>
                 </form>
-                <div class="result" id="result"></div>
+                <p id="result">Conversion result will appear here.</p>
             </div>
-        </div>
 
-        <div class="features" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
-            <div class="feature-intro" style="text-align: center; margin-bottom: 20px; max-width: 800px; margin: 0 auto;">
-                <h2 style="font-size: 2em; margin-bottom: 10px;">🌟 Features of Our Free Unit Converter Tool</h2>
-                <p style="font-size: 1.2em; color: #cccccc;">Easily convert units of measurement for length, weight, temperature, and more. Perfect for students, professionals, and everyday use.</p>
+            <div class="card">
+                <h2>How to Use</h2>
+                <ol>
+                    <li>Select the measurement category (e.g., Length, Weight).</li>
+                    <li>Enter the value you want to convert.</li>
+                    <li>Choose the units for conversion (From and To).</li>
+                    <li>Click the "Convert" button to see the result.</li>
+                </ol>
             </div>
-            <div class="feature-card">
-                <h3>📏 Length Conversion</h3>
-                <p>Convert between meters, kilometers, miles, and more with ease.</p>
-            </div>
-            <div class="feature-card">
-                <h3>⚖️ Weight Conversion</h3>
-                <p>Switch between grams, kilograms, pounds, and other weight units.</p>
-            </div>
-            <div class="feature-card">
-                <h3>🌡️ Temperature Conversion</h3>
-                <p>Quickly convert between Celsius, Fahrenheit, and Kelvin.</p>
-            </div>
-            <div class="feature-card">
-                <h3>🔄 Real-Time Results</h3>
-                <p>Get instant and accurate results as you input your values.</p>
-            </div>
-            <div class="feature-card">
-                <h3>📱 Mobile-Friendly</h3>
-                <p>Use the tool seamlessly on any device, from desktops to smartphones.</p>
-            </div>
-            <div class="feature-card">
-                <h3>🌍 Universal Usage</h3>
-                <p>Supports a wide range of units for global compatibility.</p>
-            </div>
-        </div>
 
-        <div class="faq">
-            <h2>❓ Frequently Asked Questions (FAQs)</h2>
-            <div class="faq-item">
-                <h3>1. 🤔 What is a unit converter?</h3>
-                <p>A unit converter is a tool that helps you convert values from one unit of measurement to another, such as meters to kilometers or Celsius to Fahrenheit.</p>
-            </div>
-            <div class="faq-item">
-                <h3>2. 🔐 Is your unit converter free to use?</h3>
-                <p>Yes! Our unit converter is completely free to use with no hidden fees or sign-ups required.</p>
-            </div>
-            <div class="faq-item">
-                <h3>3. 🧮 How accurate are the conversions?</h3>
-                <p>Our tool uses precise formulas to ensure accurate conversions for all supported units.</p>
-            </div>
-            <div class="faq-item">
-                <h3>4. 📆 Can I use this tool for professional purposes?</h3>
-                <p>Absolutely! Our unit converter is designed for both personal and professional use, including academic and industrial applications.</p>
-            </div>
-            <div class="faq-item">
-                <h3>5. 💼 Does it support uncommon units?</h3>
-                <p>Yes, we support a wide range of units, including some uncommon ones. Check the dropdown menus for available options.</p>
-            </div>
-            <div class="faq-item">
-                <h3>6. 📱 Can I use this tool on my phone?</h3>
-                <p>Yes! The tool is fully mobile-optimized and works perfectly on all screen sizes.</p>
-            </div>
-        </div>
+            <!-- Feature Section -->
+            <section id="features">
+                <h2>🌟 Key Features</h2>
+                <div class="feature-card">
+                    <h3>🎯 High Accuracy</h3>
+                    <p>Our Unit Converter ensures precise conversion results by utilizing standard conversion formulas and up-to-date data. Whether you're converting simple units or complex measurements, you can trust the accuracy of the results.​</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Fast Processing</h3>
+                    <p>Experience instant conversions without any delays. The tool is optimized for speed, providing real-time results as you input your data, enhancing efficiency and productivity.​</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🧭 User-Friendly Interface</h3>
+                    <p>Designed with simplicity in mind, our intuitive interface allows users of all levels to navigate and perform conversions effortlessly. Clear labels and organized categories make the process straightforward.​</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Multiple Categories</h3>
+                    <p>Convert units across a wide range of categories, including length, weight, temperature, volume, area, and more. This versatility makes it suitable for various fields such as education, engineering, and daily use.​</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📱 Responsive Design</h3>
+                    <p>Our tool is fully responsive, ensuring seamless functionality across all devices, including desktops, tablets, and smartphones. Enjoy a consistent experience wherever you access the converter.​</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💸 Completely Free</h3>
+                    <p>Access all features of the Unit Converter without any cost. No subscriptions, no hidden fees—just reliable and free conversions at your fingertips.</p>
+                </div>
+            </section>
 
-        <div class="happy-user" style="margin-top: 40px; text-align: center;">
-            <h2>Support Us</h2>
-            <p>If you love our tool, consider supporting us:</p>
-            <form action="https://www.buymeacoffee.com/yourlink" method="POST" target="_blank" style="display: inline-block;">
-                <button type="submit" style="padding: 10px 20px; background-color: #FFDD00; color: #000; border: none; border-radius: 4px; cursor: pointer; font-size: 1.2em;">Buy Me a Coffee</button>
-            </form>
-            <p style="margin-top: 20px;">Or share our tool with your friends:</p>
-            <div style="margin-top: 10px;">
-                <a href="https://twitter.com/share?url=yourlink" target="_blank" style="margin: 0 10px;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" style="width: 32px; height: 32px;">
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=yourlink" target="_blank" style="margin: 0 10px;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" style="width: 32px; height: 32px;">
-                </a>
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=yourlink" target="_blank" style="margin: 0 10px;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" style="width: 32px; height: 32px;">
-                </a>
+            <div class="card faq">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <p><strong>Q: Is this tool free to use?</strong></p>
+                    <p>A: Yes, it is completely free.</p>
+                </div>
+                <div class="faq-item">
+                    <p><strong>Q: Can I use this tool offline?</strong></p>
+                    <p>A: No, this tool requires an internet connection.</p>
+                </div>
+                <div class="faq-item">
+                    <p><strong>Q: What categories are supported?</strong></p>
+                    <p>A: Length, weight, temperature, and volume.</p>
+                </div>
+                <div class="faq-item">
+                    <p><strong>Q: How accurate are the conversions?</strong></p>
+                    <p>A: The tool provides highly accurate results.</p>
+                </div>
+                <div class="faq-item">
+                    <p><strong>Q: Can I suggest new features?</strong></p>
+                    <p>A: Yes, feel free to contact us with suggestions.</p>
+                </div>
+                <div class="faq-item">
+                    <p><strong>Q: Is there a limit to usage?</strong></p>
+                    <p>A: No, you can use the tool as much as you like.</p>
+                </div>
+            </div>
+
+            <div class="donate">
+                <h2>Support Us</h2>
+                <p>If you find this tool helpful, consider supporting us:</p>
+                <button onclick="window.open('https://www.buymeacoffee.com/yourlink', '_blank')">Donate</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2023-2025 Free AI Tools. All rights reserved.</p>
+        <p>&copy; 2025 Free AI Tools. All rights reserved.</p>
         <p>
-            <a href="/">Home</a> |
-            <a href="/privacy-policy">Privacy Policy</a> |
-            <a href="/terms-of-use">Terms of Use</a>
+            <a href="/" target="_blank">Home</a> |
+            <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+            <a href="/terms-of-use.html" target="_blank">Terms of Use</a>
         </p>
     </footer>
 
     <script>
-        function convertUnit() {
-            const value = parseFloat(document.getElementById('value').value);
-            const fromUnit = document.getElementById('from-unit').value;
-            const toUnit = document.getElementById('to-unit').value;
+        const categorySelect = document.getElementById('category');
+        const unitFromSelect = document.getElementById('unitFrom');
+        const unitToSelect = document.getElementById('unitTo');
+        const inputValue = document.getElementById('inputValue');
+        const resultDisplay = document.getElementById('result');
 
-            if (isNaN(value)) {
-                document.getElementById('result').textContent = 'Please enter a valid value.';
+        const units = {
+            length: ["Meters", "Kilometers", "Feet", "Miles"],
+            weight: ["Grams", "Kilograms", "Pounds", "Ounces"],
+            temperature: ["Celsius", "Fahrenheit", "Kelvin"],
+            volume: ["Liters", "Milliliters", "Cubic Meters", "Gallons"]
+        };
+
+        categorySelect.addEventListener('change', () => {
+            const category = categorySelect.value;
+            populateUnits(category);
+        });
+
+        function populateUnits(category) {
+            unitFromSelect.innerHTML = '';
+            unitToSelect.innerHTML = '';
+            if (units[category]) {
+                units[category].forEach(unit => {
+                    const optionFrom = document.createElement('option');
+                    optionFrom.value = unit;
+                    optionFrom.textContent = unit;
+                    unitFromSelect.appendChild(optionFrom);
+
+                    const optionTo = document.createElement('option');
+                    optionTo.value = unit;
+                    optionTo.textContent = unit;
+                    unitToSelect.appendChild(optionTo);
+                });
+            }
+        }
+
+        document.querySelector('button').addEventListener('click', () => {
+            const category = categorySelect.value;
+            const fromUnit = unitFromSelect.value;
+            const toUnit = unitToSelect.value;
+            const value = parseFloat(inputValue.value);
+
+            if (!category || !fromUnit || !toUnit || isNaN(value)) {
+                resultDisplay.textContent = 'Please fill in all fields correctly.';
                 return;
             }
 
-            let convertedValue;
-
-            if (fromUnit === 'meters' && toUnit === 'kilometers') {
-                convertedValue = value / 1000;
-            } else if (fromUnit === 'kilometers' && toUnit === 'meters') {
-                convertedValue = value * 1000;
-            } else if (fromUnit === 'grams' && toUnit === 'kilograms') {
-                convertedValue = value / 1000;
-            } else if (fromUnit === 'kilograms' && toUnit === 'grams') {
-                convertedValue = value * 1000;
-            } else if (fromUnit === 'celsius' && toUnit === 'fahrenheit') {
-                convertedValue = (value * 9/5) + 32;
-            } else if (fromUnit === 'fahrenheit' && toUnit === 'celsius') {
-                convertedValue = (value - 32) * 5/9;
-            } else {
-                convertedValue = value; // Same unit conversion
+            let result;
+            if (category === 'length') {
+                result = convertLength(value, fromUnit, toUnit);
+            } else if (category === 'weight') {
+                result = convertWeight(value, fromUnit, toUnit);
+            } else if (category === 'temperature') {
+                result = convertTemperature(value, fromUnit, toUnit);
+            } else if (category === 'volume') {
+                result = convertVolume(value, fromUnit, toUnit);
             }
 
-            document.getElementById('result').textContent = `Converted Value: ${convertedValue}`;
+            resultDisplay.textContent = result ? `Result: ${result} ${toUnit}` : 'Conversion not supported.';
+        });
+
+        function convertLength(value, from, to) {
+            const conversions = {
+                Meters: 1,
+                Kilometers: 0.001,
+                Feet: 3.28084,
+                Miles: 0.000621371
+            };
+            return (value / conversions[from]) * conversions[to];
         }
+
+        function convertWeight(value, from, to) {
+            const conversions = {
+                Grams: 1,
+                Kilograms: 0.001,
+                Pounds: 0.00220462,
+                Ounces: 0.035274
+            };
+            return (value / conversions[from]) * conversions[to];
+        }
+
+        function convertTemperature(value, from, to) {
+            if (from === to) return value;
+            if (from === 'Celsius' && to === 'Fahrenheit') return (value * 9/5) + 32;
+            if (from === 'Celsius' && to === 'Kelvin') return value + 273.15;
+            if (from === 'Fahrenheit' && to === 'Celsius') return (value - 32) * 5/9;
+            if (from === 'Fahrenheit' && to === 'Kelvin') return ((value - 32) * 5/9) + 273.15;
+            if (from === 'Kelvin' && to === 'Celsius') return value - 273.15;
+            if (from === 'Kelvin' && to === 'Fahrenheit') return ((value - 273.15) * 9/5) + 32;
+        }
+
+        function convertVolume(value, from, to) {
+            const conversions = {
+                Liters: 1,
+                Milliliters: 1000,
+                "Cubic Meters": 0.001,
+                Gallons: 0.264172
+            };
+            return (value / conversions[from]) * conversions[to];
+        }
+
+        // Initialize the dropdowns with the default category
+        populateUnits(categorySelect.value);
     </script>
 </body>
 </html>
-{% endblock %}

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, send_file
+from flask import Flask, render_template, request, jsonify, send_file, send_from_directory
 import requests
 from PIL import Image
 import os
@@ -252,5 +252,14 @@ def qr_code_generator():
 def gst_calculator():
     return render_template('gst_calculator.html')
 
+@app.route('/privacy-policy.html')
+def privacy_policy():
+    return send_from_directory('templates', 'privacy-policy.html')
+
+@app.route('/terms-of-use.html')
+def terms_of_use():
+    return send_from_directory('templates', 'terms-of-use.html')
+
+# Ensure this block appears only once at the end of the file
 if __name__ == '__main__':
     app.run(debug=True)
