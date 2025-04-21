@@ -14,7 +14,7 @@
             background-color: #f9f9f9;
         }
         .hero {
-            background-color: #007BFF;
+            background-color: #022041;
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -28,7 +28,7 @@
             margin: 10px 0 0;
         }
         .container {
-            max-width: 1200px;
+            max-width: 900px; /* Reduced from 1200px to make room for ads */
             margin: 20px auto;
             padding: 20px;
             background: #fff;
@@ -40,23 +40,32 @@
             margin: 20px 0;
         }
         .input-section input {
-            padding: 10px;
-            width: 70%;
-            max-width: 400px;
+            padding: 15px;
+            width: 75%;
+            max-width: 500px;
             margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            border: 2px solid #004aad;
+            border-radius: 6px;
+            font-size: 1.1em;
+        }
+        .input-section input:focus {
+            outline: none;
+            border-color: #f0950d;
+            box-shadow: 0 0 5px #f0950d;
         }
         .input-section button {
-            padding: 10px 20px;
-            background-color: #007BFF;
+            padding: 15px 25px;
+            background-color: #f0950d;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
+            font-size: 1.2em;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
         }
         .input-section button:hover {
-            background-color: #0056b3;
+            background-color: #004aad;
+            transform: scale(1.05);
         }
         .how-to {
             margin: 40px 0;
@@ -81,11 +90,33 @@
             width: 50px;
             height: 50px;
             line-height: 50px;
-            background-color: #007BFF;
+            background-color: #002852;
             color: white;
             border-radius: 50%;
             font-size: 1.5em;
             margin-bottom: 10px;
+        }
+        .features {
+            margin: 40px 0;
+        }
+        .features h2 {
+            text-align: center;
+            color: #333;
+        }
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .feature-card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            flex: 1 1 30%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .faq {
             margin: 40px 0;
@@ -121,6 +152,40 @@
         footer a:hover {
             opacity: 1;
         }
+        .ads {
+            width: 120px;
+            height: 600px;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .ads.left {
+            left: 10px;
+        }
+        .ads.right {
+            right: 10px;
+        }
+        .donate {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .donate button {
+            background-color: #004aad;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+        .donate button:hover {
+            background-color: #003a8c;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+            margin: 0 5px;
+        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -132,10 +197,22 @@
                 width: 100%;
                 margin-bottom: 10px;
             }
+            .grid {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="ads left">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
+    </div>
+
+    <div class="ads right">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
+    </div>
+
     <div class="hero">
         <h1>Compress Image Files to PNG/JPG/JPEG</h1>
         <p>Reduce the size of your image files without compromising quality. Fast, secure, and easy-to-use.</p>
@@ -167,6 +244,36 @@
             </div>
         </div>
 
+        <div class="features">
+            <h2>Key Features of Our Image Compression Tool</h2>
+            <div class="grid">
+                <div class="feature-card">
+                    <h3>🖼️ Preserve Image Quality</h3>
+                    <p>Our tool ensures that your images retain their original clarity and detail even after compression. By utilizing advanced algorithms, it reduces file size without compromising visual fidelity, making your images web-ready while maintaining high quality.​</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Fast & Efficient Compression</h3>
+                    <p>Experience lightning-fast image compression with our optimized tool. Whether you're compressing a single image or multiple files, the process is swift, allowing you to save time and enhance productivity.​</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📁 Supports Multiple Formats</h3>
+                    <p>Compress images in various formats including PNG, JPG, and JPEG. Our tool provides flexibility to handle different image types, catering to diverse needs and ensuring compatibility across platforms.​</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔄 Batch Processing Capability</h3>
+                    <p>Save time by compressing multiple images simultaneously. Our batch processing feature allows you to upload and compress several files at once, streamlining your workflow and increasing efficiency.​</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📱 Responsive & User-Friendly Interface</h3>
+                    <p>Access our image compression tool seamlessly across all devices. Whether you're on a desktop, tablet, or smartphone, the intuitive interface ensures a smooth user experience, making image compression hassle-free.​</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💸 Completely Free to Use</h3>
+                    <p>Enjoy unlimited access to our image compression tool without any cost. There are no hidden fees or subscriptions—just reliable, free assistance to optimize your images effectively.</p>
+                </div>
+            </div>
+        </div>
+
         <div class="faq">
             <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
@@ -183,12 +290,35 @@
             </div>
         </div>
 
+        <div class="donate">
+            <h2>Support Us</h2>
+            <p>If you find this tool helpful, consider supporting us:</p>
+            <button onclick="window.open('https://www.buymeacoffee.com/yourlink', '_blank')">☕ Buy Me a Coffee</button>
+            <div class="social-icons" style="margin-top: 15px;">
+                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/compress-image&text=Check+out+this+amazing+tool!" target="_blank">
+                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter">
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/compress-image" target="_blank">
+                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook">
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/compress-image&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank">
+                    <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn">
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/compress-image&description=Check+out+this+tool!" target="_blank">
+                    <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest">
+                </a>
+                <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/compress-image" target="_blank">
+                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp">
+                </a>
+            </div>
+        </div>
+
         <footer>
-            <p>&copy; 2023-2025 Free AI Tools. All rights reserved.</p>
+            <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
             <p>
-                <a href="/">Home</a> |
-                <a href="/privacy-policy">Privacy Policy</a> |
-                <a href="/terms-of-use">Terms of Use</a>
+                <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+                <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
+                <a href="/" target="_self">Home</a>
             </p>
         </footer>
     </div>

@@ -1,0 +1,19 @@
+// Wrap the feature cards section inside a container box similar to the FAQ section
+<div class="container-box">
+  <!-- ...existing feature cards section code... -->
+</div>
+
+// Adjust the width and padding of the feature section to match the FAQ section's dimensions
+.feature-section {
+  width: 80%; /* Adjusted to match FAQ section */
+  padding: 20px; /* Consistent padding */
+  margin: 0 auto; /* Center alignment */
+}
+
+// Ensure consistent styling between the two sections
+.container-box {
+  background-color: #f9f9f9; /* Matching FAQ section background */
+  border: 1px solid #ddd; /* Matching border */
+  border-radius: 5px; /* Consistent border radius */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Matching shadow */
+}
