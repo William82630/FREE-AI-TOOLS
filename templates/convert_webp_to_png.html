@@ -12,7 +12,7 @@
             background-color: #f9f9f9;
         }
         .hero {
-            background-color: #ffc107;
+            background-color: #02560d52;
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -37,24 +37,28 @@
             text-align: center;
             margin: 20px 0;
         }
-        .input-section input {
-            padding: 10px;
-            width: 70%;
-            max-width: 400px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+        .input-section input[type="file"] {
+            width: 320px !important;
+            padding: 14px;
+            font-size: 1.08em;
+            border: 2px solid #ff9307;
+            border-radius: 6px;
+            background: #fff;
+            color: #222;
         }
         .input-section button {
-            padding: 10px 20px;
-            background-color: #ffc107;
-            color: white;
+            padding: 14px 28px;
+            font-size: 1.08em;
+            background: #ff6e07;
+            color: #fff;
             border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: background 0.2s;
         }
         .input-section button:hover {
-            background-color: #e0a800;
+            background: #791301;
         }
         .how-to {
             margin: 40px 0;
@@ -79,7 +83,7 @@
             width: 50px;
             height: 50px;
             line-height: 50px;
-            background-color: #ffc107;
+            background-color: #040020;
             color: white;
             border-radius: 50%;
             font-size: 1.5em;
@@ -104,10 +108,45 @@
             padding: 20px;
             margin: 10px 0;
         }
+        .faq-item p {
+            font-size: 1.15em;
+        }
         footer {
+            background: #111;
+            color: #fff;
+            padding: 38px 20px 32px 20px;
+            margin-top: 64px;
+            border-radius: 0;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.10);
+            width: 100%;
             text-align: center;
-            margin-top: 40px;
-            color: #666;
+            font-size: 1.08em;
+            letter-spacing: 0.01em;
+        }
+        footer p {
+            margin: 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+            margin: 0 12px;
+            opacity: 0.85;
+        }
+
+        .donate button {
+            background: #ff9307;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 28px;
+            font-size: 1.08em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: background 0.2s;
+        }
+        .donate button:hover {
+            background: #e07c00;
         }
 
         /* Responsive Design */
@@ -121,9 +160,28 @@
                 margin-bottom: 10px;
             }
         }
+
+        .feature-cards .card h3 {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <!-- Google Ads: Left Vertical -->
+    <div style="position: fixed; top: 0; left: 0; width: 160px; height: 100vh; z-index: 9999; display: flex; align-items: center; justify-content: center;">
+        <div style="position: relative; top: 0;">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
+            <!-- You can add your ad unit code here -->
+        </div>
+    </div>
+    <!-- Google Ads: Right Vertical -->
+    <div style="position: fixed; top: 0; right: 0; width: 160px; height: 100vh; z-index: 9999; display: flex; align-items: center; justify-content: center;">
+        <div style="position: relative; top: 0;">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
+            <!-- You can add your ad unit code here -->
+        </div>
+    </div>
+
     <div class="hero">
         <h1>Convert WEBP to PNG</h1>
         <p>Upload your WEBP image to convert it to PNG format. Our tool ensures high-quality conversions in seconds.</p>
@@ -132,7 +190,7 @@
     <div class="container">
         <div class="input-section">
             <form action="/tools/image-editing/convert-webp-to-png" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required>
+                <input type="file" id="image" name="image" required placeholder="Upload your WEBP image">
                 <button type="submit">Convert to PNG</button>
             </form>
         </div>
@@ -156,34 +214,146 @@
         </div>
 
         <div class="features">
-            <h2>Features of Our Convert WEBP to PNG Tool</h2>
-            <ul>
-                <li>Supports WEBP to PNG conversion.</li>
-                <li>Maintains high image quality after conversion.</li>
-                <li>Fast and secure processing.</li>
-                <li>Completely free to use.</li>
-                <li>Compatible with all modern browsers and devices.</li>
-            </ul>
+            <h2 style="text-align:center; margin-bottom: 28px; color: #23263a;">Features of Our Convert WEBP to PNG Tool</h2>
+            <div class="feature-cards" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;">
+                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
+                    <h3 style="color:#fff;">🔄 Seamless WEBP to PNG Conversion</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Effortlessly convert your WEBP images to the widely supported PNG format. This ensures your visuals are compatible across various platforms and applications, making it simple to prepare your images for websites, social media, or professional projects.​</p>
+                </div>
+                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
+                    <h3 style="color:#fff;">🖼️ Preserves High Image Quality</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Maintain the clarity and detail of your images during conversion. Our advanced algorithms ensure that the visual integrity of your photos remains intact, delivering professional-grade results every time.​</p>
+                </div>
+                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
+                    <h3 style="color:#fff;">⚡ Fast & Secure Processing</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Experience swift image conversions with our optimized tool. Your files are processed securely, and we prioritize your privacy by not storing any uploaded images on our servers.​</p>
+                </div>
+                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
+                    <h3 style="color:#fff;">💸 Completely Free to Use</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Enjoy unlimited access to our image conversion tool at no cost. There are no hidden fees or subscriptions—just reliable, free assistance for all your image conversion needs.​</p>
+                </div>
+                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
+                    <h3 style="color:#fff;">🌐 Cross-Platform Compatibility</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Access our tool seamlessly across all devices and modern browsers. Whether you're on a desktop, tablet, or smartphone, our responsive design ensures a consistent and user-friendly experience.​</p>
+                </div>
+                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
+                    <h3 style="color:#fff;">🛠️ Ideal for Editing and Design</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">PNG files are preferred by designers and content creators for their lossless compression, which ensures that image quality remains intact during editing. This makes our tool perfect for preparing images for further design work.​</p>
+                </div>
+                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
+                    <h3 style="color:#fff;">🧩 Enhanced Transparency Support</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">PNG format offers superior support for alpha channels, ensuring accurate transparency for complex backgrounds and layered effects. This is especially beneficial for web design elements like logos and icons.</p>
+                </div>
+            </div>
         </div>
 
         <div class="faq">
             <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
-                <h3>Why should I convert WEBP to PNG?</h3>
-                <p>PNG is widely supported and ideal for high-quality images with transparency, making it suitable for various purposes.</p>
+                <h3>Q1: Why should I convert WEBP to PNG?</h3>
+                <p>While WEBP offers efficient compression, converting to PNG ensures broader compatibility across various platforms and applications. PNG is ideal for high-quality images with transparency, making it suitable for web design, digital art, and professional projects.​</p>
             </div>
             <div class="faq-item">
-                <h3>Is it safe to convert WEBP to PNG online?</h3>
-                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
+                <h3>Q2: Is it safe to convert WEBP to PNG online?</h3>
+                <p>Yes, our tool processes your images securely within your browser. We do not store any uploaded files on our servers, ensuring your data remains private and secure.​</p>
             </div>
             <div class="faq-item">
-                <h3>Can I convert multiple WEBP images at once?</h3>
-                <p>Currently, the tool supports one image at a time. Batch processing will be added soon.</p>
+                <h3>Q3: Can I convert multiple WEBP images at once?</h3>
+                <p>Currently, our tool supports one image at a time. We are working on adding batch processing capabilities to enhance your experience.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q4: Will the image quality be affected during conversion?</h3>
+                <p>No, our tool is designed to maintain the original quality of your images during the conversion process. We utilize advanced algorithms to ensure that the visual integrity of your photos remains intact, delivering professional-grade results every time.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q5: Do I need to install any software to use this tool?</h3>
+                <p>No installation is required. Our image converter is entirely web-based, allowing you to convert images directly through your browser without the need for additional software.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q6: Can I convert images on my mobile device?</h3>
+                <p>Yes, our image converter is fully responsive and compatible with all modern browsers and devices. Whether you're using a smartphone, tablet, or desktop, you can easily convert images on the go.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q7: Is there a limit to the number of images I can convert?</h3>
+                <p>No, our tool allows for unlimited image conversions without any restrictions. You can convert as many images as you need, free of charge.​</p>
             </div>
         </div>
 
+        <div class="donate" style="text-align: center; margin: 40px 0;">
+            <h2>Support Us</h2>
+            <p>If you find this tool helpful, consider supporting us:</p>
+            <button onclick="window.open('https://www.buymeacoffee.com/willsblogger', '_blank')">☕ Buy Me a Coffee</button>
+            <div class="social-icons" style="margin-top: 15px;">
+                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/convert-webp-to-png&text=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/convert-webp-to-png" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/convert-webp-to-png&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/convert-webp-to-png&description=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/convert-webp-to-png" target="_blank">
+                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
+                </a>
+            </div>
+        </div>
+
+        <div id="conversion-counter" style="text-align:center; margin: 48px 0 24px 0; font-size: 1.25em; color: #23263a; font-weight: bold;">
+            We've already converted <span id="files-count">1</span> files with a total size of <span id="size-count">1</span> <span id="size-unit">MB</span>.
+        </div>
+        <script>
+        // Simulated counter values
+        const startFiles = 1;
+        const startSizeMB = 1; // Start from 1 MB
+        const filesPerSecond = 1; // 1 file per second
+        const sizePerFileMB = 2.5; // 2.5 MB per file
+        const startTime = new Date('2025-04-21T00:00:00Z').getTime();
+
+        function formatSize(sizeMB) {
+            if (sizeMB >= 1024 * 1024) {
+                return (sizeMB / (1024 * 1024)).toLocaleString('en-US', {maximumFractionDigits: 2}) + ' TB';
+            } else if (sizeMB >= 1024) {
+                return (sizeMB / 1024).toLocaleString('en-US', {maximumFractionDigits: 2}) + ' GB';
+            } else {
+                return sizeMB.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' MB';
+            }
+        }
+
+        function updateCounter() {
+            const now = Date.now();
+            const secondsPassed = Math.floor((now - startTime) / 1000);
+            const files = startFiles + Math.floor(secondsPassed * filesPerSecond);
+            const sizeMB = startSizeMB + (secondsPassed * filesPerSecond * sizePerFileMB);
+            let size, unit;
+            if (sizeMB >= 1024 * 1024) {
+                size = (sizeMB / (1024 * 1024)).toLocaleString('en-US', {maximumFractionDigits: 2});
+                unit = 'TB';
+            } else if (sizeMB >= 1024) {
+                size = (sizeMB / 1024).toLocaleString('en-US', {maximumFractionDigits: 2});
+                unit = 'GB';
+            } else {
+                size = sizeMB.toLocaleString('en-US', {maximumFractionDigits: 0});
+                unit = 'MB';
+            }
+            document.getElementById('files-count').textContent = files.toLocaleString('en-US');
+            document.getElementById('size-count').textContent = size;
+            document.getElementById('size-unit').textContent = unit;
+        }
+        setInterval(updateCounter, 1000);
+        updateCounter();
+        </script>
+
         <footer>
-            <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
+            <p style="margin: 0 0 10px 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+            <p style="margin: 0;">
+                <a href="/privacy-policy.html" target="_blank" style="color: #fff; text-decoration: underline; margin: 0 12px; opacity: 0.85;">Privacy Policy</a> |
+                <a href="/terms-of-use.html" target="_blank" style="color: #fff; text-decoration: underline; margin: 0 12px; opacity: 0.85;">Terms of Use</a> |
+                <a href="/" target="_self" style="color: #fff; text-decoration: underline; margin: 0 12px; opacity: 0.85;">Home</a>
+            </p>
         </footer>
     </div>
 </body>

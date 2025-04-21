@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #181a20;
         }
         .hero {
             background-color: #6f42c1;
@@ -29,9 +29,9 @@
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: none;
+            border-radius: 0;
+            box-shadow: none;
         }
         .input-section {
             text-align: center;
@@ -39,29 +39,50 @@
         }
         .input-section input {
             padding: 10px;
-            width: 70%;
-            max-width: 400px;
+            width: 340px;
+            max-width: 100%;
+            min-width: 180px;
             margin-right: 10px;
-            border: 1px solid #ddd;
+            border: 2px solid #ffe066;
             border-radius: 4px;
+            background: #23263a;
+            color: #fff;
+            font-size: 1.13em;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(255,221,0,0.10);
+            vertical-align: middle;
+        }
+        .input-section input::placeholder {
+            color: #ffe066;
+            font-size: 1.08em;
+            opacity: 1;
+            font-weight: 500;
+            letter-spacing: 0.01em;
         }
         .input-section button {
-            padding: 10px 20px;
-            background-color: #6f42c1;
-            color: white;
+            font-size: 1.13em;
+            font-weight: bold;
+            padding: 12px 32px;
+            background: linear-gradient(90deg, #ffdd00 0%, #ffb300 100%);
+            color: #23263a;
+            box-shadow: 0 2px 8px rgba(255,221,0,0.10);
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            height: 44px;
+            vertical-align: middle;
         }
         .input-section button:hover {
-            background-color: #5a379e;
+            background: linear-gradient(90deg, #3d9bf2 0%, #0c34d2 100%);
+            color: #23263a;
         }
         .how-to {
             margin: 40px 0;
         }
         .how-to h2 {
             text-align: center;
-            color: #333;
+            color: #fff;
         }
         .how-to-steps {
             display: flex;
@@ -73,6 +94,7 @@
             text-align: center;
             flex: 1 1 30%;
             margin: 10px;
+            color: #fff;
         }
         .step span {
             display: inline-block;
@@ -90,26 +112,46 @@
         }
         .features h2, .faq h2 {
             text-align: center;
-            color: #333;
+            color: #fff;
         }
         .features ul {
             list-style: disc;
             margin-left: 20px;
-            color: #555;
+            color: #bbb;
         }
         .faq-item {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
+            background: #23263a;
+            border: 1px solid #333;
             border-radius: 8px;
             padding: 20px;
             margin: 10px 0;
+            color: #fff;
+        }
+        .faq-item p {
+            font-size: 1.13em;
+            line-height: 1.6;
         }
         footer {
+            background: #000;
+            color: #fff;
+            padding: 38px 20px 32px 20px;
+            margin-top: 64px;
+            border-radius: 0;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.10);
+            width: 100%;
             text-align: center;
-            margin-top: 40px;
-            color: #666;
+            font-size: 1.08em;
+            letter-spacing: 0.01em;
         }
-
+        footer p {
+            margin: 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+            margin: 0 12px;
+            opacity: 0.85;
+        }
         /* Responsive Design */
         @media (max-width: 768px) {
             .how-to-steps {
@@ -157,34 +199,80 @@
 
         <div class="features">
             <h2>Features of Our Convert SVG to PNG Tool</h2>
-            <ul>
-                <li>Supports SVG to PNG conversion.</li>
-                <li>Maintains high image quality after conversion.</li>
-                <li>Fast and secure processing.</li>
-                <li>Completely free to use.</li>
-                <li>Compatible with all modern browsers and devices.</li>
-            </ul>
+            <div class="feature-cards" style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; margin-top: 32px;">
+                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+                    <h3 style="margin-top:0;">🔄 Effortless SVG to PNG Conversion</h3>
+                    <p style="margin-bottom:0;">Easily transform your scalable vector graphics (SVG) into high-quality PNG images. This conversion ensures your visuals are compatible across various platforms and applications, making it simple to prepare your images for websites, social media, or professional projects.​</p>
+                </div>
+                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+                    <h3 style="margin-top:0;">🖼️ Preserves Image Quality</h3>
+                    <p style="margin-bottom:0;">Maintain the clarity and detail of your images during conversion. Our advanced algorithms ensure that the visual integrity of your graphics remains intact, delivering professional-grade results every time.​</p>
+                </div>
+                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+                    <h3 style="margin-top:0;">⚡ Fast & Secure Processing</h3>
+                    <p style="margin-bottom:0;">Experience swift image conversions with our optimized tool. Your files are processed securely, and we prioritize your privacy by not storing any uploaded images on our servers.​</p>
+                </div>
+                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+                    <h3 style="margin-top:0;">💸 Completely Free to Use</h3>
+                    <p style="margin-bottom:0;">Enjoy unlimited access to our image conversion tool at no cost. There are no hidden fees or subscriptions—just reliable, free assistance for all your image conversion needs.​</p>
+                </div>
+                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+                    <h3 style="margin-top:0;">🌐 Cross-Platform Compatibility</h3>
+                    <p style="margin-bottom:0;">Access our tool seamlessly across all devices and modern browsers. Whether you're on a desktop, tablet, or smartphone, our responsive design ensures a consistent and user-friendly experience.​</p>
+                </div>
+                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+                    <h3 style="margin-top:0;">🧩 Ideal for Web and Print Use</h3>
+                    <p style="margin-bottom:0;">PNG files are preferred by designers and content creators for their lossless compression, which ensures that image quality remains intact during editing. This makes our tool perfect for preparing images for further design work.</p>
+                </div>
+            </div>
         </div>
 
         <div class="faq">
             <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
-                <h3>Why should I convert SVG to PNG?</h3>
-                <p>PNG is widely supported and ideal for high-quality images with transparency, making it suitable for various purposes.</p>
+                <h3>Q1: Why should I convert SVG to PNG?</h3>
+                <p>While SVG files are excellent for scalability and responsiveness, converting them to PNG ensures compatibility across various platforms and applications. PNG is ideal for high-quality images with transparency, making it suitable for web graphics, digital art, and professional presentations.​</p>
             </div>
             <div class="faq-item">
-                <h3>Is it safe to convert SVG to PNG online?</h3>
-                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
+                <h3>Q2: Is it safe to convert SVG to PNG online?</h3>
+                <p>Yes, our tool processes your images securely within your browser. We do not store any uploaded files on our servers, ensuring your data remains private and secure.​</p>
             </div>
             <div class="faq-item">
-                <h3>Can I convert multiple SVG images at once?</h3>
-                <p>Currently, the tool supports one image at a time. Batch processing will be added soon.</p>
+                <h3>Q3: Can I convert multiple SVG images at once?</h3>
+                <p>Currently, our tool supports one image at a time. We are working on adding batch processing capabilities to enhance your experience.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q4: Will the image quality be affected during conversion?</h3>
+                <p>No, our tool is designed to maintain the original quality of your images during the conversion process. We utilize advanced algorithms to ensure that the visual integrity of your graphics remains intact, delivering professional-grade results every time.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q5: Do I need to install any software to use this tool?</h3>
+                <p>No installation is required. Our image converter is entirely web-based, allowing you to convert images directly through your browser without the need for additional software.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q6: Can I convert images on my mobile device?</h3>
+                <p>Yes, our image converter is fully responsive and compatible with all modern browsers and devices. Whether you're using a smartphone, tablet, or desktop, you can easily convert images on the go.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q7: Is there a limit to the number of images I can convert?</h3>
+                <p>No, our tool allows for unlimited image conversions without any restrictions. You can convert as many images as you need, free of charge.​</p>
             </div>
         </div>
-
-        <footer>
-            <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
-        </footer>
     </div>
+
+    <div class="support-us" style="max-width:600px;margin:40px auto 0 auto;padding:32px 20px 24px 20px;background:#23263a;border-radius:12px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.10);color:#fff;">
+        <h2 style="margin-top:0;color:#ffe066;">Support Us</h2>
+        <p style="margin:12px 0 24px 0;">If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
+        <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="display:inline-block;background:#ffdd00;color:#23263a;font-weight:bold;padding:12px 28px;border-radius:6px;text-decoration:none;font-size:1.15em;box-shadow:0 2px 8px rgba(0,0,0,0.10);transition:background 0.2s;">☕ Buy Me a Coffee</a>
+    </div>
+
+    <footer>
+        <p style="margin: 0 0 10px 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+        <p style="margin: 0;">
+            <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+            <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
+            <a href="/" target="_self">Home</a>
+        </p>
+    </footer>
 </body>
 </html>
