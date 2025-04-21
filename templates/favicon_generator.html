@@ -84,30 +84,6 @@
             font-size: 1.2em;
             margin-bottom: 10px;
         }
-        .feature-cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-        .card {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px;
-            flex: 1 1 calc(30% - 20px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .card h3 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .card p {
-            color: #555;
-            font-size: 0.95em;
-        }
         footer {
             background: #1e3c72;
             color: white;
@@ -228,7 +204,9 @@
     <div class="container">
         <div class="input-section">
             <form action="/tools/image-editing/favicon-generator" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required>
+                <input type="file" id="image" name="image">
+                <span style="display:block;margin:10px 0;">or</span>
+                <input type="text" id="text" name="text" maxlength="32" placeholder="Enter text or emoji (max 32 chars)" style="width:220px;">
                 <button type="submit">Generate Favicon</button>
             </form>
         </div>
@@ -238,7 +216,7 @@
             <div class="how-to-steps">
                 <div class="step">
                     <span>1</span>
-                    <p>Upload your image file.</p>
+                    <p>Upload your image file <b>or</b> enter text/emoji.</p>
                 </div>
                 <div class="step">
                     <span>2</span>
@@ -251,33 +229,57 @@
             </div>
         </div>
 
-        <div class="features">
-            <h2>Features of Our Favicon Generator</h2>
-            <div class="feature-cards">
-                <div class="card">
-                    <h3>🎨 Supports Multiple Image Formats</h3>
-                    <p>Our Favicon Generator accepts various image formats, including PNG, JPG, and JPEG. This flexibility ensures you can upload your preferred image type without the need for conversion, streamlining the favicon creation process.​</p>
+        <div class="features-container" style="max-width: 900px; margin: 48px auto 0 auto; padding: 32px 20px; background: #181c2a; border-radius: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.10);">
+            <h2 style="text-align:center; margin-bottom: 28px; color: #fff;">Features of Our Favicon Generator</h2>
+            <div class="feature-cards" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;">
+                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
+                    <h3 style="color:#fff;">🎨 Supports Multiple Image Formats</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Our Favicon Generator accepts various image formats, including PNG, JPG, and JPEG. This flexibility ensures you can upload your preferred image type without the need for conversion, streamlining the favicon creation process.​</p>
                 </div>
-                <div class="card">
-                    <h3>🖼️ Generates High-Quality Favicon Files</h3>
-                    <p>Produce crisp and clear favicons that enhance your website's appearance. Our tool ensures that the generated favicon maintains high resolution and clarity, making your site stand out in browser tabs and bookmarks.​</p>
+                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
+                    <h3 style="color:#fff;">🖼️ Generates High-Quality Favicon Files</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Produce crisp and clear favicons that enhance your website's appearance. Our tool ensures that the generated favicon maintains high resolution and clarity, making your site stand out in browser tabs and bookmarks.​</p>
                 </div>
-                <div class="card">
-                    <h3>⚡ Fast and Secure Processing</h3>
-                    <p>Experience swift favicon generation with our optimized tool. Your images are processed securely, ensuring your data remains private while delivering results in seconds.​</p>
+                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
+                    <h3 style="color:#fff;">⚡ Fast and Secure Processing</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Experience swift favicon generation with our optimized tool. Your images are processed securely, ensuring your data remains private while delivering results in seconds.​</p>
                 </div>
-                <div class="card">
-                    <h3>💸 Completely Free to Use</h3>
-                    <p>Enjoy unlimited access to our Favicon Generator without any charges. Whether you're a developer, designer, or website owner, our tool is available to everyone at no cost.​</p>
+                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
+                    <h3 style="color:#fff;">💸 Completely Free to Use</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Enjoy unlimited access to our Favicon Generator without any charges. Whether you're a developer, designer, or website owner, our tool is available to everyone at no cost.​</p>
                 </div>
-                <div class="card">
-                    <h3>🌐 Compatible with All Modern Browsers and Devices</h3>
-                    <p>Our favicons are designed to be fully compatible with all major browsers, including Chrome, Firefox, Safari, and Edge, as well as various devices. This ensures a consistent and professional look for your website across all platforms.​</p>
+                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
+                    <h3 style="color:#fff;">🌐 Compatible with All Modern Browsers and Devices</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Our favicons are designed to be fully compatible with all major browsers, including Chrome, Firefox, Safari, and Edge, as well as various devices. This ensures a consistent and professional look for your website across all platforms.​</p>
                 </div>
-                <div class="card">
-                    <h3>🛠️ Customizable Design Options</h3>
-                    <p>Tailor your favicon to match your brand identity. Our tool offers customization features such as adjusting colors, shapes, and patterns, allowing you to create a unique favicon that reflects your brand's personality.</p>
+                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
+                    <h3 style="color:#fff;">🛠️ Customizable Design Options</h3>
+                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Tailor your favicon to match your brand identity. Our tool offers customization features such as adjusting colors, shapes, and patterns, allowing you to create a unique favicon that reflects your brand's personality.</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- Support Us Section (Consistent Style) -->
+        <div class="donate" style="text-align: center; margin: 40px 0;">
+            <h2>Support Us</h2>
+            <p>If you find this tool helpful, consider supporting us:</p>
+            <button onclick="window.open('https://www.buymeacoffee.com/willsblogger', '_blank')">☕ Buy Me a Coffee</button>
+            <div class="social-icons" style="margin-top: 15px;">
+                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/favicon-generator&text=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/favicon-generator" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/favicon-generator&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/favicon-generator&description=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/favicon-generator" target="_blank">
+                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
+                </a>
             </div>
         </div>
     </div>
@@ -287,32 +289,27 @@
             <!-- Google Ads Placeholder -->
             <div class="google-ads">Your Ad Here</div>
         </div>
-        <div class="main-content">
+        <div class="main-content" style="max-width: 900px; margin: 0 auto; background: #181c2a; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 30px;">
             <div class="faq">
-                <h2>Frequently Asked Questions</h2>
+                <h2 style="color:#fff;">Frequently Asked Questions</h2>
                 <div class="faq-cards">
-                    <div class="card">
-                        <h3>What is a favicon?</h3>
-                        <p>A favicon is a small icon that represents your website, typically displayed in the browser tab or bookmarks.</p>
+                    <div class="card" style="background:#23263a; color:#fff;">
+                        <h3 style="color:#fff;">Q 1. What is a favicon?</h3>
+                        <p style="color:#e0e0e0; text-align:justify;">A favicon, short for "favorites icon," is a small square image that serves as the visual identifier for your website. It typically appears in browser tabs, bookmarks, history lists, and even in some search engine results next to your site’s title. Think of it like a miniature logo for your website – a quick, visual cue that helps users easily recognize and locate your site amongst a sea of open tabs or saved bookmarks.</p>
                     </div>
-                    <div class="card">
-                        <h3>What image formats are supported?</h3>
-                        <p>Our tool supports PNG, JPG, and JPEG formats for favicon generation.</p>
+                    <div class="card" style="background:#23263a; color:#fff;">
+                        <h3 style="color:#fff;">Q 2. What image formats are supported?</h3>
+                        <p style="color:#e0e0e0; text-align:justify;">Our Favicon Generator accepts various image formats, including PNG, JPG, and JPEG. This flexibility ensures you can upload your preferred image type without the need for conversion, streamlining the favicon creation process.</p>
                     </div>
-                    <div class="card">
-                        <h3>Is my uploaded image secure?</h3>
-                        <p>Yes, all uploaded images are processed securely and are not stored on our servers.</p>
+                    <div class="card" style="background:#23263a; color:#fff;">
+                        <h3 style="color:#fff;">Q 3. Is my uploaded image secure?</h3>
+                        <p style="color:#e0e0e0; text-align:justify;">Yes, your privacy is our priority. All uploaded images are processed securely and are not stored on our servers. The entire process happens dynamically within your browser, and all files are immediately downloaded to your device without being retained by our system.</p>
                     </div>
-                    <div class="card">
-                        <h3>Can I customize the favicon size?</h3>
-                        <p>Currently, the tool generates a standard 64x64 favicon. Custom sizes will be supported soon.</p>
+                    <div class="card" style="background:#23263a; color:#fff;">
+                        <h3 style="color:#fff;">Can I customize the favicon size?</h3>
+                        <p style="color:#e0e0e0; text-align:justify;">Currently, our tool generates a standard 64x64 pixel favicon, which is widely compatible with most browsers and platforms. We are working on adding support for custom sizes to cater to specific requirements.​</p>
                     </div>
                 </div>
-            </div>
-            <div class="buy-me-coffee">
-                <h2>Support Us</h2>
-                <p>If you find our tools helpful, consider buying us a coffee to keep us going!</p>
-                <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="coffee-button">Buy Me a Coffee</a>
             </div>
         </div>
     </div>

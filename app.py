@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify, send_file, send_from_directory
 import requests
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 import os
 
 app = Flask(__name__)
@@ -69,23 +69,38 @@ def compress_image():
 @app.route('/tools/image-editing/favicon-generator', methods=['GET', 'POST'])
 def favicon_generator():
     if request.method == 'POST':
-        if 'image' not in request.files:
-            return 'No file part', 400
-        file = request.files['image']
-        if file.filename == '':
-            return 'No selected file', 400
-
-        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
-        file.save(filepath)
-
-        # Generate favicon
+        # Check if user submitted text/emoji or image
+        text = request.form.get('text')
+        file = request.files.get('image')
         favicon_path = os.path.join(FAVICON_FOLDER, 'favicon.ico')
-        with Image.open(filepath) as img:
-            img = img.resize((64, 64))  # Resize to 64x64 for favicon
+        if text and text.strip():
+            # Generate favicon from text/emoji
+            img = Image.new('RGBA', (64, 64), (255, 255, 255, 255))  # White background
+            draw = ImageDraw.Draw(img)
+            # Dynamically adjust font size based on text length
+            font_size = 40
+            if len(text) > 8:
+                font_size = 24
+            if len(text) > 16:
+                font_size = 16
+            try:
+                font = ImageFont.truetype("arial.ttf", font_size)  # Use Arial for better compatibility
+            except Exception:
+                font = ImageFont.load_default()
+            bbox = draw.textbbox((0, 0), text, font=font)
+            w, h = bbox[2] - bbox[0], bbox[3] - bbox[1]
+            draw.text(((64-w)/2, (64-h)/2), text, font=font, fill=(0,0,0,255))
             img.save(favicon_path, format='ICO')
-
-        return send_file(favicon_path, as_attachment=True)
-
+            return send_file(favicon_path, as_attachment=True)
+        elif file and file.filename != '':
+            filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+            file.save(filepath)
+            with Image.open(filepath) as img:
+                img = img.resize((64, 64))  # Resize to 64x64 for favicon
+                img.save(favicon_path, format='ICO')
+            return send_file(favicon_path, as_attachment=True)
+        else:
+            return 'No input provided', 400
     return render_template('favicon_generator.html')
 
 @app.route('/tools/image-editing/convert-image', methods=['GET', 'POST'])
