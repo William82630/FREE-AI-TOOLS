@@ -9,10 +9,10 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #181a20;
         }
         .hero {
-            background-color: #28a745;
+            background-color: #019286;
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -25,94 +25,167 @@
             font-size: 1.2em;
             margin: 10px 0 0;
         }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
         .input-section {
             text-align: center;
-            margin: 20px 0;
+            margin: 48px 0 20px 0;
         }
         .input-section input {
             padding: 10px;
-            width: 70%;
-            max-width: 400px;
+            width: 340px;
+            max-width: 100%;
+            min-width: 180px;
             margin-right: 10px;
-            border: 1px solid #ddd;
+            border: 2px solid #ffe066;
             border-radius: 4px;
+            background: #23263a;
+            color: #fff;
+            font-size: 1.13em;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(255,221,0,0.10);
+            vertical-align: middle;
+        }
+        .input-section input::placeholder {
+            color: #ffe066;
+            font-size: 1.08em;
+            opacity: 1;
+            font-weight: 500;
+            letter-spacing: 0.01em;
         }
         .input-section button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
+            font-size: 1.13em;
+            font-weight: bold;
+            padding: 12px 32px;
+            background: linear-gradient(90deg, #ffdd00 0%, #ffb300 100%);
+            color: #23263a;
+            box-shadow: 0 2px 8px rgba(255,221,0,0.10);
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            height: 44px;
+            vertical-align: middle;
         }
         .input-section button:hover {
-            background-color: #218838;
-        }
-        .how-to {
-            margin: 40px 0;
-        }
-        .how-to h2 {
-            text-align: center;
-            color: #333;
-        }
-        .how-to-steps {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .step {
-            text-align: center;
-            flex: 1 1 30%;
-            margin: 10px;
-        }
-        .step span {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            background-color: #28a745;
-            color: white;
-            border-radius: 50%;
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            background: linear-gradient(90deg, #3d9bf2 0%, #0c34d2 100%);
+            color: #23263a;
         }
         .features, .faq {
             margin: 40px 0;
         }
         .features h2, .faq h2 {
             text-align: center;
-            color: #333;
+            color: #fff;
         }
-        .features ul {
-            list-style: disc;
-            margin-left: 20px;
-            color: #555;
+        .features .feature-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 32px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .features .feature-card {
+            background: #23263a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 28%;
+            min-width: 220px;
+            max-width: 280px;
+            box-sizing: border-box;
+            color: #fff;
+        }
+        .features .feature-card h3 {
+            text-align: center;
+        }
+        .features .feature-card p {
+            text-align: justify;
+            font-size: 1.18em;
+        }
+        .faq {
+            max-width: 900px;
+            margin: 40px auto;
         }
         .faq-item {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
+            background: #23263a;
+            border: 1px solid #333;
             border-radius: 8px;
             padding: 20px;
             margin: 10px 0;
+            color: #fff;
+        }
+        .faq-item p {
+            font-size: 1.13em;
+            line-height: 1.6;
+        }
+        .support-us {
+            max-width:600px;
+            margin:40px auto 0 auto;
+            padding:32px 20px 24px 20px;
+            background:#23263a;
+            border-radius:12px;
+            text-align:center;
+            box-shadow:0 2px 12px rgba(0,0,0,0.10);
+            color:#fff;
+        }
+        .support-us h2 {
+            margin-top:0;
+            color:#ffe066;
+        }
+        .support-us a {
+            display:inline-block;
+            background:#ffdd00;
+            color:#23263a;
+            font-weight:bold;
+            padding:12px 28px;
+            border-radius:6px;
+            text-decoration:none;
+            font-size:1.15em;
+            box-shadow:0 2px 8px rgba(0,0,0,0.10);
+            transition:background 0.2s;
+        }
+        .support-us a:hover {
+            background:#ffe066;
+        }
+        .social-icons {
+            margin-top: 15px;
+        }
+        .social-icons a {
+            margin-right: 10px;
+            background: none;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
         }
         footer {
+            background: #000;
+            color: #fff;
+            padding: 38px 20px 32px 20px;
+            margin-top: 64px;
+            border-radius: 0;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.10);
+            width: 100%;
             text-align: center;
-            margin-top: 40px;
-            color: #666;
+            font-size: 1.08em;
+            letter-spacing: 0.01em;
         }
-
-        /* Responsive Design */
+        footer p {
+            margin: 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+            margin: 0 12px;
+            opacity: 0.85;
+        }
         @media (max-width: 768px) {
-            .how-to-steps {
+            .features .feature-cards {
                 flex-direction: column;
                 align-items: center;
             }
@@ -125,70 +198,114 @@
 </head>
 <body>
     <div class="hero">
-        <h1>Crop Image</h1>
-        <p>Crop your images to focus on the most important parts. Perfect for social media, websites, and more.</p>
+        <h1>Crop Image Tool</h1>
+        <p>Upload your image, select the area, and crop it instantly with our easy-to-use tool.</p>
     </div>
-
-    <div class="container">
-        <div class="input-section">
-            <form action="/tools/image-editing/crop-image" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required>
-                <input type="number" id="x" name="x" placeholder="X Coordinate" required>
-                <input type="number" id="y" name="y" placeholder="Y Coordinate" required>
-                <input type="number" id="width" name="width" placeholder="Width (px)" required>
-                <input type="number" id="height" name="height" placeholder="Height (px)" required>
+    <div class="input-section">
+        <form action="/tools/image-editing/crop-image" method="post" enctype="multipart/form-data" style="display: inline-block; text-align: left; background: #23263a; padding: 28px 32px 24px 32px; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.10);">
+            <div style="margin-bottom: 18px; text-align: center;">
+                <input type="file" id="image" name="image" required placeholder="Upload your image" style="width: 100%; max-width: 340px; margin-right: 0; display: inline-block;">
+            </div>
+            <div style="display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;">
+                <input type="number" name="crop_x" placeholder="X (start)" style="width: 100px; min-width: 80px;">
+                <input type="number" name="crop_y" placeholder="Y (start)" style="width: 100px; min-width: 80px;">
+                <input type="number" name="crop_width" placeholder="Width (px)" style="width: 120px; min-width: 90px;" required>
+                <input type="number" name="crop_height" placeholder="Height (px)" style="width: 120px; min-width: 90px;" required>
+            </div>
+            <div style="text-align: center;">
                 <button type="submit">Crop Image</button>
-            </form>
-        </div>
-
-        <div class="how-to">
-            <h2>How to Use the Crop Image Tool</h2>
-            <div class="how-to-steps">
-                <div class="step">
-                    <span>1</span>
-                    <p>Upload your image file.</p>
-                </div>
-                <div class="step">
-                    <span>2</span>
-                    <p>Enter the crop dimensions (X, Y, Width, Height).</p>
-                </div>
-                <div class="step">
-                    <span>3</span>
-                    <p>Click the "Crop Image" button and download the cropped image.</p>
-                </div>
             </div>
-        </div>
-
-        <div class="features">
-            <h2>Features of Our Crop Image Tool</h2>
-            <ul>
-                <li>Crop images to custom dimensions.</li>
-                <li>Supports multiple image formats like PNG, JPG, and JPEG.</li>
-                <li>Maintains high image quality after cropping.</li>
-                <li>Fast and secure processing.</li>
-                <li>Completely free to use.</li>
-            </ul>
-        </div>
-
-        <div class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3>Why should I crop images?</h3>
-                <p>Cropping images helps focus on the most important parts and remove unnecessary elements.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Is it safe to crop images online?</h3>
-                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Can I crop images without losing quality?</h3>
-                <p>Absolutely! Our tool uses advanced algorithms to retain image quality while cropping.</p>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
-        </footer>
+        </form>
     </div>
+    <div class="features">
+        <h2>Features of Our Crop Image Tool</h2>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <h3>✂️ Easy Image Cropping</h3>
+                <p>Crop your images quickly and precisely. Perfect for removing unwanted areas or focusing on important details.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🖼️ Maintains Image Quality</h3>
+                <p>Our tool ensures your cropped images remain sharp and clear, preserving the original quality.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚡ Fast & Secure Processing</h3>
+                <p>Crop images in seconds. All processing is secure and your files are never stored on our servers.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💸 Completely Free to Use</h3>
+                <p>Enjoy unlimited cropping at no cost. No hidden fees or subscriptions.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🌐 Cross-Platform Compatibility</h3>
+                <p>Works on all devices and browsers. Crop images on desktop, tablet, or mobile.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🧩 Custom Crop Options</h3>
+                <p>Select the exact area you want to keep, giving you full control over your final image.</p>
+            </div>
+        </div>
+    </div>
+    <div class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>Q1: Why should I crop my images?</h3>
+            <p>Cropping images helps you focus on important details, remove unwanted areas, and improve composition for your projects.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q2: Is it safe to crop images online?</h3>
+            <p>Yes, our tool processes your images securely within your browser. We do not store any uploaded files on our servers, ensuring your data remains private and secure.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q3: Can I crop multiple images at once?</h3>
+            <p>Currently, our tool supports one image at a time. We are working on adding batch processing capabilities to enhance your experience.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q4: Will the image quality be affected during cropping?</h3>
+            <p>No, our tool is designed to maintain the original quality of your images during the cropping process. We utilize advanced algorithms to ensure that the visual integrity of your images remains intact.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q5: Do I need to install any software to use this tool?</h3>
+            <p>No installation is required. Our crop image tool is entirely web-based, allowing you to crop images directly through your browser without the need for additional software.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q6: Can I crop images on my mobile device?</h3>
+            <p>Yes, our crop image tool is fully responsive and compatible with all modern browsers and devices. Whether you're using a smartphone, tablet, or desktop, you can easily crop images on the go.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q7: Is there a limit to the number of images I can crop?</h3>
+            <p>No, our tool allows for unlimited image cropping without any restrictions. You can crop as many images as you need, free of charge.</p>
+        </div>
+    </div>
+    <div class="support-us">
+        <h2>Support Us</h2>
+        <p>If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
+        <a href="https://www.buymeacoffee.com/willsblogger" target="_blank">☕ Buy Me a Coffee</a>
+        <div class="social-icons">
+            <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/crop-image&text=Check+out+this+amazing+tool!" target="_blank">
+                <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter">
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/crop-image" target="_blank">
+                <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook">
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/crop-image&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank">
+                <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn">
+            </a>
+            <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/crop-image&description=Check+out+this+tool!" target="_blank">
+                <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest">
+            </a>
+            <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/crop-image" target="_blank">
+                <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp">
+            </a>
+        </div>
+    </div>
+    <footer>
+        <p style="margin: 0 0 10px 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+        <p style="margin: 0;">
+            <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+            <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
+            <a href="/" target="_self">Home</a>
+        </p>
+    </footer>
 </body>
 </html>

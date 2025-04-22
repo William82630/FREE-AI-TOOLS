@@ -114,10 +114,31 @@
             text-align: center;
             color: #fff;
         }
-        .features ul {
-            list-style: disc;
-            margin-left: 20px;
-            color: #bbb;
+        .features .feature-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 32px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .features .faq-item {
+            flex: 1 1 28%;
+            min-width: 220px;
+            max-width: 280px;
+            box-sizing: border-box;
+        }
+        .features .faq-item h3 {
+            text-align: center;
+        }
+        .features .faq-item p {
+            text-align: justify;
+        }
+        .faq {
+            max-width: 900px;
+            margin: 40px auto;
         }
         .faq-item {
             background: #23263a;
@@ -199,35 +220,35 @@
 
         <div class="features">
             <h2>Features of Our Convert SVG to PNG Tool</h2>
-            <div class="feature-cards" style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; margin-top: 32px;">
-                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+            <div class="feature-cards" style="display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 32px;">
+                <div class="faq-item" style="flex: 1 1 220px; min-width: 180px; max-width: 280px;">
                     <h3 style="margin-top:0;">🔄 Effortless SVG to PNG Conversion</h3>
                     <p style="margin-bottom:0;">Easily transform your scalable vector graphics (SVG) into high-quality PNG images. This conversion ensures your visuals are compatible across various platforms and applications, making it simple to prepare your images for websites, social media, or professional projects.​</p>
                 </div>
-                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+                <div class="faq-item" style="flex: 1 1 220px; min-width: 180px; max-width: 280px;">
                     <h3 style="margin-top:0;">🖼️ Preserves Image Quality</h3>
                     <p style="margin-bottom:0;">Maintain the clarity and detail of your images during conversion. Our advanced algorithms ensure that the visual integrity of your graphics remains intact, delivering professional-grade results every time.​</p>
                 </div>
-                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+                <div class="faq-item" style="flex: 1 1 220px; min-width: 180px; max-width: 280px;">
                     <h3 style="margin-top:0;">⚡ Fast & Secure Processing</h3>
                     <p style="margin-bottom:0;">Experience swift image conversions with our optimized tool. Your files are processed securely, and we prioritize your privacy by not storing any uploaded images on our servers.​</p>
                 </div>
-                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+                <div class="faq-item" style="flex: 1 1 220px; min-width: 180px; max-width: 280px;">
                     <h3 style="margin-top:0;">💸 Completely Free to Use</h3>
                     <p style="margin-bottom:0;">Enjoy unlimited access to our image conversion tool at no cost. There are no hidden fees or subscriptions—just reliable, free assistance for all your image conversion needs.​</p>
                 </div>
-                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+                <div class="faq-item" style="flex: 1 1 220px; min-width: 180px; max-width: 280px;">
                     <h3 style="margin-top:0;">🌐 Cross-Platform Compatibility</h3>
                     <p style="margin-bottom:0;">Access our tool seamlessly across all devices and modern browsers. Whether you're on a desktop, tablet, or smartphone, our responsive design ensures a consistent and user-friendly experience.​</p>
                 </div>
-                <div class="faq-item" style="flex: 1 1 320px; min-width: 280px; max-width: 400px;">
+                <div class="faq-item" style="flex: 1 1 220px; min-width: 180px; max-width: 280px;">
                     <h3 style="margin-top:0;">🧩 Ideal for Web and Print Use</h3>
                     <p style="margin-bottom:0;">PNG files are preferred by designers and content creators for their lossless compression, which ensures that image quality remains intact during editing. This makes our tool perfect for preparing images for further design work.</p>
                 </div>
             </div>
         </div>
 
-        <div class="faq">
+        <div class="faq" style="max-width: 900px; margin: 40px auto;">
             <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
                 <h3>Q1: Why should I convert SVG to PNG?</h3>

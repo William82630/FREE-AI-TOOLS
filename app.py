@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, send_file, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_file, send_from_directory, redirect, url_for, flash
 import requests
 from PIL import Image, ImageDraw, ImageFont
 import os
@@ -220,9 +220,29 @@ def crop_image():
 @app.route('/tools/image-editing/reverse-image-search', methods=['GET', 'POST'])
 def reverse_image_search():
     if request.method == 'POST':
-        # Handle reverse image search logic here
-        return 'Reverse Image Search functionality is under development.'
-    return render_template('reverse_image_search.html')
+        image = request.files.get('image')
+        image_url = request.form.get('image_url')
+        results = []
+        error = None
+        if (image and image.filename) or (image_url and image_url.strip()):
+            if image and image.filename:
+                # Save the uploaded image to a temporary location
+                image.save('temp_image.png')
+                # Here you would call your reverse image search API or logic
+                results = [
+                    {'title': 'Sample Result 1', 'url': 'https://example.com/1', 'thumbnail': '/static/images/sample1.png'},
+                    {'title': 'Sample Result 2', 'url': 'https://example.com/2', 'thumbnail': '/static/images/sample2.png'}
+                ]
+            elif image_url and image_url.strip():
+                # Here you would call your reverse image search API or logic with the image URL
+                results = [
+                    {'title': 'Sample Result 3', 'url': 'https://example.com/3', 'thumbnail': '/static/images/sample3.png'},
+                    {'title': 'Sample Result 4', 'url': 'https://example.com/4', 'thumbnail': '/static/images/sample4.png'}
+                ]
+        else:
+            error = 'Please upload an image or provide an image URL.'
+        return render_template('reverse_image_search.html', results=results, error=error)
+    return render_template('reverse_image_search.html', results=None, error=None)
 
 @app.route('/tools/image-editing/face-search', methods=['GET', 'POST'])
 def face_search():
