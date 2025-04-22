@@ -2,12 +2,17 @@ from flask import Flask, render_template, request, jsonify, send_file, send_from
 import requests
 from PIL import Image, ImageDraw, ImageFont
 import os
+import base64
+import json
 
 app = Flask(__name__)
 
 # Replace 'YOUR_API_KEY' with your actual OpenRouter API key
 API_KEY = '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'
 API_URL = 'https://api.openrouter.ai/v1/completions'
+
+GOOGLE_VISION_API_KEY = 'AIzaSyD-ycpAL46xpKjeeBjRX7b8TJvR5pese3Q'
+GOOGLE_VISION_API_URL = f'https://vision.googleapis.com/v1/images:annotate?key={GOOGLE_VISION_API_KEY}'
 
 UPLOAD_FOLDER = 'uploads/'
 COMPRESSED_FOLDER = 'compressed/'
@@ -225,20 +230,53 @@ def reverse_image_search():
         results = []
         error = None
         if (image and image.filename) or (image_url and image_url.strip()):
+            img_content = None
             if image and image.filename:
-                # Save the uploaded image to a temporary location
-                image.save('temp_image.png')
-                # Here you would call your reverse image search API or logic
-                results = [
-                    {'title': 'Sample Result 1', 'url': 'https://example.com/1', 'thumbnail': '/static/images/sample1.png'},
-                    {'title': 'Sample Result 2', 'url': 'https://example.com/2', 'thumbnail': '/static/images/sample2.png'}
-                ]
+                img_bytes = image.read()
+                img_content = base64.b64encode(img_bytes).decode('utf-8')
             elif image_url and image_url.strip():
-                # Here you would call your reverse image search API or logic with the image URL
-                results = [
-                    {'title': 'Sample Result 3', 'url': 'https://example.com/3', 'thumbnail': '/static/images/sample3.png'},
-                    {'title': 'Sample Result 4', 'url': 'https://example.com/4', 'thumbnail': '/static/images/sample4.png'}
-                ]
+                # Download the image from the URL
+                try:
+                    resp = requests.get(image_url)
+                    if resp.status_code == 200:
+                        img_content = base64.b64encode(resp.content).decode('utf-8')
+                    else:
+                        error = 'Could not download image from the provided URL.'
+                except Exception:
+                    error = 'Invalid image URL.'
+            if img_content and not error:
+                vision_payload = {
+                    "requests": [
+                        {
+                            "image": {"content": img_content},
+                            "features": [{"type": "WEB_DETECTION", "maxResults": 8}]
+                        }
+                    ]
+                }
+                try:
+                    vision_resp = requests.post(GOOGLE_VISION_API_URL, json=vision_payload)
+                    vision_data = vision_resp.json()
+                    web_detection = vision_data['responses'][0].get('webDetection', {})
+                    visually_similar = web_detection.get('visuallySimilarImages', [])
+                    pages_with_matching_images = web_detection.get('pagesWithMatchingImages', [])
+                    # Prepare results from visually similar images
+                    for img in visually_similar:
+                        results.append({
+                            'title': 'Visually Similar Image',
+                            'url': img.get('url'),
+                            'thumbnail': img.get('url')
+                        })
+                    # Prepare results from pages with matching images
+                    for page in pages_with_matching_images:
+                        results.append({
+                            'title': page.get('pageTitle', 'Matching Page'),
+                            'url': page.get('url'),
+                            'thumbnail': visually_similar[0]['url'] if visually_similar else ''
+                        })
+                    if not results:
+                        error = 'No visually similar images or matching pages found.'
+                except Exception as e:
+                    error = f'Error processing image: {str(e)}'
         else:
             error = 'Please upload an image or provide an image URL.'
         return render_template('reverse_image_search.html', results=results, error=error)
@@ -247,9 +285,60 @@ def reverse_image_search():
 @app.route('/tools/image-editing/face-search', methods=['GET', 'POST'])
 def face_search():
     if request.method == 'POST':
-        # Handle face search logic here
-        return 'Face Search functionality is under development.'
-    return render_template('face_search.html')
+        image = request.files.get('image')
+        image_url = request.form.get('image_url')
+        results = []
+        error = None
+        if (image and image.filename) or (image_url and image_url.strip()):
+            img_content = None
+            if image and image.filename:
+                img_bytes = image.read()
+                img_content = base64.b64encode(img_bytes).decode('utf-8')
+            elif image_url and image_url.strip():
+                try:
+                    resp = requests.get(image_url)
+                    if resp.status_code == 200:
+                        img_content = base64.b64encode(resp.content).decode('utf-8')
+                    else:
+                        error = 'Could not download image from the provided URL.'
+                except Exception:
+                    error = 'Invalid image URL.'
+            if img_content and not error:
+                vision_payload = {
+                    "requests": [
+                        {
+                            "image": {"content": img_content},
+                            "features": [{"type": "FACE_DETECTION", "maxResults": 8}]
+                        }
+                    ]
+                }
+                try:
+                    vision_resp = requests.post(GOOGLE_VISION_API_URL, json=vision_payload)
+                    vision_data = vision_resp.json()
+                    faces = vision_data['responses'][0].get('faceAnnotations', [])
+                    if faces:
+                        for idx, face in enumerate(faces):
+                            bounding_poly = face.get('fdBoundingPoly', {}).get('vertices', [])
+                            bbox = ', '.join([f"({v.get('x', 0)}, {v.get('y', 0)})" for v in bounding_poly])
+                            joy = face.get('joyLikelihood', 'UNKNOWN')
+                            sorrow = face.get('sorrowLikelihood', 'UNKNOWN')
+                            anger = face.get('angerLikelihood', 'UNKNOWN')
+                            surprise = face.get('surpriseLikelihood', 'UNKNOWN')
+                            confidence = face.get('detectionConfidence', 0)
+                            details = f"Confidence: {confidence:.2f}<br>Bounding Box: {bbox}<br>Joy: {joy}, Sorrow: {sorrow}, Anger: {anger}, Surprise: {surprise}"
+                            results.append({
+                                'title': f'Face #{idx+1}',
+                                'url': details,
+                                'thumbnail': request.form.get('image_url') if image_url else '/static/images/face_icon.png'
+                            })
+                    else:
+                        error = 'No faces detected in the image.'
+                except Exception as e:
+                    error = f'Error processing image: {str(e)}'
+        else:
+            error = 'Please upload an image or provide an image URL.'
+        return render_template('face_search.html', results=results, error=error)
+    return render_template('face_search.html', results=None, error=None)
 
 @app.route('/tools/online-calculators/simple-calculator', methods=['GET'])
 def simple_calculator():

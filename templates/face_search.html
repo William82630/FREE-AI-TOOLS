@@ -1,18 +1,19 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Face Search</title>
-    <meta name="description" content="Search for similar faces across the web with advanced AI. Perfect for finding matches, verifying identities, and more.">
-    <meta name="keywords" content="face search, find similar faces, AI face search tool">
+    <title>Face Search Tool</title>
+    <meta name="description" content="Find similar faces or detect faces in images using our free Face Search tool.">
+    <meta name="keywords" content="face search, find similar faces, face detection, image search tool">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #181a20;
         }
         .hero {
-            background-color: #6f42c1;
+            background-color: #1a237e;
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -25,94 +26,167 @@
             font-size: 1.2em;
             margin: 10px 0 0;
         }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
         .input-section {
             text-align: center;
-            margin: 20px 0;
+            margin: 48px 0 20px 0;
         }
         .input-section input {
             padding: 10px;
-            width: 70%;
-            max-width: 400px;
+            width: 340px;
+            max-width: 100%;
+            min-width: 180px;
             margin-right: 10px;
-            border: 1px solid #ddd;
+            border: 2px solid #ffe066;
             border-radius: 4px;
+            background: #23263a;
+            color: #fff;
+            font-size: 1.13em;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(255,221,0,0.10);
+            vertical-align: middle;
+        }
+        .input-section input::placeholder {
+            color: #ffe066;
+            font-size: 1.08em;
+            opacity: 1;
+            font-weight: 500;
+            letter-spacing: 0.01em;
         }
         .input-section button {
-            padding: 10px 20px;
-            background-color: #6f42c1;
-            color: white;
+            font-size: 1.13em;
+            font-weight: bold;
+            padding: 12px 32px;
+            background: linear-gradient(90deg, #ffdd00 0%, #ffb300 100%);
+            color: #23263a;
+            box-shadow: 0 2px 8px rgba(255,221,0,0.10);
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            height: 44px;
+            vertical-align: middle;
         }
         .input-section button:hover {
-            background-color: #5a379e;
-        }
-        .how-to {
-            margin: 40px 0;
-        }
-        .how-to h2 {
-            text-align: center;
-            color: #333;
-        }
-        .how-to-steps {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .step {
-            text-align: center;
-            flex: 1 1 30%;
-            margin: 10px;
-        }
-        .step span {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            background-color: #6f42c1;
-            color: white;
-            border-radius: 50%;
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            background: linear-gradient(90deg, #3d9bf2 0%, #0c34d2 100%);
+            color: #23263a;
         }
         .features, .faq {
             margin: 40px 0;
         }
         .features h2, .faq h2 {
             text-align: center;
-            color: #333;
+            color: #fff;
         }
-        .features ul {
-            list-style: disc;
-            margin-left: 20px;
-            color: #555;
+        .features .feature-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 32px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .features .feature-card {
+            background: #23263a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 28%;
+            min-width: 220px;
+            max-width: 280px;
+            box-sizing: border-box;
+            color: #fff;
+        }
+        .features .feature-card h3 {
+            text-align: center;
+        }
+        .features .feature-card p {
+            text-align: justify;
+            font-size: 1.18em;
+        }
+        .faq {
+            max-width: 900px;
+            margin: 40px auto;
         }
         .faq-item {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
+            background: #23263a;
+            border: 1px solid #333;
             border-radius: 8px;
             padding: 20px;
             margin: 10px 0;
+            color: #fff;
+        }
+        .faq-item p {
+            font-size: 1.13em;
+            line-height: 1.6;
+        }
+        .support-us {
+            max-width:600px;
+            margin:40px auto 0 auto;
+            padding:32px 20px 24px 20px;
+            background:#23263a;
+            border-radius:12px;
+            text-align:center;
+            box-shadow:0 2px 12px rgba(0,0,0,0.10);
+            color:#fff;
+        }
+        .support-us h2 {
+            margin-top:0;
+            color:#ffe066;
+        }
+        .support-us a {
+            display:inline-block;
+            background:#ffdd00;
+            color:#23263a;
+            font-weight:bold;
+            padding:12px 28px;
+            border-radius:6px;
+            text-decoration:none;
+            font-size:1.15em;
+            box-shadow:0 2px 8px rgba(0,0,0,0.10);
+            transition:background 0.2s;
+        }
+        .support-us a:hover {
+            background:#ffe066;
+        }
+        .social-icons {
+            margin-top: 15px;
+        }
+        .social-icons a {
+            margin-right: 10px;
+            background: none;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
         }
         footer {
+            background: #000;
+            color: #fff;
+            padding: 38px 20px 32px 20px;
+            margin-top: 64px;
+            border-radius: 0;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.10);
+            width: 100%;
             text-align: center;
-            margin-top: 40px;
-            color: #666;
+            font-size: 1.08em;
+            letter-spacing: 0.01em;
         }
-
-        /* Responsive Design */
+        footer p {
+            margin: 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+            margin: 0 12px;
+            opacity: 0.85;
+        }
         @media (max-width: 768px) {
-            .how-to-steps {
+            .features .feature-cards {
                 flex-direction: column;
                 align-items: center;
             }
@@ -125,67 +199,131 @@
 </head>
 <body>
     <div class="hero">
-        <h1>Face Search</h1>
-        <p>Search for similar faces across the web with advanced AI. Perfect for finding matches, verifying identities, and more.</p>
+        <h1>Face Search Tool</h1>
+        <p>Upload an image or paste an image URL to find similar faces or detect faces in your photo.</p>
     </div>
-
-    <div class="container">
-        <div class="input-section">
-            <form action="/tools/image-editing/face-search" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required>
-                <button type="submit">Search Face</button>
-            </form>
-        </div>
-
-        <div class="how-to">
-            <h2>How to Use the Face Search Tool</h2>
-            <div class="how-to-steps">
-                <div class="step">
-                    <span>1</span>
-                    <p>Upload your image file.</p>
+    <div class="input-section">
+        <form action="/tools/image-editing/face-search" method="post" enctype="multipart/form-data" style="display: inline-block; text-align: left; background: #23263a; padding: 28px 32px 24px 32px; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.10);">
+            <div style="margin-bottom: 18px; text-align: center;">
+                <input type="file" id="image" name="image" placeholder="Upload your image" style="width: 100%; max-width: 340px; margin-right: 0; display: inline-block;">
+            </div>
+            <div style="margin-bottom: 18px; text-align: center;">
+                <input type="url" name="image_url" placeholder="Or paste image URL" style="width: 100%; max-width: 340px; display: inline-block;">
+            </div>
+            <div style="text-align: center; color: #ffe066; font-size: 1.05em; margin-bottom: 10px;">
+                <span>Upload an image <b>or</b> paste an image URL. Only one is required.</span>
+            </div>
+            <div style="text-align: center;">
+                <button type="submit">Search for Faces</button>
+            </div>
+        </form>
+        {% if error %}
+        <div style="color: #ff6f61; text-align: center; margin-top: 16px; font-weight: bold;">{{ error }}</div>
+        {% endif %}
+        {% if results %}
+        <div style="margin: 32px auto 0 auto; max-width: 700px;">
+            <h2 style="color: #ffe066; text-align: center;">Face Search Results</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 18px; justify-content: center;">
+                {% for result in results %}
+                <div style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 18px; min-width: 220px; max-width: 280px; color: #fff; text-align: center;">
+                    <img src="{{ result.thumbnail }}" alt="Face Result" style="width: 100%; max-width: 180px; border-radius: 6px; margin-bottom: 10px;">
+                    <div style="font-size: 1.13em; font-weight: bold; margin-bottom: 6px;">{{ result.title }}</div>
+                    <div style="font-size: 0.98em; word-break: break-all;">{{ result.url }}</div>
                 </div>
-                <div class="step">
-                    <span>2</span>
-                    <p>Click the "Search Face" button.</p>
-                </div>
-                <div class="step">
-                    <span>3</span>
-                    <p>View the results to find similar faces or matches.</p>
-                </div>
+                {% endfor %}
             </div>
         </div>
-
-        <div class="features">
-            <h2>Features of Our Face Search Tool</h2>
-            <ul>
-                <li>Find similar faces or matches using advanced AI.</li>
-                <li>Supports multiple image formats like PNG, JPG, and JPEG.</li>
-                <li>Fast and secure processing.</li>
-                <li>Completely free to use.</li>
-                <li>Compatible with all modern browsers and devices.</li>
-            </ul>
-        </div>
-
-        <div class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3>What is face search?</h3>
-                <p>Face search allows you to find similar faces or matches by uploading an image file.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Is it safe to use face search online?</h3>
-                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Can I search for multiple faces at once?</h3>
-                <p>Currently, the tool supports one image at a time. Batch processing will be added soon.</p>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2023 Free AI Tools. All rights reserved.</p>
-            <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-use">Terms of Use</a></p>
-        </footer>
+        {% endif %}
     </div>
+    <div class="features">
+        <h2>Features of Our Face Search Tool</h2>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <h3>🔎 Find Similar Faces</h3>
+                <p>Discover visually similar faces from your uploaded image or image URL using advanced AI technology.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🧑‍💻 Face Detection</h3>
+                <p>Detect faces in your photos instantly and highlight them for easy identification.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚡ Fast & Secure</h3>
+                <p>All processing is secure and fast. Your images are never stored on our servers.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💸 Free to Use</h3>
+                <p>Enjoy unlimited face searches at no cost. No hidden fees or subscriptions.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🌐 Cross-Platform</h3>
+                <p>Works on all devices and browsers. Search for faces on desktop, tablet, or mobile.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🧩 Multiple Input Options</h3>
+                <p>Upload an image or paste an image URL for maximum flexibility and convenience.</p>
+            </div>
+        </div>
+    </div>
+    <div class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>Q1: What is face search?</h3>
+            <p>Face search allows you to find similar faces or detect faces in an image by uploading a photo or pasting an image URL.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q2: Is it safe to use this tool?</h3>
+            <p>Yes, our tool processes your images securely within your browser. We do not store any uploaded files on our servers, ensuring your data remains private and secure.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q3: Can I search by image URL?</h3>
+            <p>Yes, you can either upload an image or paste an image URL to perform a face search.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q4: Will my image be shared or stored?</h3>
+            <p>No, your image is processed securely and is never stored or shared. Your privacy is our priority.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q5: Do I need to install any software to use this tool?</h3>
+            <p>No installation is required. Our face search tool is entirely web-based, allowing you to search for faces directly through your browser.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q6: Can I use this tool on my mobile device?</h3>
+            <p>Yes, our tool is fully responsive and compatible with all modern browsers and devices. Whether you're using a smartphone, tablet, or desktop, you can easily search for faces on the go.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q7: Is there a limit to the number of searches I can perform?</h3>
+            <p>No, our tool allows for unlimited face searches without any restrictions. You can search as many times as you need, free of charge.</p>
+        </div>
+    </div>
+    <div class="support-us">
+        <h2>Support Us</h2>
+        <p>If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
+        <a href="https://www.buymeacoffee.com/willsblogger" target="_blank">☕ Buy Me a Coffee</a>
+        <div class="social-icons">
+            <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/face-search&text=Check+out+this+amazing+tool!" target="_blank">
+                <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter">
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/face-search" target="_blank">
+                <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook">
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/face-search&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank">
+                <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn">
+            </a>
+            <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/face-search&description=Check+out+this+tool!" target="_blank">
+                <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest">
+            </a>
+            <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/face-search" target="_blank">
+                <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp">
+            </a>
+        </div>
+    </div>
+    <footer>
+        <p style="margin: 0 0 10px 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+        <p style="margin: 0;">
+            <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+            <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
+            <a href="/" target="_self">Home</a>
+        </p>
+    </footer>
 </body>
 </html>

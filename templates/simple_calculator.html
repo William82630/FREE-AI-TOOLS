@@ -1,93 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<html>
-<head>
-    <title>Simple Calculator</title>
-    <meta name="description" content="Perform basic arithmetic calculations with memory functions. Includes addition, subtraction, multiplication, division, and more advanced operations.">
-    <meta name="keywords" content="simple calculator, online calculator, basic calculator">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .hero {
-            background-color: #007BFF;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .hero p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .calculator {
-            text-align: center;
-        }
-        .calculator-display {
-            width: 100%;
-            height: 50px;
-            font-size: 1.5em;
-            text-align: right;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-        }
-        .calculator-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        .calculator-buttons button {
-            padding: 15px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 4px;
-            background-color: #007BFF;
-            color: white;
-            cursor: pointer;
-        }
-        .calculator-buttons button:hover {
-            background-color: #0056b3;
-        }
-        .description {
-            margin-top: 20px;
-            text-align: left;
-            color: #333;
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #666;
-        }
-    </style>
-</head>
-<body>
-    <div class="hero">
-        <h1>Simple Calculator</h1>
-        <p>Perform basic arithmetic calculations with memory functions. Includes addition, subtraction, multiplication, division, and more advanced operations.</p>
-    </div>
-
-    <div class="container">
-        <div class="calculator">
-            <input type="text" id="display" class="calculator-display" disabled>
+<div class="hero">
+    <h1>Simple Calculator</h1>
+    <p>Perform basic, memory, and scientific calculations. Now with history and enhanced mobile usability!</p>
+</div>
+<div class="input-section">
+    <div class="calculator-container">
+        <div class="calculator-main">
+            <input type="text" id="display" class="calculator-display" disabled placeholder="0">
             <div class="calculator-buttons">
+                <!-- Memory row -->
+                <button onclick="memoryClear()">MC</button>
+                <button onclick="memoryRecall()">MR</button>
+                <button onclick="memoryAdd()">M+</button>
+                <button onclick="memorySubtract()">M-</button>
+                <!-- Scientific row -->
+                <button onclick="appendToDisplay('Math.sqrt(')">√</button>
+                <button onclick="appendToDisplay('Math.sin(')">sin</button>
+                <button onclick="appendToDisplay('Math.cos(')">cos</button>
+                <button onclick="appendToDisplay('Math.tan(')">tan</button>
+                <!-- Standard row -->
                 <button onclick="clearDisplay()">AC</button>
                 <button onclick="appendToDisplay('%')">%</button>
                 <button onclick="appendToDisplay('/')">÷</button>
@@ -110,92 +42,390 @@
                 <button onclick="calculate()">=</button>
             </div>
         </div>
-
-        <div class="description">
-            <h2>About This Calculator</h2>
-            <p>This simple calculator is designed to handle basic arithmetic operations such as addition, subtraction, multiplication, and division. It also includes advanced features like percentage calculations, memory functions, and more.</p>
-
-            <h3>How to Use:</h3>
-            <ul>
-                <li>Use the buttons to input numbers and operations.</li>
-                <li>Click "AC" to clear the display.</li>
-                <li>Use the "±" button to toggle between positive and negative values.</li>
-                <li>Click "=" to calculate the result.</li>
-            </ul>
-
-            <h3>Features:</h3>
-            <ul>
-                <li>Basic arithmetic: addition, subtraction, multiplication, and division.</li>
-                <li>Percentage calculations.</li>
-                <li>Memory functions for storing and recalling values.</li>
-                <li>Clear and backspace options for easy corrections.</li>
-            </ul>
-
-            <h3>What Are the Functions on the Calculator?</h3>
-            <ul>
-                <li><strong>÷:</strong> Division</li>
-                <li><strong>×:</strong> Multiplication</li>
-                <li><strong>+:</strong> Addition</li>
-                <li><strong>−:</strong> Subtraction</li>
-                <li><strong>=:</strong> Calculate</li>
-            </ul>
-
-            <h2>Frequently Asked Questions (FAQs)</h2>
-            <h3>1. What is this calculator used for?</h3>
-            <p>This calculator is designed for basic arithmetic operations such as addition, subtraction, multiplication, and division. It is simple and easy to use for quick calculations.</p>
-
-            <h3>2. Can I use this calculator on my mobile device?</h3>
-            <p>Yes, this calculator is fully responsive and works seamlessly on mobile devices, tablets, and desktops.</p>
-
-            <h3>3. Does this calculator support advanced functions?</h3>
-            <p>Currently, this calculator is focused on basic operations. For advanced calculations, you may need a scientific calculator.</p>
-
-            <h3>4. How accurate are the calculations?</h3>
-            <p>The calculator provides results with up to 10 digits of precision, ensuring high accuracy for most calculations.</p>
-
-            <h3>5. Can I use the keyboard to operate the calculator?</h3>
-            <p>Yes, you can use your keyboard's number pad and basic arithmetic keys (+, -, *, /) to perform calculations.</p>
-
-            <h3>6. Is there a way to clear the display?</h3>
-            <p>Yes, you can use the "AC" button to clear all entries and reset the calculator.</p>
+        <div class="calculator-history">
+            <h3>History</h3>
+            <ul id="history-list"></ul>
         </div>
     </div>
+</div>
+<div class="features">
+    <h2>Features</h2>
+    <div class="feature-cards">
+        <div class="feature-card">
+            <h3>Basic Arithmetic</h3>
+            <p>Perform addition, subtraction, multiplication, and division with ease. The calculator is designed for quick and accurate results.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Percentage & Sign</h3>
+            <p>Calculate percentages and toggle between positive and negative values with dedicated buttons for convenience.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Scientific Functions</h3>
+            <p>Perform advanced calculations like square root, sine, cosine, and tangent with the new scientific function buttons.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Memory Functions</h3>
+            <p>Store, recall, add, and subtract values using the memory buttons for enhanced calculation capabilities.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Responsive Design</h3>
+            <p>Use the calculator on any device—desktop, tablet, or mobile. The layout adapts for a seamless experience everywhere.</p>
+        </div>
+    </div>
+</div>
+<div class="faq">
+    <h2>Frequently Asked Questions (FAQs)</h2>
+    <div class="faq-item">
+        <strong>1. What is this calculator used for?</strong>
+        <p>This calculator is designed for basic arithmetic operations such as addition, subtraction, multiplication, and division. It is simple and easy to use for quick calculations.</p>
+    </div>
+    <div class="faq-item">
+        <strong>2. Can I use this calculator on my mobile device?</strong>
+        <p>Yes, this calculator is fully responsive and works seamlessly on mobile devices, tablets, and desktops.</p>
+    </div>
+    <div class="faq-item">
+        <strong>3. Does this calculator support advanced functions?</strong>
+        <p>Yes, the calculator now includes scientific functions like square root, sine, cosine, and tangent.</p>
+    </div>
+    <div class="faq-item">
+        <strong>4. How accurate are the calculations?</strong>
+        <p>The calculator provides results with up to 10 digits of precision, ensuring high accuracy for most calculations.</p>
+    </div>
+    <div class="faq-item">
+        <strong>5. Can I use the keyboard to operate the calculator?</strong>
+        <p>Yes, you can use your keyboard's number pad and basic arithmetic keys (+, -, *, /) to perform calculations.</p>
+    </div>
+    <div class="faq-item">
+        <strong>6. Is there a way to clear the display?</strong>
+        <p>Yes, you can use the "AC" button to clear all entries and reset the calculator.</p>
+    </div>
+    <div class="faq-item">
+        <strong>7. How does the memory function work?</strong>
+        <p>The memory buttons allow you to store (M+), recall (MR), clear (MC), and subtract (M-) values for enhanced calculations.</p>
+    </div>
+</div>
+<div class="support-us">
+    <h2>Support Us</h2>
+    <p>If you find this calculator useful, consider <a href="https://www.buymeacoffee.com/willsblogger" target="_blank">buying me a coffee</a> to support further development!</p>
+    <div class="social-icons">
+        <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20Simple%20Calculator%20Tool!&url=https://willsblogger.com/tools/simple-calculator" target="_blank"><img src="/static/images/twitter.png" alt="Twitter"></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://willsblogger.com/tools/simple-calculator" target="_blank"><img src="/static/images/facebook.png" alt="Facebook"></a>
+        <a href="https://api.whatsapp.com/send?text=Check%20out%20this%20Simple%20Calculator%20Tool!%20https://willsblogger.com/tools/simple-calculator" target="_blank"><img src="/static/images/whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://willsblogger.com/tools/simple-calculator" target="_blank"><img src="/static/images/linkedIn.png" alt="LinkedIn"></a>
+        <a href="https://pinterest.com/pin/create/button/?url=https://willsblogger.com/tools/simple-calculator" target="_blank"><img src="/static/images/pinterest.png" alt="Pinterest"></a>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2025 willsblogger.com. All rights reserved. | <a href="/privacy-policy.html">Privacy Policy</a> | <a href="/terms-of-use.html">Terms of Use</a></p>
+</footer>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #181a20;
+}
+.hero {
+    background-color: #019286;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+.hero h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+.hero p {
+    font-size: 1.2em;
+    margin: 10px 0 0;
+}
+.input-section {
+    text-align: center;
+    margin: 48px 0 20px 0;
+}
+.calculator-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    background: #23263a;
+    padding: 28px 16px 24px 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    max-width: 700px;
+    margin: 0 auto;
+}
+.calculator-main {
+    flex: 1 1 320px;
+    min-width: 280px;
+    max-width: 340px;
+}
+.calculator-display {
+    width: 100%;
+    margin-bottom: 18px;
+    background: #181a20;
+    color: #ffe066;
+    border: 2px solid #ffe066;
+    font-size: 1.5em;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: right;
+}
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+.calculator-buttons button {
+    font-size: 1.13em;
+    font-weight: bold;
+    padding: 12px 0;
+    background: linear-gradient(90deg, #ffdd00 0%, #ffb300 100%);
+    color: #23263a;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.calculator-buttons button:hover {
+    background: #ffe066;
+}
+.calculator-history {
+    flex: 1 1 180px;
+    min-width: 160px;
+    background: #181a20;
+    color: #ffe066;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 0;
+    max-height: 340px;
+    overflow-y: auto;
+}
+.calculator-history h3 {
+    margin-top: 0;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+.calculator-history ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+}
+.calculator-history li {
+    margin-bottom: 8px;
+    word-break: break-all;
+}
+.features, .faq {
+    margin: 40px 0;
+}
+.features h2, .faq h2 {
+    text-align: center;
+    color: #fff;
+}
+.features .feature-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    justify-content: center;
+    margin-top: 32px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.features .feature-card {
+    background: #23263a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1 1 28%;
+    min-width: 220px;
+    max-width: 280px;
+    box-sizing: border-box;
+    color: #fff;
+}
+.features .feature-card h3 {
+    text-align: center;
+}
+.features .feature-card p {
+    text-align: justify;
+    font-size: 1.18em;
+}
+.faq {
+    max-width: 900px;
+    margin: 40px auto;
+}
+.faq-item {
+    background: #23263a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px 0;
+    color: #fff;
+}
+.faq-item p {
+    font-size: 1.13em;
+    line-height: 1.6;
+}
+.support-us {
+    max-width:600px;
+    margin:40px auto 0 auto;
+    padding:32px 20px 24px 20px;
+    background:#23263a;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 2px 12px rgba(0,0,0,0.10);
+    color:#fff;
+}
+.support-us h2 {
+    margin-top:0;
+    color:#ffe066;
+}
+.support-us a {
+    display:inline-block;
+    background:#ffdd00;
+    color:#23263a;
+    font-weight:bold;
+    padding:12px 28px;
+    border-radius:6px;
+    text-decoration:none;
+    font-size:1.15em;
+    box-shadow:0 2px 8px rgba(0,0,0,0.10);
+    transition:background 0.2s;
+}
+.support-us a:hover {
+    background:#ffe066;
+}
+.social-icons {
+    margin-top: 15px;
+}
+.social-icons a {
+    margin-right: 10px;
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+.social-icons img {
+    width: 30px;
+    height: 30px;
+}
+footer {
+    background: #000;
+    color: #fff;
+    padding: 38px 20px 32px 20px;
+    margin-top: 64px;
+    border-radius: 0;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.10);
+    width: 100%;
+    text-align: center;
+    font-size: 1.08em;
+    letter-spacing: 0.01em;
+}
+footer p {
+    margin: 0;
+}
+footer a {
+    color: #fff;
+    text-decoration: underline;
+    margin: 0 12px;
+    opacity: 0.85;
+}
+@media (max-width: 700px) {
+    .calculator-container {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px 4px;
+    }
+    .calculator-main, .calculator-history {
+        max-width: 100%;
+        min-width: 0;
+    }
+    .calculator-history {
+        margin-top: 18px;
+    }
+}
+@media (max-width: 768px) {
+    .features .feature-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+<script>
+let memory = 0;
+let history = [];
 
-    <footer>
-        <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
-    </footer>
-
-    <script>
-        function appendToDisplay(value) {
-            const display = document.getElementById('display');
-            display.value += value;
+function appendToDisplay(value) {
+    const display = document.getElementById('display');
+    if (display.value === '0' || display.value === 'Error') display.value = '';
+    display.value += value;
+}
+function clearDisplay() {
+    document.getElementById('display').value = '';
+}
+function backspace() {
+    const display = document.getElementById('display');
+    display.value = display.value.slice(0, -1);
+}
+function toggleSign() {
+    const display = document.getElementById('display');
+    if (display.value) {
+        if (display.value.startsWith('-')) display.value = display.value.slice(1);
+        else display.value = '-' + display.value;
+    }
+}
+function calculate() {
+    const display = document.getElementById('display');
+    let expression = display.value.replace(/÷/g, '/').replace(/×/g, '*');
+    try {
+        // Evaluate with Math context for scientific functions
+        let result = Function('return ' + expression)();
+        if (typeof result === 'number' && !isNaN(result)) {
+            result = parseFloat(result.toPrecision(10));
+            addToHistory(display.value + ' = ' + result);
+            display.value = result;
+        } else {
+            display.value = 'Error';
         }
-
-        function clearDisplay() {
-            document.getElementById('display').value = '';
-        }
-
-        function backspace() {
-            const display = document.getElementById('display');
-            display.value = display.value.slice(0, -1);
-        }
-
-        function toggleSign() {
-            const display = document.getElementById('display');
-            if (display.value) {
-                display.value = parseFloat(display.value) * -1;
-            }
-        }
-
-        function calculate() {
-            const display = document.getElementById('display');
-            try {
-                display.value = eval(display.value);
-            } catch {
-                display.value = 'Error';
-            }
-        }
-    </script>
-</body>
-</html>
+    } catch {
+        display.value = 'Error';
+    }
+}
+function addToHistory(entry) {
+    history.unshift(entry);
+    if (history.length > 10) history.pop();
+    renderHistory();
+}
+function renderHistory() {
+    const list = document.getElementById('history-list');
+    list.innerHTML = '';
+    history.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        list.appendChild(li);
+    });
+}
+// Memory functions
+function memoryClear() { memory = 0; }
+function memoryRecall() {
+    document.getElementById('display').value += memory;
+}
+function memoryAdd() {
+    const val = parseFloat(document.getElementById('display').value);
+    if (!isNaN(val)) memory += val;
+}
+function memorySubtract() {
+    const val = parseFloat(document.getElementById('display').value);
+    if (!isNaN(val)) memory -= val;
+}
+// Keyboard support
+window.addEventListener('keydown', function(e) {
+    const allowed = '0123456789/*-+.()';
+    if (allowed.includes(e.key)) appendToDisplay(e.key);
+    if (e.key === 'Enter') calculate();
+    if (e.key === 'Backspace') backspace();
+    if (e.key === 'Escape') clearDisplay();
+});
+</script>
 {% endblock %}
