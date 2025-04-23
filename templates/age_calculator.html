@@ -9,8 +9,8 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
+            background-color: #181a1b;
+            color: #e0e0e0;
         }
         .hero {
             background-color: #28a745;
@@ -32,50 +32,64 @@
             padding: 20px;
         }
         .calculator-section {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
+            background: #23272a;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            padding: 32px 24px 24px 24px;
+            margin-bottom: 32px;
         }
         .input-group {
-            margin: 15px 0;
+            margin: 20px 0 0 0;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            gap: 24px;
         }
         .date-input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 14px;
+            border: 2px solid #28a745;
+            border-radius: 6px;
             width: 100%;
+            background: #181a1b;
+            color: #e0e0e0;
+            font-size: 1.1em;
+            box-shadow: 0 2px 8px rgba(40,167,69,0.08);
+            transition: border 0.2s;
+        }
+        .date-input:focus {
+            border: 2px solid #ffc107;
+            outline: none;
         }
         .calculate-btn {
-            background-color: #28a745;
-            color: white;
-            padding: 12px 24px;
+            background: linear-gradient(90deg, #ffc107 0%, #ff9800 100%);
+            color: #23272a;
+            padding: 16px 32px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            font-weight: bold;
             width: 100%;
-            max-width: 200px;
-            margin: 20px auto;
+            max-width: 240px;
+            margin: 32px auto 0 auto;
             display: block;
+            box-shadow: 0 2px 8px rgba(255,193,7,0.15);
+            transition: background 0.2s, color 0.2s;
         }
         .calculate-btn:hover {
-            background-color: #218838;
+            background: linear-gradient(90deg, #ff9800 0%, #ffc107 100%);
+            color: #181a1b;
         }
         .results {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 4px;
+            margin-top: 28px;
+            padding: 24px;
+            background: #23272a;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(40,167,69,0.08);
         }
         .result-item {
-            margin: 10px 0;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
+            margin: 12px 0;
+            padding: 12px;
+            border-bottom: 1px solid #333;
         }
         .description {
             margin-top: 30px;
@@ -84,30 +98,149 @@
         .tabs {
             display: flex;
             margin-bottom: 20px;
-            border-bottom: 2px solid #eee;
+            border-bottom: 2px solid #333;
         }
         .tab {
-            padding: 10px 20px;
+            padding: 12px 28px;
             cursor: pointer;
             border: none;
             background: none;
-            color: #666;
+            color: #aaa;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+            transition: color 0.2s, background 0.2s;
         }
         .tab.active {
             color: #28a745;
+            background: #181a1b;
             border-bottom: 2px solid #28a745;
             margin-bottom: -2px;
         }
         .info-section {
             margin-top: 30px;
-            padding: 20px;
-            background: white;
+            padding: 0;
+            background: none;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: none;
+        }
+        .feature-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .feature-card {
+            background: #23272a;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(40,167,69,0.10);
+            padding: 28px 22px;
+            flex: 1 1 260px;
+            min-width: 240px;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            border-left: 4px solid #28a745;
+        }
+        .feature-card h3 {
+            margin: 0 0 10px 0;
+            color: #ffc107;
+            font-size: 1.2em;
+        }
+        .feature-card p {
+            margin: 0;
+            color: #e0e0e0;
+            font-size: 1em;
+        }
+        .faq-section {
+            margin: 48px 0 32px 0;
+            background: #23272a;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(40,167,69,0.10);
+            padding: 32px 24px;
+        }
+        .faq-section h2 {
+            color: #ffc107;
+            margin-bottom: 18px;
+        }
+        .faq {
+            margin-bottom: 18px;
+        }
+        .faq-question {
+            font-weight: bold;
+            color: #28a745;
+            cursor: pointer;
+            margin-bottom: 6px;
+        }
+        .faq-answer {
+            display: none;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+        .faq.open .faq-answer {
+            display: block;
+        }
+        .month-days {
+            margin-top: 24px;
+            background: #23272a;
+            border-radius: 8px;
+            padding: 18px 16px;
+            box-shadow: 0 2px 8px rgba(40,167,69,0.08);
+        }
+        .month-days h3 {
+            color: #ffc107;
+        }
+        .footer {
+            background: #23272a;
+            color: #aaa;
+            text-align: center;
+            padding: 24px 0 16px 0;
+            font-size: 1em;
+            border-top: 1px solid #333;
+            margin-top: 48px;
+        }
+        .buy-coffee {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 1000;
+            background: linear-gradient(90deg, #ffc107 0%, #ff9800 100%);
+            color: #23272a;
+            border: none;
+            border-radius: 32px;
+            padding: 14px 32px 14px 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: 0 4px 16px rgba(255,193,7,0.18);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .buy-coffee:hover {
+            background: linear-gradient(90deg, #ff9800 0%, #ffc107 100%);
+            color: #181a1b;
+        }
+        .buy-coffee svg {
+            width: 24px;
+            height: 24px;
+            fill: #795548;
+        }
+        @media (max-width: 900px) {
+            .feature-cards {
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
         @media (max-width: 768px) {
             .input-group {
                 grid-template-columns: 1fr;
+            }
+            .feature-card {
+                max-width: 100%;
             }
         }
     </style>
