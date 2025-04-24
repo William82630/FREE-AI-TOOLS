@@ -42,21 +42,44 @@
             padding: 30px;
             background: #f8f9fa;
             border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
         }
         .converter input, .converter select {
             padding: 15px;
-            margin: 10px;
-            width: 250px;
+            width: 100%;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
         .converter input:focus, .converter select:focus {
             border-color: #2a5298;
             outline: none;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.2);
         }
-        .converter button {
+        .convert-button {
             padding: 15px 30px;
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
@@ -64,10 +87,35 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
         }
-        .converter button:hover {
+        .convert-button:hover {
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .swap-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #f0f4f8;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 25px;
+        }
+        .swap-icon:hover {
+            background: #e0e7f0;
+            transform: rotate(180deg);
+        }
+        .swap-icon span {
+            font-size: 20px;
+            color: #1e3c72;
         }
         .result {
             margin-top: 25px;
@@ -140,6 +188,47 @@
             height: 16px;
             object-fit: cover;
         }
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: #1e3c72;
+            animation: spin 1s ease-in-out infinite;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .conversion-result {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            font-size: 1.6em;
+        }
+        .from-currency, .to-currency {
+            padding: 10px 20px;
+            background: #f0f8ff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .to-currency {
+            background: #e6f7ff;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        .equals {
+            font-size: 1.5em;
+            color: #666;
+        }
+        .exchange-rate {
+            color: #666;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -151,14 +240,28 @@
     <div class="container">
         <div class="converter">
             <form id="currency-converter-form">
-                <input type="number" id="amount" placeholder="Enter amount" required step="any">
-                <select id="from-currency">
-                    <!-- More currencies will be added dynamically via JavaScript -->
-                </select>
-                <select id="to-currency">
-                    <!-- More currencies will be added dynamically via JavaScript -->
-                </select>
-                <button type="button" onclick="convertCurrency()">Convert Now</button>
+                <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" placeholder="Enter amount" required step="any" min="0.01">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="from-currency">From:</label>
+                        <select id="from-currency">
+                            <!-- Currencies will be added dynamically via JavaScript -->
+                        </select>
+                    </div>
+                    <div class="swap-icon" onclick="swapCurrencies()">
+                        <span>⇄</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="to-currency">To:</label>
+                        <select id="to-currency">
+                            <!-- Currencies will be added dynamically via JavaScript -->
+                        </select>
+                    </div>
+                </div>
+                <button type="button" onclick="convertCurrency()" class="convert-button">Convert Now</button>
             </form>
             <div class="result" id="result"></div>
         </div>
@@ -370,9 +473,9 @@
         function populateCurrencyDropdowns() {
             const fromCurrency = document.getElementById('from-currency');
             const toCurrency = document.getElementById('to-currency');
-            
+
             // Sort currencies by name
-            const sortedCurrencies = Object.entries(currencies).sort((a, b) => 
+            const sortedCurrencies = Object.entries(currencies).sort((a, b) =>
                 a[1].name.localeCompare(b[1].name)
             );
 
@@ -395,25 +498,76 @@
         // Call the function when the page loads
         window.addEventListener('DOMContentLoaded', populateCurrencyDropdowns);
 
+        // Function to swap currencies
+        function swapCurrencies() {
+            const fromCurrency = document.getElementById('from-currency');
+            const toCurrency = document.getElementById('to-currency');
+
+            // Store current values
+            const fromValue = fromCurrency.value;
+            const toValue = toCurrency.value;
+
+            // Swap values
+            fromCurrency.value = toValue;
+            toCurrency.value = fromValue;
+
+            // If there's a result already, recalculate
+            if (document.getElementById('result').innerHTML.trim() !== '') {
+                convertCurrency();
+            }
+        }
+
         async function convertCurrency() {
             const amount = document.getElementById('amount').value;
             const fromCurrency = document.getElementById('from-currency').value;
             const toCurrency = document.getElementById('to-currency').value;
-            
+
+            if (!amount || isNaN(amount) || amount <= 0) {
+                document.getElementById('result').innerHTML = '<p style="color: red;">Please enter a valid amount.</p>';
+                return;
+            }
+
+            // Show loading indicator
+            document.getElementById('result').innerHTML = '<p>Converting... <span class="loading-spinner"></span></p>';
+
             try {
-                const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`);
+                // Create form data
+                const formData = new FormData();
+                formData.append('amount', amount);
+                formData.append('from_currency', fromCurrency);
+                formData.append('to_currency', toCurrency);
+
+                // Call our backend API
+                const response = await fetch('/tools/online-calculators/currency-converter', {
+                    method: 'POST',
+                    body: formData
+                });
+
                 const data = await response.json();
-                const rate = data.rates[toCurrency];
-                const result = (amount * rate).toFixed(2);
-                
-                const fromDetails = currencies[fromCurrency];
-                const toDetails = currencies[toCurrency];
-                
-                document.getElementById('result').innerHTML = `
-                    ${fromDetails.flag} ${amount} ${fromCurrency} = ${toDetails.flag} ${result} ${toCurrency}
-                `;
+
+                if (data.success) {
+                    const fromDetails = currencies[fromCurrency];
+                    const toDetails = currencies[toCurrency];
+
+                    document.getElementById('result').innerHTML = `
+                        <div class="conversion-result">
+                            <div class="from-currency">
+                                ${fromDetails.flag} ${amount} ${fromCurrency}
+                            </div>
+                            <div class="equals">=</div>
+                            <div class="to-currency">
+                                ${toDetails.flag} ${data.result} ${toCurrency}
+                            </div>
+                        </div>
+                        <div class="exchange-rate">
+                            <small>Exchange Rate: 1 ${fromCurrency} = ${data.rate.toFixed(4)} ${toCurrency}</small>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+                }
             } catch (error) {
-                document.getElementById('result').innerHTML = 'Error: Could not convert currency. Please try again later.';
+                document.getElementById('result').innerHTML = '<p style="color: red;">Error: Could not convert currency. Please try again later.</p>';
             }
         }
     </script>

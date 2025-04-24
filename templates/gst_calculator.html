@@ -220,17 +220,17 @@
                 <p>A: Our GST calculator simplifies tax computations by allowing you to:​
 
                     Enter the amount – Input the base amount for which you want to calculate GST.
-                    
+
                     Select the GST rate – Choose from standard rates like 5%, 12%, 18%, or 28%.
-                    
+
                     Choose the tax type – Specify whether the amount is GST-inclusive or GST-exclusive.​
-                    
+
                     The calculator will then compute:​
-                    
+
                     The GST amount.
-                    
+
                     The total amount including GST.
-                    
+
                     A breakdown of CGST and SGST for intra-state transactions or IGST for inter-state transactions.​</p>
             </div>
             <div class="faq-item">
@@ -295,7 +295,7 @@
             }
         }
 
-        function calculateGST() {
+        async function calculateGST() {
             const amount = parseFloat(document.getElementById('amount').value);
             const gstSelect = document.getElementById('gst');
             const customGSTInput = document.getElementById('custom-gst');
@@ -312,22 +312,124 @@
                 return;
             }
 
-            let gstAmount, totalAmount;
+            // Show loading indicator
+            document.getElementById('result').innerHTML = '<div class="loading">Calculating... <span class="loading-spinner"></span></div>';
 
-            if (type === 'inclusive') {
-                gstAmount = amount - (amount / (1 + gstRate / 100));
-                totalAmount = amount;
-            } else {
-                gstAmount = (amount * gstRate) / 100;
-                totalAmount = amount + gstAmount;
+            try {
+                // Create form data
+                const formData = new FormData();
+                formData.append('amount', amount);
+                formData.append('gst_rate', gstRate);
+                formData.append('tax_type', type);
+
+                // Call our backend API
+                const response = await fetch('/tools/online-calculators/gst-calculator', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Format currency with commas
+                    const formatCurrency = (amount) => {
+                        return new Intl.NumberFormat('en-IN', {
+                            style: 'currency',
+                            currency: 'INR',
+                            minimumFractionDigits: 2
+                        }).format(amount);
+                    };
+
+                    // Create result card with animation
+                    document.getElementById('result').innerHTML = `
+                        <div class="result-card">
+                            <div class="result-item">
+                                <div class="result-label">Actual Amount:</div>
+                                <div class="result-value actual">${formatCurrency(data.actual_amount)}</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">GST Amount:</div>
+                                <div class="result-value gst">${formatCurrency(data.gst_amount)}</div>
+                            </div>
+                            <div class="result-item total-row">
+                                <div class="result-label">Total Amount:</div>
+                                <div class="result-value total">${formatCurrency(data.total_amount)}</div>
+                            </div>
+                        </div>
+                        <div class="gst-breakdown">
+                            <p>GST Rate: ${gstRate}%</p>
+                            <p>Tax Type: ${type === 'inclusive' ? 'GST Inclusive' : 'GST Exclusive'}</p>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = '<p style="color: red;">Error: Could not calculate GST. Please try again later.</p>';
             }
-
-            document.getElementById('result').innerHTML = `
-                <span class="actual">₹${(amount - gstAmount).toFixed(2)} Actual Amount</span> +
-                <span class="gst">₹${gstAmount.toFixed(2)} GST Amount</span> =
-                <span class="total">₹${totalAmount.toFixed(2)} Total Amount</span>
-            `;
         }
     </script>
+
+    <style>
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 74, 173, 0.1);
+            border-radius: 50%;
+            border-top-color: #004aad;
+            animation: spin 1s ease-in-out infinite;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading {
+            text-align: center;
+            font-size: 1.2em;
+            color: #004aad;
+            margin: 20px 0;
+        }
+        .result-card {
+            background: #f0f8ff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 74, 173, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .total-row {
+            border-bottom: none;
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 2px solid #004aad;
+        }
+        .result-label {
+            font-weight: bold;
+            color: #333;
+        }
+        .result-value {
+            font-size: 1.2em;
+        }
+        .gst-breakdown {
+            margin-top: 15px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .gst-breakdown p {
+            margin: 5px 0;
+        }
+    </style>
 </body>
 </html>

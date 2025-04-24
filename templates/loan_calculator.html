@@ -282,22 +282,172 @@
     </footer>
 
     <script>
-        function calculateLoan() {
+        async function calculateLoan() {
             const loanAmount = parseFloat(document.getElementById('loan-amount').value);
-            const annualInterestRate = parseFloat(document.getElementById('interest-rate').value) / 100;
+            const annualInterestRate = parseFloat(document.getElementById('interest-rate').value);
             const loanTerm = parseInt(document.getElementById('loan-term').value);
 
-            if (isNaN(loanAmount) || isNaN(annualInterestRate) || isNaN(loanTerm) || loanAmount <= 0 || annualInterestRate <= 0 || loanTerm <= 0) {
-                document.getElementById('result').textContent = 'Please enter valid loan details.';
+            if (isNaN(loanAmount) || isNaN(annualInterestRate) || isNaN(loanTerm) ||
+                loanAmount <= 0 || annualInterestRate <= 0 || loanTerm <= 0) {
+                document.getElementById('result').innerHTML = '<p style="color: #ff6b6b;">Please enter valid loan details.</p>';
                 return;
             }
 
-            const monthlyInterestRate = annualInterestRate / 12;
-            const numberOfPayments = loanTerm * 12;
-            const monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
+            // Show loading indicator
+            document.getElementById('result').innerHTML = '<p>Calculating... <span class="loading-spinner"></span></p>';
 
-            document.getElementById('result').textContent = `Your monthly payment is $${monthlyPayment.toFixed(2)}.`;
+            try {
+                // Create form data
+                const formData = new FormData();
+                formData.append('loan_amount', loanAmount);
+                formData.append('interest_rate', annualInterestRate);
+                formData.append('loan_term', loanTerm);
+
+                // Call our backend API
+                const response = await fetch('/tools/online-calculators/loan-calculator', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Format currency with commas
+                    const formatCurrency = (amount) => {
+                        return new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'USD',
+                            minimumFractionDigits: 2
+                        }).format(amount);
+                    };
+
+                    // Create amortization table
+                    let amortizationTable = '';
+                    if (data.amortization_schedule && data.amortization_schedule.length > 0) {
+                        amortizationTable = `
+                            <h3>Amortization Schedule (First Year)</h3>
+                            <div class="amortization-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Payment</th>
+                                            <th>Principal</th>
+                                            <th>Interest</th>
+                                            <th>Remaining Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                        `;
+
+                        data.amortization_schedule.forEach(month => {
+                            amortizationTable += `
+                                <tr>
+                                    <td>${month.month}</td>
+                                    <td>${formatCurrency(month.payment)}</td>
+                                    <td>${formatCurrency(month.principal)}</td>
+                                    <td>${formatCurrency(month.interest)}</td>
+                                    <td>${formatCurrency(month.balance)}</td>
+                                </tr>
+                            `;
+                        });
+
+                        amortizationTable += `
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                    }
+
+                    // Display results
+                    document.getElementById('result').innerHTML = `
+                        <div class="loan-summary">
+                            <div class="summary-item">
+                                <div class="summary-label">Monthly Payment:</div>
+                                <div class="summary-value">${formatCurrency(data.monthly_payment)}</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Total Payment:</div>
+                                <div class="summary-value">${formatCurrency(data.total_payment)}</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Total Interest:</div>
+                                <div class="summary-value">${formatCurrency(data.total_interest)}</div>
+                            </div>
+                        </div>
+                        ${amortizationTable}
+                    `;
+                } else {
+                    document.getElementById('result').innerHTML = `<p style="color: #ff6b6b;">Error: ${data.error}</p>`;
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = '<p style="color: #ff6b6b;">Error: Could not calculate loan. Please try again later.</p>';
+            }
         }
     </script>
+
+    <style>
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: #007BFF;
+            animation: spin 1s ease-in-out infinite;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loan-summary {
+            margin-top: 20px;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #444;
+        }
+        .summary-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .summary-label {
+            font-weight: bold;
+            color: #cccccc;
+        }
+        .summary-value {
+            font-size: 1.2em;
+            color: #007BFF;
+        }
+        .amortization-table {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        .amortization-table table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .amortization-table th, .amortization-table td {
+            padding: 10px;
+            border-bottom: 1px solid #444;
+        }
+        .amortization-table th {
+            background-color: #2a2a2a;
+            color: #007BFF;
+        }
+        .amortization-table tr:hover {
+            background-color: #333;
+        }
+    </style>
 </body>
 </html>

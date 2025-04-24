@@ -1,3 +1,6 @@
 Flask
 Pillow
 cairosvg
+requests
+qrcode
+python-dateutil

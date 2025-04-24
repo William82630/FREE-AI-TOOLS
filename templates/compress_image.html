@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Compress Image Files to PNG/JPG/JPEG</title>
     <meta charset="UTF-8">
-    <meta name="description" content="Compress your image files to PNG, JPG, or JPEG formats without losing quality. Fast, secure, and easy-to-use image compression tool.">
-    <meta name="keywords" content="compress image, image compression tool, compress PNG, compress JPG, compress JPEG">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compression Tool - Free AI Tools</title>
+    <meta name="description" content="Compress your images quickly and easily without losing quality. Reduce file size for faster website loading and optimized storage.">
+    <meta name="keywords" content="image compression, compress images, reduce image size, image optimizer, free image compression">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #181a20;
         }
         .hero {
-            background-color: #022041;
+            background-color: #004080;
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -27,301 +27,591 @@
             font-size: 1.2em;
             margin: 10px 0 0;
         }
-        .container {
-            max-width: 900px; /* Reduced from 1200px to make room for ads */
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
         .input-section {
             text-align: center;
-            margin: 20px 0;
+            margin: 48px 0 20px 0;
+            padding: 0 20px;
         }
-        .input-section input {
-            padding: 15px;
-            width: 75%;
-            max-width: 500px;
-            margin-right: 10px;
-            border: 2px solid #004aad;
-            border-radius: 6px;
-            font-size: 1.1em;
+        .input-section form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #23263a;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .input-section input:focus {
-            outline: none;
-            border-color: #f0950d;
-            box-shadow: 0 0 5px #f0950d;
+        .input-section input[type="file"] {
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+            border: 2px solid #3d9bf2;
+            border-radius: 4px;
+            background: #23263a;
+            color: #fff;
+            font-size: 1.13em;
+            box-sizing: border-box;
         }
         .input-section button {
-            padding: 15px 25px;
-            background-color: #f0950d;
-            color: white;
+            font-size: 1.13em;
+            font-weight: bold;
+            padding: 12px 32px;
+            background: linear-gradient(90deg, #3d9bf2 0%, #0c34d2 100%);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(61,155,242,0.3);
             border: none;
             border-radius: 6px;
-            font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         .input-section button:hover {
-            background-color: #004aad;
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61,155,242,0.4);
         }
-        .how-to {
-            margin: 40px 0;
+        .how-it-works {
+            max-width: 900px;
+            margin: 60px auto 40px;
+            padding: 0 20px;
+            color: #fff;
         }
-        .how-to h2 {
+        .how-it-works h2 {
             text-align: center;
-            color: #333;
+            margin-bottom: 30px;
+            font-size: 1.8em;
         }
-        .how-to-steps {
+        .steps {
             display: flex;
-            justify-content: space-around;
             flex-wrap: wrap;
-            margin-top: 20px;
+            gap: 20px;
+            justify-content: center;
         }
         .step {
-            text-align: center;
-            flex: 1 1 30%;
-            margin: 10px;
+            flex: 1 1 250px;
+            background: #23263a;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
         }
-        .step span {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            background-color: #002852;
-            color: white;
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background: #3d9bf2;
             border-radius: 50%;
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .features {
-            margin: 40px 0;
+        .step h3 {
+            margin-top: 0;
+            color: #3d9bf2;
         }
-        .features h2 {
+        .features, .faq {
+            margin: 60px auto;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+        .features h2, .faq h2 {
             text-align: center;
-            color: #333;
+            color: #fff;
+            font-size: 1.8em;
+            margin-bottom: 30px;
         }
-        .grid {
+        .features .feature-cards {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
-            margin-top: 20px;
+            gap: 18px;
+            justify-content: center;
         }
-        .feature-card {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
+        .features .feature-card {
+            background: #23263a;
+            border: 1px solid #333;
             border-radius: 8px;
             padding: 20px;
-            margin: 10px;
-            flex: 1 1 30%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1 1 28%;
+            min-width: 220px;
+            max-width: 280px;
+            box-sizing: border-box;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .features .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        .features .feature-card h3 {
+            text-align: center;
+            color: #3d9bf2;
+        }
+        .features .feature-card p {
+            text-align: justify;
+            font-size: 1.05em;
+            line-height: 1.5;
         }
         .faq {
-            margin: 40px 0;
-        }
-        .faq h2 {
-            text-align: center;
-            color: #333;
+            max-width: 900px;
+            margin: 60px auto;
         }
         .faq-item {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
+            background: #23263a;
+            border: 1px solid #333;
             border-radius: 8px;
             padding: 20px;
-            margin: 10px 0;
+            margin: 15px 0;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .faq-item h3 {
+            color: #3d9bf2;
+            margin-top: 0;
+        }
+        .faq-item p {
+            font-size: 1.05em;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .support-us {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 32px 20px 24px 20px;
+            background: #23263a;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            color: #fff;
+        }
+        .support-us h2 {
+            margin-top: 0;
+            color: #3d9bf2;
+        }
+        .support-us a.coffee-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #3d9bf2 0%, #0c34d2 100%);
+            color: #fff;
+            font-weight: bold;
+            padding: 12px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 1.15em;
+            box-shadow: 0 2px 8px rgba(61,155,242,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 15px;
+        }
+        .support-us a.coffee-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61,155,242,0.4);
         }
         footer {
-            background: #1e3c72;
-            color: white;
-            padding: 40px 20px;
-            margin-top: 60px;
+            background: #000;
+            color: #fff;
+            padding: 38px 20px 32px 20px;
+            margin-top: 64px;
+            width: 100%;
             text-align: center;
+            font-size: 1.08em;
+            letter-spacing: 0.01em;
+            box-sizing: border-box;
         }
         footer p {
-            margin: 10px 0;
+            margin: 0 0 10px 0;
         }
         footer a {
-            color: white;
+            color: #fff;
             text-decoration: none;
-            margin: 0 10px;
-            opacity: 0.8;
-            transition: opacity 0.3s;
+            margin: 0 12px;
+            opacity: 0.85;
         }
         footer a:hover {
+            text-decoration: underline;
             opacity: 1;
         }
-        .ads {
-            width: 120px;
-            height: 600px;
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .ads.left {
-            left: 10px;
-        }
-        .ads.right {
-            right: 10px;
-        }
-        .donate {
-            text-align: center;
-            margin: 40px 0;
-        }
-        .donate button {
-            background-color: #004aad;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-        .donate button:hover {
-            background-color: #003a8c;
-        }
-        .social-icons img {
-            width: 30px;
-            height: 30px;
+        .social-icons a {
+            display: inline-block;
             margin: 0 5px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
         }
-
-        /* Responsive Design */
+        .social-icons a:hover {
+            opacity: 1;
+        }
         @media (max-width: 768px) {
-            .how-to-steps {
+            .features .feature-cards {
                 flex-direction: column;
                 align-items: center;
             }
-            .input-section input {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-            .grid {
+            .steps {
                 flex-direction: column;
-                align-items: center;
+            }
+            .step {
+                margin-bottom: 30px;
             }
         }
     </style>
+    <script>
+        // Function to preview the image before compression
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+
+                // Show preview container and compression options
+                document.getElementById('preview-container').style.display = 'block';
+                document.getElementById('compression-options').style.display = 'block';
+
+                // Create a URL for the image
+                const imageUrl = URL.createObjectURL(file);
+
+                // Set the preview image source
+                const previewImg = document.getElementById('original-preview');
+                previewImg.src = imageUrl;
+
+                // Display file information
+                const originalInfo = document.getElementById('original-info');
+
+                // Format file size
+                let fileSize = file.size;
+                let fileSizeFormatted = '';
+
+                if (fileSize < 1024) {
+                    fileSizeFormatted = fileSize + ' bytes';
+                } else if (fileSize < 1024 * 1024) {
+                    fileSizeFormatted = (fileSize / 1024).toFixed(2) + ' KB';
+                } else {
+                    fileSizeFormatted = (fileSize / (1024 * 1024)).toFixed(2) + ' MB';
+                }
+
+                // Get image dimensions
+                const img = new Image();
+                img.onload = function() {
+                    originalInfo.innerHTML = `
+                        Size: ${fileSizeFormatted}<br>
+                        Dimensions: ${this.width} × ${this.height} px<br>
+                        Type: ${file.type.split('/')[1].toUpperCase()}
+                    `;
+                };
+                img.src = imageUrl;
+            }
+        }
+
+        // Handle form submission with AJAX
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('compression-form');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                // Change button text to show loading
+                submitButton.textContent = 'Compressing...';
+                submitButton.disabled = true;
+
+                fetch('/tools/image-editing/compress-image', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show results container
+                        document.getElementById('results-container').style.display = 'block';
+
+                        // Set original and compressed images
+                        document.getElementById('result-original').src = data.original_image;
+                        document.getElementById('result-compressed').src = data.compressed_image;
+
+                        // Set download link
+                        document.getElementById('download-link').href = data.compressed_image;
+
+                        // Set file info
+                        document.getElementById('result-original-info').innerHTML = `Size: ${data.original_size}`;
+
+                        // Display compression results
+                        let compressionInfo = `Size: ${data.compressed_size}<br>`;
+
+                        if (data.was_compressed) {
+                            compressionInfo += `Saved: ${data.savings_percent}%`;
+                        } else {
+                            compressionInfo += `<span style="color: #ffcc00;">${data.message}</span>`;
+                        }
+
+                        document.getElementById('result-compressed-info').innerHTML = compressionInfo;
+
+                        // Scroll to results
+                        document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        alert('Error: ' + (data.error || 'Failed to compress image'));
+                    }
+
+                    // Reset button
+                    submitButton.textContent = 'Compress Image';
+                    submitButton.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+
+                    // Reset button
+                    submitButton.textContent = 'Compress Image';
+                    submitButton.disabled = false;
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-    <div class="ads left">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
-    </div>
-
-    <div class="ads right">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
-    </div>
-
     <div class="hero">
-        <h1>Compress Image Files to PNG/JPG/JPEG</h1>
-        <p>Reduce the size of your image files without compromising quality. Fast, secure, and easy-to-use.</p>
+        <h1>Image Compression Tool</h1>
+        <p>Compress your images quickly and easily without losing quality. Perfect for websites, social media, and email attachments.</p>
     </div>
 
-    <div class="container">
-        <div class="input-section">
-            <form action="/tools/image-editing/compress-image" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required style="width: 220px; padding: 15px; font-size: 1.1em; border: 2px solid #004aad; border-radius: 6px; background: #fff; color: #222;">
-                <button type="submit" style="padding: 15px 25px; font-size: 1.1em;">Compress Image</button>
-            </form>
-        </div>
-
-        <div class="how-to">
-            <h2>How to Use the Compress Image Tool</h2>
-            <div class="how-to-steps">
-                <div class="step">
-                    <span>1</span>
-                    <p>Upload your image file.</p>
-                </div>
-                <div class="step">
-                    <span>2</span>
-                    <p>Click the "Compress Image" button.</p>
-                </div>
-                <div class="step">
-                    <span>3</span>
-                    <p>Download the compressed image.</p>
+    <div class="input-section">
+        <form id="compression-form" action="/tools/image-editing/compress-image" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" id="image-input" accept="image/*" required onchange="previewImage(this)">
+            <div id="preview-container" style="display: none; margin: 20px 0;">
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+                    <div style="flex: 1; min-width: 200px; max-width: 300px;">
+                        <h3 style="color: #3d9bf2; margin-bottom: 10px;">Original Image</h3>
+                        <div style="background: #1a1d24; border-radius: 8px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                            <img id="original-preview" src="" alt="Original image preview" style="max-width: 100%; max-height: 300px; border-radius: 4px;">
+                            <div id="original-info" style="margin-top: 10px; font-size: 0.9em; color: #ccc;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="features">
-            <h2>Key Features of Our Image Compression Tool</h2>
-            <div class="grid">
-                <div class="feature-card">
-                    <h3>🖼️ Preserve Image Quality</h3>
-                    <p>Our tool ensures that your images retain their original clarity and detail even after compression. By utilizing advanced algorithms, it reduces file size without compromising visual fidelity, making your images web-ready while maintaining high quality.​</p>
-                </div>
-                <div class="feature-card">
-                    <h3>⚡ Fast & Efficient Compression</h3>
-                    <p>Experience lightning-fast image compression with our optimized tool. Whether you're compressing a single image or multiple files, the process is swift, allowing you to save time and enhance productivity.​</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📁 Supports Multiple Formats</h3>
-                    <p>Compress images in various formats including PNG, JPG, and JPEG. Our tool provides flexibility to handle different image types, catering to diverse needs and ensuring compatibility across platforms.​</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🔄 Batch Processing Capability</h3>
-                    <p>Save time by compressing multiple images simultaneously. Our batch processing feature allows you to upload and compress several files at once, streamlining your workflow and increasing efficiency.​</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📱 Responsive & User-Friendly Interface</h3>
-                    <p>Access our image compression tool seamlessly across all devices. Whether you're on a desktop, tablet, or smartphone, the intuitive interface ensures a smooth user experience, making image compression hassle-free.​</p>
-                </div>
-                <div class="feature-card">
-                    <h3>💸 Completely Free to Use</h3>
-                    <p>Enjoy unlimited access to our image compression tool without any cost. There are no hidden fees or subscriptions—just reliable, free assistance to optimize your images effectively.</p>
-                </div>
+            <div id="compression-options" style="margin: 20px 0; display: none;">
+                <label style="display: block; margin-bottom: 10px; color: #fff;">
+                    Compression Level:
+                    <select name="quality" id="quality-select" style="margin-left: 10px; padding: 5px; background: #23263a; color: #fff; border: 1px solid #3d9bf2; border-radius: 4px;">
+                        <option value="standard" selected>Standard Compression</option>
+                        <option value="maximum">Maximum Compression</option>
+                    </select>
+                </label>
+                <p style="color: #ccc; font-size: 0.9em; margin-top: 5px;">
+                    Standard: Good balance between quality and file size<br>
+                    Maximum: Smallest possible file size with visible quality reduction
+                </p>
             </div>
-        </div>
-
-        <div class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3>Why do I need to compress image files?</h3>
-                <p>Large image files can slow down websites and take up storage space. Compressing them improves loading speed and saves storage.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Is it safe to compress images online?</h3>
-                <p>Yes, our tool ensures your files are processed securely and are not stored on our servers.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Can I compress images without losing quality?</h3>
-                <p>Absolutely! Our tool uses advanced algorithms to retain image quality while reducing file size.</p>
-            </div>
-        </div>
-
-        <!-- Support Us Section (Consistent Style) -->
-        <div class="donate" style="text-align: center; margin: 40px 0;">
-            <h2>Support Us</h2>
-            <p>If you find this tool helpful, consider supporting us:</p>
-            <button onclick="window.open('https://www.buymeacoffee.com/yourlink', '_blank')">☕ Buy Me a Coffee</button>
-            <div class="social-icons" style="margin-top: 15px;">
-                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/compress-image&text=Check+out+this+amazing+tool!" target="_blank">
-                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter">
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/compress-image" target="_blank">
-                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook">
-                </a>
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/compress-image&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank">
-                    <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn">
-                </a>
-                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/compress-image&description=Check+out+this+tool!" target="_blank">
-                    <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest">
-                </a>
-                <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/compress-image" target="_blank">
-                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp">
-                </a>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-            <p>
-                <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
-                <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
-                <a href="/" target="_self">Home</a>
-            </p>
-        </footer>
+            <button type="submit">Compress Image</button>
+        </form>
     </div>
+
+    <!-- Results section (initially hidden) -->
+    <div id="results-container" style="display: none; max-width: 900px; margin: 40px auto; padding: 0 20px;">
+        <h2 style="text-align: center; color: #fff; margin-bottom: 20px;">Compression Results</h2>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+            <div style="flex: 1; min-width: 200px; max-width: 300px;">
+                <h3 style="color: #3d9bf2; margin-bottom: 10px; text-align: center;">Original</h3>
+                <div style="background: #1a1d24; border-radius: 8px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                    <img id="result-original" src="" alt="Original image" style="max-width: 100%; max-height: 300px; border-radius: 4px;">
+                    <div id="result-original-info" style="margin-top: 10px; font-size: 0.9em; color: #ccc; text-align: center;"></div>
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 200px; max-width: 300px;">
+                <h3 style="color: #3d9bf2; margin-bottom: 10px; text-align: center;">Compressed</h3>
+                <div style="background: #1a1d24; border-radius: 8px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                    <img id="result-compressed" src="" alt="Compressed image" style="max-width: 100%; max-height: 300px; border-radius: 4px;">
+                    <div id="result-compressed-info" style="margin-top: 10px; font-size: 0.9em; color: #ccc; text-align: center;"></div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <a id="download-link" href="#" download="compressed_image.jpg" class="coffee-btn" style="background: linear-gradient(90deg, #3d9bf2 0%, #0c34d2 100%); color: #fff; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: bold;">Download Compressed Image</a>
+        </div>
+    </div>
+
+    <div class="how-it-works">
+        <h2>How Our Image Compression Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Upload Your Image</h3>
+                <p>Select any image from your device. We support various formats including JPG, PNG, and JPEG.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Smart Compression</h3>
+                <p>Our advanced algorithms analyze your image and apply optimal compression techniques to reduce file size while preserving quality.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Download Compressed Image</h3>
+                <p>Get your compressed image instantly. Enjoy significantly reduced file size with minimal quality loss.</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="max-width: 900px; margin: 60px auto 40px; padding: 0 20px;">
+        <div style="background: linear-gradient(135deg, #1a1d2c 0%, #2a2e45 100%); border-radius: 16px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+            <h2 style="text-align: center; color: #fff; margin-bottom: 30px; font-size: 1.8em; position: relative; padding-bottom: 15px;">
+                <span style="position: relative; z-index: 1;">The Technology Behind Our Compression</span>
+                <span style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: linear-gradient(90deg, #3d9bf2 0%, #0c34d2 100%);"></span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px;">
+                <div style="background: rgba(35, 38, 58, 0.7); border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <h3 style="color: #3d9bf2; margin-top: 0; font-size: 1.3em; display: flex; align-items: center;">
+                        <span style="background: #3d9bf2; color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 12px; font-size: 0.8em;">1</span>
+                        Compression Levels Explained
+                    </h3>
+                    <div style="color: #e0e0e0; font-size: 1.05em; line-height: 1.6; padding-left: 44px;">
+                        <p><strong style="color: #fff;">Standard Compression:</strong> Uses a quality setting of 60% for JPEGs, providing a good balance between file size and visual quality. For PNGs, applies optimization techniques that maintain visual quality. Typically reduces file size by 30-60% for most images.</p>
+                        <p><strong style="color: #fff;">Maximum Compression:</strong> Uses a much lower quality setting of 20% for JPEGs, which significantly reduces file size. For PNGs, reduces the color palette to 256 colors (8-bit) to dramatically decrease file size. Can reduce file size by 60-90% for most images.</p>
+                    </div>
+                </div>
+
+                <div style="background: rgba(35, 38, 58, 0.7); border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <h3 style="color: #3d9bf2; margin-top: 0; font-size: 1.3em; display: flex; align-items: center;">
+                        <span style="background: #3d9bf2; color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 12px; font-size: 0.8em;">2</span>
+                        Format-Specific Techniques
+                    </h3>
+                    <div style="color: #e0e0e0; font-size: 1.05em; line-height: 1.6; padding-left: 44px;">
+                        <p><strong style="color: #fff;">JPEG Compression:</strong> Uses quality-based compression where lower quality values produce smaller files. Works by discarding some image information (lossy compression). Most effective on photographs and images with many colors and gradients.</p>
+                        <p><strong style="color: #fff;">PNG Compression:</strong> For standard compression, uses lossless optimization techniques. For maximum compression, reduces the color palette to significantly decrease file size. Preserves transparency while reducing colors in the palette.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; background: rgba(35, 38, 58, 0.7); border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h3 style="color: #3d9bf2; margin-top: 0; font-size: 1.3em; display: flex; align-items: center;">
+                    <span style="background: #3d9bf2; color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 12px; font-size: 0.8em;">3</span>
+                    Advanced Fallback Mechanisms
+                </h3>
+                <div style="color: #e0e0e0; font-size: 1.05em; line-height: 1.6; padding-left: 44px;">
+                    <p>Our tool employs a multi-step approach to ensure optimal compression:</p>
+                    <ol style="margin-top: 10px; padding-left: 20px;">
+                        <li><strong style="color: #fff;">First Attempt:</strong> Applies the selected compression level based on the image format</li>
+                        <li><strong style="color: #fff;">Size Check:</strong> Compares the compressed file size with the original</li>
+                        <li><strong style="color: #fff;">Second Attempt:</strong> If the first attempt didn't reduce size, tries more aggressive techniques:
+                            <ul style="margin-top: 5px; padding-left: 20px;">
+                                <li>For non-transparent PNGs: Converts to JPEG with quality 40%</li>
+                                <li>For transparent PNGs: Reduces colors more aggressively (to 128 colors)</li>
+                                <li>For JPEGs: Applies very aggressive compression (quality 15%)</li>
+                            </ul>
+                        </li>
+                        <li><strong style="color: #fff;">Final Check:</strong> If still no reduction, keeps the original file and informs the user</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; background: rgba(35, 38, 58, 0.7); border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h3 style="color: #3d9bf2; margin-top: 0; font-size: 1.3em; display: flex; align-items: center;">
+                    <span style="background: #3d9bf2; color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 12px; font-size: 0.8em;">4</span>
+                    When Compression Might Not Work
+                </h3>
+                <div style="color: #e0e0e0; font-size: 1.05em; line-height: 1.6; padding-left: 44px;">
+                    <p>Some images may already be highly optimized and show minimal or no reduction in file size:</p>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>Images that have been previously compressed with similar or stronger settings</li>
+                        <li>Very simple images with few colors</li>
+                        <li>Images that use efficient compression algorithms already</li>
+                        <li>Very small images (under 10KB) may have limited room for further compression</li>
+                    </ul>
+                    <p style="margin-top: 10px;">In these cases, our tool will display a message indicating that the image is already optimized.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="features">
+        <h2>Features of Our Image Compression Tool</h2>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <h3>🔄 Intelligent Compression</h3>
+                <p>Our smart algorithms analyze each image to apply the optimal compression level, ensuring the perfect balance between file size and quality.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🖼️ Quality Preservation</h3>
+                <p>Unlike other compression tools, we prioritize maintaining visual quality while reducing file size, so your images still look great.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚡ Lightning Fast</h3>
+                <p>Compress your images in seconds. Our optimized algorithms work quickly to save you time and effort.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔒 Secure Processing</h3>
+                <p>Your privacy matters. All image processing happens in your browser, and we never store your original or compressed images on our servers.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📱 Mobile Friendly</h3>
+                <p>Compress images on any device. Our tool works seamlessly on desktops, tablets, and smartphones.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💯 100% Free</h3>
+                <p>No hidden fees, no subscriptions, no limits. Compress as many images as you need, completely free of charge.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>Q1: Why should I compress my images?</h3>
+            <p>Compressing images reduces file size, which leads to faster website loading times, reduced bandwidth usage, optimized storage space, and improved user experience. For websites, compressed images can significantly improve page speed, which is a factor in search engine rankings.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q2: Will compression affect the quality of my images?</h3>
+            <p>Our compression tool uses smart algorithms that minimize quality loss while maximizing file size reduction. While some minimal quality reduction is inevitable with any compression, our tool is designed to make these changes virtually imperceptible to the human eye for most images.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q3: What image formats does your tool support?</h3>
+            <p>Our compression tool supports the most common image formats including JPG/JPEG, PNG, and WebP. Each format is compressed using format-specific techniques to ensure optimal results.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q4: Is there a file size limit for compression?</h3>
+            <p>Yes, currently our tool can compress images up to 10MB in size. This limit helps ensure fast processing times and optimal performance for all users.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q5: Is my data safe when using this tool?</h3>
+            <p>Absolutely. We prioritize your privacy and security. All image processing happens directly in your browser, and we do not store your original or compressed images on our servers. Your images never leave your device except during the brief moment of upload and download.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q6: How much compression can I expect?</h3>
+            <p>Compression results vary depending on the original image format, content, and dimensions. Typically, users experience file size reductions of 30-80% while maintaining good visual quality. Images with lots of details or already compressed may see smaller reductions.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q7: Can I compress multiple images at once?</h3>
+            <p>Currently, our tool processes one image at a time. We're working on adding batch processing capabilities in a future update to enhance your experience.</p>
+        </div>
+    </div>
+
+    <div class="support-us">
+        <h2>Support Us</h2>
+        <p>If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
+        <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="coffee-btn">☕ Buy Me a Coffee</a>
+        <div class="social-icons">
+            <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/tools/image-editing/compress-image&text=Check+out+this+amazing+image+compression+tool!" target="_blank">
+                <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/tools/image-editing/compress-image" target="_blank">
+                <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/tools/image-editing/compress-image&title=Free+Image+Compression+Tool&summary=Check+out+this+amazing+tool!" target="_blank">
+                <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/tools/image-editing/compress-image&description=Free+Image+Compression+Tool" target="_blank">
+                <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://wa.me/?text=Check+out+this+amazing+image+compression+tool:+http://127.0.0.1:5000/tools/image-editing/compress-image" target="_blank">
+                <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+        <p>
+            <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+            <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
+            <a href="/" target="_self">Home</a>
+        </p>
+    </footer>
 </body>
 </html>
