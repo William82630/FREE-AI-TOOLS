@@ -1,9 +1,120 @@
 {% extends 'base.html' %}
+
+{% block title %}Free Online Calculator - Easy Scientific Calculator with Memory Functions{% endblock %}
+{% block description %}Free online calculator with basic arithmetic, scientific functions, and memory capabilities. Easy to use with calculation history and mobile support.{% endblock %}
+{% block keywords %}free calculator, online calculator, scientific calculator, calculator with memory, easy calculator, math tool, web calculator{% endblock %}
+
+{% block hero_color %}#004f1e{% endblock %}
+{% block hero_title %}Free Online Calculator{% endblock %}
+{% block hero_subtitle %}Powerful yet easy-to-use calculator with scientific functions, memory capabilities, and calculation history!{% endblock %}
+
+{% block button_gradient_start %}#004f1e{% endblock %}
+{% block button_gradient_end %}#00703a{% endblock %}
+{% block button_shadow_color %}rgba(0,79,30,0.3){% endblock %}
+{% block button_shadow_hover_color %}rgba(0,79,30,0.4){% endblock %}
+
+{% block step_title_color %}#00703a{% endblock %}
+{% block step_number_bg_color %}#00703a{% endblock %}
+{% block feature_title_color %}#00703a{% endblock %}
+{% block faq_title_color %}#00703a{% endblock %}
+{% block support_title_color %}#00703a{% endblock %}
+
+{% block additional_styles %}
+.calculator-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    background: #23263a;
+    padding: 28px 16px 24px 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    max-width: 700px;
+    margin: 0 auto;
+}
+.calculator-main {
+    flex: 1 1 320px;
+    min-width: 280px;
+    max-width: 340px;
+}
+.calculator-display {
+    width: 100%;
+    margin-bottom: 18px;
+    background: #181a20;
+    color: #ffe066;
+    border: 2px solid #004f1e;
+    font-size: 1.5em;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: right;
+}
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+.calculator-buttons button {
+    font-size: 1.13em;
+    font-weight: bold;
+    padding: 12px 0;
+    background: linear-gradient(90deg, #004f1e 0%, #00703a 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+.calculator-buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,79,30,0.3);
+}
+.calculator-history {
+    flex: 1 1 180px;
+    min-width: 160px;
+    background: #181a20;
+    color: #ffe066;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 0;
+    max-height: 340px;
+    overflow-y: auto;
+    border: 1px solid #004f1e;
+}
+.calculator-history h3 {
+    margin-top: 0;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #00703a;
+}
+.calculator-history ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+}
+.calculator-history li {
+    margin-bottom: 8px;
+    word-break: break-all;
+    padding: 5px;
+    border-bottom: 1px solid #333;
+}
+@media (max-width: 700px) {
+    .calculator-container {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px 4px;
+    }
+    .calculator-main, .calculator-history {
+        max-width: 100%;
+        min-width: 0;
+    }
+    .calculator-history {
+        margin-top: 18px;
+    }
+}
+{% endblock %}
+
 {% block content %}
-<div class="hero">
-    <h1>Simple Calculator</h1>
-    <p>Perform basic, memory, and scientific calculations with our free online calculator. Now with history and enhanced mobile usability!</p>
-</div>
 <div class="input-section">
     <div class="calculator-container">
         <div class="calculator-main">
@@ -50,353 +161,85 @@
 </div>
 
 <div class="how-to" style="max-width: 900px; margin: 60px auto 40px;">
-    <h2 style="text-align: center; margin-bottom: 30px; color: #fff;">How to Use the Simple Calculator</h2>
+    <h2 style="text-align: center; margin-bottom: 30px; color: #fff;">How to Use Our Free Online Calculator</h2>
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 28px;">
         <div style="flex: 1 1 220px; max-width: 260px; min-width: 200px; margin: 0; background: #23263a; color: #fff; padding: 20px 15px; border-radius: 12px; box-sizing: border-box; position: relative;">
-            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #1a237e; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">1</div>
+            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #004f1e; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">1</div>
             <h3 style="color:#fff; margin-top: 20px; text-align: center; font-size: 1.2em;">Enter Numbers</h3>
-            <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Use the number buttons or your keyboard to input values. The display shows your current input and calculation results.</p>
+            <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Click the number buttons to input values. You can also use your keyboard for faster input if you're on a desktop or laptop.</p>
         </div>
         <div style="flex: 1 1 220px; max-width: 260px; min-width: 200px; margin: 0; background: #23263a; color: #fff; padding: 20px 15px; border-radius: 12px; box-sizing: border-box; position: relative;">
-            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #1a237e; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">2</div>
-            <h3 style="color:#fff; margin-top: 20px; text-align: center; font-size: 1.2em;">Choose Operations</h3>
-            <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Select from basic arithmetic (+, -, ×, ÷), scientific functions (sin, cos, tan, √), or memory operations (MC, MR, M+, M-).</p>
+            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #004f1e; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">2</div>
+            <h3 style="color:#fff; margin-top: 20px; text-align: center; font-size: 1.2em;">Choose Operation</h3>
+            <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Select an operation (+, -, ×, ÷) or use advanced functions like square root, sine, cosine, or tangent for scientific calculations.</p>
         </div>
         <div style="flex: 1 1 220px; max-width: 260px; min-width: 200px; margin: 0; background: #23263a; color: #fff; padding: 20px 15px; border-radius: 12px; box-sizing: border-box; position: relative;">
-            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #1a237e; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">3</div>
+            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #004f1e; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">3</div>
             <h3 style="color:#fff; margin-top: 20px; text-align: center; font-size: 1.2em;">Get Results</h3>
-            <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Press the equals (=) button to calculate the result. Your calculation history appears on the right for easy reference.</p>
+            <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Press the equals (=) button to calculate your result. Your calculation will be saved in the history panel for future reference.</p>
         </div>
     </div>
 </div>
-
 <div class="features">
-    <h2>Features of Our Simple Calculator</h2>
+    <h2>Features</h2>
     <div class="feature-cards">
         <div class="feature-card">
-            <h3>🧮 Basic Arithmetic</h3>
+            <h3>Basic Arithmetic</h3>
             <p>Perform addition, subtraction, multiplication, and division with ease. The calculator is designed for quick and accurate results.</p>
         </div>
         <div class="feature-card">
-            <h3>📊 Percentage & Sign</h3>
+            <h3>Percentage & Sign</h3>
             <p>Calculate percentages and toggle between positive and negative values with dedicated buttons for convenience.</p>
         </div>
         <div class="feature-card">
-            <h3>🔬 Scientific Functions</h3>
+            <h3>Scientific Functions</h3>
             <p>Perform advanced calculations like square root, sine, cosine, and tangent with the new scientific function buttons.</p>
         </div>
         <div class="feature-card">
-            <h3>💾 Memory Functions</h3>
+            <h3>Memory Functions</h3>
             <p>Store, recall, add, and subtract values using the memory buttons for enhanced calculation capabilities.</p>
         </div>
         <div class="feature-card">
-            <h3>📱 Responsive Design</h3>
+            <h3>Responsive Design</h3>
             <p>Use the calculator on any device—desktop, tablet, or mobile. The layout adapts for a seamless experience everywhere.</p>
         </div>
-        <div class="feature-card">
-            <h3>📜 Calculation History</h3>
-            <p>View your recent calculations in the history panel, making it easy to reference previous results or track your work.</p>
-        </div>
     </div>
 </div>
-
 <div class="faq">
-    <h2>Frequently Asked Questions</h2>
+    <h2>Frequently Asked Questions (FAQs)</h2>
     <div class="faq-item">
-        <h3>Q1: What is this calculator used for?</h3>
-        <p>This calculator is designed for basic arithmetic operations such as addition, subtraction, multiplication, and division, as well as scientific functions. It's simple and easy to use for quick calculations in everyday situations.</p>
+        <strong>1. What is this calculator used for?</strong>
+        <p>This calculator is designed for basic arithmetic operations such as addition, subtraction, multiplication, and division. It is simple and easy to use for quick calculations.</p>
     </div>
     <div class="faq-item">
-        <h3>Q2: Can I use this calculator on my mobile device?</h3>
-        <p>Yes, this calculator is fully responsive and works seamlessly on mobile devices, tablets, and desktops. The interface automatically adjusts to provide the best experience on any screen size.</p>
+        <strong>2. Can I use this calculator on my mobile device?</strong>
+        <p>Yes, this calculator is fully responsive and works seamlessly on mobile devices, tablets, and desktops.</p>
     </div>
     <div class="faq-item">
-        <h3>Q3: Does this calculator support advanced functions?</h3>
-        <p>Yes, the calculator includes scientific functions like square root, sine, cosine, and tangent. These functions make it suitable for more complex calculations and mathematical problems.</p>
+        <strong>3. Does this calculator support advanced functions?</strong>
+        <p>Yes, the calculator now includes scientific functions like square root, sine, cosine, and tangent.</p>
     </div>
     <div class="faq-item">
-        <h3>Q4: How accurate are the calculations?</h3>
-        <p>The calculator provides results with up to 10 digits of precision, ensuring high accuracy for most calculations. For scientific functions, standard JavaScript math precision is used.</p>
+        <strong>4. How accurate are the calculations?</strong>
+        <p>The calculator provides results with up to 10 digits of precision, ensuring high accuracy for most calculations.</p>
     </div>
     <div class="faq-item">
-        <h3>Q5: Can I use the keyboard to operate the calculator?</h3>
-        <p>Yes, you can use your keyboard's number pad and basic arithmetic keys (+, -, *, /) to perform calculations. The Enter key works as the equals button, and Escape clears the display.</p>
+        <strong>5. Can I use the keyboard to operate the calculator?</strong>
+        <p>Yes, you can use your keyboard's number pad and basic arithmetic keys (+, -, *, /) to perform calculations.</p>
     </div>
     <div class="faq-item">
-        <h3>Q6: Is there a way to clear the display?</h3>
-        <p>Yes, you can use the "AC" button to clear all entries and reset the calculator. For removing just the last character, use the backspace (←) button.</p>
+        <strong>6. Is there a way to clear the display?</strong>
+        <p>Yes, you can use the "AC" button to clear all entries and reset the calculator.</p>
     </div>
     <div class="faq-item">
-        <h3>Q7: How does the memory function work?</h3>
-        <p>The memory buttons allow you to store (M+), recall (MR), clear (MC), and subtract (M-) values for enhanced calculations. This is particularly useful when working with multiple values across different calculations.</p>
+        <strong>7. How does the memory function work?</strong>
+        <p>The memory buttons allow you to store (M+), recall (MR), clear (MC), and subtract (M-) values for enhanced calculations.</p>
     </div>
 </div>
+<!-- Support section is already included in the base template -->
+{% endblock %}
 
-<div class="support-us">
-    <h2>Support Us</h2>
-    <p>If you find this calculator useful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
-    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank">☕ Buy Me a Coffee</a>
-    <div class="social-icons">
-        <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/tools/online-calculators/simple-calculator&text=Check+out+this+amazing+online+calculator!" target="_blank">
-            <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter">
-        </a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/tools/online-calculators/simple-calculator" target="_blank">
-            <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook">
-        </a>
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/tools/online-calculators/simple-calculator&title=Free+Online+Calculator&summary=Check+out+this+amazing+tool!" target="_blank">
-            <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn">
-        </a>
-        <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/tools/online-calculators/simple-calculator&description=Free+Online+Calculator" target="_blank">
-            <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest">
-        </a>
-        <a href="https://wa.me/?text=Check+out+this+amazing+online+calculator:+http://127.0.0.1:5000/tools/online-calculators/simple-calculator" target="_blank">
-            <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp">
-        </a>
-    </div>
-</div>
-
-<footer>
-    <p style="margin: 0 0 10px 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-    <p style="margin: 0;">
-        <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
-        <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
-        <a href="/" target="_self">Home</a>
-    </p>
-</footer>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #181a20;
-}
-.hero {
-    background-color: #019286;
-    color: white;
-    padding: 40px 20px;
-    text-align: center;
-}
-.hero h1 {
-    font-size: 2.5em;
-    margin: 0;
-}
-.hero p {
-    font-size: 1.2em;
-    margin: 10px 0 0;
-}
-.input-section {
-    text-align: center;
-    margin: 48px 0 20px 0;
-}
-.calculator-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 24px;
-    background: #23263a;
-    padding: 28px 16px 24px 16px;
-    border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-    max-width: 700px;
-    margin: 0 auto;
-}
-.calculator-main {
-    flex: 1 1 320px;
-    min-width: 280px;
-    max-width: 340px;
-}
-.calculator-display {
-    width: 100%;
-    margin-bottom: 18px;
-    background: #181a20;
-    color: #ffe066;
-    border: 2px solid #ffe066;
-    font-size: 1.5em;
-    border-radius: 6px;
-    padding: 10px;
-    text-align: right;
-}
-.calculator-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-.calculator-buttons button {
-    font-size: 1.13em;
-    font-weight: bold;
-    padding: 12px 0;
-    background: linear-gradient(90deg, #ffdd00 0%, #ffb300 100%);
-    color: #23263a;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.calculator-buttons button:hover {
-    background: #ffe066;
-}
-.calculator-history {
-    flex: 1 1 180px;
-    min-width: 160px;
-    background: #181a20;
-    color: #ffe066;
-    border-radius: 8px;
-    padding: 16px;
-    margin-top: 0;
-    max-height: 340px;
-    overflow-y: auto;
-}
-.calculator-history h3 {
-    margin-top: 0;
-    font-size: 1.1em;
-    margin-bottom: 10px;
-}
-.calculator-history ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 1em;
-}
-.calculator-history li {
-    margin-bottom: 8px;
-    word-break: break-all;
-}
-.features, .faq {
-    margin: 40px 0;
-}
-.features h2, .faq h2 {
-    text-align: center;
-    color: #fff;
-}
-.features .feature-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px;
-    justify-content: center;
-    margin-top: 32px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.features .feature-card {
-    background: #23263a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 20px;
-    flex: 1 1 28%;
-    min-width: 220px;
-    max-width: 280px;
-    box-sizing: border-box;
-    color: #fff;
-}
-.features .feature-card h3 {
-    text-align: center;
-}
-.features .feature-card p {
-    text-align: justify;
-    font-size: 1.18em;
-}
-.faq {
-    max-width: 900px;
-    margin: 40px auto;
-}
-.faq-item {
-    background: #23263a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 10px 0;
-    color: #fff;
-}
-.faq-item p {
-    font-size: 1.13em;
-    line-height: 1.6;
-}
-.support-us {
-    max-width:600px;
-    margin:40px auto 0 auto;
-    padding:32px 20px 24px 20px;
-    background:#23263a;
-    border-radius:12px;
-    text-align:center;
-    box-shadow:0 2px 12px rgba(0,0,0,0.10);
-    color:#fff;
-}
-.support-us h2 {
-    margin-top:0;
-    color:#ffe066;
-}
-.support-us a {
-    display:inline-block;
-    background:#ffdd00;
-    color:#23263a;
-    font-weight:bold;
-    padding:12px 28px;
-    border-radius:6px;
-    text-decoration:none;
-    font-size:1.15em;
-    box-shadow:0 2px 8px rgba(0,0,0,0.10);
-    transition:background 0.2s;
-}
-.support-us a:hover {
-    background:#ffe066;
-}
-.social-icons {
-    margin-top: 15px;
-}
-.social-icons a {
-    margin-right: 10px;
-    background: none;
-    border: none;
-    box-shadow: none;
-    padding: 0;
-}
-.social-icons img {
-    width: 30px;
-    height: 30px;
-}
-footer {
-    background: #000;
-    color: #fff;
-    padding: 38px 20px 32px 20px;
-    margin-top: 64px;
-    border-radius: 0;
-    box-shadow: 0 -2px 12px rgba(0,0,0,0.10);
-    width: 100%;
-    text-align: center;
-    font-size: 1.08em;
-    letter-spacing: 0.01em;
-}
-footer p {
-    margin: 0;
-}
-footer a {
-    color: #fff;
-    text-decoration: underline;
-    margin: 0 12px;
-    opacity: 0.85;
-}
-@media (max-width: 700px) {
-    .calculator-container {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 12px 4px;
-    }
-    .calculator-main, .calculator-history {
-        max-width: 100%;
-        min-width: 0;
-    }
-    .calculator-history {
-        margin-top: 18px;
-    }
-}
-@media (max-width: 768px) {
-    .features .feature-cards {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-</style>
+{% block body_scripts %}
 <script>
 let memory = 0;
 let history = [];

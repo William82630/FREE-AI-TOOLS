@@ -9,10 +9,10 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #181a20;
+            background-color: #f9f9f9;
         }
         .hero {
-            background-color: #02560d;
+            background-color: #02560d52;
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -29,9 +29,9 @@
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background: none;
-            border-radius: 0;
-            box-shadow: none;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .input-section {
             text-align: center;
@@ -41,32 +41,31 @@
             width: 320px !important;
             padding: 14px;
             font-size: 1.08em;
-            border: 2px solid #4CAF50;
+            border: 2px solid #ff9307;
             border-radius: 6px;
-            background: #23263a;
-            color: #fff;
+            background: #fff;
+            color: #222;
         }
         .input-section button {
             padding: 14px 28px;
             font-size: 1.08em;
-            background: linear-gradient(90deg, #4CAF50 0%, #2E7D32 100%);
+            background: #ff6e07;
             color: #fff;
             border: none;
             border-radius: 6px;
             font-weight: bold;
-            box-shadow: 0 2px 8px rgba(76,175,80,0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: background 0.2s;
         }
         .input-section button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(76,175,80,0.4);
+            background: #791301;
         }
         .how-to {
             margin: 40px 0;
         }
         .how-to h2 {
             text-align: center;
-            color: #fff;
+            color: #333;
         }
         .how-to-steps {
             display: flex;
@@ -78,54 +77,39 @@
             text-align: center;
             flex: 1 1 30%;
             margin: 10px;
-            background: #23263a;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            position: relative;
-            color: #fff;
         }
         .step span {
             display: inline-block;
             width: 50px;
             height: 50px;
             line-height: 50px;
-            background-color: #4CAF50;
+            background-color: #040020;
             color: white;
             border-radius: 50%;
             font-size: 1.5em;
             margin-bottom: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .features, .faq {
             margin: 40px 0;
         }
         .features h2, .faq h2 {
             text-align: center;
-            color: #fff;
+            color: #333;
         }
         .features ul {
             list-style: disc;
             margin-left: 20px;
-            color: #e0e0e0;
+            color: #555;
         }
         .faq-item {
-            background: #23263a;
-            border: 1px solid #333;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
             border-radius: 8px;
             padding: 20px;
-            margin: 15px 0;
-            color: #fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .faq-item h3 {
-            color: #4CAF50;
-            margin-top: 0;
+            margin: 10px 0;
         }
         .faq-item p {
-            font-size: 1.05em;
-            line-height: 1.6;
-            margin-bottom: 0;
+            font-size: 1.15em;
         }
         footer {
             background: #111;
@@ -150,7 +134,7 @@
         }
 
         .donate button {
-            background: linear-gradient(90deg, #4CAF50 0%, #2E7D32 100%);
+            background: #ff9307;
             color: #fff;
             border: none;
             border-radius: 6px;
@@ -158,12 +142,11 @@
             font-size: 1.08em;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(76,175,80,0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: background 0.2s;
         }
         .donate button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(76,175,80,0.4);
+            background: #e07c00;
         }
 
         /* Responsive Design */
@@ -200,45 +183,38 @@
     </div>
 
     <div class="hero">
-        <h1>Professional WEBP to PNG Converter</h1>
-        <p>Transform your WEBP images to universally compatible PNG format while preserving quality and transparency. Our advanced converter ensures perfect results for web design, digital art, and professional projects.</p>
+        <h1>Convert WEBP to PNG</h1>
+        <p>Upload your WEBP image to convert it to PNG format. Our tool ensures high-quality conversions in seconds.</p>
     </div>
 
     <div class="container">
         <div class="input-section">
-            <form action="/tools/image-editing/convert-webp-to-png" method="post" enctype="multipart/form-data" style="display: inline-block; text-align: left; background: #23263a; padding: 28px 32px 24px 32px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                <div style="margin-bottom: 18px; text-align: center;">
-                    <input type="file" id="image" name="image" required placeholder="Upload your WEBP image">
-                </div>
-                <div style="text-align: center;">
-                    <button type="submit">Convert to PNG</button>
-                </div>
+            <form action="/tools/image-editing/convert-webp-to-png" method="post" enctype="multipart/form-data">
+                <input type="file" id="image" name="image" required placeholder="Upload your WEBP image">
+                <button type="submit">Convert to PNG</button>
             </form>
         </div>
 
         <div class="how-to">
             <h2>How to Use the Convert WEBP to PNG Tool</h2>
-            <div class="feature-cards" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin-top: 28px;">
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                    <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; line-height: 50px; background-color: #4CAF50; color: white; border-radius: 50%; font-size: 1.5em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">1</div>
-                    <h3 style="color:#fff; margin-top: 25px; text-align: center;">Select Your WEBP Image</h3>
-                    <p style="text-align:center; color:#e0e0e0; font-size:1.08em;">Click the "Choose File" button to browse your device and select the WEBP image you want to convert. Our tool accepts WEBP files of any size and complexity.</p>
+            <div class="how-to-steps">
+                <div class="step">
+                    <span>1</span>
+                    <p>Upload your WEBP image file.</p>
                 </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                    <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; line-height: 50px; background-color: #4CAF50; color: white; border-radius: 50%; font-size: 1.5em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">2</div>
-                    <h3 style="color:#fff; margin-top: 25px; text-align: center;">Initiate Conversion</h3>
-                    <p style="text-align:center; color:#e0e0e0; font-size:1.08em;">Click the "Convert to PNG" button to start the conversion process. Our advanced algorithms will transform your WEBP image while preserving its quality and transparency.</p>
+                <div class="step">
+                    <span>2</span>
+                    <p>Click the "Convert to PNG" button.</p>
                 </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                    <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; line-height: 50px; background-color: #4CAF50; color: white; border-radius: 50%; font-size: 1.5em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">3</div>
-                    <h3 style="color:#fff; margin-top: 25px; text-align: center;">Download Your PNG</h3>
-                    <p style="text-align:center; color:#e0e0e0; font-size:1.08em;">Once the conversion is complete, your browser will automatically download the converted PNG file. The PNG format ensures maximum compatibility and quality for your images.</p>
+                <div class="step">
+                    <span>3</span>
+                    <p>Download the converted PNG image.</p>
                 </div>
             </div>
         </div>
 
         <div class="features">
-            <h2 style="text-align:center; margin-bottom: 28px; color: #fff;">Advanced Features of Our WEBP to PNG Converter</h2>
+            <h2 style="text-align:center; margin-bottom: 28px; color: #23263a;">Features of Our Convert WEBP to PNG Tool</h2>
             <div class="feature-cards" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;">
                 <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
                     <h3 style="color:#fff;">🔄 Seamless WEBP to PNG Conversion</h3>
@@ -273,66 +249,60 @@
 
         <div class="faq">
             <h2>Frequently Asked Questions</h2>
-            <div style="max-width: 800px; margin: 28px auto 0 auto;">
-                <div class="faq-item" style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 20px 25px; margin: 15px 0; color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <h3 style="color: #4CAF50; margin-top: 0;">Q1: Why should I convert WEBP to PNG?</h3>
-                    <p style="font-size: 1.05em; line-height: 1.6; margin-bottom: 0; color: #e0e0e0;">While WEBP offers efficient compression, PNG ensures broader compatibility across all platforms and applications. PNG is ideal for high-quality images with transparency, making it perfect for web design, digital art, and professional projects.</p>
-                </div>
-                <div class="faq-item" style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 20px 25px; margin: 15px 0; color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <h3 style="color: #4CAF50; margin-top: 0;">Q2: Is it safe to convert WEBP to PNG online?</h3>
-                    <p style="font-size: 1.05em; line-height: 1.6; margin-bottom: 0; color: #e0e0e0;">Yes, our tool processes your images securely within your browser. We do not store any uploaded files on our servers, ensuring your data remains completely private and secure.</p>
-                </div>
-                <div class="faq-item" style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 20px 25px; margin: 15px 0; color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <h3 style="color: #4CAF50; margin-top: 0;">Q3: Can I convert multiple WEBP images at once?</h3>
-                    <p style="font-size: 1.05em; line-height: 1.6; margin-bottom: 0; color: #e0e0e0;">Currently, our tool supports one image at a time. We are working on adding batch processing capabilities to enhance your experience in future updates.</p>
-                </div>
-                <div class="faq-item" style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 20px 25px; margin: 15px 0; color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <h3 style="color: #4CAF50; margin-top: 0;">Q4: Will the image quality be affected during conversion?</h3>
-                    <p style="font-size: 1.05em; line-height: 1.6; margin-bottom: 0; color: #e0e0e0;">No, our tool maintains the original quality during conversion. We use advanced algorithms to ensure the visual integrity of your images remains intact, delivering professional-grade results.</p>
-                </div>
-                <div class="faq-item" style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 20px 25px; margin: 15px 0; color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <h3 style="color: #4CAF50; margin-top: 0;">Q5: Do I need to install any software to use this tool?</h3>
-                    <p style="font-size: 1.05em; line-height: 1.6; margin-bottom: 0; color: #e0e0e0;">No installation is required. Our image converter is entirely web-based, allowing you to convert images directly through your browser without the need for additional software.</p>
-                </div>
-                <div class="faq-item" style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 20px 25px; margin: 15px 0; color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <h3 style="color: #4CAF50; margin-top: 0;">Q6: Can I convert images on my mobile device?</h3>
-                    <p style="font-size: 1.05em; line-height: 1.6; margin-bottom: 0; color: #e0e0e0;">Yes, our converter is fully responsive and compatible with all modern browsers and devices. Whether you're using a smartphone, tablet, or desktop, you can easily convert images on the go.</p>
-                </div>
-                <div class="faq-item" style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 20px 25px; margin: 15px 0; color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <h3 style="color: #4CAF50; margin-top: 0;">Q7: What's the difference between WEBP and PNG formats?</h3>
-                    <p style="font-size: 1.05em; line-height: 1.6; margin-bottom: 0; color: #e0e0e0;">WEBP is a newer format developed by Google that offers smaller file sizes but limited compatibility. PNG is universally supported and provides lossless compression with transparency, making it ideal for professional use.</p>
-                </div>
-                <div class="faq-item" style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 20px 25px; margin: 15px 0; color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <h3 style="color: #4CAF50; margin-top: 0;">Q8: When should I use PNG instead of WEBP?</h3>
-                    <p style="font-size: 1.05em; line-height: 1.6; margin-bottom: 0; color: #e0e0e0;">Use PNG when you need maximum compatibility across all platforms, when working with images that require transparency, or when you're preparing files for print or professional editing software.</p>
-                </div>
+            <div class="faq-item">
+                <h3>Q1: Why should I convert WEBP to PNG?</h3>
+                <p>While WEBP offers efficient compression, converting to PNG ensures broader compatibility across various platforms and applications. PNG is ideal for high-quality images with transparency, making it suitable for web design, digital art, and professional projects.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q2: Is it safe to convert WEBP to PNG online?</h3>
+                <p>Yes, our tool processes your images securely within your browser. We do not store any uploaded files on our servers, ensuring your data remains private and secure.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q3: Can I convert multiple WEBP images at once?</h3>
+                <p>Currently, our tool supports one image at a time. We are working on adding batch processing capabilities to enhance your experience.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q4: Will the image quality be affected during conversion?</h3>
+                <p>No, our tool is designed to maintain the original quality of your images during the conversion process. We utilize advanced algorithms to ensure that the visual integrity of your photos remains intact, delivering professional-grade results every time.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q5: Do I need to install any software to use this tool?</h3>
+                <p>No installation is required. Our image converter is entirely web-based, allowing you to convert images directly through your browser without the need for additional software.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q6: Can I convert images on my mobile device?</h3>
+                <p>Yes, our image converter is fully responsive and compatible with all modern browsers and devices. Whether you're using a smartphone, tablet, or desktop, you can easily convert images on the go.​</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q7: Is there a limit to the number of images I can convert?</h3>
+                <p>No, our tool allows for unlimited image conversions without any restrictions. You can convert as many images as you need, free of charge.​</p>
             </div>
         </div>
 
         <div class="donate" style="text-align: center; margin: 40px 0;">
             <h2>Support Us</h2>
-            <p>If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
-            <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="display: inline-block; font-size: 1.13em; font-weight: bold; padding: 12px 32px; background: linear-gradient(90deg, #4CAF50 0%, #2E7D32 100%); color: #fff; box-shadow: 0 2px 8px rgba(76,175,80,0.3); border: none; border-radius: 6px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; margin-top: 10px;">☕ Buy Me a Coffee</a>
+            <p>If you find this tool helpful, consider supporting us:</p>
+            <button onclick="window.open('https://www.buymeacoffee.com/willsblogger', '_blank')">☕ Buy Me a Coffee</button>
             <div class="social-icons" style="margin-top: 15px;">
-                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/tools/image-editing/convert-webp-to-png&text=Check+out+this+amazing+WEBP+to+PNG+converter+tool!" target="_blank" style="margin-right: 10px;">
+                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/convert-webp-to-png&text=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px;">
                     <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/tools/image-editing/convert-webp-to-png" target="_blank" style="margin-right: 10px;">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/convert-webp-to-png" target="_blank" style="margin-right: 10px;">
                     <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
                 </a>
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/tools/image-editing/convert-webp-to-png&title=Free+WEBP+to+PNG+Converter+Tool&summary=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px;">
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/convert-webp-to-png&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
                     <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
                 </a>
-                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/tools/image-editing/convert-webp-to-png&description=Free+WEBP+to+PNG+Converter+Tool" target="_blank" style="margin-right: 10px;">
+                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/convert-webp-to-png&description=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
                     <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
                 </a>
-                <a href="https://wa.me/?text=Check+out+this+amazing+WEBP+to+PNG+converter+tool:+http://127.0.0.1:5000/tools/image-editing/convert-webp-to-png" target="_blank">
+                <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/convert-webp-to-png" target="_blank">
                     <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
                 </a>
             </div>
         </div>
 
-        <div id="conversion-counter" style="text-align:center; margin: 48px 0 24px 0; font-size: 1.25em; color: #fff; font-weight: bold;">
+        <div id="conversion-counter" style="text-align:center; margin: 48px 0 24px 0; font-size: 1.25em; color: #23263a; font-weight: bold;">
             We've already converted <span id="files-count">1</span> files with a total size of <span id="size-count">1</span> <span id="size-unit">MB</span>.
         </div>
         <script>

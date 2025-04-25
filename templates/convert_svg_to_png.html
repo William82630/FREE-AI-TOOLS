@@ -11,27 +11,6 @@
             padding: 0;
             background-color: #181a20;
         }
-        .ads {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            width: 160px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-        .ads.left {
-            left: 0;
-        }
-        .ads.right {
-            right: 0;
-        }
-        @media (max-width: 768px) {
-            .ads {
-                display: none;
-            }
-        }
         .hero {
             background-color: #6f42c1;
             color: white;
@@ -208,64 +187,39 @@
     </style>
 </head>
 <body>
-    <!-- Google Ads: Left Vertical -->
-    <div class="ads left">
-        <div style="position: relative; top: 0;">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
-            <!-- You can add your ad unit code here -->
-        </div>
-    </div>
-    <!-- Google Ads: Right Vertical -->
-    <div class="ads right">
-        <div style="position: relative; top: 0;">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
-            <!-- You can add your ad unit code here -->
-        </div>
-    </div>
-
     <div class="hero">
-        <h1>Professional SVG to PNG Converter</h1>
-        <p>Transform your vector SVG graphics into universally compatible PNG images while preserving quality and transparency. Perfect for web design, digital marketing, and professional presentations.</p>
+        <h1>Convert SVG to PNG</h1>
+        <p>Upload your SVG image to convert it to PNG format. Our tool ensures high-quality conversions in seconds.</p>
     </div>
 
     <div class="container">
         <div class="input-section">
-            <form action="/tools/image-editing/convert-svg-to-png" method="post" enctype="multipart/form-data" style="display: inline-block; text-align: left; background: #23263a; padding: 28px 32px 24px 32px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                <div style="margin-bottom: 18px; text-align: center;">
-                    <input type="file" id="image" name="image" required accept=".svg" style="width: 320px !important; padding: 14px; font-size: 1.08em; border: 2px solid #6f42c1; border-radius: 6px; background: #23263a; color: #fff;">
-                </div>
-                <div style="text-align: center;">
-                    <button type="submit" style="font-size: 1.13em; font-weight: bold; padding: 12px 32px; background: linear-gradient(90deg, #6f42c1 0%, #4c1d95 100%); color: #fff; box-shadow: 0 2px 8px rgba(111,66,193,0.3); border: none; border-radius: 6px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">Convert to PNG</button>
-                </div>
-                <div style="margin-top: 15px; text-align: center; color: #aaa; font-size: 0.9em;">
-                    Upload your SVG file to convert it to a high-quality PNG image
-                </div>
+            <form action="/tools/image-editing/convert-svg-to-png" method="post" enctype="multipart/form-data">
+                <input type="file" id="image" name="image" required>
+                <button type="submit">Convert to PNG</button>
             </form>
         </div>
 
         <div class="how-to">
             <h2>How to Use the Convert SVG to PNG Tool</h2>
-            <div class="feature-cards" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin-top: 28px;">
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                    <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; line-height: 50px; background-color: #6f42c1; color: white; border-radius: 50%; font-size: 1.5em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">1</div>
-                    <h3 style="color:#fff; margin-top: 25px; text-align: center;">Select Your SVG File</h3>
-                    <p style="text-align:center; color:#e0e0e0; font-size:1.08em;">Click the "Choose File" button to browse your device and select the SVG (Scalable Vector Graphics) file you want to convert. Our tool accepts SVG files of any complexity, including those with multiple layers and effects.</p>
+            <div class="how-to-steps">
+                <div class="step">
+                    <span>1</span>
+                    <p>Upload your SVG image file.</p>
                 </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                    <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; line-height: 50px; background-color: #6f42c1; color: white; border-radius: 50%; font-size: 1.5em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">2</div>
-                    <h3 style="color:#fff; margin-top: 25px; text-align: center;">Initiate Conversion</h3>
-                    <p style="text-align:center; color:#e0e0e0; font-size:1.08em;">Click the "Convert to PNG" button to start the conversion process. Our advanced rendering engine will transform your vector-based SVG into a high-quality raster PNG image while preserving transparency and visual details.</p>
+                <div class="step">
+                    <span>2</span>
+                    <p>Click the "Convert to PNG" button.</p>
                 </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                    <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; line-height: 50px; background-color: #6f42c1; color: white; border-radius: 50%; font-size: 1.5em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">3</div>
-                    <h3 style="color:#fff; margin-top: 25px; text-align: center;">Download Your PNG</h3>
-                    <p style="text-align:center; color:#e0e0e0; font-size:1.08em;">Once the conversion is complete, your browser will automatically download the converted PNG file. The PNG format ensures maximum compatibility across all platforms while maintaining image quality and transparency for professional use.</p>
+                <div class="step">
+                    <span>3</span>
+                    <p>Download the converted PNG image.</p>
                 </div>
             </div>
         </div>
 
         <div class="features">
-            <h2>Advanced Features of Our SVG to PNG Converter</h2>
+            <h2>Features of Our Convert SVG to PNG Tool</h2>
             <div class="feature-cards" style="display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 32px;">
                 <div class="faq-item" style="flex: 1 1 220px; min-width: 180px; max-width: 280px;">
                     <h3 style="margin-top:0;">🔄 Effortless SVG to PNG Conversion</h3>
@@ -330,24 +284,7 @@
     <div class="support-us" style="max-width:600px;margin:40px auto 0 auto;padding:32px 20px 24px 20px;background:#23263a;border-radius:12px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.10);color:#fff;">
         <h2 style="margin-top:0;color:#ffe066;">Support Us</h2>
         <p style="margin:12px 0 24px 0;">If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
-        <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="display:inline-block;background:#ffdd00;color:#23263a;font-weight:bold;padding:12px 28px;border-radius:6px;text-decoration:none;font-size:1.15em;box-shadow:0 2px 8px rgba(0,0,0,0.10);transition:background 0.2s;margin-bottom:15px;">☕ Buy Me a Coffee</a>
-        <div class="social-icons" style="margin-top: 15px;">
-            <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/tools/image-editing/convert-svg-to-png&text=Check+out+this+amazing+SVG+to+PNG+converter+tool!" target="_blank" style="margin-right: 10px;">
-                <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
-            </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/tools/image-editing/convert-svg-to-png" target="_blank" style="margin-right: 10px;">
-                <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
-            </a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/tools/image-editing/convert-svg-to-png&title=Free+SVG+to+PNG+Converter+Tool&summary=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px;">
-                <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
-            </a>
-            <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/tools/image-editing/convert-svg-to-png&description=Free+SVG+to+PNG+Converter+Tool" target="_blank" style="margin-right: 10px;">
-                <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
-            </a>
-            <a href="https://wa.me/?text=Check+out+this+amazing+SVG+to+PNG+converter+tool:+http://127.0.0.1:5000/tools/image-editing/convert-svg-to-png" target="_blank">
-                <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
-            </a>
-        </div>
+        <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="display:inline-block;background:#ffdd00;color:#23263a;font-weight:bold;padding:12px 28px;border-radius:6px;text-decoration:none;font-size:1.15em;box-shadow:0 2px 8px rgba(0,0,0,0.10);transition:background 0.2s;">☕ Buy Me a Coffee</a>
     </div>
 
     <footer>

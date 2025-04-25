@@ -117,36 +117,6 @@
         .donate button:hover {
             background-color: #e68900;
         }
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top-color: #ff9800;
-            animation: spin 1s ease-in-out infinite;
-            vertical-align: middle;
-            margin-left: 10px;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .qr-container {
-            position: relative;
-            display: inline-block;
-            margin: 20px 0;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .qr-text-overlay {
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #666;
-            word-break: break-all;
-            max-width: 200px;
-        }
     </style>
 </head>
 <body>
@@ -266,77 +236,44 @@
     </footer>
 
     <script>
-        async function generateQRCode() {
+        function generateQRCode() {
             const text = document.getElementById('qr-text').value;
 
             if (!text.trim()) {
-                document.getElementById('result').innerHTML = '<p style="color: red;">Please enter valid text or URL.</p>';
+                document.getElementById('result').innerHTML = '<p>Please enter valid text or URL.</p>';
                 document.getElementById('qr-actions').style.display = 'none';
                 return;
             }
 
-            // Show loading indicator
-            document.getElementById('result').innerHTML = '<p>Generating QR Code... <span class="loading-spinner"></span></p>';
-            document.getElementById('qr-actions').style.display = 'none';
+            const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(text)}&size=200x200`;
+            document.getElementById('result').innerHTML = `<p>Here is your QR Code:</p><img id="qr-image" src="${qrCodeUrl}" alt="QR Code">`;
+            document.getElementById('qr-actions').style.display = 'block';
 
-            try {
-                // Create form data
-                const formData = new FormData();
-                formData.append('qr_text', text);
+            // Set up the download button
+            const downloadBtn = document.getElementById('download-btn');
+            downloadBtn.onclick = () => {
+                const link = document.createElement('a');
+                link.href = qrCodeUrl;
+                link.download = 'qr-code.png';
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
 
-                // Call our backend API
-                const response = await fetch('/tools/online-calculators/qr-code-generator', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    document.getElementById('result').innerHTML = `
-                        <p>Here is your QR Code:</p>
-                        <div class="qr-container">
-                            <img id="qr-image" src="${data.qr_image}" alt="QR Code">
-                            <div class="qr-text-overlay">${text.length > 30 ? text.substring(0, 30) + '...' : text}</div>
-                        </div>
-                    `;
-                    document.getElementById('qr-actions').style.display = 'block';
-
-                    // Set up the download button
-                    const downloadBtn = document.getElementById('download-btn');
-                    downloadBtn.onclick = () => {
-                        const link = document.createElement('a');
-                        link.href = data.qr_image;
-                        link.download = 'qr-code.png';
-                        link.style.display = 'none';
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                    };
-
-                    // Set up the share button
-                    const shareBtn = document.getElementById('share-btn');
-                    shareBtn.onclick = () => {
-                        if (navigator.share) {
-                            navigator.share({
-                                title: 'QR Code',
-                                text: 'Check out this QR Code I generated!',
-                                url: window.location.href
-                            }).catch((error) => console.error('Error sharing:', error));
-                        } else {
-                            // Fallback for browsers that don't support sharing
-                            const shareUrl = `https://twitter.com/intent/tweet?text=Check out this QR Code I generated!&url=${encodeURIComponent(window.location.href)}`;
-                            window.open(shareUrl, '_blank');
-                        }
-                    };
+            // Set up the share button
+            const shareBtn = document.getElementById('share-btn');
+            shareBtn.onclick = () => {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'QR Code',
+                        text: 'Check out this QR Code I generated!',
+                        url: qrCodeUrl
+                    }).catch((error) => console.error('Error sharing:', error));
                 } else {
-                    document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
-                    document.getElementById('qr-actions').style.display = 'none';
+                    alert('Sharing is not supported on this browser.');
                 }
-            } catch (error) {
-                document.getElementById('result').innerHTML = '<p style="color: red;">Error: Could not generate QR code. Please try again later.</p>';
-                document.getElementById('qr-actions').style.display = 'none';
-            }
+            };
         }
     </script>
 </body>

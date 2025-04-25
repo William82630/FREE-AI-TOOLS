@@ -312,13 +312,12 @@
         const unitToSelect = document.getElementById('unitTo');
         const inputValue = document.getElementById('inputValue');
         const resultDisplay = document.getElementById('result');
-        const convertButton = document.querySelector('.convert-button');
 
         const units = {
-            length: ["Meters", "Kilometers", "Centimeters", "Millimeters", "Miles", "Yards", "Feet", "Inches"],
-            weight: ["Grams", "Kilograms", "Milligrams", "Pounds", "Ounces", "Tons"],
+            length: ["Meters", "Kilometers", "Feet", "Miles"],
+            weight: ["Grams", "Kilograms", "Pounds", "Ounces"],
             temperature: ["Celsius", "Fahrenheit", "Kelvin"],
-            volume: ["Liters", "Milliliters", "Cubic Meters", "Gallons", "Quarts", "Pints", "Cups", "Fluid Ounces"]
+            volume: ["Liters", "Milliliters", "Cubic Meters", "Gallons"]
         };
 
         categorySelect.addEventListener('change', () => {
@@ -327,8 +326,8 @@
         });
 
         function populateUnits(category) {
-            unitFromSelect.innerHTML = '<option value="">Select unit</option>';
-            unitToSelect.innerHTML = '<option value="">Select unit</option>';
+            unitFromSelect.innerHTML = '';
+            unitToSelect.innerHTML = '';
             if (units[category]) {
                 units[category].forEach(unit => {
                     const optionFrom = document.createElement('option');
@@ -344,114 +343,73 @@
             }
         }
 
-        convertButton.addEventListener('click', async () => {
+        document.querySelector('button').addEventListener('click', () => {
             const category = categorySelect.value;
             const fromUnit = unitFromSelect.value;
             const toUnit = unitToSelect.value;
             const value = parseFloat(inputValue.value);
 
-            if (!category || !fromUnit || !toUnit || isNaN(value) || value <= 0) {
-                resultDisplay.innerHTML = '<span style="color: #ff6b6b;">Please fill in all fields correctly with a positive value.</span>';
+            if (!category || !fromUnit || !toUnit || isNaN(value)) {
+                resultDisplay.textContent = 'Please fill in all fields correctly.';
                 return;
             }
 
-            // Show loading indicator
-            resultDisplay.innerHTML = 'Converting... <span class="loading-spinner"></span>';
-
-            try {
-                // Create form data
-                const formData = new FormData();
-                formData.append('value', value);
-                formData.append('category', category);
-                formData.append('from_unit', fromUnit);
-                formData.append('to_unit', toUnit);
-
-                // Call our backend API
-                const response = await fetch('/tools/online-calculators/unit-converter', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    // Format the result with appropriate precision
-                    let formattedResult;
-                    if (category === 'temperature') {
-                        // Temperature values often need fewer decimal places
-                        formattedResult = data.result.toFixed(2);
-                    } else if (Math.abs(data.result) < 0.01) {
-                        // Very small values need scientific notation
-                        formattedResult = data.result.toExponential(4);
-                    } else if (Math.abs(data.result) > 1000000) {
-                        // Very large values need scientific notation
-                        formattedResult = data.result.toExponential(4);
-                    } else {
-                        // Normal values with appropriate precision
-                        formattedResult = data.result.toFixed(4).replace(/\.?0+$/, '');
-                    }
-
-                    resultDisplay.innerHTML = `
-                        <div class="result-container">
-                            <div class="result-value">${value} ${fromUnit}</div>
-                            <div class="result-equals">=</div>
-                            <div class="result-converted">${formattedResult} ${toUnit}</div>
-                        </div>
-                    `;
-                } else {
-                    resultDisplay.innerHTML = `<span style="color: #ff6b6b;">Error: ${data.error}</span>`;
-                }
-            } catch (error) {
-                resultDisplay.innerHTML = '<span style="color: #ff6b6b;">Error: Could not perform conversion. Please try again later.</span>';
+            let result;
+            if (category === 'length') {
+                result = convertLength(value, fromUnit, toUnit);
+            } else if (category === 'weight') {
+                result = convertWeight(value, fromUnit, toUnit);
+            } else if (category === 'temperature') {
+                result = convertTemperature(value, fromUnit, toUnit);
+            } else if (category === 'volume') {
+                result = convertVolume(value, fromUnit, toUnit);
             }
+
+            resultDisplay.textContent = result ? `Result: ${result} ${toUnit}` : 'Conversion not supported.';
         });
+
+        function convertLength(value, from, to) {
+            const conversions = {
+                Meters: 1,
+                Kilometers: 0.001,
+                Feet: 3.28084,
+                Miles: 0.000621371
+            };
+            return (value / conversions[from]) * conversions[to];
+        }
+
+        function convertWeight(value, from, to) {
+            const conversions = {
+                Grams: 1,
+                Kilograms: 0.001,
+                Pounds: 0.00220462,
+                Ounces: 0.035274
+            };
+            return (value / conversions[from]) * conversions[to];
+        }
+
+        function convertTemperature(value, from, to) {
+            if (from === to) return value;
+            if (from === 'Celsius' && to === 'Fahrenheit') return (value * 9/5) + 32;
+            if (from === 'Celsius' && to === 'Kelvin') return value + 273.15;
+            if (from === 'Fahrenheit' && to === 'Celsius') return (value - 32) * 5/9;
+            if (from === 'Fahrenheit' && to === 'Kelvin') return ((value - 32) * 5/9) + 273.15;
+            if (from === 'Kelvin' && to === 'Celsius') return value - 273.15;
+            if (from === 'Kelvin' && to === 'Fahrenheit') return ((value - 273.15) * 9/5) + 32;
+        }
+
+        function convertVolume(value, from, to) {
+            const conversions = {
+                Liters: 1,
+                Milliliters: 1000,
+                "Cubic Meters": 0.001,
+                Gallons: 0.264172
+            };
+            return (value / conversions[from]) * conversions[to];
+        }
 
         // Initialize the dropdowns with the default category
         populateUnits(categorySelect.value);
     </script>
-
-    <style>
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            border-top-color: #ff9800;
-            animation: spin 1s ease-in-out infinite;
-            vertical-align: middle;
-            margin-left: 10px;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .result-container {
-            margin-top: 20px;
-            padding: 15px;
-            background: #2a2a2a;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        .result-value, .result-converted {
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1.4em;
-        }
-        .result-value {
-            background: #333;
-        }
-        .result-converted {
-            background: #ff9800;
-            color: #000;
-            font-weight: bold;
-        }
-        .result-equals {
-            font-size: 1.6em;
-            color: #ccc;
-        }
-    </style>
 </body>
 </html>

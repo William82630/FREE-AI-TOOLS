@@ -188,44 +188,13 @@
         <p>Resize your images quickly and easily. Upload, set your dimensions, and download your perfectly resized image.</p>
     </div>
     <div class="input-section">
-        <form action="/tools/image-editing/image-resizer" method="post" enctype="multipart/form-data" style="display: inline-block; text-align: left; background: #23263a; padding: 28px 32px 24px 32px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-            <div style="margin-bottom: 18px; text-align: center;">
-                <input type="file" id="image" name="image" required placeholder="Upload your image" style="width: 100%; max-width: 340px; margin-right: 0; display: inline-block;">
-            </div>
-            <div style="display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; justify-content: center;">
-                <input type="number" name="width" placeholder="Width (px)" style="width:120px; min-width: 90px;">
-                <input type="number" name="height" placeholder="Height (px)" style="width:120px; min-width: 90px;">
-            </div>
-            <div style="text-align: center;">
-                <button type="submit" style="background: linear-gradient(90deg, #004f1e 0%, #00703a 100%); color: #fff;">Resize Image</button>
-            </div>
-            <div style="margin-top: 15px; text-align: center; color: #aaa; font-size: 0.9em;">
-                Leave one dimension blank to maintain aspect ratio
-            </div>
+        <form action="/tools/image-editing/image-resizer" method="post" enctype="multipart/form-data">
+            <input type="file" id="image" name="image" required placeholder="Upload your image">
+            <input type="number" name="width" placeholder="Width (px)" style="width:120px;">
+            <input type="number" name="height" placeholder="Height (px)" style="width:120px;">
+            <button type="submit">Resize Image</button>
         </form>
     </div>
-
-    <div class="how-to" style="max-width: 900px; margin: 60px auto 40px;">
-        <h2 style="text-align: center; margin-bottom: 30px; color: #fff;">How to Use the Image Resizer Tool</h2>
-        <div class="feature-cards" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin-top: 28px;">
-            <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; line-height: 50px; background-color: #004f1e; color: white; border-radius: 50%; font-size: 1.5em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">1</div>
-                <h3 style="color:#fff; margin-top: 25px; text-align: center;">Select Your Image</h3>
-                <p style="text-align:center; color:#e0e0e0; font-size:1.08em;">Click the "Choose File" button to browse your device and select the image you want to resize. Our tool supports all common image formats including JPG, PNG, WEBP, and GIF.</p>
-            </div>
-            <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; line-height: 50px; background-color: #004f1e; color: white; border-radius: 50%; font-size: 1.5em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">2</div>
-                <h3 style="color:#fff; margin-top: 25px; text-align: center;">Set Dimensions</h3>
-                <p style="text-align:center; color:#e0e0e0; font-size:1.08em;">Enter your desired width and/or height in pixels. For proportional resizing, enter just one dimension (width or height) and leave the other blank - our tool will automatically calculate the other dimension to maintain the aspect ratio.</p>
-            </div>
-            <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; line-height: 50px; background-color: #004f1e; color: white; border-radius: 50%; font-size: 1.5em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">3</div>
-                <h3 style="color:#fff; margin-top: 25px; text-align: center;">Resize & Download</h3>
-                <p style="text-align:center; color:#e0e0e0; font-size:1.08em;">Click the "Resize Image" button to process your image. Our advanced algorithms will resize your image while maintaining optimal quality. Once complete, your browser will automatically download the resized image in its original format.</p>
-            </div>
-        </div>
-    </div>
-
     <div class="features">
         <h2>Features of Our Image Resizer Tool</h2>
         <div class="feature-cards">
@@ -291,19 +260,19 @@
         <p>If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
         <a href="https://www.buymeacoffee.com/willsblogger" target="_blank">☕ Buy Me a Coffee</a>
         <div class="social-icons" style="margin-top: 15px;">
-            <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/tools/image-editing/image-resizer&text=Check+out+this+amazing+image+resizer+tool!" target="_blank" style="margin-right: 10px; background: none; border: none; box-shadow: none; padding: 0;">
+            <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/image-resizer&text=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px; background: none; border: none; box-shadow: none; padding: 0;">
                 <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
             </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/tools/image-editing/image-resizer" target="_blank" style="margin-right: 10px; background: none; border: none; box-shadow: none; padding: 0;">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/image-resizer" target="_blank" style="margin-right: 10px; background: none; border: none; box-shadow: none; padding: 0;">
                 <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
             </a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/tools/image-editing/image-resizer&title=Free+Image+Resizer+Tool&summary=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px; background: none; border: none; box-shadow: none; padding: 0;">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/image-resizer&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank" style="margin-right: 10px; background: none; border: none; box-shadow: none; padding: 0;">
                 <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
             </a>
-            <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/tools/image-editing/image-resizer&description=Free+Image+Resizer+Tool" target="_blank" style="margin-right: 10px; background: none; border: none; box-shadow: none; padding: 0;">
+            <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/image-resizer&description=Check+out+this+tool!" target="_blank" style="margin-right: 10px; background: none; border: none; box-shadow: none; padding: 0;">
                 <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
             </a>
-            <a href="https://wa.me/?text=Check+out+this+amazing+image+resizer+tool:+http://127.0.0.1:5000/tools/image-editing/image-resizer" target="_blank" style="background: none; border: none; box-shadow: none; padding: 0;">
+            <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/image-resizer" target="_blank" style="background: none; border: none; box-shadow: none; padding: 0;">
                 <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
             </a>
         </div>

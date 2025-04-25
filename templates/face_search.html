@@ -203,99 +203,38 @@
         <p>Upload an image or paste an image URL to find similar faces or detect faces in your photo.</p>
     </div>
     <div class="input-section">
-        <form action="/tools/image-editing/face-search" method="post" enctype="multipart/form-data" style="display: inline-block; text-align: left; background: #23263a; padding: 28px 32px 24px 32px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+        <form action="/tools/image-editing/face-search" method="post" enctype="multipart/form-data" style="display: inline-block; text-align: left; background: #23263a; padding: 28px 32px 24px 32px; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.10);">
             <div style="margin-bottom: 18px; text-align: center;">
-                <input type="file" id="image" name="image" placeholder="Upload your image" style="width: 100%; max-width: 340px; margin-right: 0; display: inline-block; border: 2px solid #1a237e;">
+                <input type="file" id="image" name="image" placeholder="Upload your image" style="width: 100%; max-width: 340px; margin-right: 0; display: inline-block;">
             </div>
             <div style="margin-bottom: 18px; text-align: center;">
-                <input type="url" name="image_url" placeholder="Or paste image URL" style="width: 100%; max-width: 340px; display: inline-block; border: 2px solid #1a237e;">
+                <input type="url" name="image_url" placeholder="Or paste image URL" style="width: 100%; max-width: 340px; display: inline-block;">
             </div>
             <div style="text-align: center; color: #ffe066; font-size: 1.05em; margin-bottom: 10px;">
                 <span>Upload an image <b>or</b> paste an image URL. Only one is required.</span>
             </div>
-            <div style="text-align: center; display: flex; justify-content: center; gap: 15px;">
-                <button type="submit" style="background: linear-gradient(90deg, #1a237e 0%, #303f9f 100%); color: #fff;">Search for Faces</button>
-                {% if highlighted_image or results %}
-                <a href="/tools/image-editing/face-search" style="display: inline-flex; align-items: center; background: #333; color: #fff; text-decoration: none; padding: 8px 16px; border-radius: 4px; border: 1px solid #444;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 6px;">
-                        <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
-                    </svg>
-                    New Search
-                </a>
-                {% endif %}
+            <div style="text-align: center;">
+                <button type="submit">Search for Faces</button>
             </div>
         </form>
         {% if error %}
         <div style="color: #ff6f61; text-align: center; margin-top: 16px; font-weight: bold;">{{ error }}</div>
         {% endif %}
-
-        {% if highlighted_image %}
-        <div style="margin: 32px auto 0 auto; max-width: 700px;">
-            <h2 style="color: #ffe066; text-align: center;">Detected Faces</h2>
-            <div style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 18px; margin: 0 auto 20px; text-align: center;">
-                <img src="{{ highlighted_image }}" alt="Highlighted Faces" style="max-width: 100%; max-height: 400px; border-radius: 6px; margin-bottom: 10px;">
-                <div style="font-size: 1.13em; font-weight: bold; margin: 10px 0;">Faces Detected: {{ detected_faces|length }}</div>
-            </div>
-
-            {% if detected_faces %}
-            <div style="margin-top: 20px;">
-                <h3 style="color: #ffe066; text-align: center; margin-bottom: 15px;">Facial Attributes</h3>
-                <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
-                    {% for face in detected_faces %}
-                    <div style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 15px; min-width: 200px; max-width: 220px; color: #fff;">
-                        <div style="font-size: 1.1em; font-weight: bold; margin-bottom: 10px; text-align: center; color: #ffe066;">Face {{ face.number }}</div>
-                        <div style="margin-bottom: 5px;"><span style="color: #aaa;">Joy:</span> {{ face.joy }}</div>
-                        <div style="margin-bottom: 5px;"><span style="color: #aaa;">Anger:</span> {{ face.anger }}</div>
-                        <div style="margin-bottom: 5px;"><span style="color: #aaa;">Sorrow:</span> {{ face.sorrow }}</div>
-                        <div><span style="color: #aaa;">Surprise:</span> {{ face.surprise }}</div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-        </div>
-        {% endif %}
-
         {% if results %}
         <div style="margin: 32px auto 0 auto; max-width: 700px;">
-            <h2 style="color: #ffe066; text-align: center;">Similar Faces Found Online</h2>
+            <h2 style="color: #ffe066; text-align: center;">Face Search Results</h2>
             <div style="display: flex; flex-wrap: wrap; gap: 18px; justify-content: center;">
                 {% for result in results %}
                 <div style="background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 18px; min-width: 220px; max-width: 280px; color: #fff; text-align: center;">
-                    <a href="{{ result.url }}" target="_blank" style="color: #ffe066; text-decoration: none;">
-                        <img src="{{ result.thumbnail }}" alt="Face Result" style="width: 100%; max-width: 180px; border-radius: 6px; margin-bottom: 10px;">
-                        <div style="font-size: 1.13em; font-weight: bold; margin-bottom: 6px;">{{ result.title }}</div>
-                        <div style="font-size: 0.98em; word-break: break-all;">{{ result.url }}</div>
-                    </a>
+                    <img src="{{ result.thumbnail }}" alt="Face Result" style="width: 100%; max-width: 180px; border-radius: 6px; margin-bottom: 10px;">
+                    <div style="font-size: 1.13em; font-weight: bold; margin-bottom: 6px;">{{ result.title }}</div>
+                    <div style="font-size: 0.98em; word-break: break-all;">{{ result.url }}</div>
                 </div>
                 {% endfor %}
             </div>
         </div>
         {% endif %}
     </div>
-
-    <div class="how-to" style="max-width: 900px; margin: 60px auto 40px;">
-        <h2 style="text-align: center; margin-bottom: 30px; color: #fff;">How to Use the Face Search Tool</h2>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 28px;">
-            <div style="flex: 1 1 220px; max-width: 260px; min-width: 200px; margin: 0; background: #23263a; color: #fff; padding: 20px 15px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #1a237e; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">1</div>
-                <h3 style="color:#fff; margin-top: 20px; text-align: center; font-size: 1.2em;">Choose Input Method</h3>
-                <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Upload an image file from your device or paste a direct URL to an image containing faces. You only need to provide one of these options.</p>
-            </div>
-            <div style="flex: 1 1 220px; max-width: 260px; min-width: 200px; margin: 0; background: #23263a; color: #fff; padding: 20px 15px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #1a237e; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">2</div>
-                <h3 style="color:#fff; margin-top: 20px; text-align: center; font-size: 1.2em;">Initiate Search</h3>
-                <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Click the "Search for Faces" button to start the process. Our AI will analyze the image to detect faces and find visually similar matches.</p>
-            </div>
-            <div style="flex: 1 1 220px; max-width: 260px; min-width: 200px; margin: 0; background: #23263a; color: #fff; padding: 20px 15px; border-radius: 12px; box-sizing: border-box; position: relative;">
-                <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #1a237e; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">3</div>
-                <h3 style="color:#fff; margin-top: 20px; text-align: center; font-size: 1.2em;">View Results</h3>
-                <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Browse through the search results showing similar faces or detected faces in your image. Each result includes a thumbnail and source information.</p>
-            </div>
-        </div>
-    </div>
-
     <div class="features">
         <h2>Features of Our Face Search Tool</h2>
         <div class="feature-cards">
@@ -361,19 +300,19 @@
         <p>If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
         <a href="https://www.buymeacoffee.com/willsblogger" target="_blank">☕ Buy Me a Coffee</a>
         <div class="social-icons">
-            <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/tools/image-editing/face-search&text=Check+out+this+amazing+face+search+tool!" target="_blank">
+            <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/face-search&text=Check+out+this+amazing+tool!" target="_blank">
                 <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter">
             </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/tools/image-editing/face-search" target="_blank">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/face-search" target="_blank">
                 <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook">
             </a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/tools/image-editing/face-search&title=Free+Face+Search+Tool&summary=Check+out+this+amazing+tool!" target="_blank">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/face-search&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank">
                 <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn">
             </a>
-            <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/tools/image-editing/face-search&description=Free+Face+Search+Tool" target="_blank">
+            <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/face-search&description=Check+out+this+tool!" target="_blank">
                 <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest">
             </a>
-            <a href="https://wa.me/?text=Check+out+this+amazing+face+search+tool:+http://127.0.0.1:5000/tools/image-editing/face-search" target="_blank">
+            <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/face-search" target="_blank">
                 <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp">
             </a>
         </div>
