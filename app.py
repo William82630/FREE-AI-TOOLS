@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_file
+from werkzeug.utils import secure_filename
 import requests
 from PIL import Image, ImageDraw, ImageFont
 import os
@@ -10,30 +11,8 @@ import zipfile
 from datetime import datetime, timedelta
 import uuid
 import tempfile
-import shutil
-from pdf2docx import Converter, parse
-from PyPDF2 import PdfReader, PdfWriter
-from docx2pdf import convert
-import subprocess
-import sys
-import docx
-from docx.shared import Pt, RGBColor, Inches
-from docx.enum.text import WD_ALIGN_PARAGRAPH
-import re
-
-# Try to import OCR libraries, but don't fail if they're not available
-try:
-    import pytesseract
-    from PIL import Image as PILImage
-    TESSERACT_AVAILABLE = True
-except (ImportError, Exception):
-    TESSERACT_AVAILABLE = False
-
-try:
-    import ocrmypdf
-    OCRMYPDF_AVAILABLE = True
-except (ImportError, Exception):
-    OCRMYPDF_AVAILABLE = False
+from reportlab.lib.pagesizes import A4, LETTER, LEGAL, A3, A5, landscape
+from reportlab.pdfgen import canvas
 
 app = Flask(__name__)
 
@@ -1049,6 +1028,185 @@ def qr_code_generator():
 # Free Online Converter
 @app.route('/tools/free-online-converter/pdf-to-word', methods=['GET', 'POST'])
 def pdf_to_word():
+    return render_template('pdf_to_word.html')
+
+@app.route('/tools/free-online-converter/word-to-pdf', methods=['GET', 'POST'])
+def word_to_pdf():
+    return render_template('word_to_pdf.html')
+
+@app.route('/tools/free-online-converter/image-to-pdf', methods=['GET', 'POST'])
+def image_to_pdf():
+    if request.method == 'POST':
+        try:
+            # Check if files were uploaded
+            if 'files[]' not in request.files:
+                return jsonify({'success': False, 'error': 'No files uploaded'})
+
+            files = request.files.getlist('files[]')
+            if not files or files[0].filename == '':
+                return jsonify({'success': False, 'error': 'No selected files'})
+
+            # Get PDF settings from form
+            page_size = request.form.get('page_size', 'a4')
+            orientation = request.form.get('orientation', 'portrait')
+            margin = request.form.get('margin', 'normal')
+            quality = request.form.get('quality', 'high')
+
+            # Map page size to ReportLab page size
+            page_sizes = {
+                'a4': A4,
+                'letter': LETTER,
+                'legal': LEGAL,
+                'a3': A3,
+                'a5': A5
+            }
+
+            # Get the selected page size or default to A4
+            selected_page_size = page_sizes.get(page_size.lower(), A4)
+
+            # Apply orientation if needed
+            if orientation.lower() == 'landscape':
+                selected_page_size = landscape(selected_page_size)
+
+            # Map margin setting to actual margin values (in points)
+            margin_values = {
+                'none': 0,
+                'narrow': 20,
+                'normal': 40,
+                'wide': 60
+            }
+            margin_value = margin_values.get(margin.lower(), 40)
+
+            # Generate unique filename for the PDF
+            unique_id = str(uuid.uuid4())
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            pdf_filename = f"images_to_pdf_{timestamp}_{unique_id}.pdf"
+            pdf_path = os.path.join(CONVERTED_FOLDER, pdf_filename)
+
+            # Create a PDF with the uploaded images
+            c = canvas.Canvas(pdf_path, pagesize=selected_page_size)
+
+            # Get page dimensions
+            page_width, page_height = selected_page_size
+
+            # Process each image
+            for file in files:
+                if file and file.filename:
+                    # Generate a unique temporary filename to avoid conflicts
+                    temp_filename = f"temp_{uuid.uuid4().hex}_{os.path.basename(file.filename)}"
+                    temp_image_path = os.path.join(UPLOAD_FOLDER, temp_filename)
+                    file.save(temp_image_path)
+
+                    # Use a try-finally block to ensure proper cleanup
+                    try:
+                        # Open the image with PIL
+                        with Image.open(temp_image_path) as img:
+                            # Process image based on quality setting
+                            if quality == 'high' or quality == 'maximum':
+                                # For high quality, save a temporary copy with better quality
+                                high_quality_path = os.path.join(UPLOAD_FOLDER, f"hq_{uuid.uuid4().hex}_{os.path.basename(file.filename)}")
+
+                                # Convert to RGB if it's RGBA to avoid transparency issues
+                                if img.mode == 'RGBA':
+                                    rgb_img = Image.new('RGB', img.size, (255, 255, 255))
+                                    rgb_img.paste(img, mask=img.split()[3])  # Use alpha channel as mask
+                                    img_to_save = rgb_img
+                                else:
+                                    img_to_save = img
+
+                                # Save with high quality
+                                quality_value = 95 if quality == 'high' else 100  # Maximum quality uses 100
+                                img_to_save.save(high_quality_path, format='JPEG' if img_to_save.mode == 'RGB' else img.format,
+                                                quality=quality_value, optimize=True, dpi=(300, 300))
+
+                                # Use the high quality image for the PDF
+                                image_path_for_pdf = high_quality_path
+                            else:
+                                # Use original image for standard quality
+                                image_path_for_pdf = temp_image_path
+
+                            # Auto-orientation if selected
+                            if orientation.lower() == 'auto':
+                                # Determine orientation based on image dimensions
+                                img_width, img_height = img.size
+                                if img_width > img_height:
+                                    # Landscape image
+                                    selected_page_size = landscape(selected_page_size)
+                                    page_width, page_height = selected_page_size
+                                    c.setPageSize(selected_page_size)
+                                else:
+                                    # Portrait image
+                                    if selected_page_size[0] > selected_page_size[1]:  # If current page is landscape
+                                        selected_page_size = (selected_page_size[1], selected_page_size[0])  # Switch to portrait
+                                        page_width, page_height = selected_page_size
+                                        c.setPageSize(selected_page_size)
+
+                            # Calculate image dimensions to fit within page margins
+                            img_width, img_height = img.size
+
+                            # Calculate available space on page
+                            available_width = page_width - 2 * margin_value
+                            available_height = page_height - 2 * margin_value
+
+                            # Calculate scaling factor to fit image within available space
+                            width_ratio = available_width / img_width
+                            height_ratio = available_height / img_height
+                            scale_factor = min(width_ratio, height_ratio)
+
+                            # Calculate new dimensions
+                            new_width = img_width * scale_factor
+                            new_height = img_height * scale_factor
+
+                            # Calculate position to center the image on the page
+                            x_position = (page_width - new_width) / 2
+                            y_position = (page_height - new_height) / 2
+
+                        # Draw the image on the PDF (outside the 'with' block to ensure file is closed)
+                        # Use better quality settings for ReportLab
+                        c.drawImage(image_path_for_pdf, x_position, y_position, width=new_width, height=new_height,
+                                   preserveAspectRatio=True, anchor='c')
+
+                        # Add a new page for the next image (if not the last image)
+                        if file != files[-1]:
+                            c.showPage()
+                            # Reset page size for next image
+                            c.setPageSize(selected_page_size)
+                    finally:
+                        # Make sure the image is closed before attempting to delete
+                        try:
+                            # Clean up temporary image files
+                            if os.path.exists(temp_image_path):
+                                # Add a small delay to ensure file is released
+                                import time
+                                time.sleep(0.1)
+                                os.remove(temp_image_path)
+
+                            # Also clean up high-quality temporary file if it exists
+                            if quality == 'high' or quality == 'maximum':
+                                if 'high_quality_path' in locals() and os.path.exists(high_quality_path):
+                                    time.sleep(0.1)
+                                    os.remove(high_quality_path)
+                        except Exception as cleanup_error:
+                            print(f"Warning: Could not remove temporary file: {cleanup_error}")
+
+            # Save the PDF
+            c.save()
+
+            # Return success response with download link
+            return jsonify({
+                'success': True,
+                'message': 'Images successfully converted to PDF',
+                'download_url': f'/download/converted/{pdf_filename}'
+            })
+
+        except Exception as e:
+            print(f"Error in Image to PDF conversion: {str(e)}")
+            return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'})
+
+    return render_template('image_to_pdf.html')
+
+@app.route('/tools/free-online-converter/compress-pdf', methods=['GET', 'POST'])
+def compress_pdf():
     if request.method == 'POST':
         try:
             # Check if file was uploaded
@@ -1056,287 +1214,122 @@ def pdf_to_word():
                 return jsonify({'success': False, 'error': 'No file part'})
 
             file = request.files['file']
+
             if file.filename == '':
                 return jsonify({'success': False, 'error': 'No selected file'})
 
             # Check if the file is a PDF
             if not file.filename.lower().endswith('.pdf'):
-                return jsonify({'success': False, 'error': 'Please upload a PDF file'})
+                return jsonify({'success': False, 'error': 'File must be a PDF'})
 
-            # Generate unique filenames
-            unique_id = str(uuid.uuid4())
-            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-            filename_base = os.path.splitext(file.filename)[0]
-            pdf_filename = f"{filename_base}_{timestamp}_{unique_id}.pdf"
-            docx_filename = f"{filename_base}_{timestamp}_{unique_id}.docx"
+            # Get compression level from form
+            compression_level = request.form.get('compression_level', 'medium')
 
-            # Save the uploaded PDF
-            pdf_path = os.path.join(UPLOAD_FOLDER, pdf_filename)
-            file.save(pdf_path)
+            # Create a unique filename for the uploaded PDF
+            original_filename = secure_filename(file.filename)
+            timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+            unique_id = str(uuid.uuid4())[:8]
+            temp_filename = f"temp_{timestamp}_{unique_id}_{original_filename}"
+            temp_filepath = os.path.join(UPLOAD_FOLDER, temp_filename)
 
-            # Output path for the Word document
-            docx_path = os.path.join(CONVERTED_FOLDER, docx_filename)
+            # Save the uploaded file
+            file.save(temp_filepath)
 
-            # Check if the PDF is likely a scanned document
-            is_scanned = is_scanned_pdf(pdf_path)
+            # Get the original file size
+            original_size = os.path.getsize(temp_filepath)
 
-            # Create a temporary directory for processing
-            with tempfile.TemporaryDirectory() as temp_dir:
-                # If it's a scanned document and OCR is available, try OCR first
-                if is_scanned and (TESSERACT_AVAILABLE or OCRMYPDF_AVAILABLE):
-                    try:
-                        print("Detected scanned PDF, attempting OCR...")
+            # Create a unique filename for the compressed PDF
+            compressed_filename = f"compressed_{timestamp}_{unique_id}_{original_filename}"
+            compressed_filepath = os.path.join(CONVERTED_FOLDER, compressed_filename)
 
-                        # Path for OCR-processed PDF
-                        ocr_pdf_path = os.path.join(temp_dir, f"ocr_{pdf_filename}")
+            # Compress the PDF based on the selected compression level
+            if compression_level == 'low':
+                compression_quality = 0.8  # 80% quality
+            elif compression_level == 'medium':
+                compression_quality = 0.6  # 60% quality
+            else:  # high compression
+                compression_quality = 0.4  # 40% quality
 
-                        # Try OCRmyPDF first if available (better quality)
-                        if OCRMYPDF_AVAILABLE:
+            # Use PyPDF2 to compress the PDF
+            try:
+                # Import required libraries
+                from PyPDF2 import PdfReader, PdfWriter
+                from PIL import Image
+                import io
+
+                reader = PdfReader(temp_filepath)
+                writer = PdfWriter()
+
+                # Process each page
+                for page in reader.pages:
+                    # Add the page to the writer
+                    writer.add_page(page)
+
+                    # Process images on the page if high compression is selected
+                    if compression_level in ['medium', 'high']:
+                        for image_file_object in page.images:
+                            # Skip small images
+                            if len(image_file_object.data) < 10000:  # Skip images smaller than 10KB
+                                continue
+
                             try:
-                                ocrmypdf.ocr(pdf_path, ocr_pdf_path, deskew=True, optimize=0,
-                                            skip_text=True, force_ocr=True, language='eng')
-                                # If successful, use the OCR'd PDF for conversion
-                                if os.path.exists(ocr_pdf_path):
-                                    pdf_path = ocr_pdf_path
-                            except Exception as ocr_error:
-                                print(f"OCRmyPDF failed: {str(ocr_error)}")
+                                # Convert image data to PIL Image
+                                image = Image.open(io.BytesIO(image_file_object.data))
 
-                        # If OCRmyPDF failed or isn't available, try pytesseract
-                        elif TESSERACT_AVAILABLE:
-                            try:
-                                # Extract text using pytesseract
-                                extracted_text = ""
+                                # Determine new size based on compression level
+                                if compression_level == 'high':
+                                    # More aggressive resizing for high compression
+                                    width, height = image.size
+                                    new_width = int(width * 0.7)  # 70% of original width
+                                    new_height = int(height * 0.7)  # 70% of original height
+                                    image = image.resize((new_width, new_height), Image.LANCZOS)
 
-                                # Convert PDF pages to images and OCR them
-                                from pdf2image import convert_from_path
-                                images = convert_from_path(pdf_path)
+                                # Convert to RGB if it's RGBA (to avoid transparency issues)
+                                if image.mode == 'RGBA':
+                                    rgb_img = Image.new('RGB', image.size, (255, 255, 255))
+                                    rgb_img.paste(image, mask=image.split()[3])  # Use alpha channel as mask
+                                    image = rgb_img
 
-                                for i, image in enumerate(images):
-                                    page_text = pytesseract.image_to_string(image)
-                                    extracted_text += f"\n\n--- Page {i+1} ---\n\n{page_text}"
+                                # Save with reduced quality
+                                output = io.BytesIO()
+                                image.save(output, format='JPEG', quality=int(compression_quality * 100), optimize=True)
+                                image_file_object.data = output.getvalue()
+                            except Exception as img_error:
+                                print(f"Error processing image: {img_error}")
+                                # Continue with the next image if there's an error
+                                continue
 
-                                # Create a Word document directly from the OCR'd text
-                                if extracted_text.strip():
-                                    create_proper_word_document(
-                                        extracted_text,
-                                        docx_path,
-                                        title=f"Converted from {filename_base}"
-                                    )
+                # Save the compressed PDF
+                with open(compressed_filepath, 'wb') as f:
+                    writer.write(f)
 
-                                    # If we successfully created a Word document, skip the pdf2docx conversion
-                                    if os.path.exists(docx_path) and os.path.getsize(docx_path) > 100:
-                                        return jsonify({
-                                            'success': True,
-                                            'message': 'PDF successfully converted to Word document using OCR',
-                                            'download_url': f'/download/converted/{docx_filename}'
-                                        })
-                            except Exception as tesseract_error:
-                                print(f"Tesseract OCR failed: {str(tesseract_error)}")
-                    except Exception as ocr_process_error:
-                        print(f"OCR processing failed: {str(ocr_process_error)}")
+                # Get the compressed file size
+                compressed_size = os.path.getsize(compressed_filepath)
 
-                # Standard conversion approach (for non-scanned PDFs or if OCR failed)
-                conversion_success = False
+                # Clean up the temporary file
+                try:
+                    os.remove(temp_filepath)
+                except:
+                    pass  # Ignore errors when removing temporary file
 
-                # Try multiple conversion methods
-                conversion_methods = [
-                    # Method 1: pdf2docx with enhanced settings
-                    lambda: convert_with_pdf2docx_enhanced(pdf_path, docx_path),
-
-                    # Method 2: pdf2docx with basic settings
-                    lambda: convert_with_pdf2docx_basic(pdf_path, docx_path),
-
-                    # Method 3: Extract text and create a new Word document
-                    lambda: convert_with_text_extraction(pdf_path, docx_path, filename_base)
-                ]
-
-                # Try each method until one succeeds
-                for method in conversion_methods:
-                    try:
-                        if method():
-                            conversion_success = True
-                            break
-                    except Exception as method_error:
-                        print(f"Conversion method failed: {str(method_error)}")
-
-                # If all methods failed
-                if not conversion_success:
-                    return jsonify({
-                        'success': False,
-                        'error': 'Conversion failed. This PDF may be encrypted, scanned, or contain complex elements.'
-                    })
-
-            # Final check if conversion was successful
-            if not os.path.exists(docx_path) or os.path.getsize(docx_path) == 0:
+                # Return success response with file sizes and download URL
                 return jsonify({
-                    'success': False,
-                    'error': 'Conversion failed. Please try again with a different PDF file.'
+                    'success': True,
+                    'original_size': original_size,
+                    'compressed_size': compressed_size,
+                    'download_url': f'/download/converted/{compressed_filename}'
                 })
 
-            # Return success response with download link
-            return jsonify({
-                'success': True,
-                'message': 'PDF successfully converted to Word document',
-                'download_url': f'/download/converted/{docx_filename}'
-            })
+            except ImportError:
+                return jsonify({'success': False, 'error': 'Required libraries not installed. Please install PyPDF2 and Pillow.'})
+            except Exception as e:
+                print(f"Error in PDF compression: {str(e)}")
+                return jsonify({'success': False, 'error': f'An error occurred during compression: {str(e)}'})
 
         except Exception as e:
-            print(f"Error in PDF to Word conversion: {str(e)}")
+            print(f"Error in PDF compression: {str(e)}")
             return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'})
 
-    return render_template('pdf_to_word.html')
-
-# Helper function for enhanced pdf2docx conversion
-def convert_with_pdf2docx_enhanced(pdf_path, docx_path):
-    """Use pdf2docx with enhanced settings for better conversion quality"""
-    try:
-        cv = Converter(pdf_path)
-        cv.convert(docx_path, start=0, end=None, pages=None,
-                  kwargs={
-                      'debug': False,
-                      'multi_processing': True,
-                      'cpu_count': 4,  # Adjust based on server capacity
-                      'min_section_height': 20.0,  # Better paragraph detection
-                      'connected_border': False,  # Better table detection
-                      'line_overlap_threshold': 0.9,  # Better line detection
-                  })
-        cv.close()
-
-        # Check if conversion was successful
-        return os.path.exists(docx_path) and os.path.getsize(docx_path) > 100
-    except Exception as e:
-        print(f"Enhanced pdf2docx conversion failed: {str(e)}")
-        return False
-
-# Helper function for basic pdf2docx conversion
-def convert_with_pdf2docx_basic(pdf_path, docx_path):
-    """Use pdf2docx with basic settings as a fallback"""
-    try:
-        parse(pdf_path, docx_path)
-        return os.path.exists(docx_path) and os.path.getsize(docx_path) > 100
-    except Exception as e:
-        print(f"Basic pdf2docx conversion failed: {str(e)}")
-        return False
-
-# Helper function for text extraction and Word document creation
-def convert_with_text_extraction(pdf_path, docx_path, filename_base):
-    """Extract text from PDF and create a new Word document with proper metadata"""
-    try:
-        # Extract text from PDF
-        with open(pdf_path, 'rb') as f:
-            pdf = PdfReader(f)
-            text_content = ""
-
-            for i, page in enumerate(pdf.pages):
-                page_text = page.extract_text()
-                if page_text:
-                    text_content += f"\n\n--- Page {i+1} ---\n\n{page_text}"
-
-        # Create a Word document with the extracted text
-        if text_content.strip():
-            return create_proper_word_document(
-                text_content,
-                docx_path,
-                title=f"Converted from {filename_base}"
-            )
-        return False
-    except Exception as e:
-        print(f"Text extraction conversion failed: {str(e)}")
-        return False
-
-@app.route('/tools/free-online-converter/word-to-pdf', methods=['GET', 'POST'])
-def word_to_pdf():
-    if request.method == 'POST':
-        try:
-            # Check if file was uploaded
-            if 'file' not in request.files:
-                return jsonify({'success': False, 'error': 'No file part'})
-
-            file = request.files['file']
-            if file.filename == '':
-                return jsonify({'success': False, 'error': 'No selected file'})
-
-            # Check if the file is a Word document
-            if not (file.filename.lower().endswith('.docx') or file.filename.lower().endswith('.doc')):
-                return jsonify({'success': False, 'error': 'Please upload a Word document (.doc or .docx)'})
-
-            # Generate unique filenames
-            unique_id = str(uuid.uuid4())
-            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-            filename_base = os.path.splitext(file.filename)[0]
-            docx_filename = f"{filename_base}_{timestamp}_{unique_id}{os.path.splitext(file.filename)[1]}"
-            pdf_filename = f"{filename_base}_{timestamp}_{unique_id}.pdf"
-
-            # Save the uploaded Word document
-            docx_path = os.path.join(UPLOAD_FOLDER, docx_filename)
-            file.save(docx_path)
-
-            # Convert Word to PDF
-            pdf_path = os.path.join(CONVERTED_FOLDER, pdf_filename)
-
-            # Try primary conversion method
-            try:
-                # Use docx2pdf for conversion (uses Microsoft Word if available)
-                convert(docx_path, pdf_path)
-
-                # Check if conversion was successful
-                if not os.path.exists(pdf_path) or os.path.getsize(pdf_path) < 100:  # Very small file likely means conversion failed
-                    raise Exception("Primary conversion produced an invalid PDF")
-
-            except Exception as primary_error:
-                print(f"Primary conversion method failed: {str(primary_error)}")
-
-                # Fallback method if docx2pdf fails (common on Linux or without MS Word)
-                try:
-                    # Check if LibreOffice is available
-                    if shutil.which('libreoffice') or shutil.which('soffice'):
-                        # Use LibreOffice for conversion
-                        lo_command = shutil.which('libreoffice') or shutil.which('soffice')
-                        subprocess.run([
-                            lo_command,
-                            '--headless',
-                            '--convert-to',
-                            'pdf',
-                            '--outdir',
-                            CONVERTED_FOLDER,
-                            docx_path
-                        ], check=True)
-
-                        # LibreOffice creates the PDF with the original filename, so we need to rename it
-                        original_pdf_name = os.path.join(CONVERTED_FOLDER, f"{os.path.splitext(docx_filename)[0]}.pdf")
-                        if os.path.exists(original_pdf_name):
-                            shutil.move(original_pdf_name, pdf_path)
-                    else:
-                        # If LibreOffice is not available, try another fallback
-                        raise Exception("LibreOffice not available")
-
-                except Exception as lo_error:
-                    print(f"LibreOffice conversion failed: {str(lo_error)}")
-                    return jsonify({'success': False, 'error': 'Conversion failed. Please try again with a different Word document.'})
-
-            # Final check if conversion was successful
-            if not os.path.exists(pdf_path) or os.path.getsize(pdf_path) == 0:
-                return jsonify({'success': False, 'error': 'Conversion failed. Please try again with a different Word document.'})
-
-            # Return success response with download link
-            return jsonify({
-                'success': True,
-                'message': 'Word document successfully converted to PDF',
-                'download_url': f'/download/converted/{pdf_filename}'
-            })
-
-        except Exception as e:
-            print(f"Error in Word to PDF conversion: {str(e)}")
-            return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'})
-
-    return render_template('word_to_pdf.html')
-
-@app.route('/tools/free-online-converter/image-to-pdf', methods=['GET', 'POST'])
-def image_to_pdf():
-    return render_template('image_to_pdf.html')
-
-@app.route('/tools/free-online-converter/compress-pdf', methods=['GET', 'POST'])
-def compress_pdf():
     return render_template('compress_pdf.html')
 
 @app.route('/tools/free-online-converter/mp3-to-mp4', methods=['GET', 'POST'])
@@ -1363,93 +1356,6 @@ def keyword_position():
 @app.route('/tools/keyword-tools/keywords-density-checker', methods=['GET', 'POST'])
 def keywords_density_checker():
     return render_template('keywords_density_checker.html')
-
-# Helper function to create a proper Word document with correct metadata
-def create_proper_word_document(text_content, output_path, title=None):
-    """
-    Creates a properly formatted Word document with correct metadata
-    that will be recognized by Windows and have the correct icon.
-
-    Args:
-        text_content (str): The text content to include in the document
-        output_path (str): Path where to save the Word document
-        title (str, optional): Title for the document. Defaults to None.
-
-    Returns:
-        bool: True if successful, False otherwise
-    """
-    try:
-        # Create a new Word document
-        doc = docx.Document()
-
-        # Set document properties/metadata
-        core_properties = doc.core_properties
-        core_properties.title = title or "Converted Document"
-        core_properties.author = "Free AI Tools"
-        core_properties.comments = "Created with Free AI Tools PDF to Word Converter"
-
-        # Add a title if provided
-        if title:
-            title_paragraph = doc.add_paragraph()
-            title_run = title_paragraph.add_run(title)
-            title_run.bold = True
-            title_run.font.size = Pt(16)
-            title_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            doc.add_paragraph()  # Add some space
-
-        # Process the text content - split by newlines and create paragraphs
-        paragraphs = text_content.split('\n')
-        for para_text in paragraphs:
-            if para_text.strip():  # Skip empty paragraphs
-                p = doc.add_paragraph()
-                p.add_run(para_text)
-
-        # Save the document
-        doc.save(output_path)
-        return True
-    except Exception as e:
-        print(f"Error creating Word document: {str(e)}")
-        return False
-
-# Helper function to check if a PDF is likely a scanned document
-def is_scanned_pdf(pdf_path):
-    """
-    Checks if a PDF is likely a scanned document by analyzing its content.
-
-    Args:
-        pdf_path (str): Path to the PDF file
-
-    Returns:
-        bool: True if the PDF is likely scanned, False otherwise
-    """
-    try:
-        # Open the PDF
-        with open(pdf_path, 'rb') as f:
-            pdf = PdfReader(f)
-
-            # Check the first few pages
-            pages_to_check = min(3, len(pdf.pages))
-            text_content = ""
-
-            for i in range(pages_to_check):
-                page = pdf.pages[i]
-                text = page.extract_text()
-                text_content += text
-
-            # If there's very little text or no text, it's likely a scanned document
-            if len(text_content.strip()) < 100:
-                return True
-
-            # Check for common OCR artifacts or patterns
-            # Scanned PDFs often have text with unusual spacing or line breaks
-            unusual_spacing = re.search(r'[a-zA-Z] {2,}[a-zA-Z]', text_content)
-            unusual_linebreaks = text_content.count('\n') > len(text_content) / 40
-
-            return unusual_spacing is not None or unusual_linebreaks
-
-    except Exception as e:
-        print(f"Error checking if PDF is scanned: {str(e)}")
-        return False
 
 @app.route('/download/converted/<filename>', methods=['GET'])
 def download_converted_file(filename):
