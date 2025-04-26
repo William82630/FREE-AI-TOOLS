@@ -8,6 +8,32 @@ import base64
 import qrcode
 import zipfile
 from datetime import datetime, timedelta
+import uuid
+import tempfile
+import shutil
+from pdf2docx import Converter, parse
+from PyPDF2 import PdfReader, PdfWriter
+from docx2pdf import convert
+import subprocess
+import sys
+import docx
+from docx.shared import Pt, RGBColor, Inches
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+import re
+
+# Try to import OCR libraries, but don't fail if they're not available
+try:
+    import pytesseract
+    from PIL import Image as PILImage
+    TESSERACT_AVAILABLE = True
+except (ImportError, Exception):
+    TESSERACT_AVAILABLE = False
+
+try:
+    import ocrmypdf
+    OCRMYPDF_AVAILABLE = True
+except (ImportError, Exception):
+    OCRMYPDF_AVAILABLE = False
 
 app = Flask(__name__)
 
@@ -18,9 +44,11 @@ API_URL = 'https://api.openrouter.ai/v1/completions'
 UPLOAD_FOLDER = 'uploads/'
 COMPRESSED_FOLDER = 'compressed/'
 FAVICON_FOLDER = 'favicons/'
+CONVERTED_FOLDER = 'converted/'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(COMPRESSED_FOLDER, exist_ok=True)
 os.makedirs(FAVICON_FOLDER, exist_ok=True)
+os.makedirs(CONVERTED_FOLDER, exist_ok=True)
 
 @app.route('/')
 def index():
@@ -1021,10 +1049,286 @@ def qr_code_generator():
 # Free Online Converter
 @app.route('/tools/free-online-converter/pdf-to-word', methods=['GET', 'POST'])
 def pdf_to_word():
+    if request.method == 'POST':
+        try:
+            # Check if file was uploaded
+            if 'file' not in request.files:
+                return jsonify({'success': False, 'error': 'No file part'})
+
+            file = request.files['file']
+            if file.filename == '':
+                return jsonify({'success': False, 'error': 'No selected file'})
+
+            # Check if the file is a PDF
+            if not file.filename.lower().endswith('.pdf'):
+                return jsonify({'success': False, 'error': 'Please upload a PDF file'})
+
+            # Generate unique filenames
+            unique_id = str(uuid.uuid4())
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            filename_base = os.path.splitext(file.filename)[0]
+            pdf_filename = f"{filename_base}_{timestamp}_{unique_id}.pdf"
+            docx_filename = f"{filename_base}_{timestamp}_{unique_id}.docx"
+
+            # Save the uploaded PDF
+            pdf_path = os.path.join(UPLOAD_FOLDER, pdf_filename)
+            file.save(pdf_path)
+
+            # Output path for the Word document
+            docx_path = os.path.join(CONVERTED_FOLDER, docx_filename)
+
+            # Check if the PDF is likely a scanned document
+            is_scanned = is_scanned_pdf(pdf_path)
+
+            # Create a temporary directory for processing
+            with tempfile.TemporaryDirectory() as temp_dir:
+                # If it's a scanned document and OCR is available, try OCR first
+                if is_scanned and (TESSERACT_AVAILABLE or OCRMYPDF_AVAILABLE):
+                    try:
+                        print("Detected scanned PDF, attempting OCR...")
+
+                        # Path for OCR-processed PDF
+                        ocr_pdf_path = os.path.join(temp_dir, f"ocr_{pdf_filename}")
+
+                        # Try OCRmyPDF first if available (better quality)
+                        if OCRMYPDF_AVAILABLE:
+                            try:
+                                ocrmypdf.ocr(pdf_path, ocr_pdf_path, deskew=True, optimize=0,
+                                            skip_text=True, force_ocr=True, language='eng')
+                                # If successful, use the OCR'd PDF for conversion
+                                if os.path.exists(ocr_pdf_path):
+                                    pdf_path = ocr_pdf_path
+                            except Exception as ocr_error:
+                                print(f"OCRmyPDF failed: {str(ocr_error)}")
+
+                        # If OCRmyPDF failed or isn't available, try pytesseract
+                        elif TESSERACT_AVAILABLE:
+                            try:
+                                # Extract text using pytesseract
+                                extracted_text = ""
+
+                                # Convert PDF pages to images and OCR them
+                                from pdf2image import convert_from_path
+                                images = convert_from_path(pdf_path)
+
+                                for i, image in enumerate(images):
+                                    page_text = pytesseract.image_to_string(image)
+                                    extracted_text += f"\n\n--- Page {i+1} ---\n\n{page_text}"
+
+                                # Create a Word document directly from the OCR'd text
+                                if extracted_text.strip():
+                                    create_proper_word_document(
+                                        extracted_text,
+                                        docx_path,
+                                        title=f"Converted from {filename_base}"
+                                    )
+
+                                    # If we successfully created a Word document, skip the pdf2docx conversion
+                                    if os.path.exists(docx_path) and os.path.getsize(docx_path) > 100:
+                                        return jsonify({
+                                            'success': True,
+                                            'message': 'PDF successfully converted to Word document using OCR',
+                                            'download_url': f'/download/converted/{docx_filename}'
+                                        })
+                            except Exception as tesseract_error:
+                                print(f"Tesseract OCR failed: {str(tesseract_error)}")
+                    except Exception as ocr_process_error:
+                        print(f"OCR processing failed: {str(ocr_process_error)}")
+
+                # Standard conversion approach (for non-scanned PDFs or if OCR failed)
+                conversion_success = False
+
+                # Try multiple conversion methods
+                conversion_methods = [
+                    # Method 1: pdf2docx with enhanced settings
+                    lambda: convert_with_pdf2docx_enhanced(pdf_path, docx_path),
+
+                    # Method 2: pdf2docx with basic settings
+                    lambda: convert_with_pdf2docx_basic(pdf_path, docx_path),
+
+                    # Method 3: Extract text and create a new Word document
+                    lambda: convert_with_text_extraction(pdf_path, docx_path, filename_base)
+                ]
+
+                # Try each method until one succeeds
+                for method in conversion_methods:
+                    try:
+                        if method():
+                            conversion_success = True
+                            break
+                    except Exception as method_error:
+                        print(f"Conversion method failed: {str(method_error)}")
+
+                # If all methods failed
+                if not conversion_success:
+                    return jsonify({
+                        'success': False,
+                        'error': 'Conversion failed. This PDF may be encrypted, scanned, or contain complex elements.'
+                    })
+
+            # Final check if conversion was successful
+            if not os.path.exists(docx_path) or os.path.getsize(docx_path) == 0:
+                return jsonify({
+                    'success': False,
+                    'error': 'Conversion failed. Please try again with a different PDF file.'
+                })
+
+            # Return success response with download link
+            return jsonify({
+                'success': True,
+                'message': 'PDF successfully converted to Word document',
+                'download_url': f'/download/converted/{docx_filename}'
+            })
+
+        except Exception as e:
+            print(f"Error in PDF to Word conversion: {str(e)}")
+            return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'})
+
     return render_template('pdf_to_word.html')
+
+# Helper function for enhanced pdf2docx conversion
+def convert_with_pdf2docx_enhanced(pdf_path, docx_path):
+    """Use pdf2docx with enhanced settings for better conversion quality"""
+    try:
+        cv = Converter(pdf_path)
+        cv.convert(docx_path, start=0, end=None, pages=None,
+                  kwargs={
+                      'debug': False,
+                      'multi_processing': True,
+                      'cpu_count': 4,  # Adjust based on server capacity
+                      'min_section_height': 20.0,  # Better paragraph detection
+                      'connected_border': False,  # Better table detection
+                      'line_overlap_threshold': 0.9,  # Better line detection
+                  })
+        cv.close()
+
+        # Check if conversion was successful
+        return os.path.exists(docx_path) and os.path.getsize(docx_path) > 100
+    except Exception as e:
+        print(f"Enhanced pdf2docx conversion failed: {str(e)}")
+        return False
+
+# Helper function for basic pdf2docx conversion
+def convert_with_pdf2docx_basic(pdf_path, docx_path):
+    """Use pdf2docx with basic settings as a fallback"""
+    try:
+        parse(pdf_path, docx_path)
+        return os.path.exists(docx_path) and os.path.getsize(docx_path) > 100
+    except Exception as e:
+        print(f"Basic pdf2docx conversion failed: {str(e)}")
+        return False
+
+# Helper function for text extraction and Word document creation
+def convert_with_text_extraction(pdf_path, docx_path, filename_base):
+    """Extract text from PDF and create a new Word document with proper metadata"""
+    try:
+        # Extract text from PDF
+        with open(pdf_path, 'rb') as f:
+            pdf = PdfReader(f)
+            text_content = ""
+
+            for i, page in enumerate(pdf.pages):
+                page_text = page.extract_text()
+                if page_text:
+                    text_content += f"\n\n--- Page {i+1} ---\n\n{page_text}"
+
+        # Create a Word document with the extracted text
+        if text_content.strip():
+            return create_proper_word_document(
+                text_content,
+                docx_path,
+                title=f"Converted from {filename_base}"
+            )
+        return False
+    except Exception as e:
+        print(f"Text extraction conversion failed: {str(e)}")
+        return False
 
 @app.route('/tools/free-online-converter/word-to-pdf', methods=['GET', 'POST'])
 def word_to_pdf():
+    if request.method == 'POST':
+        try:
+            # Check if file was uploaded
+            if 'file' not in request.files:
+                return jsonify({'success': False, 'error': 'No file part'})
+
+            file = request.files['file']
+            if file.filename == '':
+                return jsonify({'success': False, 'error': 'No selected file'})
+
+            # Check if the file is a Word document
+            if not (file.filename.lower().endswith('.docx') or file.filename.lower().endswith('.doc')):
+                return jsonify({'success': False, 'error': 'Please upload a Word document (.doc or .docx)'})
+
+            # Generate unique filenames
+            unique_id = str(uuid.uuid4())
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            filename_base = os.path.splitext(file.filename)[0]
+            docx_filename = f"{filename_base}_{timestamp}_{unique_id}{os.path.splitext(file.filename)[1]}"
+            pdf_filename = f"{filename_base}_{timestamp}_{unique_id}.pdf"
+
+            # Save the uploaded Word document
+            docx_path = os.path.join(UPLOAD_FOLDER, docx_filename)
+            file.save(docx_path)
+
+            # Convert Word to PDF
+            pdf_path = os.path.join(CONVERTED_FOLDER, pdf_filename)
+
+            # Try primary conversion method
+            try:
+                # Use docx2pdf for conversion (uses Microsoft Word if available)
+                convert(docx_path, pdf_path)
+
+                # Check if conversion was successful
+                if not os.path.exists(pdf_path) or os.path.getsize(pdf_path) < 100:  # Very small file likely means conversion failed
+                    raise Exception("Primary conversion produced an invalid PDF")
+
+            except Exception as primary_error:
+                print(f"Primary conversion method failed: {str(primary_error)}")
+
+                # Fallback method if docx2pdf fails (common on Linux or without MS Word)
+                try:
+                    # Check if LibreOffice is available
+                    if shutil.which('libreoffice') or shutil.which('soffice'):
+                        # Use LibreOffice for conversion
+                        lo_command = shutil.which('libreoffice') or shutil.which('soffice')
+                        subprocess.run([
+                            lo_command,
+                            '--headless',
+                            '--convert-to',
+                            'pdf',
+                            '--outdir',
+                            CONVERTED_FOLDER,
+                            docx_path
+                        ], check=True)
+
+                        # LibreOffice creates the PDF with the original filename, so we need to rename it
+                        original_pdf_name = os.path.join(CONVERTED_FOLDER, f"{os.path.splitext(docx_filename)[0]}.pdf")
+                        if os.path.exists(original_pdf_name):
+                            shutil.move(original_pdf_name, pdf_path)
+                    else:
+                        # If LibreOffice is not available, try another fallback
+                        raise Exception("LibreOffice not available")
+
+                except Exception as lo_error:
+                    print(f"LibreOffice conversion failed: {str(lo_error)}")
+                    return jsonify({'success': False, 'error': 'Conversion failed. Please try again with a different Word document.'})
+
+            # Final check if conversion was successful
+            if not os.path.exists(pdf_path) or os.path.getsize(pdf_path) == 0:
+                return jsonify({'success': False, 'error': 'Conversion failed. Please try again with a different Word document.'})
+
+            # Return success response with download link
+            return jsonify({
+                'success': True,
+                'message': 'Word document successfully converted to PDF',
+                'download_url': f'/download/converted/{pdf_filename}'
+            })
+
+        except Exception as e:
+            print(f"Error in Word to PDF conversion: {str(e)}")
+            return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'})
+
     return render_template('word_to_pdf.html')
 
 @app.route('/tools/free-online-converter/image-to-pdf', methods=['GET', 'POST'])
@@ -1059,6 +1363,100 @@ def keyword_position():
 @app.route('/tools/keyword-tools/keywords-density-checker', methods=['GET', 'POST'])
 def keywords_density_checker():
     return render_template('keywords_density_checker.html')
+
+# Helper function to create a proper Word document with correct metadata
+def create_proper_word_document(text_content, output_path, title=None):
+    """
+    Creates a properly formatted Word document with correct metadata
+    that will be recognized by Windows and have the correct icon.
+
+    Args:
+        text_content (str): The text content to include in the document
+        output_path (str): Path where to save the Word document
+        title (str, optional): Title for the document. Defaults to None.
+
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    try:
+        # Create a new Word document
+        doc = docx.Document()
+
+        # Set document properties/metadata
+        core_properties = doc.core_properties
+        core_properties.title = title or "Converted Document"
+        core_properties.author = "Free AI Tools"
+        core_properties.comments = "Created with Free AI Tools PDF to Word Converter"
+
+        # Add a title if provided
+        if title:
+            title_paragraph = doc.add_paragraph()
+            title_run = title_paragraph.add_run(title)
+            title_run.bold = True
+            title_run.font.size = Pt(16)
+            title_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            doc.add_paragraph()  # Add some space
+
+        # Process the text content - split by newlines and create paragraphs
+        paragraphs = text_content.split('\n')
+        for para_text in paragraphs:
+            if para_text.strip():  # Skip empty paragraphs
+                p = doc.add_paragraph()
+                p.add_run(para_text)
+
+        # Save the document
+        doc.save(output_path)
+        return True
+    except Exception as e:
+        print(f"Error creating Word document: {str(e)}")
+        return False
+
+# Helper function to check if a PDF is likely a scanned document
+def is_scanned_pdf(pdf_path):
+    """
+    Checks if a PDF is likely a scanned document by analyzing its content.
+
+    Args:
+        pdf_path (str): Path to the PDF file
+
+    Returns:
+        bool: True if the PDF is likely scanned, False otherwise
+    """
+    try:
+        # Open the PDF
+        with open(pdf_path, 'rb') as f:
+            pdf = PdfReader(f)
+
+            # Check the first few pages
+            pages_to_check = min(3, len(pdf.pages))
+            text_content = ""
+
+            for i in range(pages_to_check):
+                page = pdf.pages[i]
+                text = page.extract_text()
+                text_content += text
+
+            # If there's very little text or no text, it's likely a scanned document
+            if len(text_content.strip()) < 100:
+                return True
+
+            # Check for common OCR artifacts or patterns
+            # Scanned PDFs often have text with unusual spacing or line breaks
+            unusual_spacing = re.search(r'[a-zA-Z] {2,}[a-zA-Z]', text_content)
+            unusual_linebreaks = text_content.count('\n') > len(text_content) / 40
+
+            return unusual_spacing is not None or unusual_linebreaks
+
+    except Exception as e:
+        print(f"Error checking if PDF is scanned: {str(e)}")
+        return False
+
+@app.route('/download/converted/<filename>', methods=['GET'])
+def download_converted_file(filename):
+    try:
+        return send_file(os.path.join(CONVERTED_FOLDER, filename), as_attachment=True)
+    except Exception as e:
+        return f"Error: {str(e)}", 404
 
 if __name__ == '__main__':
     app.run(debug=True)

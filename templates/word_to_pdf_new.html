@@ -1,0 +1,570 @@
+{% extends 'base.html' %}
+
+{% block title %}Word to PDF Converter - Convert DOCX to PDF Online Free{% endblock %}
+{% block description %}Convert Word documents to PDF files online for free. No email required, easy to use, and secure DOCX to PDF conversion.{% endblock %}
+{% block keywords %}word to pdf, docx to pdf, convert word to pdf, word converter, free word converter, online word converter, word to pdf converter{% endblock %}
+
+{% block hero_color %}#1565c0{% endblock %}
+{% block hero_title %}Word to PDF Converter{% endblock %}
+{% block hero_subtitle %}Convert Word documents to PDF files instantly. Free, secure, and no registration required.{% endblock %}
+
+{% block button_gradient_start %}#1565c0{% endblock %}
+{% block button_gradient_end %}#0d47a1{% endblock %}
+{% block button_shadow_color %}rgba(21,101,192,0.3){% endblock %}
+{% block button_shadow_hover_color %}rgba(21,101,192,0.4){% endblock %}
+
+{% block step_title_color %}#ffffff{% endblock %}
+{% block step_number_bg_color %}#1565c0{% endblock %}
+{% block feature_title_color %}#ffffff{% endblock %}
+{% block faq_title_color %}#ffffff{% endblock %}
+{% block support_title_color %}#ffffff{% endblock %}
+
+{% block additional_styles %}
+.converter-container {
+    background: #23263a;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    padding: 38px 32px 40px 32px;
+    margin: 40px auto;
+    max-width: 600px;
+    border: 1px solid rgba(21,101,192,0.1);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+.converter-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #1565c0, #0d47a1);
+}
+.file-upload-container {
+    position: relative;
+    margin: 30px auto;
+    max-width: 450px;
+}
+.file-upload-area {
+    border: 2px dashed #1565c0;
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    background: #1a1d2e;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.file-upload-area:hover {
+    border-color: #64b5f6;
+    background: #1e2235;
+}
+.file-upload-area.dragover {
+    border-color: #64b5f6;
+    background: #1e2235;
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(21,101,192,0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(21,101,192,0); }
+    100% { box-shadow: 0 0 0 0 rgba(21,101,192,0); }
+}
+.file-upload-icon {
+    font-size: 48px;
+    color: #1565c0;
+    margin-bottom: 15px;
+}
+.file-upload-text {
+    color: #e0e0e0;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+.file-upload-subtext {
+    color: #9e9e9e;
+    font-size: 0.9em;
+}
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+.convert-button {
+    background: linear-gradient(90deg, #1565c0 0%, #0d47a1 100%);
+    color: white;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+    display: block;
+    box-shadow: 0 4px 12px rgba(21,101,192,0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+    opacity: 0.7;
+    pointer-events: none;
+}
+.convert-button.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.convert-button.active:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(21,101,192,0.25);
+}
+.file-info {
+    background: #1a1d2e;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 450px;
+    display: none;
+}
+.file-info.show {
+    display: block;
+    animation: fadeIn 0.5s ease-out;
+}
+.file-name {
+    color: #e0e0e0;
+    font-size: 1.1em;
+    word-break: break-all;
+    margin-bottom: 5px;
+}
+.file-size {
+    color: #9e9e9e;
+    font-size: 0.9em;
+}
+.file-actions {
+    margin-top: 10px;
+}
+.file-remove {
+    background: none;
+    border: none;
+    color: #f44336;
+    cursor: pointer;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+.file-remove:hover {
+    background: rgba(244,67,54,0.1);
+}
+.progress-container {
+    margin: 20px auto;
+    max-width: 450px;
+    display: none;
+}
+.progress-container.show {
+    display: block;
+    animation: fadeIn 0.5s ease-out;
+}
+.progress-bar-container {
+    background: #1a1d2e;
+    border-radius: 10px;
+    height: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #1565c0, #64b5f6);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+.progress-text {
+    color: #e0e0e0;
+    font-size: 0.9em;
+    text-align: center;
+}
+.result-container {
+    margin: 20px auto;
+    max-width: 450px;
+    display: none;
+}
+.result-container.show {
+    display: block;
+    animation: fadeIn 0.5s ease-out;
+}
+.result-success {
+    background: #1a1d2e;
+    border-radius: 8px;
+    padding: 20px;
+    border-left: 4px solid #4caf50;
+}
+.result-error {
+    background: #1a1d2e;
+    border-radius: 8px;
+    padding: 20px;
+    border-left: 4px solid #f44336;
+}
+.result-title {
+    color: #e0e0e0;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+.result-message {
+    color: #9e9e9e;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+.download-button {
+    background: linear-gradient(90deg, #43a047 0%, #2e7d32 100%);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(67,160,71,0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.download-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(67,160,71,0.25);
+}
+.try-again-button {
+    background: none;
+    border: 1px solid #e0e0e0;
+    color: #e0e0e0;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 15px;
+    transition: background 0.2s;
+}
+.try-again-button:hover {
+    background: rgba(255,255,255,0.1);
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+{% endblock %}
+
+{% block content %}
+<div class="converter-container">
+    <h2 style="color: #ffffff; margin-top: 0;">Convert Word to PDF</h2>
+    <p style="color: #e0e0e0; margin-bottom: 25px;">Transform your Word documents into PDF files with our free online converter</p>
+    
+    <div class="file-upload-container">
+        <div class="file-upload-area" id="drop-area">
+            <div class="file-upload-icon">📄</div>
+            <div class="file-upload-text">Drag & drop your Word file here</div>
+            <div class="file-upload-subtext">or click to browse files</div>
+            <input type="file" id="file-input" class="file-input" accept=".doc,.docx">
+        </div>
+    </div>
+    
+    <div class="file-info" id="file-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="file-size" id="file-size"></div>
+        <div class="file-actions">
+            <button class="file-remove" id="file-remove">Remove</button>
+        </div>
+    </div>
+    
+    <button id="convert-button" class="convert-button">Convert to PDF</button>
+    
+    <div class="progress-container" id="progress-container">
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="progress-text" id="progress-text">Converting... 0%</div>
+    </div>
+    
+    <div class="result-container" id="result-success">
+        <div class="result-success">
+            <div class="result-title">Conversion Successful!</div>
+            <div class="result-message">Your Word document has been successfully converted to PDF format.</div>
+            <button class="download-button" id="download-button">Download PDF</button>
+        </div>
+    </div>
+    
+    <div class="result-container" id="result-error">
+        <div class="result-error">
+            <div class="result-title">Conversion Failed</div>
+            <div class="result-message" id="error-message">There was an error converting your file. Please try again.</div>
+            <button class="try-again-button" id="try-again-button">Try Again</button>
+        </div>
+    </div>
+</div>
+
+<div class="how-it-works">
+    <h2>How to Use Our Word to PDF Converter</h2>
+    <div class="how-to-steps">
+        <div class="step">
+            <h3><span>1</span>Upload Your Word Document</h3>
+            <p>Click the upload area or drag and drop your Word document (DOC or DOCX format) into the designated box. Our tool accepts files up to 100MB in size, ensuring you can convert even large documents.</p>
+        </div>
+        <div class="step">
+            <h3><span>2</span>Start the Conversion</h3>
+            <p>Once your file is uploaded, click the "Convert to PDF" button to begin the conversion process. Our advanced algorithms will preserve the layout, formatting, and images from your original Word document.</p>
+        </div>
+        <div class="step">
+            <h3><span>3</span>Wait for Processing</h3>
+            <p>The conversion process typically takes just a few seconds, depending on the size and complexity of your document. A progress bar will keep you informed of the conversion status.</p>
+        </div>
+        <div class="step">
+            <h3><span>4</span>Download Your PDF</h3>
+            <p>Once the conversion is complete, click the "Download" button to save your new PDF file. The PDF will maintain the original formatting, making it perfect for sharing, printing, or archiving.</p>
+        </div>
+    </div>
+</div>
+
+<div class="features">
+    <h2>Features of Our Word to PDF Converter</h2>
+    <div class="feature-cards">
+        <div class="feature-card">
+            <h3>🔒 Secure Conversion</h3>
+            <p>Your files are processed securely on our servers and automatically deleted after conversion. We never share your documents with third parties, ensuring complete privacy and confidentiality.</p>
+        </div>
+        <div class="feature-card">
+            <h3>⚡ Fast Processing</h3>
+            <p>Our optimized conversion engine processes your Word documents quickly, typically completing conversions in seconds. Save time with our efficient service that doesn't compromise on quality.</p>
+        </div>
+        <div class="feature-card">
+            <h3>📱 No Installation Required</h3>
+            <p>Access our converter directly from your web browser without downloading or installing any software. Works on all platforms including Windows, Mac, Linux, iOS, and Android.</p>
+        </div>
+        <div class="feature-card">
+            <h3>📄 Accurate Formatting</h3>
+            <p>Our advanced conversion technology preserves the original layout, formatting, tables, images, and text of your Word documents, ensuring your PDF looks just like the original.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🔄 Batch Processing</h3>
+            <p>Convert multiple Word files to PDF format simultaneously, saving you time when working with numerous documents. Our tool efficiently handles batch conversions without compromising quality.</p>
+        </div>
+        <div class="feature-card">
+            <h3>💸 Completely Free</h3>
+            <p>Enjoy unlimited Word to PDF conversions without any cost. No hidden fees, no subscriptions, and no watermarks—just a reliable, free service for all your document conversion needs.</p>
+        </div>
+    </div>
+</div>
+
+<div class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+        <h3>Is this Word to PDF converter really free?</h3>
+        <p>Yes, our Word to PDF converter is completely free to use. There are no hidden fees, subscription requirements, or limitations on the number of files you can convert. We believe in providing accessible tools that help users work more efficiently with their documents.</p>
+    </div>
+    <div class="faq-item">
+        <h3>How accurate is the conversion from Word to PDF?</h3>
+        <p>Our converter uses advanced algorithms to maintain high accuracy in the conversion process. It preserves text, images, tables, and formatting elements from the original Word document. The resulting PDF will look virtually identical to how your document appears in Microsoft Word or other word processors.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Is there a file size limit for conversion?</h3>
+        <p>Yes, our free converter has a file size limit of 100MB per document. This limit accommodates most standard documents, including lengthy reports, presentations, and documents with images. If you need to convert larger files, consider splitting your document into smaller sections before uploading.</p>
+    </div>
+    <div class="faq-item">
+        <h3>How secure is my data during the conversion process?</h3>
+        <p>We take data security seriously. All file transfers are secured with encryption, and your documents are automatically deleted from our servers after conversion or after a short period (typically 24 hours) if you don't download them. We do not access, view, or share the content of your files with any third parties.</p>
+    </div>
+    <div class="faq-item">
+        <h3>What Word formats are supported?</h3>
+        <p>Our converter supports both DOC (older Word format) and DOCX (newer Word format) files. These formats are compatible with Microsoft Word, Google Docs, LibreOffice, OpenOffice, and most other word processing applications.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Can I convert password-protected Word files?</h3>
+        <p>No, our converter cannot process password-protected or encrypted Word files. You'll need to remove the password protection from your document before uploading it for conversion. This limitation exists to respect document security measures and copyright protections.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block twitter_path %}/tools/free-online-converter/word-to-pdf{% endblock %}
+{% block twitter_text %}Convert+Word+to+PDF+for+free+with+this+online+tool!{% endblock %}
+{% block facebook_path %}/tools/free-online-converter/word-to-pdf{% endblock %}
+{% block linkedin_path %}/tools/free-online-converter/word-to-pdf{% endblock %}
+{% block linkedin_title %}Free+Online+Word+to+PDF+Converter{% endblock %}
+{% block linkedin_summary %}Convert+Word+documents+to+PDF+files+instantly{% endblock %}
+{% block pinterest_path %}/tools/free-online-converter/word-to-pdf{% endblock %}
+{% block pinterest_description %}Word+to+PDF+Converter+-+Convert+Word+to+PDF+online+free{% endblock %}
+{% block whatsapp_text %}Check+out+this+free+Word+to+PDF+converter:+http://127.0.0.1:5000/tools/free-online-converter/word-to-pdf{% endblock %}
+
+{% block body_scripts %}
+<script>
+    const dropArea = document.getElementById('drop-area');
+    const fileInput = document.getElementById('file-input');
+    const fileInfo = document.getElementById('file-info');
+    const fileName = document.getElementById('file-name');
+    const fileSize = document.getElementById('file-size');
+    const fileRemove = document.getElementById('file-remove');
+    const convertButton = document.getElementById('convert-button');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const resultSuccess = document.getElementById('result-success');
+    const resultError = document.getElementById('result-error');
+    const downloadButton = document.getElementById('download-button');
+    const tryAgainButton = document.getElementById('try-again-button');
+    const errorMessage = document.getElementById('error-message');
+    
+    let selectedFile = null;
+    
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    // Highlight drop area when item is dragged over it
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+    });
+    
+    // Handle dropped files
+    dropArea.addEventListener('drop', handleDrop, false);
+    
+    // Handle selected files from file input
+    fileInput.addEventListener('change', handleFiles);
+    
+    // Handle remove file button
+    fileRemove.addEventListener('click', removeFile);
+    
+    // Handle convert button
+    convertButton.addEventListener('click', startConversion);
+    
+    // Handle try again button
+    tryAgainButton.addEventListener('click', resetConverter);
+    
+    // Handle download button
+    downloadButton.addEventListener('click', downloadResult);
+    
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    function highlight() {
+        dropArea.classList.add('dragover');
+    }
+    
+    function unhighlight() {
+        dropArea.classList.remove('dragover');
+    }
+    
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles({ target: { files } });
+    }
+    
+    function handleFiles(e) {
+        const files = e.target.files;
+        if (files.length) {
+            selectedFile = files[0];
+            
+            // Check if file is a Word document
+            const validTypes = [
+                'application/msword', // .doc
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document' // .docx
+            ];
+            
+            if (!validTypes.includes(selectedFile.type)) {
+                showError('Please select a valid Word document (.doc or .docx).');
+                return;
+            }
+            
+            // Display file info
+            fileName.textContent = selectedFile.name;
+            fileSize.textContent = formatFileSize(selectedFile.size);
+            fileInfo.classList.add('show');
+            
+            // Enable convert button
+            convertButton.classList.add('active');
+        }
+    }
+    
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    
+    function removeFile() {
+        selectedFile = null;
+        fileInput.value = '';
+        fileInfo.classList.remove('show');
+        convertButton.classList.remove('active');
+    }
+    
+    function startConversion() {
+        if (!selectedFile) return;
+        
+        // Hide file info and convert button
+        fileInfo.style.display = 'none';
+        convertButton.style.display = 'none';
+        
+        // Show progress
+        progressContainer.classList.add('show');
+        
+        // Simulate conversion progress
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.random() * 10;
+            if (progress > 100) progress = 100;
+            
+            progressBar.style.width = progress + '%';
+            progressText.textContent = `Converting... ${Math.round(progress)}%`;
+            
+            if (progress === 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    progressContainer.classList.remove('show');
+                    
+                    // For demo purposes, show success result
+                    // In a real implementation, this would depend on the actual conversion result
+                    resultSuccess.classList.add('show');
+                    
+                    // Uncomment to show error result instead
+                    // resultError.classList.add('show');
+                    // errorMessage.textContent = 'There was an error converting your file. Please try again.';
+                }, 500);
+            }
+        }, 200);
+    }
+    
+    function showError(message) {
+        resultError.classList.add('show');
+        errorMessage.textContent = message;
+    }
+    
+    function resetConverter() {
+        // Reset everything
+        removeFile();
+        progressContainer.classList.remove('show');
+        resultSuccess.classList.remove('show');
+        resultError.classList.remove('show');
+        
+        // Show convert button again
+        convertButton.style.display = 'block';
+        fileInfo.style.display = 'block';
+    }
+    
+    function downloadResult() {
+        // In a real implementation, this would download the actual converted file
+        // For demo purposes, we'll just show an alert
+        alert('In a real implementation, this would download your converted PDF file.');
+        
+        // Reset the converter after download
+        setTimeout(resetConverter, 1000);
+    }
+</script>
+{% endblock %}
