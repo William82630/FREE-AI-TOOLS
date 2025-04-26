@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title> Free Favicon Generator</title>
-    <meta name="description" content="Create a professional favicon for your website easily. Upload an image and generate a favicon in seconds.">
-    <meta name="keywords" content="favicon generator, create favicon, favicon maker">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Generator Tool - Free AI Tools</title>
+    <meta name="description" content="Generate a favicon for your website easily. Upload an image and convert it to a .ico file in seconds. Free online favicon generator tool.">
+    <meta name="keywords" content="favicon generator, create favicon, ico generator, website favicon, free favicon maker">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #181a20;
         }
         .hero {
-            background-color: #130045;
+            background-color: #4a1d96;
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -26,291 +27,712 @@
             font-size: 1.2em;
             margin: 10px 0 0;
         }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-        }
         .input-section {
             text-align: center;
-            margin: 40px 0; /* Increased margin for better spacing */
+            margin: 48px 0 20px 0;
+            padding: 0 20px;
         }
-        .input-section input {
-            padding: 15px;
-            width: 80%;
-            max-width: 500px;
-            margin-right: 10px;
-            border: 2px solid #004aad;
-            border-radius: 6px;
-            font-size: 1.1em;
+        .input-section form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #23263a;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .input-section input[type="file"] {
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+            border: 2px solid #8b5cf6;
+            border-radius: 4px;
+            background: #23263a;
+            color: #fff;
+            font-size: 1.13em;
+            box-sizing: border-box;
         }
         .input-section button {
-            padding: 15px 25px;
-            background-color: #007bff;
-            color: white;
+            font-size: 1.13em;
+            font-weight: bold;
+            padding: 12px 32px;
+            background: linear-gradient(90deg, #8b5cf6 0%, #4c1d95 100%);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(139,92,246,0.3);
             border: none;
             border-radius: 6px;
-            font-size: 1.1em;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         .input-section button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139,92,246,0.4);
         }
-        .how-to {
-            text-align: center; /* Center-align the section */
-            margin-top: 40px; /* Add spacing above the section */
+        .how-it-works {
+            max-width: 900px;
+            margin: 60px auto 40px;
+            padding: 0 20px;
+            color: #fff;
         }
-        .how-to-steps {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-        .how-to-steps .step {
+        .how-it-works h2 {
             text-align: center;
-            flex: 1;
-            margin: 0 10px;
+            margin-bottom: 30px;
+            font-size: 1.8em;
         }
-        .how-to-steps .step span {
-            display: inline-block;
-            background: #007bff;
-            color: white;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            border-radius: 50%;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-        footer {
-            background: #1e3c72;
-            color: white;
-            padding: 40px 20px;
-            margin-top: 60px;
-            text-align: center;
-        }
-        footer p {
-            margin: 10px 0;
-        }
-        footer a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-        footer a:hover {
-            opacity: 1;
-        }
-        .outer-container {
-            background-color: #f4f4f4;
-            padding: 40px 0;
+        .steps {
             display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
             justify-content: center;
+        }
+        .step {
+            flex: 1 1 250px;
+            background: #23263a;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             position: relative;
         }
-        .ads-container {
+        .step-number {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 300px;
-            height: 250px;
-            background-color: #e9ecef;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background: #8b5cf6;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .google-ads {
-            font-size: 14px;
-            color: #555;
-            text-align: center;
-        }
-        .main-content {
-            max-width: 700px; /* Reduced width */
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-        }
-        .faq-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .faq-cards .card {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .faq-cards .card h3 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .faq-cards .card p {
-            color: #555;
-            font-size: 0.95em;
-        }
-        .buy-me-coffee {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            background: #fff3cd;
-            border: 1px solid #ffeeba;
-            border-radius: 8px;
-        }
-        .buy-me-coffee h2 {
-            color: #856404;
-            margin-bottom: 10px;
-        }
-        .buy-me-coffee p {
-            color: #856404;
-            margin-bottom: 20px;
-        }
-        .coffee-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #ffdd57;
-            color: #856404;
-            text-decoration: none;
-            border-radius: 5px;
             font-weight: bold;
-            transition: background-color 0.3s;
+            font-size: 1.2em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .coffee-button:hover {
-            background-color: #ffc107;
+        .step h3 {
+            margin-top: 0;
+            color: #8b5cf6;
+        }
+        .features, .faq {
+            margin: 60px auto;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+        .features h2, .faq h2 {
+            text-align: center;
+            color: #fff;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+        }
+        .features .feature-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+        }
+        .features .feature-card {
+            background: #23263a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 28%;
+            min-width: 220px;
+            max-width: 280px;
+            box-sizing: border-box;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .features .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        .features .feature-card h3 {
+            text-align: center;
+            color: #8b5cf6;
+        }
+        .features .feature-card p {
+            text-align: justify;
+            font-size: 1.05em;
+            line-height: 1.5;
+        }
+        .faq {
+            max-width: 900px;
+            margin: 60px auto;
+        }
+        .faq-item {
+            background: #23263a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .faq-item h3 {
+            color: #8b5cf6;
+            margin-top: 0;
+        }
+        .faq-item p {
+            font-size: 1.05em;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .support-us {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 32px 20px 24px 20px;
+            background: #23263a;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            color: #fff;
+        }
+        .support-us h2 {
+            margin-top: 0;
+            color: #8b5cf6;
+        }
+        .support-us a.coffee-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #8b5cf6 0%, #4c1d95 100%);
+            color: #fff;
+            font-weight: bold;
+            padding: 12px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 1.15em;
+            box-shadow: 0 2px 8px rgba(139,92,246,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 15px;
+        }
+        .support-us a.coffee-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139,92,246,0.4);
+        }
+        footer {
+            background: #000;
+            color: #fff;
+            padding: 38px 20px 32px 20px;
+            margin-top: 64px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.08em;
+            letter-spacing: 0.01em;
+            box-sizing: border-box;
+        }
+        footer p {
+            margin: 0 0 10px 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 12px;
+            opacity: 0.85;
+        }
+        footer a:hover {
+            text-decoration: underline;
+            opacity: 1;
+        }
+        .social-icons a {
+            display: inline-block;
+            margin: 0 5px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .social-icons a:hover {
+            opacity: 1;
         }
         @media (max-width: 768px) {
-            .card {
-                flex: 1 1 100%;
+            .features .feature-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            .steps {
+                flex-direction: column;
+            }
+            .step {
+                margin-bottom: 30px;
             }
         }
     </style>
+    <script>
+        // Global variables to store data
+        let originalImagePath = '';
+        let textConfig = {};
+
+        // Switch between tabs
+        function switchTab(tabName) {
+            // Update tab styling
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.style.color = '#aaa';
+                tab.style.borderBottom = 'none';
+            });
+
+            document.getElementById('tab-' + tabName).classList.add('active');
+            document.getElementById('tab-' + tabName).style.color = '#8b5cf6';
+            document.getElementById('tab-' + tabName).style.borderBottom = '2px solid #8b5cf6';
+
+            // Show/hide forms
+            document.querySelectorAll('.form-container').forEach(form => {
+                form.style.display = 'none';
+            });
+
+            document.getElementById('form-' + tabName).style.display = 'block';
+        }
+
+        // Preview image favicon
+        function previewImageFavicon(input) {
+            if (input.files && input.files[0]) {
+                const formData = new FormData();
+                formData.append('image', input.files[0]);
+                formData.append('action', 'preview');
+                formData.append('favicon_type', 'image');
+
+                // Show loading state
+                const previewContainer = document.getElementById('image-preview-container');
+                previewContainer.style.display = 'block';
+                const previewSizes = previewContainer.querySelector('.preview-sizes');
+                previewSizes.innerHTML = '<div style="text-align: center; padding: 20px;">Generating previews...</div>';
+
+                // Send AJAX request
+                fetch('/tools/image-editing/favicon-generator', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Store original path for later use
+                        originalImagePath = data.original_path;
+
+                        // Display previews
+                        displayPreviews(data.preview_images, previewSizes);
+                    } else {
+                        previewSizes.innerHTML = `<div style="color: #ff6b6b; text-align: center; padding: 20px;">Error: ${data.error}</div>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    previewSizes.innerHTML = '<div style="color: #ff6b6b; text-align: center; padding: 20px;">An error occurred. Please try again.</div>';
+                });
+            }
+        }
+
+        // Preview text favicon
+        function previewTextFavicon() {
+            const text = document.getElementById('favicon-text').value || 'F';
+            const bgColor = document.getElementById('bg-color').value;
+            const textColor = document.getElementById('text-color').value;
+            const shapeElements = document.getElementsByName('shape');
+            let shape = 'square';
+
+            for (let i = 0; i < shapeElements.length; i++) {
+                if (shapeElements[i].checked) {
+                    shape = shapeElements[i].value;
+                    break;
+                }
+            }
+
+            const formData = new FormData();
+            formData.append('action', 'preview');
+            formData.append('favicon_type', 'text');
+            formData.append('text', text);
+            formData.append('bg_color', bgColor);
+            formData.append('text_color', textColor);
+            formData.append('shape', shape);
+
+            // Show loading state
+            const previewContainer = document.getElementById('text-preview-container');
+            previewContainer.style.display = 'block';
+            const previewSizes = previewContainer.querySelector('.preview-sizes');
+            previewSizes.innerHTML = '<div style="text-align: center; padding: 20px;">Generating previews...</div>';
+
+            // Send AJAX request
+            fetch('/tools/image-editing/favicon-generator', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Store text config for later use
+                    textConfig = data.text_config;
+
+                    // Display previews
+                    displayPreviews(data.preview_images, previewSizes);
+                } else {
+                    previewSizes.innerHTML = `<div style="color: #ff6b6b; text-align: center; padding: 20px;">Error: ${data.error}</div>`;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                previewSizes.innerHTML = '<div style="color: #ff6b6b; text-align: center; padding: 20px;">An error occurred. Please try again.</div>';
+            });
+        }
+
+        // Display preview images
+        function displayPreviews(previewImages, container) {
+            container.innerHTML = '';
+
+            // Sort sizes from smallest to largest
+            const sizes = Object.keys(previewImages).sort((a, b) => {
+                const sizeA = parseInt(a.split('x')[0]);
+                const sizeB = parseInt(b.split('x')[0]);
+                return sizeA - sizeB;
+            });
+
+            // Create preview elements
+            sizes.forEach(size => {
+                const previewDiv = document.createElement('div');
+                previewDiv.style.textAlign = 'center';
+
+                const previewImg = document.createElement('img');
+                previewImg.src = previewImages[size];
+                previewImg.alt = `Favicon preview at ${size}`;
+                previewImg.style.display = 'block';
+                previewImg.style.margin = '0 auto 8px auto';
+
+                // For small icons, display them larger but with pixelated rendering
+                if (parseInt(size.split('x')[0]) <= 32) {
+                    previewImg.style.width = '64px';
+                    previewImg.style.height = '64px';
+                    previewImg.style.imageRendering = 'pixelated';
+                } else {
+                    previewImg.style.width = `${parseInt(size.split('x')[0])}px`;
+                    previewImg.style.height = `${parseInt(size.split('x')[1])}px`;
+                }
+
+                const sizeLabel = document.createElement('div');
+                sizeLabel.textContent = size;
+                sizeLabel.style.color = '#aaa';
+                sizeLabel.style.fontSize = '0.9em';
+
+                previewDiv.appendChild(previewImg);
+                previewDiv.appendChild(sizeLabel);
+                container.appendChild(previewDiv);
+            });
+        }
+
+        // Generate favicon package
+        function generateFaviconPackage(type) {
+            const formData = new FormData();
+            formData.append('favicon_type', type);
+
+            if (type === 'image') {
+                if (!originalImagePath) {
+                    alert('Please upload an image first.');
+                    return;
+                }
+                formData.append('original_path', originalImagePath);
+
+                // Get selected size
+                const sizeSelect = document.getElementById('image-favicon-size');
+                formData.append('primary_size', sizeSelect.value);
+
+                // Update button state
+                const button = document.getElementById('generate-image-btn');
+                button.textContent = 'Generating...';
+                button.disabled = true;
+            } else if (type === 'text') {
+                if (!textConfig.text) {
+                    alert('Please enter text for your favicon.');
+                    return;
+                }
+
+                formData.append('text', textConfig.text);
+                formData.append('bg_color', textConfig.bg_color);
+                formData.append('text_color', textConfig.text_color);
+                formData.append('shape', textConfig.shape);
+
+                // Get selected size
+                const sizeSelect = document.getElementById('text-favicon-size');
+                formData.append('primary_size', sizeSelect.value);
+
+                // Update button state
+                const button = document.getElementById('generate-text-btn');
+                button.textContent = 'Generating...';
+                button.disabled = true;
+            }
+
+            // Create a form and submit it to trigger file download
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/tools/image-editing/favicon-generator';
+
+            for (const [key, value] of formData.entries()) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value;
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+
+            // Reset button state after a delay
+            setTimeout(() => {
+                if (type === 'image') {
+                    const button = document.getElementById('generate-image-btn');
+                    button.textContent = 'Generate Favicon Package';
+                    button.disabled = false;
+                } else if (type === 'text') {
+                    const button = document.getElementById('generate-text-btn');
+                    button.textContent = 'Generate Favicon Package';
+                    button.disabled = false;
+                }
+            }, 3000);
+        }
+
+        // Initialize text preview when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Trigger text preview on page load
+            setTimeout(previewTextFavicon, 500);
+        });
+    </script>
 </head>
 <body>
     <div class="hero">
-        <h1>Favicon Generator</h1>
-        <p>Create a professional favicon for your website in just a few clicks. Upload your image and let our tool do the rest!</p>
+        <h1>Professional Favicon Generator</h1>
+        <p>Create complete, cross-platform favicon packages for modern websites. Choose between image upload or text-based creation, customize with live previews, and download a comprehensive set of optimized files ready for any device or browser.</p>
     </div>
 
-    <div class="container">
-        <div class="input-section">
-            <form action="/tools/image-editing/favicon-generator" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image">
-                <span style="display:block;margin:10px 0;">or</span>
-                <input type="text" id="text" name="text" maxlength="32" placeholder="Enter text or emoji (max 32 chars)" style="width:220px;">
-                <button type="submit">Generate Favicon</button>
-            </form>
-        </div>
-
-        <div class="how-to">
-            <h2>How to Use the Favicon Generator</h2>
-            <div class="how-to-steps">
-                <div class="step">
-                    <span>1</span>
-                    <p>Upload your image file <b>or</b> enter text/emoji.</p>
+    <div class="input-section">
+        <div style="max-width: 800px; margin: 0 auto; background: #23263a; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+            <!-- Tabs for different favicon types -->
+            <div class="favicon-tabs" style="display: flex; margin-bottom: 25px; border-bottom: 1px solid #444;">
+                <div id="tab-image" class="tab active" onclick="switchTab('image')" style="padding: 12px 20px; cursor: pointer; font-weight: bold; color: #8b5cf6; border-bottom: 2px solid #8b5cf6;">
+                    Upload Image
                 </div>
-                <div class="step">
-                    <span>2</span>
-                    <p>Click the "Generate Favicon" button.</p>
-                </div>
-                <div class="step">
-                    <span>3</span>
-                    <p>Download your favicon file.</p>
+                <div id="tab-text" class="tab" onclick="switchTab('text')" style="padding: 12px 20px; cursor: pointer; font-weight: bold; color: #aaa;">
+                    Create from Text
                 </div>
             </div>
-        </div>
 
-        <div class="features-container" style="max-width: 900px; margin: 48px auto 0 auto; padding: 32px 20px; background: #181c2a; border-radius: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.10);">
-            <h2 style="text-align:center; margin-bottom: 28px; color: #fff;">Features of Our Favicon Generator</h2>
-            <div class="feature-cards" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;">
-                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
-                    <h3 style="color:#fff;">🎨 Supports Multiple Image Formats</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Our Favicon Generator accepts various image formats, including PNG, JPG, and JPEG. This flexibility ensures you can upload your preferred image type without the need for conversion, streamlining the favicon creation process.​</p>
+            <!-- Image Upload Form -->
+            <div id="form-image" class="form-container">
+                <p style="margin-bottom: 20px; color: #ccc;">Upload an image to convert into a complete favicon package. Square images work best.</p>
+                <div style="margin-bottom: 20px;">
+                    <input type="file" id="image-input" name="image" accept="image/*" onchange="previewImageFavicon(this)">
                 </div>
-                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
-                    <h3 style="color:#fff;">🖼️ Generates High-Quality Favicon Files</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Produce crisp and clear favicons that enhance your website's appearance. Our tool ensures that the generated favicon maintains high resolution and clarity, making your site stand out in browser tabs and bookmarks.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
-                    <h3 style="color:#fff;">⚡ Fast and Secure Processing</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Experience swift favicon generation with our optimized tool. Your images are processed securely, ensuring your data remains private while delivering results in seconds.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
-                    <h3 style="color:#fff;">💸 Completely Free to Use</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Enjoy unlimited access to our Favicon Generator without any charges. Whether you're a developer, designer, or website owner, our tool is available to everyone at no cost.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
-                    <h3 style="color:#fff;">🌐 Compatible with All Modern Browsers and Devices</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Our favicons are designed to be fully compatible with all major browsers, including Chrome, Firefox, Safari, and Edge, as well as various devices. This ensures a consistent and professional look for your website across all platforms.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 270px; max-width: 270px; min-width: 200px; margin: 0; background: #23263a; color: #fff;">
-                    <h3 style="color:#fff;">🛠️ Customizable Design Options</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Tailor your favicon to match your brand identity. Our tool offers customization features such as adjusting colors, shapes, and patterns, allowing you to create a unique favicon that reflects your brand's personality.</p>
+                <div id="image-preview-container" style="display: none; margin-top: 25px;">
+                    <h3 style="color: #fff; margin-bottom: 15px;">Preview at Different Sizes</h3>
+                    <div class="preview-sizes" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 25px;">
+                        <!-- Preview images will be inserted here -->
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <label style="display: block; margin-bottom: 10px; color: #fff;">Primary Favicon Size</label>
+                        <select id="image-favicon-size" style="width: 100%; max-width: 200px; padding: 10px; background: #181a20; border: 2px solid #8b5cf6; border-radius: 4px; color: #fff; font-size: 1.1em;">
+                            <option value="16x16">16x16 (Standard Favicon)</option>
+                            <option value="32x32" selected>32x32 (High-DPI Favicon)</option>
+                            <option value="48x48">48x48 (Windows Site Icon)</option>
+                            <option value="64x64">64x64 (Touch Icon)</option>
+                            <option value="128x128">128x128 (Chrome Web Store)</option>
+                        </select>
+                        <p style="color: #aaa; font-size: 0.9em; margin-top: 5px;">Note: All sizes will be included in the package, this just sets the primary size.</p>
+                    </div>
+
+                    <button id="generate-image-btn" onclick="generateFaviconPackage('image')" style="font-size: 1.13em; font-weight: bold; padding: 12px 32px; background: linear-gradient(90deg, #8b5cf6 0%, #4c1d95 100%); color: #fff; box-shadow: 0 2px 8px rgba(139,92,246,0.3); border: none; border-radius: 6px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+                        Generate Favicon Package
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Support Us Section (Consistent Style) -->
-        <div class="donate" style="text-align: center; margin: 40px 0;">
-            <h2>Support Us</h2>
-            <p>If you find this tool helpful, consider supporting us:</p>
-            <button onclick="window.open('https://www.buymeacoffee.com/willsblogger', '_blank')">☕ Buy Me a Coffee</button>
-            <div class="social-icons" style="margin-top: 15px;">
-                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/favicon-generator&text=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/favicon-generator" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/favicon-generator&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/favicon-generator&description=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/favicon-generator" target="_blank">
-                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
-                </a>
+            <!-- Text Form -->
+            <div id="form-text" class="form-container" style="display: none;">
+                <p style="margin-bottom: 20px; color: #ccc;">Create a favicon from text. Great for simple letter-based logos.</p>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: #fff;">Text (1-2 characters recommended)</label>
+                    <input type="text" id="favicon-text" maxlength="2" value="F" style="width: 100%; padding: 10px; background: #181a20; border: 2px solid #8b5cf6; border-radius: 4px; color: #fff; font-size: 1.1em;" oninput="previewTextFavicon()">
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 20px;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label style="display: block; margin-bottom: 8px; color: #fff;">Background Color</label>
+                        <input type="color" id="bg-color" value="#4a1d96" style="width: 100%; height: 40px; border: none; border-radius: 4px; cursor: pointer;" oninput="previewTextFavicon()">
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <label style="display: block; margin-bottom: 8px; color: #fff;">Text Color</label>
+                        <input type="color" id="text-color" value="#ffffff" style="width: 100%; height: 40px; border: none; border-radius: 4px; cursor: pointer;" oninput="previewTextFavicon()">
+                    </div>
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; margin-bottom: 8px; color: #fff;">Shape</label>
+                    <div style="display: flex; gap: 15px;">
+                        <label style="display: flex; align-items: center; color: #ccc; cursor: pointer;">
+                            <input type="radio" name="shape" value="square" checked onchange="previewTextFavicon()">
+                            <span style="margin-left: 8px;">Square</span>
+                        </label>
+                        <label style="display: flex; align-items: center; color: #ccc; cursor: pointer;">
+                            <input type="radio" name="shape" value="circle" onchange="previewTextFavicon()">
+                            <span style="margin-left: 8px;">Circle</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="text-preview-container" style="display: none; margin-top: 25px;">
+                    <h3 style="color: #fff; margin-bottom: 15px;">Preview at Different Sizes</h3>
+                    <div class="preview-sizes" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 25px;">
+                        <!-- Preview images will be inserted here -->
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <label style="display: block; margin-bottom: 10px; color: #fff;">Primary Favicon Size</label>
+                        <select id="text-favicon-size" style="width: 100%; max-width: 200px; padding: 10px; background: #181a20; border: 2px solid #8b5cf6; border-radius: 4px; color: #fff; font-size: 1.1em;">
+                            <option value="16x16">16x16 (Standard Favicon)</option>
+                            <option value="32x32" selected>32x32 (High-DPI Favicon)</option>
+                            <option value="48x48">48x48 (Windows Site Icon)</option>
+                            <option value="64x64">64x64 (Touch Icon)</option>
+                            <option value="128x128">128x128 (Chrome Web Store)</option>
+                        </select>
+                        <p style="color: #aaa; font-size: 0.9em; margin-top: 5px;">Note: All sizes will be included in the package, this just sets the primary size.</p>
+                    </div>
+
+                    <button id="generate-text-btn" onclick="generateFaviconPackage('text')" style="font-size: 1.13em; font-weight: bold; padding: 12px 32px; background: linear-gradient(90deg, #8b5cf6 0%, #4c1d95 100%); color: #fff; box-shadow: 0 2px 8px rgba(139,92,246,0.3); border: none; border-radius: 6px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+                        Generate Favicon Package
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="outer-container">
-        <div class="ads-container">
-            <!-- Google Ads Placeholder -->
-            <div class="google-ads">Your Ad Here</div>
-        </div>
-        <div class="main-content" style="max-width: 900px; margin: 0 auto; background: #181c2a; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 30px;">
-            <div class="faq">
-                <h2 style="color:#fff;">Frequently Asked Questions</h2>
-                <div class="faq-cards">
-                    <div class="card" style="background:#23263a; color:#fff;">
-                        <h3 style="color:#fff;">Q 1. What is a favicon?</h3>
-                        <p style="color:#e0e0e0; text-align:justify;">A favicon, short for "favorites icon," is a small square image that serves as the visual identifier for your website. It typically appears in browser tabs, bookmarks, history lists, and even in some search engine results next to your site’s title. Think of it like a miniature logo for your website – a quick, visual cue that helps users easily recognize and locate your site amongst a sea of open tabs or saved bookmarks.</p>
-                    </div>
-                    <div class="card" style="background:#23263a; color:#fff;">
-                        <h3 style="color:#fff;">Q 2. What image formats are supported?</h3>
-                        <p style="color:#e0e0e0; text-align:justify;">Our Favicon Generator accepts various image formats, including PNG, JPG, and JPEG. This flexibility ensures you can upload your preferred image type without the need for conversion, streamlining the favicon creation process.</p>
-                    </div>
-                    <div class="card" style="background:#23263a; color:#fff;">
-                        <h3 style="color:#fff;">Q 3. Is my uploaded image secure?</h3>
-                        <p style="color:#e0e0e0; text-align:justify;">Yes, your privacy is our priority. All uploaded images are processed securely and are not stored on our servers. The entire process happens dynamically within your browser, and all files are immediately downloaded to your device without being retained by our system.</p>
-                    </div>
-                    <div class="card" style="background:#23263a; color:#fff;">
-                        <h3 style="color:#fff;">Can I customize the favicon size?</h3>
-                        <p style="color:#e0e0e0; text-align:justify;">Currently, our tool generates a standard 64x64 pixel favicon, which is widely compatible with most browsers and platforms. We are working on adding support for custom sizes to cater to specific requirements.​</p>
-                    </div>
-                </div>
+    <div class="how-it-works">
+        <h2>How Our Professional Favicon Generator Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Choose Your Creation Method</h3>
+                <p>Select between two powerful options: upload your own image or create a text-based favicon. The text option is perfect for creating simple, clean letter-based logos without any design skills.</p>
             </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Customize & Preview</h3>
+                <p>For image uploads, see instant previews at multiple sizes. For text favicons, customize the text, colors, and shape (square or circle), with real-time previews showing exactly how your favicon will look at different sizes.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Select Your Primary Size</h3>
+                <p>Choose your preferred primary favicon size from options ranging from 16×16 to 128×128 pixels. Each size is optimized for different use cases, from standard browser tabs to high-resolution displays.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Generate Complete Package</h3>
+                <p>With one click, receive a comprehensive favicon package containing all necessary files for modern websites. This includes the standard favicon.ico, multiple PNG sizes, Apple Touch icons, Android Chrome icons, and Microsoft Tile icons.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Implement with Ease</h3>
+                <p>Your download includes ready-to-use HTML code that you can simply copy and paste into your website's &lt;head&gt; section. This ensures your favicon displays correctly across all browsers, devices, and platforms.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="features">
+        <h2>Advanced Features of Our Professional Favicon Generator</h2>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <h3>🎨 Dual Creation Methods</h3>
+                <p>Choose between uploading your own image or creating a text-based favicon with custom colors and shapes. Perfect for both designers and non-designers alike.</p>
+            </div>
+            <div class="feature-card">
+                <h3>👁️ Live Preview Technology</h3>
+                <p>See exactly how your favicon will look at multiple sizes before generating. Make adjustments in real-time with instant visual feedback.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📦 Complete Favicon Package</h3>
+                <p>Receive a comprehensive set of files including favicon.ico, multiple PNG sizes, Apple Touch icons, Android Chrome icons, and Microsoft Tile icons - everything modern websites need.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📏 Multi-Size Optimization</h3>
+                <p>Your favicon is optimized for all screen sizes and resolutions, from standard 16×16 browser tabs to 512×512 high-resolution app icons, ensuring perfect display everywhere.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔄 Cross-Platform Compatibility</h3>
+                <p>Generated favicons work flawlessly across all browsers (Chrome, Firefox, Safari, Edge), operating systems (Windows, macOS, iOS, Android), and devices (desktop, tablet, mobile).</p>
+            </div>
+            <div class="feature-card">
+                <h3>🧩 Ready-to-Use HTML Code</h3>
+                <p>Receive HTML code snippets that you can directly copy into your website, eliminating guesswork and ensuring proper implementation across all platforms.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚙️ Primary Size Selection</h3>
+                <p>Choose your preferred primary favicon size based on your specific needs, with options ranging from standard 16×16 to large 128×128 for different use cases.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🎭 Shape Customization</h3>
+                <p>For text-based favicons, choose between square or circular shapes to match your brand's aesthetic and stand out in browser tabs.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔒 Secure Local Processing</h3>
+                <p>All processing happens in your browser. Your images and designs are never uploaded to external servers, ensuring complete privacy and security.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💯 Professional-Grade & Free</h3>
+                <p>Get enterprise-level favicon generation capabilities completely free. Create unlimited favicons with no watermarks, restrictions, or hidden costs.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>Q1: What is a favicon and why is it important?</h3>
+            <p>A favicon (short for "favorite icon") is a small, iconic image that represents your website. It appears in browser tabs, bookmarks, history lists, mobile home screens, and other areas where your website is referenced. A professional favicon significantly enhances brand recognition, improves user experience, and makes your site look more polished and trustworthy.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q2: Why does your tool generate so many different files?</h3>
+            <p>Modern websites need multiple favicon formats and sizes to display correctly across all platforms. Our comprehensive package includes: favicon.ico for traditional browsers, PNG files in various sizes for high-resolution displays, Apple Touch icons for iOS devices, Android Chrome icons for Android devices, and Microsoft Tile icons for Windows. This ensures your favicon looks perfect everywhere.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q3: What's the difference between the text-based and image upload options?</h3>
+            <p>The image upload option allows you to convert any existing logo or image into a favicon. The text-based option lets you create a simple, clean favicon using 1-2 characters with customizable colors and shapes. The text option is perfect for creating minimalist, letter-based logos without any design skills or when you don't have a suitable image.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q4: What does the "Primary Size" option do?</h3>
+            <p>The Primary Size option lets you select which size will be emphasized in your favicon.ico file. While all sizes are included in your package, this setting determines which size will be prioritized for optimal display in different contexts. For example, 32x32 is ideal for high-DPI displays, while 16x16 is the traditional favicon size.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q5: How do I implement all these favicon files on my website?</h3>
+            <p>Your download includes a text file with ready-to-use HTML code. Simply copy this code and paste it into the &lt;head&gt; section of your HTML. Then upload all the favicon files to your website's root directory. The HTML code references all the different favicon sizes and formats, ensuring proper display across all platforms. For WordPress sites, you can use a plugin or add the code to your theme's header.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q6: Why should I use a complete favicon package instead of just a single .ico file?</h3>
+            <p>While a basic favicon.ico file works for traditional browsers, modern devices and platforms require specific formats and sizes for optimal display. Using our complete package ensures your favicon looks crisp and professional on high-resolution displays, mobile devices, and when users add your site to their home screens. It's the difference between a basic website and a professional, cross-platform web presence.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q7: What image formats and sizes work best for uploading?</h3>
+            <p>Our tool accepts most common image formats including PNG, JPG, JPEG, and GIF. For best results, we recommend using a square PNG image with transparency, at least 512×512 pixels in size, with a simple design that remains recognizable at small sizes. Logos with minimal detail and strong contrast work best as favicons.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q8: Is there a limit to how many favicons I can create?</h3>
+            <p>No, there's no limit. You can generate as many favicon packages as you need, completely free of charge. This makes it easy to experiment with different designs, colors, and text options until you find the perfect favicon for your website or to create favicons for multiple projects.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Q9: Are my images and designs kept private?</h3>
+            <p>Yes, absolutely. All processing happens directly in your browser. Your images and designs are never uploaded to external servers or stored in any database. After you download your favicon package, no trace of your design remains on our system, ensuring complete privacy and security.</p>
+        </div>
+    </div>
+
+    <div class="support-us">
+        <h2>Support Us</h2>
+        <p>If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
+        <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="coffee-btn">☕ Buy Me a Coffee</a>
+        <div class="social-icons">
+            <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/tools/image-editing/favicon-generator&text=Check+out+this+amazing+favicon+generator+tool!" target="_blank">
+                <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/tools/image-editing/favicon-generator" target="_blank">
+                <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/tools/image-editing/favicon-generator&title=Free+Favicon+Generator+Tool&summary=Check+out+this+amazing+tool!" target="_blank">
+                <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/tools/image-editing/favicon-generator&description=Free+Favicon+Generator+Tool" target="_blank">
+                <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://wa.me/?text=Check+out+this+amazing+favicon+generator+tool:+http://127.0.0.1:5000/tools/image-editing/favicon-generator" target="_blank">
+                <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
+            </a>
         </div>
     </div>
 

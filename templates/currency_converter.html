@@ -10,11 +10,11 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
+            background-color: #121212;
+            color: #e0e0e0;
         }
         .hero {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #0d5522 0%, #083818 100%);
             color: white;
             padding: 60px 20px;
             text-align: center;
@@ -33,16 +33,16 @@
             max-width: 1000px;
             margin: 30px auto;
             padding: 30px;
-            background: #fff;
+            background: #23263a;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
         .converter {
             text-align: center;
             padding: 30px;
-            background: #f8f9fa;
+            background: #1a1d2e;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .form-group {
             margin-bottom: 20px;
@@ -52,50 +52,56 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #333;
+            color: #e0e0e0;
         }
         .form-row {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 10px;
+            justify-content: center;
+            gap: 15px;
             margin-bottom: 20px;
         }
         .form-row .form-group {
-            flex: 1;
+            flex: 0 1 auto;
             margin-bottom: 0;
+            width: 180px;
         }
         .converter input, .converter select {
-            padding: 15px;
+            padding: 12px;
             width: 100%;
-            border: 2px solid #e0e0e0;
+            border: 2px solid #0d5522;
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s ease;
             box-sizing: border-box;
+            background: #181a20;
+            color: #e0e0e0;
         }
         .converter input:focus, .converter select:focus {
-            border-color: #2a5298;
+            border-color: #0d5522;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.2);
+            box-shadow: 0 0 0 3px rgba(13, 85, 34, 0.2);
+            transform: translateY(-2px);
         }
         .convert-button {
             padding: 15px 30px;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(90deg, #0d5522 0%, #083818 100%);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: bold;
             transition: all 0.3s ease;
             width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
+            max-width: 240px;
+            margin: 20px auto 0;
             display: block;
+            box-shadow: 0 4px 12px rgba(13,85,34,0.15);
         }
         .convert-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 16px rgba(13,85,34,0.25);
         }
         .swap-icon {
             display: flex;
@@ -103,24 +109,25 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            background: #f0f4f8;
+            background: #23263a;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 25px;
+            border: 2px solid #0d5522;
         }
         .swap-icon:hover {
-            background: #e0e7f0;
+            background: #0d5522;
             transform: rotate(180deg);
         }
         .swap-icon span {
             font-size: 20px;
-            color: #1e3c72;
+            color: #e0e0e0;
         }
         .result {
             margin-top: 25px;
             font-size: 1.4em;
-            color: #1e3c72;
+            color: #ffffff;
             font-weight: bold;
         }
         .features {
@@ -131,13 +138,24 @@
         }
         .feature-card {
             padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            background: #23263a;
+            border-radius: 12px;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(13,85,34,0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(13,85,34,0.15);
         }
         .feature-card h3 {
-            color: #1e3c72;
+            color: #ffffff;
             margin-bottom: 10px;
+        }
+        .feature-card p {
+            color: #e0e0e0;
+            line-height: 1.5;
         }
         .faq-section {
             margin: 40px 0;
@@ -145,15 +163,67 @@
         .faq-item {
             margin-bottom: 20px;
             padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            background: #23263a;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid rgba(13,85,34,0.1);
         }
         .faq-item h3 {
-            color: #1e3c72;
+            color: #ffffff;
             margin-bottom: 10px;
         }
+        .faq-item p {
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        .support-section {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: #23263a;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .support-section h2 {
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+        .support-section p {
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+        .coffee-button {
+            display: inline-block;
+            background-color: #FFDD00;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+        .coffee-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s ease;
+        }
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
         footer {
-            background: #1e3c72;
+            background: #0d5522;
             color: white;
             padding: 40px 20px;
             margin-top: 60px;
@@ -206,28 +276,31 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            margin: 20px 0;
+            gap: 15px;
+            margin: 25px 0;
             font-size: 1.6em;
         }
         .from-currency, .to-currency {
-            padding: 10px 20px;
-            background: #f0f8ff;
+            padding: 12px 24px;
+            background: #1a1d2e;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            color: #e0e0e0;
+            border: 1px solid rgba(13,85,34,0.2);
         }
         .to-currency {
-            background: #e6f7ff;
+            background: #0d5522;
             font-weight: bold;
-            color: #1e3c72;
+            color: #ffffff;
         }
         .equals {
             font-size: 1.5em;
-            color: #666;
+            color: #e0e0e0;
         }
         .exchange-rate {
-            color: #666;
-            margin-top: 10px;
+            color: #a0a0a0;
+            margin-top: 15px;
+            font-size: 0.9em;
         }
     </style>
 </head>
@@ -237,71 +310,140 @@
         <p>Fast, free, and accurate currency conversion with real-time exchange rates</p>
     </div>
 
-    <div class="container">
-        <div class="converter">
-            <form id="currency-converter-form">
-                <div class="form-group">
-                    <label for="amount">Amount:</label>
-                    <input type="number" id="amount" placeholder="Enter amount" required step="any" min="0.01">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="from-currency">From:</label>
-                        <select id="from-currency">
-                            <!-- Currencies will be added dynamically via JavaScript -->
-                        </select>
-                    </div>
-                    <div class="swap-icon" onclick="swapCurrencies()">
-                        <span>⇄</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="to-currency">To:</label>
-                        <select id="to-currency">
-                            <!-- Currencies will be added dynamically via JavaScript -->
-                        </select>
-                    </div>
-                </div>
-                <button type="button" onclick="convertCurrency()" class="convert-button">Convert Now</button>
-            </form>
-            <div class="result" id="result"></div>
+    <div class="main-content" style="display: flex; flex-direction: column; align-items: center; margin: 0 auto; max-width: 800px; position: relative;">
+        <div class="ads left" style="position: fixed; top: 0; bottom: 0; left: 0; width: 160px; background: #1e1e1e; border: 1px solid #333; border-radius: 8px; padding: 10px; text-align: center; color: #cccccc;">
+            <p>Ad Space</p>
+        </div>
+        <div class="ads right" style="position: fixed; top: 0; bottom: 0; right: 0; width: 160px; background: #1e1e1e; border: 1px solid #333; border-radius: 8px; padding: 10px; text-align: center; color: #cccccc;">
+            <p>Ad Space</p>
         </div>
 
-        <div class="features">
+        <div class="container" style="max-width: 600px; margin: 20px auto; padding: 30px; background: #23263a; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);">
+            <div class="converter">
+                <form id="currency-converter-form">
+                    <div class="form-group" style="max-width: 200px; margin: 0 auto 20px auto;">
+                        <label for="amount">Amount:</label>
+                        <input type="number" id="amount" placeholder="Enter amount" required step="any" min="0.01" style="width: 200px;">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="width: 150px;">
+                            <label for="from-currency">From:</label>
+                            <select id="from-currency" style="width: 150px;">
+                                <!-- Currencies will be added dynamically via JavaScript -->
+                            </select>
+                        </div>
+                        <div class="swap-icon" onclick="swapCurrencies()">
+                            <span>⇄</span>
+                        </div>
+                        <div class="form-group" style="width: 150px;">
+                            <label for="to-currency">To:</label>
+                            <select id="to-currency" style="width: 150px;">
+                                <!-- Currencies will be added dynamically via JavaScript -->
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" onclick="convertCurrency()" class="convert-button">Convert Now</button>
+                </form>
+                <div class="result" id="result"></div>
+            </div>
+        </div>
+
+        <div class="container" style="max-width: 800px; margin: 40px auto; padding: 30px; background: #23263a; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #fff;">How to Use Our Currency Converter</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 28px;">
+                <div style="flex: 1 1 220px; max-width: 220px; min-width: 200px; margin: 0; background: #1a1d2e; color: #fff; padding: 20px 15px; border-radius: 12px; box-sizing: border-box; position: relative;">
+                    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #0d5522; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">1</div>
+                    <h3 style="color:#fff; margin-top: 20px; text-align: center; font-size: 1.2em;">Enter Amount</h3>
+                    <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Input the amount you want to convert. You can use decimals for precise conversions of any value.</p>
+                </div>
+                <div style="flex: 1 1 220px; max-width: 220px; min-width: 200px; margin: 0; background: #1a1d2e; color: #fff; padding: 20px 15px; border-radius: 12px; box-sizing: border-box; position: relative;">
+                    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #0d5522; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">2</div>
+                    <h3 style="color:#fff; margin-top: 20px; text-align: center; font-size: 1.2em;">Select Currencies</h3>
+                    <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Choose the currency you're converting from and the currency you want to convert to. Use the swap button to quickly reverse the selection.</p>
+                </div>
+                <div style="flex: 1 1 220px; max-width: 220px; min-width: 200px; margin: 0; background: #1a1d2e; color: #fff; padding: 20px 15px; border-radius: 12px; box-sizing: border-box; position: relative;">
+                    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; line-height: 40px; background-color: #0d5522; color: white; border-radius: 50%; font-size: 1.3em; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">3</div>
+                    <h3 style="color:#fff; margin-top: 20px; text-align: center; font-size: 1.2em;">Get Results</h3>
+                    <p style="text-align:center; color:#e0e0e0; font-size:0.95em;">Click the Convert button to see your result with the current exchange rate. Results update in real-time with the latest rates.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="max-width: 800px; margin: 40px auto 20px;">
+            <h2 style="text-align: center; color: #fff; margin-bottom: 30px; font-size: 1.8em;">Features of Our Currency Converter</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; max-width: 800px; margin: 0 auto;">
             <div class="feature-card">
                 <h3>Real-Time Rates</h3>
-                <p>Get the most up-to-date exchange rates from reliable sources</p>
+                <p>Get the most up-to-date exchange rates from reliable financial data sources. Our rates are refreshed regularly to ensure accuracy in your currency conversions.</p>
             </div>
             <div class="feature-card">
                 <h3>170+ Currencies</h3>
-                <p>Support for major and minor currencies worldwide</p>
+                <p>Support for major and minor currencies worldwide, including all popular currencies like USD, EUR, GBP, JPY, as well as emerging market currencies and digital currencies.</p>
             </div>
             <div class="feature-card">
                 <h3>Fast & Free</h3>
-                <p>Quick conversions with no hidden fees or charges</p>
+                <p>Quick conversions with no hidden fees or charges. Our tool is completely free to use with unlimited conversions and no registration required.</p>
+            </div>
+            <div class="feature-card">
+                <h3>User-Friendly Interface</h3>
+                <p>Simple, intuitive design that makes currency conversion easy for everyone. The clean layout helps you quickly find what you need without confusion.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Currency Swapping</h3>
+                <p>Easily switch between your selected currencies with one click using our convenient swap button. Perfect for comparing rates in both directions.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Mobile Responsive</h3>
+                <p>Use our currency converter on any device - desktop, tablet, or smartphone. The responsive design adapts perfectly to your screen size.</p>
             </div>
         </div>
 
-        <div class="faq-section">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3>How accurate are the exchange rates?</h3>
-                <p>Our exchange rates are updated in real-time from reliable financial data providers, ensuring high accuracy for your currency conversions.</p>
+        <div class="container" style="max-width: 800px; margin: 40px auto; padding: 30px; background: #23263a; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #fff;">Frequently Asked Questions</h2>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div class="faq-item">
+                    <h3>How accurate are the exchange rates?</h3>
+                    <p>Our exchange rates are updated in real-time from reliable financial data providers, ensuring high accuracy for your currency conversions.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How often are the rates updated?</h3>
+                    <p>Exchange rates are updated every hour to reflect the latest market movements and ensure accuracy in your conversions.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is there a limit to how many conversions I can do?</h3>
+                    <p>No, you can perform as many currency conversions as you need, completely free of charge.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I trust these exchange rates for business transactions?</h3>
+                    <p>While our rates are highly accurate, for business transactions we recommend consulting with financial institutions as actual transaction rates may vary.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Why do exchange rates fluctuate?</h3>
+                    <p>Exchange rates change due to various factors including economic indicators, political events, and market sentiment.</p>
+                </div>
             </div>
-            <div class="faq-item">
-                <h3>How often are the rates updated?</h3>
-                <p>Exchange rates are updated every hour to reflect the latest market movements and ensure accuracy in your conversions.</p>
+        </div>
+
+        <div class="container" style="max-width: 800px; margin: 40px auto; padding: 30px; background: #23263a; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #fff;">Support Us</h2>
+            <p style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">If you find this currency converter helpful, consider supporting us to keep these tools free and updated!</p>
+            <div style="text-align: center;">
+                <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="coffee-button">
+                    Buy Me a Coffee ☕
+                </a>
             </div>
-            <div class="faq-item">
-                <h3>Is there a limit to how many conversions I can do?</h3>
-                <p>No, you can perform as many currency conversions as you need, completely free of charge.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Can I trust these exchange rates for business transactions?</h3>
-                <p>While our rates are highly accurate, for business transactions we recommend consulting with financial institutions as actual transaction rates may vary.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Why do exchange rates fluctuate?</h3>
-                <p>Exchange rates change due to various factors including economic indicators, political events, and market sentiment.</p>
+            <p style="text-align: center; color: #e0e0e0; margin: 20px 0;">Your support helps us maintain and improve our free tools for everyone to use.</p>
+            <div class="social-icons">
+                <a href="https://twitter.com/share?url=https://willsblogger.com/tools/currency-converter" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="social-icon">
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://willsblogger.com/tools/currency-converter" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://willsblogger.com/tools/currency-converter" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" class="social-icon">
+                </a>
             </div>
         </div>
     </div>
@@ -310,8 +452,8 @@
         <p>&copy; 2023-2025 Free AI Tools. All rights reserved.</p>
         <p>
             <a href="/">Home</a> |
-            <a href="/privacy-policy">Privacy Policy</a> |
-            <a href="/terms-of-use">Terms of Use</a>
+            <a href="/privacy-policy.html">Privacy Policy</a> |
+            <a href="/terms-of-use.html">Terms of Use</a>
         </p>
     </footer>
 
