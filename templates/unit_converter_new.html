@@ -4,20 +4,20 @@
 {% block description %}Effortlessly convert between various units with our intuitive and accurate online converter. Support for length, weight, temperature, volume and more.{% endblock %}
 {% block keywords %}unit converter, measurement converter, online converter, length converter, weight converter, temperature converter, volume converter{% endblock %}
 
-{% block hero_color %}#0052cc{% endblock %}
+{% block hero_color %}#1a4d2e{% endblock %}
 {% block hero_title %}Universal Unit Converter{% endblock %}
 {% block hero_subtitle %}Effortlessly convert between various units with our intuitive and accurate converter.{% endblock %}
 
-{% block button_gradient_start %}#0052cc{% endblock %}
-{% block button_gradient_end %}#003d99{% endblock %}
-{% block button_shadow_color %}rgba(0,82,204,0.3){% endblock %}
-{% block button_shadow_hover_color %}rgba(0,82,204,0.4){% endblock %}
+{% block button_gradient_start %}#1a4d2e{% endblock %}
+{% block button_gradient_end %}#0f2e1b{% endblock %}
+{% block button_shadow_color %}rgba(26,77,46,0.3){% endblock %}
+{% block button_shadow_hover_color %}rgba(26,77,46,0.4){% endblock %}
 
-{% block step_title_color %}#ffffff{% endblock %}
-{% block step_number_bg_color %}#0052cc{% endblock %}
-{% block feature_title_color %}#ffffff{% endblock %}
-{% block faq_title_color %}#ffffff{% endblock %}
-{% block support_title_color %}#ffffff{% endblock %}
+{% block step_title_color %}#1a4d2e{% endblock %}
+{% block step_number_bg_color %}#1a4d2e{% endblock %}
+{% block feature_title_color %}#1a4d2e{% endblock %}
+{% block faq_title_color %}#1a4d2e{% endblock %}
+{% block support_title_color %}#1a4d2e{% endblock %}
 
 {% block additional_styles %}
 .converter-container {
@@ -27,7 +27,7 @@
     padding: 38px 32px 40px 32px;
     margin: 40px auto;
     max-width: 600px;
-    border: 1px solid rgba(0,82,204,0.1);
+    border: 1px solid rgba(26,77,46,0.1);
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -39,7 +39,7 @@
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(90deg, #0052cc, #003d99);
+    background: linear-gradient(90deg, #1a4d2e, #0f2e1b);
 }
 .converter-form {
     margin: 20px 0;
@@ -55,18 +55,18 @@
     max-width: 300px;
     padding: 12px 15px;
     margin-bottom: 20px;
-    border: 2px solid #0052cc;
+    border: 2px solid #1a4d2e;
     border-radius: 8px;
     background: #181a20;
     color: #e0e0e0;
     font-size: 1.1em;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0,82,204,0.12);
+    box-shadow: 0 4px 12px rgba(26,77,46,0.12);
     transition: all 0.2s ease;
 }
 .converter-form select:hover, .converter-form input:hover {
-    border-color: #0052cc;
-    box-shadow: 0 6px 16px rgba(0,82,204,0.18);
+    border-color: #1a4d2e;
+    box-shadow: 0 6px 16px rgba(26,77,46,0.18);
 }
 .converter-form select:focus, .converter-form input:focus {
     border: 2px solid #ffc107;
@@ -85,7 +85,7 @@
     max-width: 200px;
 }
 .convert-button {
-    background: linear-gradient(90deg, #0052cc 0%, #003d99 100%);
+    background: linear-gradient(90deg, #1a4d2e 0%, #0f2e1b 100%);
     color: white;
     padding: 16px 32px;
     border: none;
@@ -97,18 +97,18 @@
     max-width: 300px;
     margin: 20px auto;
     display: block;
-    box-shadow: 0 4px 12px rgba(0,82,204,0.15);
+    box-shadow: 0 4px 12px rgba(26,77,46,0.15);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 .convert-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0,82,204,0.25);
+    box-shadow: 0 6px 16px rgba(26,77,46,0.25);
 }
 .refresh-btn {
     background: #1a1d2e;
     color: white;
     padding: 16px;
-    border: 1px solid #0052cc;
+    border: 1px solid #1a4d2e;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1.2em;
@@ -117,7 +117,7 @@
 .refresh-btn:hover {
     background: #23263a;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0,82,204,0.25);
+    box-shadow: 0 6px 16px rgba(26,77,46,0.25);
 }
 .refresh-btn:hover span {
     transform: rotate(180deg);
@@ -132,7 +132,7 @@
     padding: 20px;
     background: #1a1d2e;
     border-radius: 10px;
-    border: 1px solid rgba(0,82,204,0.15);
+    border: 1px solid rgba(26,77,46,0.15);
     color: #e0e0e0;
     font-size: 1.3em;
     max-width: 400px;
@@ -144,7 +144,7 @@
 <div class="converter-container">
     <h2 style="color: #ffffff; margin-top: 0;">Unit Converter Tool</h2>
     <p style="color: #e0e0e0; margin-bottom: 25px;">Select a category, input a value, and view the conversion instantly:</p>
-
+    
     <form class="converter-form">
         <label for="category">Category:</label>
         <select id="category">
@@ -156,10 +156,10 @@
             <option value="speed">Speed</option>
             <option value="time">Time</option>
         </select>
-
+        
         <label for="inputValue">Value:</label>
         <input type="number" id="inputValue" placeholder="Enter value">
-
+        
         <div class="form-row">
             <div>
                 <label for="unitFrom">From:</label>
@@ -174,7 +174,7 @@
                 </select>
             </div>
         </div>
-
+        
         <div style="display: flex; justify-content: center; gap: 15px; max-width: 300px; margin: 20px auto 0;">
             <button type="button" class="convert-button" style="margin: 0; flex: 3;">Convert</button>
             <button type="button" class="refresh-btn" style="flex: 1;" onclick="resetForm()">
@@ -182,7 +182,7 @@
             </button>
         </div>
     </form>
-
+    
     <div class="result-display" id="result">Conversion result will appear here.</div>
 </div>
 
@@ -355,7 +355,7 @@
         }
 
         resultDisplay.textContent = result !== undefined ? `${value} ${fromUnit} = ${result} ${toUnit}` : 'Conversion not supported.';
-
+        
         // Add animation to the result display
         resultDisplay.style.animation = 'none';
         setTimeout(() => {
@@ -366,11 +366,11 @@
     function resetForm() {
         inputValue.value = '';
         resultDisplay.textContent = 'Conversion result will appear here.';
-
+        
         // Add rotation animation to refresh button
         const refreshIcon = document.querySelector('.refresh-btn span');
         refreshIcon.style.transform = 'rotate(360deg)';
-
+        
         // Reset rotation after animation completes
         setTimeout(() => {
             refreshIcon.style.transform = 'rotate(0deg)';
@@ -389,7 +389,7 @@
             "Yards": 0.9144,
             "Miles": 1609.34
         };
-
+        
         // Convert to meters first
         const meters = value * toMeters[from];
         // Then convert from meters to the target unit
@@ -407,7 +407,7 @@
             "Tons": 1000000,
             "Stone": 6350.29
         };
-
+        
         // Convert to grams first
         const grams = value * toGrams[from];
         // Then convert from grams to the target unit
@@ -416,7 +416,7 @@
 
     function convertTemperature(value, from, to) {
         if (from === to) return value;
-
+        
         // Convert to Celsius first
         let celsius;
         if (from === 'Celsius') {
@@ -426,7 +426,7 @@
         } else if (from === 'Kelvin') {
             celsius = value - 273.15;
         }
-
+        
         // Convert from Celsius to target unit
         if (to === 'Celsius') {
             return celsius;
@@ -449,7 +449,7 @@
             "Fluid Ounces": 0.0295735,
             "Cups": 0.236588
         };
-
+        
         // Convert to liters first
         const liters = value * toLiters[from];
         // Then convert from liters to the target unit
@@ -466,7 +466,7 @@
             "Acres": 4046.86,
             "Hectares": 10000
         };
-
+        
         // Convert to square meters first
         const squareMeters = value * toSquareMeters[from];
         // Then convert from square meters to the target unit
@@ -482,7 +482,7 @@
             "Knots": 0.514444,
             "Feet per Second": 0.3048
         };
-
+        
         // Convert to meters per second first
         const mps = value * toMetersPerSecond[from];
         // Then convert from meters per second to the target unit
@@ -500,7 +500,7 @@
             "Months": 2592000, // Approximation: 30 days
             "Years": 31536000 // Approximation: 365 days
         };
-
+        
         // Convert to seconds first
         const seconds = value * toSeconds[from];
         // Then convert from seconds to the target unit
