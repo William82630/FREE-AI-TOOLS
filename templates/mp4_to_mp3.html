@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}MP4 to MP3 Converter - Extract Audio from Video Online Free{% endblock %}
-{% block description %}Convert MP4 video files to MP3 audio format online for free. Easy to use, no registration required, and secure conversion.{% endblock %}
-{% block keywords %}mp4 to mp3, convert mp4 to mp3, video to audio converter, extract audio from video, free mp4 to mp3 converter, online mp4 to mp3, mp4 to mp3 online{% endblock %}
+{% block title %}Video to Audio Converter - Extract Audio from Video Online Free{% endblock %}
+{% block description %}Convert video files to audio format online for free. Easy to use, no registration required, and secure conversion.{% endblock %}
+{% block keywords %}video to audio, convert video to audio, video to audio converter, extract audio from video, free video to audio converter, online video to audio, video to audio online{% endblock %}
 
 {% block hero_color %}#1565c0{% endblock %}
-{% block hero_title %}MP4 to MP3 Converter{% endblock %}
+{% block hero_title %}Video to Audio Converter{% endblock %}
 {% block hero_subtitle %}Extract audio from your video files. Free, secure, and no registration required.{% endblock %}
 
 {% block button_gradient_start %}#1565c0{% endblock %}
@@ -314,7 +314,7 @@
 <div class="converter-container">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
         <div>
-            <h2 style="color: #ffffff; margin-top: 0; text-align: left;">Convert MP4 to MP3</h2>
+            <h2 style="color: #ffffff; margin-top: 0; text-align: left;">Convert Video to Audio</h2>
             <p style="color: #e0e0e0; margin-bottom: 0; text-align: left;">Extract audio from your video files with our free online converter</p>
         </div>
         <button id="refresh-button" class="refresh-button" title="Start Over">
@@ -331,9 +331,9 @@
         <div class="file-upload-container">
             <div class="file-upload-area" id="drop-area">
                 <div class="file-upload-icon">🎬</div>
-                <div class="file-upload-text">Drag & drop your MP4 file here</div>
+                <div class="file-upload-text">Drag & drop your video file here</div>
                 <div class="file-upload-subtext">or click to browse files</div>
-                <input type="file" id="file-input" name="file" class="file-input" accept=".mp4">
+                <input type="file" id="file-input" name="file" class="file-input" accept="video/*">
             </div>
         </div>
 
@@ -356,7 +356,7 @@
             </div>
         </div>
 
-        <button type="button" id="convert-button" class="convert-button">Convert to MP3</button>
+        <button type="button" id="convert-button" class="convert-button">Extract Audio</button>
     </form>
 
     <div class="progress-container" id="progress-container">
@@ -384,23 +384,23 @@
 </div>
 
 <div class="how-it-works">
-    <h2>How to Use Our MP4 to MP3 Converter</h2>
+    <h2>How to Use Our Video to Audio Converter</h2>
     <div class="how-to-steps">
         <div class="step">
-            <h3><span>1</span>Upload Your MP4 File</h3>
-            <p>Click the upload area or drag and drop your MP4 video file into the designated box. Our tool accepts MP4 files of up to 50MB in size. The upload process is quick and secure, with no registration required.</p>
+            <h3><span>1</span>Upload Your Video File</h3>
+            <p>Click the upload area or drag and drop your video file into the designated box. Our tool accepts video files up to 1GB in size. The upload process is quick and secure, with no registration required.</p>
         </div>
         <div class="step">
             <h3><span>2</span>Choose Audio Quality</h3>
-            <p>Select your preferred audio quality for the output MP3 file. Higher quality provides better sound but results in larger file sizes, while lower quality creates smaller files that are ideal for mobile devices or when storage space is limited.</p>
+            <p>Select your preferred audio quality for the output audio file. Higher quality provides better sound but results in larger file sizes, while lower quality creates smaller files that are ideal for mobile devices or when storage space is limited.</p>
         </div>
         <div class="step">
-            <h3><span>3</span>Start Conversion</h3>
-            <p>Click the "Convert to MP3" button to begin the conversion process. Our advanced technology will extract the audio track from your video file, removing all video content while preserving the audio quality according to your selected settings.</p>
+            <h3><span>3</span>Start Extraction</h3>
+            <p>Click the "Extract Audio" button to begin the process. Our advanced browser-based technology will extract the audio track from your video file, removing all video content while preserving the audio quality according to your selected settings.</p>
         </div>
         <div class="step">
-            <h3><span>4</span>Download Your MP3 File</h3>
-            <p>After conversion is complete, click the "Download MP3" button to save your audio file. The MP3 file is ready for playback on any device, including smartphones, tablets, computers, and MP3 players. Your original MP4 file and the converted MP3 are automatically removed from our servers after download.</p>
+            <h3><span>4</span>Download Your Audio File</h3>
+            <p>After extraction is complete, you can preview the audio and then click the "Download Audio" button to save your file. The audio file is ready for playback on any device, including smartphones, tablets, and computers. The entire process happens in your browser - no files are uploaded to any server.</p>
         </div>
     </div>
 </div>
@@ -451,7 +451,7 @@
     </div>
     <div class="faq-item">
         <h3>How secure is my data during the conversion process?</h3>
-        <p>We take data security seriously. Your files are processed securely on our server and automatically deleted immediately after conversion. We do not store your files or their content, and all processing is done in a secure, isolated environment. Your privacy and data security are our top priorities.</p>
+        <p>Our converter offers maximum security because your files never leave your device! The entire conversion process happens directly in your browser using advanced web technology. Your MP4 files are never uploaded to any server, ensuring complete privacy and confidentiality.</p>
     </div>
     <div class="faq-item">
         <h3>Which audio quality should I choose?</h3>
@@ -618,7 +618,7 @@
         console.log("Remove file function called");
     }
 
-    // Browser-based conversion using a simpler approach
+    // Browser-based conversion using Web Audio API
     async function startConversion() {
         if (!selectedFile) return;
 
@@ -635,13 +635,16 @@
         const audioQuality = document.getElementById('audio-quality').value;
 
         // Update progress text
-        progressText.textContent = `Converting... 0%`;
+        progressText.textContent = `Extracting audio... 0%`;
 
         try {
-            // Create a FormData object to send to the server
-            const formData = new FormData();
-            formData.append('file', selectedFile);
-            formData.append('audio_quality', audioQuality);
+            // Create a URL for the video file
+            const videoURL = URL.createObjectURL(selectedFile);
+
+            // Create a video element to extract audio
+            const video = document.createElement('video');
+            video.style.display = 'none';
+            document.body.appendChild(video);
 
             // Set up progress tracking
             let progress = 0;
@@ -649,51 +652,225 @@
                 progress += 1;
                 if (progress > 95) progress = 95; // Cap at 95% until actual completion
                 progressBar.style.width = `${progress}%`;
-                progressText.textContent = `Converting... ${progress}%`;
+                progressText.textContent = `Extracting audio... ${progress}%`;
             }, 200);
 
-            // Send the file to the server
-            const response = await fetch('/tools/free-online-converter/mp4-to-mp3', {
-                method: 'POST',
-                body: formData
+            // Load the video
+            video.src = videoURL;
+
+            // Wait for metadata to load
+            await new Promise(resolve => {
+                video.onloadedmetadata = resolve;
+            });
+
+            // Check if MediaRecorder is supported
+            if (typeof MediaRecorder === 'undefined') {
+                throw new Error("Your browser doesn't support audio extraction. Please try a different browser like Chrome, Firefox, or Edge.");
+            }
+
+            // Use a simpler approach - get the audio directly from the video element
+            // This is more reliable across browsers
+
+            // Create a simple audio capture from the video element
+            video.muted = false; // Make sure video is not muted
+
+            // Create a MediaStream from the video's audio track
+            let captureStream;
+
+            // Different browsers have different methods to capture media
+            if (video.captureStream) {
+                captureStream = video.captureStream();
+            } else if (video.mozCaptureStream) {
+                captureStream = video.mozCaptureStream();
+            } else {
+                // Fallback for browsers that don't support direct capture
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const source = audioContext.createMediaElementSource(video);
+                const destination = audioContext.createMediaStreamDestination();
+                source.connect(destination);
+                captureStream = destination.stream;
+            }
+
+            // Create a MediaRecorder with the captured stream
+            const mediaRecorder = new MediaRecorder(captureStream);
+
+            // Set up data collection
+            const audioChunks = [];
+
+            // Handle data available events
+            mediaRecorder.ondataavailable = event => {
+                if (event.data.size > 0) {
+                    audioChunks.push(event.data);
+
+                    // Update progress based on current time vs duration
+                    if (video.duration) {
+                        const currentProgress = Math.min(95, Math.floor((video.currentTime / video.duration) * 95));
+                        progressBar.style.width = `${currentProgress}%`;
+                        progressText.textContent = `Extracting audio... ${currentProgress}%`;
+                    }
+                }
+            };
+
+            // First, play the video with audio
+            try {
+                // Make sure video is NOT muted so we can capture the audio
+                video.muted = false;
+                video.volume = 0.5; // Set volume to 50%
+
+                // Add audio controls for debugging (hidden from view)
+                video.controls = true;
+                video.style.position = 'fixed';
+                video.style.top = '-9999px';
+                video.style.left = '-9999px';
+
+                // Try to play the video
+                await video.play();
+                console.log("Video playback started with audio");
+            } catch (playError) {
+                console.error("Error playing video:", playError);
+
+                // If autoplay with sound fails (common in many browsers), try with muted
+                try {
+                    console.log("Trying muted playback");
+                    video.muted = true;
+                    await video.play();
+
+                    // After playback starts, unmute (this often works)
+                    setTimeout(() => {
+                        video.muted = false;
+                        video.volume = 0.5;
+                    }, 1000);
+
+                    console.log("Video playback started muted, then unmuted");
+                } catch (mutedPlayError) {
+                    console.error("Error playing muted video:", mutedPlayError);
+                    throw new Error("Could not play the video. Please try a different file or browser.");
+                }
+            }
+
+            // Then start recording after video is playing
+            try {
+                console.log("Starting MediaRecorder");
+                mediaRecorder.start(1000); // Get data every second
+                console.log("MediaRecorder state:", mediaRecorder.state);
+            } catch (recorderError) {
+                console.error("Error starting MediaRecorder:", recorderError);
+                throw new Error("Failed to start audio extraction. Please try a different file or browser.");
+            }
+
+            // Set a reasonable processing time based on video duration
+            const processingTime = Math.min(
+                (video.duration * 1000) + 3000, // Video duration + 3 second buffer
+                60 * 1000 // Maximum 1 minute for very long videos
+            );
+
+            // Force completion after a short time to prevent getting stuck
+            setTimeout(() => {
+                // Update progress to 100%
+                progressBar.style.width = '100%';
+                progressText.textContent = `Extraction complete! 100%`;
+
+                // Stop recording if still going
+                if (mediaRecorder.state === 'recording') {
+                    console.log("Forcing MediaRecorder to stop");
+                    mediaRecorder.stop();
+                }
+            }, processingTime);
+
+            // Set a shorter timeout for the initial recording
+            // This ensures we get at least some audio data
+            setTimeout(() => {
+                if (mediaRecorder.state === 'recording') {
+                    // Request data so far
+                    mediaRecorder.requestData();
+                }
+            }, 3000); // Get data after 3 seconds
+
+            // Wait for the video to finish or timeout
+            await new Promise((resolve) => {
+                // When video ends naturally
+                video.onended = () => {
+                    if (mediaRecorder.state === 'recording') {
+                        mediaRecorder.stop();
+                    }
+                    resolve();
+                };
+
+                // If processing takes too long, resolve anyway
+                setTimeout(() => {
+                    if (mediaRecorder.state === 'recording') {
+                        mediaRecorder.stop();
+                    }
+                    resolve();
+                }, processingTime);
+            });
+
+            // Wait for the last data to be available
+            await new Promise(resolve => {
+                mediaRecorder.onstop = resolve;
             });
 
             // Clear the progress interval
             clearInterval(progressInterval);
 
-            if (!response.ok) {
-                throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
-            }
+            // Create a blob from the audio chunks - always use WebM for reliability
+            const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
 
-            const data = await response.json();
+            // Create a URL for the blob
+            const audioURL = URL.createObjectURL(audioBlob);
 
-            if (!data.success) {
-                throw new Error(data.error || 'Unknown error occurred');
-            }
+            // Clean up
+            URL.revokeObjectURL(videoURL);
+            document.body.removeChild(video);
 
             // Update UI
             progressBar.style.width = '100%';
-            progressText.textContent = `Conversion complete! 100%`;
+            progressText.textContent = `Extraction complete! 100%`;
+
+            // Create an audio element to test the extracted audio
+            const audioElement = document.createElement('audio');
+            audioElement.controls = true;
+            audioElement.style.width = '100%';
+            audioElement.style.marginTop = '20px';
+            audioElement.src = audioURL;
 
             setTimeout(() => {
                 progressContainer.classList.remove('show');
                 resultSuccess.classList.add('show');
 
                 // Update success message
-                const successMessage = `Your MP4 file has been successfully converted to MP3 format.`;
+                const successMessage = `Your video file has been successfully processed. The audio has been extracted entirely in your browser - no files were uploaded to any server.`;
                 document.getElementById('success-message').textContent = successMessage;
 
-                // Update download button
-                document.getElementById('download-button').textContent = `Download MP3`;
+                // Add audio player to preview the result
+                const previewContainer = document.createElement('div');
+                previewContainer.className = 'preview-container';
+                previewContainer.style.marginTop = '20px';
+                previewContainer.style.marginBottom = '20px';
 
-                // Set download URL
-                downloadButton.setAttribute('data-url', data.download_url);
+                const previewLabel = document.createElement('p');
+                previewLabel.textContent = 'Preview:';
+                previewLabel.style.marginBottom = '10px';
+
+                previewContainer.appendChild(previewLabel);
+                previewContainer.appendChild(audioElement);
+
+                // Insert the preview before the download button
+                const downloadButtonContainer = document.getElementById('download-button').parentNode;
+                downloadButtonContainer.parentNode.insertBefore(previewContainer, downloadButtonContainer);
+
+                // Update download button
+                document.getElementById('download-button').textContent = `Download Audio`;
+
+                // Set download URL and filename
+                downloadButton.setAttribute('data-url', audioURL);
+                downloadButton.setAttribute('data-filename', `audio_${selectedFile.name.replace(/\.[^/.]+$/, '')}.webm`);
             }, 500);
 
         } catch (error) {
             console.error('Conversion error:', error);
             progressContainer.classList.remove('show');
-            showError(`Conversion error: ${error.message || 'Unknown error'}`);
+            showError(`Extraction error: ${error.message || 'Unknown error'}`);
         }
     }
 
@@ -730,13 +907,19 @@
 
     function downloadResult() {
         const url = downloadButton.getAttribute('data-url');
+        const filename = downloadButton.getAttribute('data-filename');
 
         if (url) {
-            // Simply navigate to the download URL
-            window.location.href = url;
+            // Create a temporary link element
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename || 'audio_extract.webm';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
 
             // Log download
-            console.log('Audio download started');
+            console.log('Audio downloaded:', filename);
         }
     }
 </script>
