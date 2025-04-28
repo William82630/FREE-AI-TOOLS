@@ -24,9 +24,11 @@ var/
 uploads/*
 compressed/*
 favicons/*
+converted/*
 !uploads/.gitkeep
 !compressed/.gitkeep
 !favicons/.gitkeep
+!converted/.gitkeep
 
 # VS Code
 .vscode/

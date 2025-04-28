@@ -2042,14 +2042,149 @@ def mp4_converter():
 def mp3_converter():
     return render_template('mp3_converter.html')
 
-# Keyword Tools
-@app.route('/tools/keyword-tools/keyword-position', methods=['GET', 'POST'])
-def keyword_position():
-    return render_template('keyword_position.html')
+# Keyword Research Tools
+@app.route('/tools/keyword-research/keyword-generator', methods=['GET', 'POST'])
+def keyword_generator():
+    if request.method == 'POST':
+        try:
+            # Get the seed keyword from the form
+            seed_keyword = request.form.get('seed_keyword', '').strip()
 
-@app.route('/tools/keyword-tools/keywords-density-checker', methods=['GET', 'POST'])
-def keywords_density_checker():
-    return render_template('keywords_density_checker.html')
+            if not seed_keyword:
+                return jsonify({'success': False, 'error': 'Please enter a seed keyword'})
+
+            # Use the OpenRouter API to generate related keywords
+            headers = {
+                'Authorization': f'Bearer {API_KEY}',
+                'Content-Type': 'application/json'
+            }
+
+            prompt = f"""Generate 20 related keywords for SEO based on the seed keyword: "{seed_keyword}".
+            Include a mix of:
+            - Short-tail keywords
+            - Long-tail keywords
+            - Question-based keywords
+            - Commercial intent keywords
+
+            Format the response as a simple list with one keyword per line, without numbering or bullet points.
+            """
+
+            payload = {
+                'model': 'google-gemini-2.5-pro',
+                'prompt': prompt,
+                'max_tokens': 500
+            }
+
+            response = requests.post(API_URL, headers=headers, json=payload)
+            response.raise_for_status()
+            ai_response = response.json()
+
+            # Extract the generated keywords from the response
+            keywords_text = ai_response.get('choices', [{}])[0].get('text', '')
+
+            # Split the text into individual keywords
+            related_keywords = [keyword.strip() for keyword in keywords_text.split('\n') if keyword.strip()]
+
+            # Render the results template with the generated keywords
+            return render_template('keyword_generator_results.html',
+                                  seed_keyword=seed_keyword,
+                                  related_keywords=related_keywords)
+
+        except Exception as e:
+            return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'}), 500
+
+    return render_template('keyword_generator.html')
+
+@app.route('/tools/keyword-research/keyword-density-checker', methods=['GET', 'POST'])
+def keyword_density_checker():
+    if request.method == 'POST':
+        try:
+            # Get the content from the form
+            content = request.form.get('content', '').strip()
+
+            if not content:
+                return jsonify({'success': False, 'error': 'Please enter some content to analyze'})
+
+            # Process the content
+            # Remove punctuation and convert to lowercase
+            import re
+            from collections import Counter
+
+            # Clean the text
+            cleaned_text = re.sub(r'[^\w\s]', '', content.lower())
+
+            # Split into words
+            words = cleaned_text.split()
+
+            # Count total words
+            total_words = len(words)
+
+            # Count word frequencies
+            word_counts = Counter(words)
+
+            # Get one-word keywords
+            one_word_keywords = {word: {'count': count, 'density': (count / total_words) * 100}
+                               for word, count in word_counts.most_common(20) if len(word) > 2}
+
+            # Get two-word phrases
+            two_word_phrases = []
+            for i in range(len(words) - 1):
+                two_word_phrases.append(f"{words[i]} {words[i+1]}")
+
+            two_word_counts = Counter(two_word_phrases)
+            two_word_keywords = {phrase: {'count': count, 'density': (count / (total_words - 1)) * 100}
+                               for phrase, count in two_word_counts.most_common(15)}
+
+            # Get three-word phrases
+            three_word_phrases = []
+            for i in range(len(words) - 2):
+                three_word_phrases.append(f"{words[i]} {words[i+1]} {words[i+2]}")
+
+            three_word_counts = Counter(three_word_phrases)
+            three_word_keywords = {phrase: {'count': count, 'density': (count / (total_words - 2)) * 100}
+                                 for phrase, count in three_word_counts.most_common(10)}
+
+            # Return the results
+            return jsonify({
+                'success': True,
+                'total_words': total_words,
+                'one_word_keywords': one_word_keywords,
+                'two_word_keywords': two_word_keywords,
+                'three_word_keywords': three_word_keywords
+            })
+
+        except Exception as e:
+            return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'}), 500
+
+    return render_template('keyword_density_checker.html')
+
+@app.route('/tools/keyword-research/related-keywords-finder', methods=['GET', 'POST'])
+def related_keywords_finder():
+    return render_template('related_keywords_finder.html')
+
+@app.route('/tools/keyword-research/long-tail-keyword-generator', methods=['GET', 'POST'])
+def long_tail_keyword_generator():
+    return render_template('long_tail_keyword_generator.html')
+
+@app.route('/tools/keyword-research/keyword-competition-analyzer', methods=['GET', 'POST'])
+def keyword_competition_analyzer():
+    return render_template('keyword_competition_analyzer.html')
+
+@app.route('/tools/keyword-research/word-counter', methods=['GET', 'POST'])
+def word_counter():
+    return render_template('word_counter.html')
+
+@app.route('/tools/keyword-research/youtube-keyword-generator', methods=['GET', 'POST'])
+def youtube_keyword_generator():
+    return render_template('youtube_keyword_generator.html')
+
+@app.route('/tools/keyword-research/email-subject-line-tester', methods=['GET', 'POST'])
+def email_subject_line_tester():
+    return render_template('email_subject_line_tester.html')
+
+@app.route('/tools/keyword-research/keyword-position-checker', methods=['GET', 'POST'])
+def keyword_position_checker():
+    return render_template('keyword_position_checker.html')
 
 @app.route('/download/converted/<filename>', methods=['GET'])
 def download_converted_file(filename):

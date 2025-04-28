@@ -1,0 +1,452 @@
+{% extends "base.html" %}
+
+{% block title %}Word Counter - Free AI Tools{% endblock %}
+{% block description %}Count words, characters, sentences, and paragraphs in your text. Get detailed statistics about your content with our free word counter tool.{% endblock %}
+{% block keywords %}word counter, character counter, text analyzer, content statistics, word count tool{% endblock %}
+
+{% block hero_color %}#004080{% endblock %}
+{% block hero_title %}Word Counter{% endblock %}
+{% block hero_subtitle %}Count words, characters, sentences, and paragraphs in your text{% endblock %}
+
+{% block additional_styles %}
+.textarea-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+#content {
+    width: 100%;
+    min-height: 200px;
+    padding: 15px;
+    box-sizing: border-box;
+    border: 2px solid #3d9bf2;
+    border-radius: 8px;
+    background: #23263a;
+    color: #fff;
+    font-size: 16px;
+    resize: vertical;
+}
+.live-stats {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(35, 38, 58, 0.8);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #ccc;
+}
+.result-section {
+    display: none;
+    margin-top: 30px;
+}
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+.stat-box {
+    flex: 1;
+    min-width: 150px;
+    background: #23263a;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+.stat-box h3 {
+    margin: 0 0 10px 0;
+    color: #3d9bf2;
+    font-size: 1.2em;
+}
+.stat-box p {
+    font-size: 2em;
+    margin: 0;
+    font-weight: bold;
+}
+.stat-box .sub-text {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-top: 5px;
+}
+.detailed-stats {
+    background: #23263a;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+.detailed-stats h3 {
+    margin-top: 0;
+    color: #3d9bf2;
+}
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+}
+.stat-row:last-child {
+    border-bottom: none;
+}
+.stat-label {
+    font-weight: bold;
+}
+.reading-time {
+    background: #23263a;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.reading-time h3 {
+    margin-top: 0;
+    color: #3d9bf2;
+}
+.reading-time p {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+.reading-time .sub-text {
+    font-size: 0.9em;
+    color: #aaa;
+}
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.action-button {
+    padding: 10px 20px;
+    background: #23263a;
+    border: 1px solid #3d9bf2;
+    border-radius: 4px;
+    color: #3d9bf2;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.action-button:hover {
+    background: #3d9bf2;
+    color: #fff;
+}
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+    }
+    .stat-box {
+        min-width: 100%;
+    }
+    .action-buttons {
+        flex-direction: column;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<div class="input-section">
+    <form id="wordCountForm">
+        <div class="textarea-container">
+            <textarea id="content" name="content" placeholder="Type or paste your text here to count words, characters, and more..." required></textarea>
+            <div class="live-stats">0 words | 0 characters</div>
+        </div>
+        <button type="submit">Analyze Text</button>
+    </form>
+</div>
+
+<div id="results" class="result-section">
+    <div class="stats-container">
+        <div class="stat-box">
+            <h3>Words</h3>
+            <p id="wordCount">0</p>
+        </div>
+        <div class="stat-box">
+            <h3>Characters</h3>
+            <p id="charCount">0</p>
+            <div class="sub-text" id="charNoSpaces">0 without spaces</div>
+        </div>
+        <div class="stat-box">
+            <h3>Sentences</h3>
+            <p id="sentenceCount">0</p>
+        </div>
+        <div class="stat-box">
+            <h3>Paragraphs</h3>
+            <p id="paragraphCount">0</p>
+        </div>
+    </div>
+
+    <div class="reading-time">
+        <h3>Estimated Reading Time</h3>
+        <p id="readingTime">0 minutes</p>
+        <div class="sub-text">Based on an average reading speed of 200 words per minute</div>
+    </div>
+
+    <div class="detailed-stats">
+        <h3>Detailed Statistics</h3>
+        <div class="stat-row">
+            <span class="stat-label">Average Word Length</span>
+            <span id="avgWordLength">0 characters</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Average Sentence Length</span>
+            <span id="avgSentenceLength">0 words</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Average Paragraph Length</span>
+            <span id="avgParagraphLength">0 words</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Longest Word</span>
+            <span id="longestWord">-</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Most Common Word</span>
+            <span id="commonWord">-</span>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="action-button" id="copyText">Copy Text</button>
+        <button class="action-button" id="clearText">Clear Text</button>
+        <button class="action-button" id="downloadText">Download as TXT</button>
+    </div>
+</div>
+
+<div class="how-it-works">
+    <h2>How to Use the Word Counter Tool</h2>
+    <div class="how-to-steps">
+        <div class="step">
+            <h3><span>1</span>Enter Your Text</h3>
+            <p>Type or paste your text into the text area. You'll see a live count of words and characters as you type.</p>
+        </div>
+        <div class="step">
+            <h3><span>2</span>Analyze Your Text</h3>
+            <p>Click the "Analyze Text" button to get detailed statistics about your content, including word count, character count, sentence count, and more.</p>
+        </div>
+        <div class="step">
+            <h3><span>3</span>Review the Results</h3>
+            <p>Examine the comprehensive analysis of your text, including reading time estimates and detailed statistics about word and sentence length.</p>
+        </div>
+    </div>
+</div>
+
+<div class="features">
+    <h2>Features of Our Word Counter Tool</h2>
+    <div class="feature-cards">
+        <div class="feature-card">
+            <h3>Live Counting</h3>
+            <p>See word and character counts update in real-time as you type or paste your text.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Comprehensive Statistics</h3>
+            <p>Get detailed information about your text, including word count, character count (with and without spaces), sentence count, and paragraph count.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Reading Time Estimation</h3>
+            <p>Find out how long it would take an average person to read your text based on standard reading speeds.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Text Analysis</h3>
+            <p>Analyze your writing with statistics like average word length, average sentence length, and most frequently used words.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Export Options</h3>
+            <p>Copy your text to the clipboard or download it as a text file with a single click.</p>
+        </div>
+        <div class="feature-card">
+            <h3>No Registration Required</h3>
+            <p>Use our word counter tool instantly without creating an account or providing any personal information.</p>
+        </div>
+    </div>
+</div>
+
+<div class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+        <h3>How accurate is the word count?</h3>
+        <p>Our word counter tool counts words by identifying groups of characters separated by spaces or punctuation. This provides an accurate count for most standard writing, though specialized formats like code may yield different results than expected.</p>
+    </div>
+    <div class="faq-item">
+        <h3>How is the reading time calculated?</h3>
+        <p>The reading time is calculated based on an average reading speed of 200 words per minute, which is a commonly accepted average for adults reading content in English. The actual reading time may vary based on the complexity of the text and the reader's speed.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Does the tool count hyphenated words as one word or two?</h3>
+        <p>Hyphenated words (like "state-of-the-art") are counted as a single word, which is consistent with most word counting standards.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Is my text saved or stored anywhere?</h3>
+        <p>No, your text is processed entirely in your browser and is not saved or stored on our servers. When you close the page, your text is gone, ensuring your privacy.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Can I use this tool for academic papers or assignments?</h3>
+        <p>Yes, this tool is perfect for checking the word count of academic papers, essays, or assignments that have specific length requirements. The detailed statistics can also help you analyze and improve your writing style.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block twitter_path %}/tools/keyword-research/word-counter{% endblock %}
+{% block twitter_text %}Check+out+this+free+Word+Counter+tool!{% endblock %}
+{% block facebook_path %}/tools/keyword-research/word-counter{% endblock %}
+{% block linkedin_path %}/tools/keyword-research/word-counter{% endblock %}
+{% block linkedin_title %}Free+Word+Counter+Tool{% endblock %}
+{% block linkedin_summary %}Count+words,+characters,+and+more+with+this+free+tool{% endblock %}
+{% block pinterest_path %}/tools/keyword-research/word-counter{% endblock %}
+{% block pinterest_description %}Free+Word+Counter+Tool{% endblock %}
+{% block whatsapp_text %}Check+out+this+free+Word+Counter+tool:+http://127.0.0.1:5000/tools/keyword-research/word-counter{% endblock %}
+
+{% block body_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const contentTextarea = document.getElementById('content');
+    const liveStats = document.querySelector('.live-stats');
+    const wordCountForm = document.getElementById('wordCountForm');
+    const resultsSection = document.getElementById('results');
+    
+    // Update live stats as user types
+    contentTextarea.addEventListener('input', updateLiveStats);
+    
+    function updateLiveStats() {
+        const text = contentTextarea.value;
+        const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const charCount = text.length;
+        liveStats.textContent = `${wordCount} words | ${charCount} characters`;
+    }
+    
+    // Handle form submission
+    wordCountForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const text = contentTextarea.value;
+        if (!text.trim()) {
+            alert('Please enter some text to analyze.');
+            return;
+        }
+        
+        // Perform text analysis
+        analyzeText(text);
+        
+        // Show results section
+        resultsSection.style.display = 'block';
+        
+        // Scroll to results
+        window.scrollTo({
+            top: resultsSection.offsetTop - 20,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Handle action buttons
+    document.getElementById('copyText').addEventListener('click', function() {
+        contentTextarea.select();
+        document.execCommand('copy');
+        alert('Text copied to clipboard!');
+    });
+    
+    document.getElementById('clearText').addEventListener('click', function() {
+        contentTextarea.value = '';
+        updateLiveStats();
+        resultsSection.style.display = 'none';
+    });
+    
+    document.getElementById('downloadText').addEventListener('click', function() {
+        const text = contentTextarea.value;
+        if (!text.trim()) {
+            alert('There is no text to download.');
+            return;
+        }
+        
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'text_content.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+    
+    // Function to analyze text and display results
+    function analyzeText(text) {
+        // Basic counts
+        const words = text.trim() ? text.trim().split(/\s+/) : [];
+        const wordCount = words.length;
+        const charCount = text.length;
+        const charNoSpacesCount = text.replace(/\s+/g, '').length;
+        
+        // Count sentences (split by ., !, or ? followed by a space or end of string)
+        const sentences = text.split(/[.!?]+(?=\s|$)/).filter(s => s.trim().length > 0);
+        const sentenceCount = sentences.length;
+        
+        // Count paragraphs (split by double newlines)
+        const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+        const paragraphCount = paragraphs.length || 1; // At least 1 paragraph if there's text
+        
+        // Calculate reading time (average 200 words per minute)
+        const readingTimeMinutes = Math.ceil(wordCount / 200);
+        
+        // Calculate average word length
+        let totalWordLength = 0;
+        words.forEach(word => {
+            totalWordLength += word.length;
+        });
+        const avgWordLength = wordCount > 0 ? (totalWordLength / wordCount).toFixed(1) : 0;
+        
+        // Calculate average sentence length
+        const avgSentenceLength = sentenceCount > 0 ? Math.round(wordCount / sentenceCount) : 0;
+        
+        // Calculate average paragraph length
+        const avgParagraphLength = paragraphCount > 0 ? Math.round(wordCount / paragraphCount) : 0;
+        
+        // Find longest word
+        let longestWord = '';
+        words.forEach(word => {
+            // Remove punctuation for word length comparison
+            const cleanWord = word.replace(/[^\w\s]|_/g, "");
+            if (cleanWord.length > longestWord.length) {
+                longestWord = cleanWord;
+            }
+        });
+        
+        // Find most common word (excluding common stop words)
+        const stopWords = ['the', 'and', 'a', 'an', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'but', 'or', 'as', 'if', 'then', 'else', 'when', 'up', 'down', 'this', 'that', 'these', 'those', 'it', 'its'];
+        const wordFrequency = {};
+        
+        words.forEach(word => {
+            // Convert to lowercase and remove punctuation
+            const cleanWord = word.toLowerCase().replace(/[^\w\s]|_/g, "");
+            if (cleanWord && !stopWords.includes(cleanWord)) {
+                wordFrequency[cleanWord] = (wordFrequency[cleanWord] || 0) + 1;
+            }
+        });
+        
+        let mostCommonWord = '';
+        let highestFrequency = 0;
+        
+        for (const word in wordFrequency) {
+            if (wordFrequency[word] > highestFrequency) {
+                mostCommonWord = word;
+                highestFrequency = wordFrequency[word];
+            }
+        }
+        
+        // Update the UI with all statistics
+        document.getElementById('wordCount').textContent = wordCount;
+        document.getElementById('charCount').textContent = charCount;
+        document.getElementById('charNoSpaces').textContent = `${charNoSpacesCount} without spaces`;
+        document.getElementById('sentenceCount').textContent = sentenceCount;
+        document.getElementById('paragraphCount').textContent = paragraphCount;
+        document.getElementById('readingTime').textContent = `${readingTimeMinutes} minute${readingTimeMinutes !== 1 ? 's' : ''}`;
+        document.getElementById('avgWordLength').textContent = `${avgWordLength} characters`;
+        document.getElementById('avgSentenceLength').textContent = `${avgSentenceLength} words`;
+        document.getElementById('avgParagraphLength').textContent = `${avgParagraphLength} words`;
+        document.getElementById('longestWord').textContent = longestWord || '-';
+        document.getElementById('commonWord').textContent = mostCommonWord ? `"${mostCommonWord}" (${highestFrequency} times)` : '-';
+    }
+});
+</script>
+{% endblock %}
