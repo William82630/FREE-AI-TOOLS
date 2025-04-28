@@ -4,3 +4,4 @@ cairosvg
 requests
 qrcode
 python-dateutil
+reportlab

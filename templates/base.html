@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -289,21 +288,25 @@
             text-decoration: underline;
             opacity: 1;
         }
-        .ads {
+        .ads.left, .ads.right {
+            min-width: 160px;
+            width: 160px;
             position: fixed;
             top: 0;
-            bottom: 0;
-            width: 160px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
+            height: 100%;
+            z-index: 10;
+            /* Ensure the ad container always has width for AdSense */
         }
         .ads.left {
             left: 0;
         }
         .ads.right {
             right: 0;
+        }
+        .main-content {
+            margin: 0 auto;
+            max-width: 100%;
+            overflow-x: hidden;
         }
         @media (max-width: 768px) {
             .features .feature-cards {
@@ -355,48 +358,50 @@
         {% endblock %}
     </div>
 
-    <div class="hero">
-        <h1>{% block hero_title %}Free AI Tools{% endblock %}</h1>
-        <p>{% block hero_subtitle %}Powerful tools to help you with everyday tasks{% endblock %}</p>
-    </div>
+    <div class="main-content">
+        <div class="hero">
+            <h1>{% block hero_title %}Free AI Tools{% endblock %}</h1>
+            <p>{% block hero_subtitle %}Powerful tools to help you with everyday tasks{% endblock %}</p>
+        </div>
 
-    <div class="container">
-        {% block content %}
-        <!-- Main content will go here -->
-        {% endblock %}
+        <div class="container">
+            {% block content %}
+            <!-- Main content will go here -->
+            {% endblock %}
 
-        <div class="support-us">
-            <h2>Support Us</h2>
-            <p>If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
-            <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="coffee-btn">☕ Buy Me a Coffee</a>
-            <div class="social-icons">
-                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000{% block twitter_path %}/{% endblock %}&text={% block twitter_text %}Check+out+this+amazing+tool!{% endblock %}" target="_blank">
-                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000{% block facebook_path %}/{% endblock %}" target="_blank">
-                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000{% block linkedin_path %}/{% endblock %}&title={% block linkedin_title %}Free+AI+Tools{% endblock %}&summary={% block linkedin_summary %}Check+out+this+amazing+tool!{% endblock %}" target="_blank">
-                    <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000{% block pinterest_path %}/{% endblock %}&description={% block pinterest_description %}Free+AI+Tools{% endblock %}" target="_blank">
-                    <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://wa.me/?text={% block whatsapp_text %}Check+out+this+amazing+tool:+http://127.0.0.1:5000/{% endblock %}" target="_blank">
-                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
-                </a>
+            <div class="support-us">
+                <h2>Support Us</h2>
+                <p>If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
+                <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="coffee-btn">☕ Buy Me a Coffee</a>
+                <div class="social-icons">
+                    <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000{% block twitter_path %}/{% endblock %}&text={% block twitter_text %}Check+out+this+amazing+tool!{% endblock %}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000{% block facebook_path %}/{% endblock %}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+                    </a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000{% block linkedin_path %}/{% endblock %}&title={% block linkedin_title %}Free+AI+Tools{% endblock %}&summary={% block linkedin_summary %}Check+out+this+amazing+tool!{% endblock %}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
+                    </a>
+                    <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000{% block pinterest_path %}/{% endblock %}&description={% block pinterest_description %}Free+AI+Tools{% endblock %}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
+                    </a>
+                    <a href="https://wa.me/?text={% block whatsapp_text %}Check+out+this+amazing+tool:+http://127.0.0.1:5000/{% endblock %}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <footer>
-        <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-        <p>
-            <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
-            <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
-            <a href="/" target="_self">Home</a>
-        </p>
-    </footer>
+        <footer>
+            <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+            <p>
+                <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+                <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
+                <a href="/" target="_self">Home</a>
+            </p>
+        </footer>
+    </div>
 
     {% block body_scripts %}{% endblock %}
 </body>

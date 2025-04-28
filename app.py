@@ -1878,12 +1878,12 @@ def mp3_to_mp4():
 def mp4_to_mp3():
     # Import all necessary modules at the function level
     import os
-    import shutil
     import uuid
-    import subprocess
     import math
+    import tempfile
     from datetime import datetime
     from werkzeug.utils import secure_filename
+    import moviepy.editor as mp
 
     if request.method == 'POST':
         try:
@@ -1898,9 +1898,12 @@ def mp4_to_mp3():
             if file.filename == '':
                 return jsonify({'success': False, 'error': 'No selected file'}), 400
 
-            # Check if the file is an MP4
-            if not file.filename.lower().endswith('.mp4'):
-                return jsonify({'success': False, 'error': 'Please upload an MP4 file'}), 400
+            # Check if the file is a video file by extension
+            video_extensions = ['.mp4', '.avi', '.mov', '.wmv', '.flv', '.mkv', '.webm', '.mpeg', '.m4v', '.3gp']
+            file_ext = os.path.splitext(file.filename.lower())[1]
+
+            if file_ext not in video_extensions:
+                return jsonify({'success': False, 'error': 'Please upload a valid video file. Supported formats include MP4, AVI, MOV, WMV, MKV, and more.'}), 400
 
             # Get options from form
             audio_quality = request.form.get('audio_quality', 'high')
@@ -1910,13 +1913,13 @@ def mp4_to_mp3():
             timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
             unique_id = str(uuid.uuid4())[:8]
 
-            # Save the uploaded MP4 file
-            mp4_filename = f"temp_{timestamp}_{unique_id}_{original_filename}"
-            mp4_filepath = os.path.join(UPLOAD_FOLDER, mp4_filename)
-            file.save(mp4_filepath)
+            # Save the uploaded video file
+            video_filename = f"temp_{timestamp}_{unique_id}_{original_filename}"
+            video_filepath = os.path.join(UPLOAD_FOLDER, video_filename)
+            file.save(video_filepath)
 
             # Verify the file was saved
-            if not os.path.exists(mp4_filepath):
+            if not os.path.exists(video_filepath):
                 return jsonify({'success': False, 'error': 'Failed to save uploaded file'}), 500
 
             # Create output MP3 filename
@@ -1924,9 +1927,9 @@ def mp4_to_mp3():
             mp3_filepath = os.path.join(CONVERTED_FOLDER, mp3_filename)
 
             # Print debug info
-            print(f"MP4 file path: {mp4_filepath}")
+            print(f"Video file path: {video_filepath}")
             print(f"MP3 file path: {mp3_filepath}")
-            print(f"MP4 file exists: {os.path.exists(mp4_filepath)}")
+            print(f"Video file exists: {os.path.exists(video_filepath)}")
 
             # Map quality settings to bitrate
             bitrate_map = {
@@ -1936,73 +1939,76 @@ def mp4_to_mp3():
             }
             bitrate = bitrate_map.get(audio_quality, '192k')
 
-            # Use a very simple approach - just copy the file and change the extension
-            # This works because MP4 files often have audio tracks that can be played directly
-            # when renamed to MP3 (though they're not technically correct MP3 files)
+            # Extract the numeric value from the bitrate string
+            bitrate_value = int(bitrate.replace('k', ''))
+
             try:
-                import shutil
+                # Use MoviePy to extract audio (this uses imageio_ffmpeg under the hood)
+                print("Starting MoviePy conversion...")
+                video_clip = mp.VideoFileClip(video_filepath)
 
-                # Copy the MP4 file to the MP3 file
-                shutil.copy2(mp4_filepath, mp3_filepath)
-                print(f"Copied MP4 file to MP3 file: {mp3_filepath}")
+                # Check if the video has audio
+                if video_clip.audio is not None:
+                    # Extract audio and save as MP3
+                    audio_clip = video_clip.audio
+                    audio_clip.write_audiofile(
+                        mp3_filepath,
+                        bitrate=bitrate,
+                        verbose=False,
+                        logger=None
+                    )
+                    audio_clip.close()
+                    conversion_successful = True
+                    print("Successfully converted to MP3 using MoviePy")
+                else:
+                    print("Video has no audio track")
+                    conversion_successful = False
 
-                # Try to modify the file to make it more like an MP3
-                try:
-                    # Read the first part of the file
-                    with open(mp3_filepath, 'rb') as f:
-                        data = f.read(1024)  # Just read the first 1KB to check headers
+                # Close the video clip to release resources
+                video_clip.close()
 
-                    # Look for audio track markers
-                    audio_markers = [b'mp4a', b'aac ', b'mp3 ', b'soun']
-
-                    # Check if any audio markers are present
-                    has_audio = False
-                    for marker in audio_markers:
-                        if marker in data:
-                            has_audio = True
-                            break
-
-                    if has_audio:
-                        print("Audio track found in the file")
-                    else:
-                        print("No audio track markers found, but continuing anyway")
-
-                except Exception as e:
-                    print(f"Error checking for audio markers: {str(e)}")
-
-                print("Successfully created MP3 file")
-
-            except Exception as e:
-                print(f"Error creating MP3 file: {str(e)}")
-
-                # If copying fails, create a minimal valid MP3 file
-                try:
-                    # Create a minimal valid MP3 file with silence
+                # If MoviePy fails to extract audio, create a minimal valid MP3 file
+                if not conversion_successful:
+                    # Create a simple MP3 file with a header
                     with open(mp3_filepath, 'wb') as f:
                         # Write a valid MP3 header and a minimal frame of silence
-                        # This is a standard MP3 header followed by a minimal valid frame
                         f.write(b'ID3\x03\x00\x00\x00\x00\x00\x00')  # ID3v2 tag header
-                        f.write(b'\xFF\xFB\x90\x44\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')  # MP3 frame header + some silence
+                        f.write(b'\xFF\xFB\x90\x44\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')  # MP3 frame header + silence
 
-                    print("Created a minimal valid MP3 file as fallback")
+                    print("Created a minimal MP3 file as fallback")
 
-                except Exception as fallback_error:
-                    print(f"Error creating fallback MP3 file: {str(fallback_error)}")
+                    # Return a warning to the user
+                    return jsonify({
+                        'success': True,
+                        'warning': 'Could not extract audio properly. The video may not contain an audio track.',
+                        'download_url': f'/download/converted/{mp3_filename}'
+                    })
 
-                    # Last resort - create an empty file with MP3 extension
-                    with open(mp3_filepath, 'wb') as f:
-                        # Just write a minimal valid MP3 header
-                        f.write(b'\xFF\xFB\x90\x44')
+            except Exception as e:
+                print(f"Error in MoviePy conversion process: {str(e)}")
 
-                    print("Created an empty MP3 file as last resort")
+                # Create a minimal valid MP3 file as a last resort
+                with open(mp3_filepath, 'wb') as f:
+                    # Write a valid MP3 header and a minimal frame of silence
+                    f.write(b'ID3\x03\x00\x00\x00\x00\x00\x00')  # ID3v2 tag header
+                    f.write(b'\xFF\xFB\x90\x44\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')  # MP3 frame header + silence
+
+                print("Created a minimal MP3 file as last resort")
+
+                # Return a warning to the user
+                return jsonify({
+                    'success': True,
+                    'warning': 'Could not extract audio properly. Please try a different video file or format.',
+                    'download_url': f'/download/converted/{mp3_filename}'
+                })
 
             # Verify the output file was created
             if not os.path.exists(mp3_filepath):
                 return jsonify({'success': False, 'error': 'Failed to create output file'}), 500
 
-            # Clean up the temporary MP4 file
+            # Clean up the temporary video file
             try:
-                os.remove(mp4_filepath)
+                os.remove(video_filepath)
             except Exception as cleanup_error:
                 print(f"Warning: Could not remove temporary file: {str(cleanup_error)}")
 
@@ -2013,12 +2019,12 @@ def mp4_to_mp3():
             })
 
         except Exception as e:
-            print(f"Error in MP4 to MP3 conversion: {str(e)}")
+            print(f"Error in video to MP3 conversion: {str(e)}")
 
             # Clean up any temporary files
             try:
-                if 'mp4_filepath' in locals() and os.path.exists(mp4_filepath):
-                    os.remove(mp4_filepath)
+                if 'video_filepath' in locals() and os.path.exists(video_filepath):
+                    os.remove(video_filepath)
                 if 'mp3_filepath' in locals() and os.path.exists(mp3_filepath):
                     os.remove(mp3_filepath)
             except Exception as cleanup_error:
