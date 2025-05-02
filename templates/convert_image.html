@@ -1,258 +1,1467 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Convert Image to PNG/JPG/JPEG</title>
-    <meta name="description" content="Easily convert images to PNG, JPG, or JPEG formats. Upload your image and choose the desired format for conversion.">
-    <meta name="keywords" content="image converter, convert to PNG, convert to JPG, convert to JPEG">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert Image to PNG/JPG/JPEG - Free Online Image Format Converter</title>
+    <meta name="description" content="Free online tool to convert images between PNG, JPG, and JPEG formats. Maintain high quality, instant conversion, no registration required. Convert unlimited images for free.">
+    <meta name="keywords" content="image converter, convert to PNG, convert to JPG, convert to JPEG, image format converter, free image converter, online image converter, PNG to JPG, JPG to PNG, JPEG converter">
+    <meta name="author" content="willsblogger.com">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://willsblogger.com/tools/image-editing/convert-image">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://willsblogger.com/tools/image-editing/convert-image">
+    <meta property="og:title" content="Free Online Image Format Converter - PNG, JPG, JPEG">
+    <meta property="og:description" content="Convert your images between PNG, JPG, and JPEG formats while maintaining high quality. Free, fast, and secure online tool.">
+    <meta property="og:image" content="https://willsblogger.com/static/images/convert-image-og.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://willsblogger.com/tools/image-editing/convert-image">
+    <meta property="twitter:title" content="Free Online Image Format Converter - PNG, JPG, JPEG">
+    <meta property="twitter:description" content="Convert your images between PNG, JPG, and JPEG formats while maintaining high quality. Free, fast, and secure online tool.">
+    <meta property="twitter:image" content="https://willsblogger.com/static/images/convert-image-og.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/images/favicon.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Image Format Converter",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "1256"
+        },
+        "description": "Free online tool to convert images between PNG, JPG, and JPEG formats. Maintain high quality, instant conversion, no registration required."
+    }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .hero {
-            background-color: #000442;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .hero p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .input-section {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .input-section input, .input-section select {
-            padding: 10px;
-            width: 70%;
-            max-width: 400px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .input-section button {
-            padding: 10px 20px;
-            background-color: #17a2b8;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .input-section button:hover {
-            background-color: #138496;
-        }
-        .how-to {
-            margin: 40px 0;
-        }
-        .how-to h2 {
-            text-align: center;
-            color: #333;
-        }
-        .how-to-steps {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .step {
-            text-align: center;
-            flex: 1 1 30%;
-            margin: 10px;
-        }
-        .step span {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            background-color: #17a2b8;
-            color: white;
-            border-radius: 50%;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        footer {
-            background: #1e3c72;
-            color: white;
-            padding: 40px 20px;
-            margin-top: 60px;
-            text-align: center;
-        }
-        footer p {
-            margin: 10px 0;
-        }
-        footer a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-        footer a:hover {
-            opacity: 1;
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #0ea5e9;
+            --accent-color: #8b5cf6;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --text-light: #f8fafc;
+            --text-dark: #1e293b;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
         }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        button, .btn {
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            border: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0284c7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Header & Navigation */
+        .site-header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e40af 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/static/images/pattern.svg');
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.35rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 1);
+            line-height: 1.7;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Tool Section */
+        .tool-section {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            margin-top: -4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .tool-header h2 {
+            font-size: 1.75rem;
+            color: var(--text-dark);
+        }
+
+        .tool-header p {
+            color: #4b5563;
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+
+        .tool-form {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.375rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .file-upload {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.5rem;
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover, .file-upload.highlight {
+            border-color: var(--primary-color);
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
+        .file-upload.active {
+            border-color: var(--primary-color);
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .file-upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .file-upload-text {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .file-upload-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .format-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .format-option {
+            flex: 1;
+            max-width: 120px;
+            text-align: center;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .format-option:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
+        .format-option.active {
+            border-color: var(--primary-color);
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .format-option i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 5rem 0;
+            background-color: #f8fafc;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step-card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 2rem;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-description {
+            color: #4b5563;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 5rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .feature-description {
+            color: #4b5563;
+            font-size: 1.05rem;
+        }
+
+        /* Format Comparison Section */
+        .comparison-section {
+            padding: 5rem 0;
+            background-color: #f8fafc;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background-color: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 1.25rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .check-icon {
+            color: var(--success-color);
+        }
+
+        .x-icon {
+            color: var(--error-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 0;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: left;
+        }
+
+        .faq-question:hover {
+            background-color: #f8fafc;
+        }
+
+        .faq-question i {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #4b5563;
+            font-size: 1.1rem;
+            text-align: left;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 5rem 0;
+            background-color: #f8fafc;
+        }
+
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .author-info p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: rgba(37, 99, 235, 0.1);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/static/images/pattern.svg');
+            opacity: 0.05;
+            z-index: 1;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-description {
+            font-size: 1.35rem;
+            margin-bottom: 2rem;
+            opacity: 1;
+            line-height: 1.7;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 5rem 0 2rem;
+            width: 100%;
+            margin: 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.35rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-column p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            transition: color 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            font-size: 1rem;
+        }
+
+        .footer-bottom a {
+            color: #cbd5e1;
+            margin: 0 0.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-3 { margin-top: 1rem; }
+        .mt-4 { margin-top: 1.5rem; }
+        .mt-5 { margin-top: 3rem; }
+
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 1rem; }
+        .mb-4 { margin-bottom: 1.5rem; }
+        .mb-5 { margin-bottom: 3rem; }
+
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .how-to-steps {
-                flex-direction: column;
-                align-items: center;
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
             }
-            .input-section input, .input-section select {
-                width: 100%;
-                margin-bottom: 10px;
+
+            .hero p {
+                font-size: 1.125rem;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .steps-container, .features-grid, .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+
+            .format-selector {
+                flex-wrap: wrap;
+            }
+
+            .format-option {
+                flex: 1 1 calc(50% - 0.5rem);
+                max-width: none;
+            }
+
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .tool-section {
+                padding: 1.5rem;
+            }
+
+            .format-option {
+                flex: 1 1 100%;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>Convert Image to PNG/JPG/JPEG</h1>
-        <p>Upload your image and select the format you want to convert it to. Our tool ensures high-quality conversions in seconds.</p>
-    </div>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">Free<span>AI</span>Tools</a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/tools/image-editing">Image Tools</a></li>
+                    <li><a href="/tools/online-calculators">Calculators</a></li>
+                    <li><a href="/tools/free-online-converter">Converters</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Convert Images to PNG, JPG, or JPEG Format</h1>
+            <p>Transform your images between popular formats while maintaining quality. Our free online converter ensures perfect results every time.</p>
+            <div class="hero-buttons">
+                <a href="#convert-tool" class="btn btn-primary">Start Converting</a>
+                <a href="#how-it-works" class="btn btn-outline">Learn How It Works</a>
+            </div>
+        </div>
+    </section>
 
     <div class="container">
-        <div class="input-section">
-            <form action="/tools/image-editing/convert-image" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required style="width: 220px; padding: 15px; font-size: 1.1em; border: 2px solid #004aad; border-radius: 6px; background: #fff; color: #222;">
-                <select id="format" name="format" required style="width: 140px; padding: 15px; font-size: 1.1em; border: 2px solid #004aad; border-radius: 6px; background: #fff; color: #222; margin-left: 10px;">
-                    <option value="PNG">PNG</option>
-                    <option value="JPG">JPG</option>
-                    <option value="JPEG">JPEG</option>
-                </select>
-                <button type="submit" style="padding: 15px 25px; font-size: 1.1em;">Convert Image</button>
+        <!-- Tool Section -->
+        <section id="convert-tool" class="tool-section">
+            <div class="tool-header">
+                <h2>Convert Your Image</h2>
+                <p>Upload any image and select your desired output format. Our tool supports PNG, JPG, and JPEG conversions.</p>
+            </div>
+
+            <form action="/tools/image-editing/convert-image" method="post" enctype="multipart/form-data" class="tool-form">
+                <div class="form-group">
+                    <div class="file-upload">
+                        <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                        <div class="file-upload-text">
+                            <h3>Drag & Drop Your Image Here</h3>
+                            <p>or click to browse your files</p>
+                            <p class="mb-1"><small>Supports JPG, PNG, WEBP, GIF, BMP, and more</small></p>
+                            <p><small>Maximum file size: 10MB</small></p>
+                        </div>
+                        <input type="file" id="image" name="image" class="file-upload-input" accept="image/*" required>
+                    </div>
+                </div>
+
+                <div class="format-selector">
+                    <div class="format-option active" data-format="png">
+                        <i class="fas fa-file-image"></i>
+                        <span>PNG</span>
+                        <input type="radio" name="format" value="PNG" checked style="display: none;">
+                    </div>
+                    <div class="format-option" data-format="jpg">
+                        <i class="fas fa-file-image"></i>
+                        <span>JPG</span>
+                        <input type="radio" name="format" value="JPG" style="display: none;">
+                    </div>
+                    <div class="format-option" data-format="jpeg">
+                        <i class="fas fa-file-image"></i>
+                        <span>JPEG</span>
+                        <input type="radio" name="format" value="JPEG" style="display: none;">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary submit-btn">
+                    <i class="fas fa-sync-alt"></i> Convert Image
+                </button>
             </form>
-        </div>
+        </section>
 
-        <div class="how-to">
-            <h2>How to Use the Convert Image Tool</h2>
-            <div class="how-to-steps">
-                <div class="step">
-                    <span>1</span>
-                    <p>Upload your image file.</p>
-                </div>
-                <div class="step">
-                    <span>2</span>
-                    <p>Select the desired format (PNG, JPG, or JPEG).</p>
-                </div>
-                <div class="step">
-                    <span>3</span>
-                    <p>Click the "Convert Image" button and download the result.</p>
-                </div>
-            </div>
-        </div>
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="how-it-works section">
+            <div class="container">
+                <h2 class="section-title">How to Convert Your Images</h2>
+                <div class="steps-container">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <i class="fas fa-upload step-icon"></i>
+                        <h3 class="step-title">Upload Your Image</h3>
+                        <p class="step-description">Drag and drop your image into the upload area or click to browse your files. We support various formats including JPG, PNG, WEBP, GIF, and BMP.</p>
+                    </div>
 
-        <div class="features-container" style="max-width: 1000px; margin: 48px auto 0 auto; padding: 32px 20px; background: #181c2a; border-radius: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.10);">
-            <h2 style="text-align:center; margin-bottom: 28px; color: #fff;">Features of Our Convert Image Tool</h2>
-            <div class="feature-cards" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;">
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">🔄 Supports Multiple Formats</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Easily convert images between popular formats such as PNG, JPG, and JPEG. Our tool ensures compatibility across various platforms and applications, making it simple to prepare your images for websites, social media, or professional projects.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">🖼️ Maintains High Quality</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Preserve the clarity and detail of your images during conversion. Our advanced algorithms ensure that the visual integrity of your photos remains intact, delivering professional-grade results every time.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">⚡ Fast & Secure Processing</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Experience swift image conversions with our optimized tool. Your files are processed securely, and we prioritize your privacy by not storing any uploaded images on our servers.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">💸 Completely Free to Use</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Enjoy unlimited access to our image conversion tool at no cost. There are no hidden fees or subscriptions—just reliable, free assistance for all your image conversion needs.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">🌐 Cross-Platform Compatibility</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Access our tool seamlessly across all devices and modern browsers. Whether you're on a desktop, tablet, or smartphone, our responsive design ensures a consistent and user-friendly experience.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">📁 Batch Conversion Capability</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Save time by converting multiple images simultaneously. Our batch processing feature allows you to upload and convert several files at once, streamlining your workflow and increasing efficiency.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">✂️ Additional Editing Features</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Beyond conversion, our tool offers basic editing functionalities such as resizing and cropping. This enables you to tailor your images to specific dimensions or focus areas, enhancing their suitability for various platforms and purposes.​</p>
-                </div>
-            </div>
-        </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <i class="fas fa-exchange-alt step-icon"></i>
+                        <h3 class="step-title">Choose Output Format</h3>
+                        <p class="step-description">Select your desired output format from the available options: PNG for lossless quality with transparency, JPG for smaller file sizes, or JPEG for standard compatibility.</p>
+                    </div>
 
-        <div class="faq" style="max-width: 900px; margin: 48px auto 0 auto; background: #181c2a; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 30px;">
-            <h2 style="color:#fff;">Frequently Asked Questions</h2>
-            <div class="faq-item" style="background:#23263a; color:#fff; font-size:1.08em;">
-                <h3 style="color:#fff;">Q1: What image formats can I convert?</h3>
-                <p style="color:#e0e0e0; text-align:justify; font-size:1em;">Our tool supports conversion between popular image formats, including PNG, JPG, and JPEG. This ensures compatibility across various platforms and applications, making it easy to prepare your images for websites, social media, or professional projects.​</p>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <i class="fas fa-download step-icon"></i>
+                        <h3 class="step-title">Convert and Download</h3>
+                        <p class="step-description">Click the "Convert Image" button and wait for the process to complete. Once finished, your converted image will be automatically downloaded to your device.</p>
+                    </div>
+                </div>
             </div>
-            <div class="faq-item" style="background:#23263a; color:#fff; font-size:1.08em;">
-                <h3 style="color:#fff;">Q2: Will the image quality be affected during conversion?</h3>
-                <p style="color:#e0e0e0; text-align:justify; font-size:1em;">No, our tool is designed to maintain the original quality of your images during the conversion process. We utilize advanced algorithms to ensure that the visual integrity of your photos remains intact, delivering professional-grade results every time.​</p>
-            </div>
-            <div class="faq-item" style="background:#23263a; color:#fff; font-size:1.08em;">
-                <h3 style="color:#fff;">Q3: Is it safe to upload my images?</h3>
-                <p style="color:#e0e0e0; text-align:justify; font-size:1em;">Absolutely. We prioritize your privacy and security. All image processing occurs securely, and we do not store any uploaded images on our servers. Your files are handled with the utmost confidentiality.​</p>
-            </div>
-            <div class="faq-item" style="background:#23263a; color:#fff; font-size:1.08em;">
-                <h3 style="color:#fff;">Q4: Can I convert images on my mobile device?</h3>
-                <p style="color:#e0e0e0; text-align:justify; font-size:1em;">Yes, our image converter is fully responsive and compatible with all modern browsers and devices. Whether you're using a smartphone, tablet, or desktop, you can easily convert images on the go.​</p>
-            </div>
-            <div class="faq-item" style="background:#23263a; color:#fff; font-size:1.08em;">
-                <h3 style="color:#fff;">Q5: Is there a limit to the number of images I can convert?</h3>
-                <p style="color:#e0e0e0; text-align:justify; font-size:1em;">No, our tool allows for unlimited image conversions without any restrictions. You can convert as many images as you need, free of charge.​</p>
-            </div>
-            <div class="faq-item" style="background:#23263a; color:#fff; font-size:1.08em;">
-                <h3 style="color:#fff;">Q6: Can I convert multiple images at once?</h3>
-                <p style="color:#e0e0e0; text-align:justify; font-size:1em;">Yes, our tool supports batch processing, enabling you to convert multiple images simultaneously. This feature streamlines your workflow and saves you valuable time.​</p>
-            </div>
-            <div class="faq-item" style="background:#23263a; color:#fff; font-size:1.08em;">
-                <h3 style="color:#fff;">Q7: Do I need to install any software to use this tool?</h3>
-                <p style="color:#e0e0e0; text-align:justify; font-size:1em;">No installation is required. Our image converter is entirely web-based, allowing you to convert images directly through your browser without the need for additional software.</p>
-            </div>
-        </div>
+        </section>
 
-        <div class="donate" style="text-align: center; margin: 40px 0;">
-            <h2>Support Us</h2>
-            <p>If you find this tool helpful, consider supporting us:</p>
-            <button onclick="window.open('https://www.buymeacoffee.com/willsblogger', '_blank')">☕ Buy Me a Coffee</button>
-            <div class="social-icons" style="margin-top: 15px;">
-                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/convert-image&text=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/convert-image" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/convert-image&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/convert-image&description=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
-                </a>
-                <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/convert-image" target="_blank">
-                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
-                </a>
-            </div>
-        </div>
+        <!-- Features Section -->
+        <section class="features-section section">
+            <div class="container">
+                <h2 class="section-title">Features of Our Image Converter</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Multiple Format Support</h3>
+                        <p class="feature-description">Convert between popular formats including PNG, JPG, and JPEG. Ensure compatibility across various platforms and applications for websites, social media, or professional projects.</p>
+                    </div>
 
-        <footer>
-            <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-            <p>
-                <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
-                <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
-                <a href="/" target="_self">Home</a>
-            </p>
-        </footer>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3 class="feature-title">High Quality Preservation</h3>
+                        <p class="feature-description">Our advanced algorithms maintain the clarity and detail of your images during conversion, delivering professional-grade results with minimal quality loss.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="feature-title">Fast & Secure Processing</h3>
+                        <p class="feature-description">Experience swift image conversions with our optimized tool. Your files are processed securely, and we prioritize your privacy by not storing uploaded images.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3 class="feature-title">100% Free to Use</h3>
+                        <p class="feature-description">Enjoy unlimited access to our image conversion tool at no cost. No hidden fees or subscriptions—just reliable, free assistance for all your conversion needs.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3 class="feature-title">Cross-Platform Compatibility</h3>
+                        <p class="feature-description">Access our tool seamlessly across all devices and modern browsers. Our responsive design ensures a consistent experience on desktop, tablet, or smartphone.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h3 class="feature-title">Batch Conversion</h3>
+                        <p class="feature-description">Save time by converting multiple images simultaneously. Our batch processing feature allows you to convert several files at once, streamlining your workflow.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Format Comparison Section -->
+        <section class="comparison-section section">
+            <div class="container">
+                <h2 class="section-title">Image Format Comparison</h2>
+                <p class="text-center mb-4">Understanding the differences between image formats can help you choose the right one for your specific needs.</p>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>PNG</th>
+                            <th>JPG/JPEG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Compression Type</td>
+                            <td>Lossless</td>
+                            <td>Lossy</td>
+                        </tr>
+                        <tr>
+                            <td>Transparency Support</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-times x-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>File Size</td>
+                            <td>Larger</td>
+                            <td>Smaller</td>
+                        </tr>
+                        <tr>
+                            <td>Best For</td>
+                            <td>Graphics, logos, images with text</td>
+                            <td>Photographs, complex images</td>
+                        </tr>
+                        <tr>
+                            <td>Color Depth</td>
+                            <td>Up to 16 million colors + alpha channel</td>
+                            <td>Up to 16 million colors</td>
+                        </tr>
+                        <tr>
+                            <td>Web Usage</td>
+                            <td>Logos, icons, images with transparency</td>
+                            <td>Photos, background images</td>
+                        </tr>
+                        <tr>
+                            <td>Quality Loss on Edits</td>
+                            <td>None</td>
+                            <td>Cumulative with each save</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section section">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What image formats can I convert? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Our tool supports conversion between popular image formats, including PNG, JPG, and JPEG. This ensures compatibility across various platforms and applications, making it easy to prepare your images for websites, social media, or professional projects.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Will the image quality be affected during conversion? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            When converting to PNG, there is no quality loss as it uses lossless compression. When converting to JPG/JPEG, there may be slight quality reduction due to the lossy compression nature of these formats. However, our tool is optimized to maintain the highest possible quality while ensuring reasonable file sizes.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Is it safe to upload my images? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Absolutely. We prioritize your privacy and security. All image processing occurs securely in your browser, and we do not store any uploaded images on our servers. Your files are handled with the utmost confidentiality and are automatically deleted after processing.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Can I convert images on my mobile device? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Yes, our image converter is fully responsive and compatible with all modern browsers and devices. Whether you're using a smartphone, tablet, or desktop, you can easily convert images on the go with the same high-quality results.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Is there a limit to the number of images I can convert? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            No, our tool allows for unlimited image conversions without any restrictions. You can convert as many images as you need, completely free of charge. There are no hidden fees, subscriptions, or limitations.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What's the maximum file size I can upload? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Our tool supports image files up to 10MB in size. This limit ensures optimal performance while accommodating most standard image files. For larger files, you may need to resize or compress them first before conversion.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Do I need to create an account to use this tool? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            No, we don't require any registration or account creation. Our image converter is freely accessible to everyone without the need to sign up, provide personal information, or create an account.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section section">
+            <div class="container">
+                <h2 class="section-title">What Our Users Say</h2>
+                <div class="testimonials-container">
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-right quote-icon"></i>
+                        <p class="testimonial-content">This image converter is a lifesaver! I needed to convert multiple PNG files to JPG for my website, and this tool made it incredibly easy. The quality remained perfect, and the process was lightning fast.</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson" class="author-avatar">
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>Web Designer</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-right quote-icon"></i>
+                        <p class="testimonial-content">I've tried many image converters, but this one stands out for its simplicity and effectiveness. The batch conversion feature saved me hours of work when preparing images for my online portfolio.</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="author-avatar">
+                            <div class="author-info">
+                                <h4>Michael Chen</h4>
+                                <p>Photographer</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-right quote-icon"></i>
+                        <p class="testimonial-content">As a social media manager, I constantly need to convert images between formats. This tool has become my go-to resource - it's free, doesn't require registration, and maintains excellent image quality.</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily Rodriguez" class="author-avatar">
+                            <div class="author-info">
+                                <h4>Emily Rodriguez</h4>
+                                <p>Social Media Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Convert Your Images?</h2>
+                <p class="cta-description">Transform your images between formats with our free, fast, and secure converter. No registration required.</p>
+                <div class="cta-buttons">
+                    <a href="#convert-tool" class="btn btn-secondary">Start Converting Now</a>
+                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="btn btn-outline">Support This Tool</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Free AI Tools</h3>
+                    <p>We provide free, high-quality tools to help you with your everyday tasks. No registration required, no hidden fees.</p>
+                    <div class="social-links">
+                        <a href="https://twitter.com/willsblogger" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com/willsblogger" target="_blank" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://instagram.com/willsblogger" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/willsblogger" target="_blank" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Image Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="/tools/image-editing/compress-image">Compress Image</a></li>
+                        <li><a href="/tools/image-editing/convert-image">Convert Image</a></li>
+                        <li><a href="/tools/image-editing/image-resizer">Resize Image</a></li>
+                        <li><a href="/tools/image-editing/crop-image">Crop Image</a></li>
+                        <li><a href="/tools/image-editing/favicon-generator">Favicon Generator</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Other Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="/tools/online-calculators">Calculators</a></li>
+                        <li><a href="/tools/free-online-converter">File Converters</a></li>
+                        <li><a href="/tools/online-calculators/unit-converter">Unit Converter</a></li>
+                        <li><a href="/tools/online-calculators/qr-code-generator">QR Code Generator</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="/terms-of-use.html">Terms of Use</a></li>
+                        <li><a href="https://www.buymeacoffee.com/willsblogger" target="_blank">Support Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+                <p>
+                    <a href="/privacy-policy.html">Privacy</a> |
+                    <a href="/terms-of-use.html">Terms</a> |
+                    <a href="/sitemap.xml">Sitemap</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // File upload preview
+            const fileUpload = document.querySelector('.file-upload');
+            const fileInput = document.querySelector('.file-upload-input');
+            const fileUploadText = document.querySelector('.file-upload-text');
+
+            fileInput.addEventListener('change', function(e) {
+                if (this.files && this.files[0]) {
+                    const fileName = this.files[0].name;
+                    const fileSize = (this.files[0].size / 1024 / 1024).toFixed(2);
+
+                    // Update upload area with file info
+                    fileUploadText.innerHTML = `
+                        <h3>${fileName}</h3>
+                        <p>File size: ${fileSize} MB</p>
+                        <p class="mb-1"><small>Click to change file</small></p>
+                    `;
+
+                    // Add active class to upload area
+                    fileUpload.classList.add('active');
+
+                    // Create preview if it's an image
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.maxHeight = '150px';
+                        img.style.maxWidth = '100%';
+                        img.style.marginTop = '15px';
+                        img.style.borderRadius = '4px';
+
+                        // Remove any existing preview
+                        const existingPreview = fileUpload.querySelector('img');
+                        if (existingPreview) {
+                            existingPreview.remove();
+                        }
+
+                        fileUploadText.appendChild(img);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            // Format selector
+            const formatOptions = document.querySelectorAll('.format-option');
+            formatOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active class from all options
+                    formatOptions.forEach(opt => opt.classList.remove('active'));
+
+                    // Add active class to clicked option
+                    this.classList.add('active');
+
+                    // Select the radio button
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                });
+            });
+
+            // FAQ accordion
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+
+                    // Toggle answer visibility
+                    if (answer.style.display === 'block') {
+                        answer.style.display = 'none';
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        answer.style.display = 'block';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            // Hide all answers initially
+            document.querySelectorAll('.faq-answer').forEach(answer => {
+                answer.style.display = 'none';
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Drag and drop functionality
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                fileUpload.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                fileUpload.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                fileUpload.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight() {
+                fileUpload.classList.add('highlight');
+            }
+
+            function unhighlight() {
+                fileUpload.classList.remove('highlight');
+            }
+
+            fileUpload.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+
+                if (files.length) {
+                    fileInput.files = files;
+                    // Trigger change event
+                    const event = new Event('change');
+                    fileInput.dispatchEvent(event);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

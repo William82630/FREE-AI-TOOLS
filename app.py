@@ -541,7 +541,7 @@ def favicon_generator():
 
 @app.route('/tools/image-editing/convert-image', methods=['GET', 'POST'])
 def convert_image():
-    return render_template('convert_image_with_base.html')
+    return render_template('convert_image.html')
 
 @app.route('/tools/image-editing/convert-webp-to-png', methods=['GET', 'POST'])
 def convert_webp_to_png():
