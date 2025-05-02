@@ -4,189 +4,645 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Tools - Free AI Tools</title>
-    <meta name="description" content="Explore a collection of free AI-powered tools, including image editing, calculators, keyword research, and more. Optimize your workflow with our easy-to-use tools.">
+    <meta name="description" content="Explore a collection of free AI-powered tools, including image editing, calculators, file converters, and more. Optimize your workflow with our easy-to-use tools.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google AdSense Auto Ads Code -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273"
+     crossorigin="anonymous"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #121212;
+            color: #ffffff;
         }
-        .container {
-            max-width: 1200px;
+        .page-layout {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
-        h1 {
+        .vertical-ad {
+            width: 200px;
+            min-height: 600px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 10px;
             text-align: center;
-            margin-bottom: 20px;
+            border: 1px dashed #444;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
         }
-        p {
+        .vertical-ad p {
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+            height: 600px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+        .container {
+            width: 900px;
+            margin: 0 20px;
+        }
+        .hero {
+            background: linear-gradient(135deg, #002040 0%, #003366 100%);
+            padding: 60px 20px;
             text-align: center;
-            margin-bottom: 20px;
-            color: #333;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .hero h1 {
+            font-size: 2.8em;
+            margin: 0 0 20px 0;
+            letter-spacing: 1px;
+        }
+        .hero p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .horizontal-ad {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+            border: 1px dashed #444;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .tool-category {
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
-        .tool-category h2 {
-            margin-bottom: 10px;
-        }
-        .tool-list {
+        .category-header {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .tool-item {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
             text-align: center;
-            flex: 1 1 calc(33.333% - 20px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .tool-item a {
+        .category-header i {
+            font-size: 1.8em;
+            margin-right: 15px;
+            color: #0066cc;
+        }
+        .category-header h2 {
+            font-size: 1.8em;
+            margin: 0;
+            font-weight: 600;
+        }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+        .tool-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .tool-card a {
             text-decoration: none;
-            color: #007BFF;
-            font-weight: bold;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
-        .tool-item a:hover {
+        .tool-icon {
+            background-color: #2a2a2a;
+            padding: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .tool-icon i {
+            font-size: 2.5em;
+            color: #0066cc;
+        }
+        .tool-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+        .tool-name {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            color: #ffffff;
+            text-align: center;
+        }
+        .tool-description {
+            font-size: 0.9em;
+            color: #aaaaaa;
+            line-height: 1.5;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #888;
+        }
+        .footer p {
+            margin: 10px 0;
+        }
+        .footer a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .footer a:hover {
             text-decoration: underline;
+        }
+        .support-section {
+            margin-bottom: 30px;
+        }
+        .coffee-button {
+            display: inline-block;
+            background-color: #FFDD00;
+            color: #000000;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .coffee-button:hover {
+            background-color: #FFE44D;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            text-decoration: none;
+        }
+        .coffee-button i {
+            margin-right: 8px;
+        }
+        .social-share {
+            margin-bottom: 30px;
+        }
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .share-btn {
+            display: inline-block;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+        .share-btn:hover {
+            transform: translateY(-3px);
+        }
+        .share-icon {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+        .footer-links {
+            margin-top: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1400px) {
+            .vertical-ad {
+                width: 160px;
+            }
+            .container {
+                width: calc(100% - 360px);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .page-layout {
+                flex-direction: column;
+            }
+            .vertical-ad {
+                display: none;
+            }
+            .container {
+                width: 100%;
+                margin: 0;
+            }
+            .tool-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tool-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero {
+                padding: 40px 20px;
+            }
+            .hero h1 {
+                font-size: 2.2em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            .category-header h2 {
+                font-size: 1.5em;
+            }
+            .tool-icon {
+                padding: 20px 0;
+            }
+            .tool-icon i {
+                font-size: 2em;
+            }
+            .tool-info {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>FREE AI TOOLS</h1>
-        <p>Welcome to Free AI Tools! Explore a wide range of AI-powered tools designed to make your life easier. From image editing to online calculators and keyword research tools, our tools are completely free and accessible to everyone. Whether you're compressing images, generating favicons, analyzing keywords, or calculating your BMI, we've got you covered. Start using our tools today and experience the power of AI at your fingertips!</p>
-
-        <!-- Space for Google Ads -->
-        <div style="margin: 20px 0; text-align: center;">
-            <p style="color: gray;">[Google Ads Space]</p>
+    <div class="page-layout">
+        <!-- Left Vertical Ad Space -->
+        <div class="vertical-ad">
+            <p style="color: #888; writing-mode: vertical-lr; transform: rotate(180deg); height: 600px; margin: 0; display: flex; align-items: center; justify-content: center;">
+                [Ad Space]
+            </p>
         </div>
 
+        <div class="container">
+            <div class="hero">
+                <h1>FREE AI TOOLS</h1>
+                <p>Welcome to Free AI Tools! Explore a wide range of AI-powered tools designed to make your life easier. From image editing to online calculators and file converters, our tools are completely free and accessible to everyone. Whether you're compressing images, generating favicons, or calculating your BMI, we've got you covered. Start using our tools today and experience the power of AI at your fingertips!</p>
+            </div>
+
+            <!-- Horizontal Ad Space -->
+            <div class="horizontal-ad">
+                <p style="color: #888; margin: 0;">[Ad Space]</p>
+            </div>
+
         <div class="tool-category">
-            <h2>Image Editing Tools</h2>
-            <div class="tool-list">
-                <div class="tool-item">
-                    <a href="/tools/image-editing/compress-image" target="_blank">Compress Image</a>
+            <div class="category-header">
+                <i class="fas fa-image"></i>
+                <h2>Image Editing Tools</h2>
+            </div>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <a href="/tools/image-editing/compress-image" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-compress"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Compress Image</h3>
+                            <p class="tool-description">Reduce image file size while maintaining quality for faster loading websites.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/image-editing/favicon-generator" target="_blank">Favicon Generator</a>
+                <div class="tool-card">
+                    <a href="/tools/image-editing/favicon-generator" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Favicon Generator</h3>
+                            <p class="tool-description">Create professional favicons for your website in multiple sizes and formats.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/image-editing/convert-image" target="_blank">Convert Image Formats</a>
+                <div class="tool-card">
+                    <a href="/tools/image-editing/convert-image" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Convert Image Formats</h3>
+                            <p class="tool-description">Convert images between different formats like JPG, PNG, and more.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/image-editing/convert-webp-to-png" target="_blank">Convert WEBP to PNG</a>
+                <div class="tool-card">
+                    <a href="/tools/image-editing/convert-webp-to-png" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Convert WEBP to PNG</h3>
+                            <p class="tool-description">Transform WebP images to the widely compatible PNG format.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/image-editing/convert-svg-to-png" target="_blank">Convert SVG to PNG</a>
+                <div class="tool-card">
+                    <a href="/tools/image-editing/convert-svg-to-png" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-vector-square"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Convert SVG to PNG</h3>
+                            <p class="tool-description">Convert vector SVG graphics to raster PNG images with custom dimensions.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/image-editing/image-resizer" target="_blank">Image Resizer</a>
+                <div class="tool-card">
+                    <a href="/tools/image-editing/image-resizer" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Image Resizer</h3>
+                            <p class="tool-description">Resize images to exact dimensions while maintaining aspect ratio.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/image-editing/crop-image" target="_blank">Crop Image</a>
+                <div class="tool-card">
+                    <a href="/tools/image-editing/crop-image" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-crop"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Crop Image</h3>
+                            <p class="tool-description">Precisely crop images to remove unwanted areas and focus on what matters.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/image-editing/reverse-image-search" target="_blank">Reverse Image Search</a>
+                <div class="tool-card">
+                    <a href="/tools/image-editing/reverse-image-search" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Reverse Image Search</h3>
+                            <p class="tool-description">Find similar images and discover where an image appears online.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/image-editing/face-search" target="_blank">Face Search</a>
+                <div class="tool-card">
+                    <a href="/tools/image-editing/face-search" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Face Search</h3>
+                            <p class="tool-description">Detect and analyze faces in images using advanced AI technology.</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
 
         <div class="tool-category">
-            <h2>Online Calculators</h2>
-            <div class="tool-list">
-                <div class="tool-item">
-                    <a href="/tools/online-calculators/simple-calculator" target="_blank">Simple Calculator</a>
+            <div class="category-header">
+                <i class="fas fa-calculator"></i>
+                <h2>Online Calculators</h2>
+            </div>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <a href="/tools/online-calculators/simple-calculator" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Simple Calculator</h3>
+                            <p class="tool-description">Perform basic and advanced mathematical calculations online.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/online-calculators/age-calculator" target="_blank">Age Calculator</a>
+                <div class="tool-card">
+                    <a href="/tools/online-calculators/age-calculator" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Age Calculator</h3>
+                            <p class="tool-description">Calculate exact age in years, months, and days between any two dates.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/online-calculators/bmi-calculator" target="_blank">BMI Calculator</a>
+                <div class="tool-card">
+                    <a href="/tools/online-calculators/bmi-calculator" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-weight"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">BMI Calculator</h3>
+                            <p class="tool-description">Calculate your Body Mass Index and check your weight category.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/online-calculators/loan-calculator" target="_blank">Loan Calculator</a>
+                <div class="tool-card">
+                    <a href="/tools/online-calculators/loan-calculator" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Loan Calculator</h3>
+                            <p class="tool-description">Calculate monthly payments, interest, and total cost for any loan.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/online-calculators/gst-calculator" target="_blank">GST Calculator</a>
+                <div class="tool-card">
+                    <a href="/tools/online-calculators/gst-calculator" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-percent"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">GST Calculator</h3>
+                            <p class="tool-description">Calculate Goods and Services Tax for products and services.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/online-calculators/currency-converter" target="_blank">Currency Converter</a>
+                <div class="tool-card">
+                    <a href="/tools/online-calculators/currency-converter" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Currency Converter</h3>
+                            <p class="tool-description">Convert between different currencies with up-to-date exchange rates.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/online-calculators/password-generator" target="_blank">Password Generator</a>
+                <div class="tool-card">
+                    <a href="/tools/online-calculators/password-generator" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Password Generator</h3>
+                            <p class="tool-description">Create strong, secure passwords with customizable options.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/online-calculators/unit-converter" target="_blank">Unit Converter</a>
+                <div class="tool-card">
+                    <a href="/tools/online-calculators/unit-converter" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-ruler-combined"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Unit Converter</h3>
+                            <p class="tool-description">Convert between different units of measurement across categories.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/online-calculators/qr-code-generator" target="_blank">QR Code Generator</a>
+                <div class="tool-card">
+                    <a href="/tools/online-calculators/qr-code-generator" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">QR Code Generator</h3>
+                            <p class="tool-description">Create custom QR codes for websites, text, and contact information.</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
 
         <div class="tool-category">
-            <h2>Free Online Converter</h2>
-            <div class="tool-list">
-                <div class="tool-item">
-                    <a href="/tools/free-online-converter/pdf-to-word" target="_blank">Convert PDF to Word</a>
+            <div class="category-header">
+                <i class="fas fa-file-alt"></i>
+                <h2>Free Online Converter</h2>
+            </div>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <a href="/tools/free-online-converter/pdf-to-word" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-word"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">PDF to Word</h3>
+                            <p class="tool-description">Convert PDF documents to editable Word files with formatting preserved.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/free-online-converter/word-to-pdf" target="_blank">Convert Word to PDF</a>
+                <div class="tool-card">
+                    <a href="/tools/free-online-converter/word-to-pdf" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Word to PDF</h3>
+                            <p class="tool-description">Convert Word documents to PDF format for universal compatibility.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/free-online-converter/image-to-pdf" target="_blank">Convert Image to PDF</a>
+                <div class="tool-card">
+                    <a href="/tools/free-online-converter/image-to-pdf" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Image to PDF</h3>
+                            <p class="tool-description">Convert images to PDF documents with customizable page settings.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/free-online-converter/compress-pdf" target="_blank">Compress PDF</a>
+                <div class="tool-card">
+                    <a href="/tools/free-online-converter/compress-pdf" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">Compress PDF</h3>
+                            <p class="tool-description">Reduce PDF file size while maintaining document quality and readability.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/free-online-converter/mp3-to-mp4" target="_blank">Convert MP3 to MP4</a>
+                <div class="tool-card">
+                    <a href="/tools/free-online-converter/mp3-to-mp4" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">MP3 to MP4</h3>
+                            <p class="tool-description">Convert audio files to video format with customizable background image.</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/free-online-converter/mp4-to-mp3" target="_blank">Convert MP4 to MP3</a>
+                <div class="tool-card">
+                    <a href="/tools/free-online-converter/mp4-to-mp3" target="_blank">
+                        <div class="tool-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3 class="tool-name">MP4 to MP3</h3>
+                            <p class="tool-description">Extract audio from video files and save as MP3 format.</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
 
-        <div class="tool-category">
-            <h2>Free Keyword Research Tools</h2>
-            <div class="tool-list">
-                <div class="tool-item">
-                    <a href="/tools/keyword-research/keyword-generator" target="_blank">Keyword Generator</a>
+            <div class="footer">
+                <div class="support-section">
+                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="coffee-button">
+                        <i class="fas fa-mug-hot"></i> Buy Me A Coffee
+                    </a>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/keyword-research/keyword-density-checker" target="_blank">Keyword Density Checker</a>
+
+                <div class="social-share">
+                    <p>Share these tools:</p>
+                    <div class="share-buttons">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://willsblogger.com" target="_blank" class="share-btn">
+                            <img src="/static/images/facebook.png" alt="Share on Facebook" class="share-icon">
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url=https://willsblogger.com&text=Check%20out%20these%20free%20AI%20tools!" target="_blank" class="share-btn">
+                            <img src="/static/images/twitter.png" alt="Share on Twitter" class="share-icon">
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://willsblogger.com&title=Free%20AI%20Tools&summary=Check%20out%20these%20amazing%20free%20AI%20tools!" target="_blank" class="share-btn">
+                            <img src="/static/images/linkedIn.png" alt="Share on LinkedIn" class="share-icon">
+                        </a>
+                        <a href="https://pinterest.com/pin/create/button/?url=https://willsblogger.com&description=Free%20AI%20Tools" target="_blank" class="share-btn">
+                            <img src="/static/images/pinterest.png" alt="Share on Pinterest" class="share-icon">
+                        </a>
+                        <a href="https://api.whatsapp.com/send?text=Check%20out%20these%20free%20AI%20tools:%20https://willsblogger.com" target="_blank" class="share-btn">
+                            <img src="/static/images/whatsapp.png" alt="Share on WhatsApp" class="share-icon">
+                        </a>
+                    </div>
                 </div>
-                <div class="tool-item">
-                    <a href="/tools/keyword-research/related-keywords-finder" target="_blank">Related Keywords Finder</a>
-                </div>
-                <div class="tool-item">
-                    <a href="/tools/keyword-research/long-tail-keyword-generator" target="_blank">Long Tail Keyword Generator</a>
-                </div>
-                <div class="tool-item">
-                    <a href="/tools/keyword-research/keyword-competition-analyzer" target="_blank">Keyword Competition Analyzer</a>
-                </div>
-                <div class="tool-item">
-                    <a href="/tools/keyword-research/word-counter" target="_blank">Word Counter</a>
-                </div>
-                <div class="tool-item">
-                    <a href="/tools/keyword-research/youtube-keyword-generator" target="_blank">YouTube Keyword Generator</a>
-                </div>
-                <div class="tool-item">
-                    <a href="/tools/keyword-research/email-subject-line-tester" target="_blank">Email Subject Line Tester</a>
-                </div>
-                <div class="tool-item">
-                    <a href="/tools/keyword-research/keyword-position-checker" target="_blank">Keyword Position Checker</a>
+                <div class="footer-links">
+                    <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+                    <p>
+                        <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+                        <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
+                        <a href="/" target="_self">Home</a>
+                    </p>
                 </div>
             </div>
+        </div>
+
+        <!-- Right Vertical Ad Space -->
+        <div class="vertical-ad">
+            <p style="color: #888; writing-mode: vertical-lr; transform: rotate(180deg); height: 600px; margin: 0; display: flex; align-items: center; justify-content: center;">
+                [Ad Space]
+            </p>
         </div>
     </div>
 </body>
