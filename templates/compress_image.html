@@ -39,6 +39,13 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 2px dashed transparent;
+            transition: all 0.3s ease;
+        }
+        .input-section form.highlight {
+            border-color: #3d9bf2;
+            background-color: rgba(61, 155, 242, 0.1);
+            box-shadow: 0 4px 20px rgba(61, 155, 242, 0.25);
         }
         .input-section input[type="file"] {
             padding: 10px;
@@ -255,10 +262,82 @@
         }
     </style>
     <script>
+        // Utility functions
+        const utils = {
+            // Format file size in human-readable format
+            formatFileSize: function(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            },
+
+            // Show error message with better UX
+            showError: function(message, isAlert = false) {
+                if (isAlert) {
+                    alert(message);
+                    return;
+                }
+
+                // Create or use existing error element
+                let errorEl = document.getElementById('error-message');
+                if (!errorEl) {
+                    errorEl = document.createElement('div');
+                    errorEl.id = 'error-message';
+                    errorEl.style.cssText = 'background: #ff5252; color: white; padding: 12px; border-radius: 6px; margin: 15px 0; text-align: center; animation: fadeIn 0.3s;';
+                    document.getElementById('compression-form').prepend(errorEl);
+                }
+
+                errorEl.textContent = message;
+                errorEl.style.display = 'block';
+
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    errorEl.style.opacity = '0';
+                    setTimeout(() => {
+                        errorEl.style.display = 'none';
+                        errorEl.style.opacity = '1';
+                    }, 300);
+                }, 5000);
+            },
+
+            // Validate file before processing
+            validateImageFile: function(file) {
+                // Check if file exists
+                if (!file) return 'Please select an image file.';
+
+                // Check file type
+                const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/bmp'];
+                if (!validTypes.includes(file.type)) {
+                    return 'Please select a valid image file (JPEG, PNG, WebP, GIF, BMP).';
+                }
+
+                // Check file size (max 10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    return 'File size exceeds the 10MB limit. Please select a smaller file.';
+                }
+
+                return null; // No errors
+            }
+        };
+
         // Function to preview the image before compression
         function previewImage(input) {
             if (input.files && input.files[0]) {
                 const file = input.files[0];
+
+                // Validate file
+                const errorMsg = utils.validateImageFile(file);
+                if (errorMsg) {
+                    utils.showError(errorMsg);
+                    input.value = ''; // Clear the input
+                    return;
+                }
+
+                // Show loading indicator
+                const originalInfo = document.getElementById('original-info');
+                originalInfo.innerHTML = '<div style="text-align: center; padding: 10px;">Loading preview...</div>';
 
                 // Show preview container and compression options
                 document.getElementById('preview-container').style.display = 'block';
@@ -271,64 +350,192 @@
                 const previewImg = document.getElementById('original-preview');
                 previewImg.src = imageUrl;
 
-                // Display file information
-                const originalInfo = document.getElementById('original-info');
-
                 // Format file size
-                let fileSize = file.size;
-                let fileSizeFormatted = '';
+                const fileSizeFormatted = utils.formatFileSize(file.size);
 
-                if (fileSize < 1024) {
-                    fileSizeFormatted = fileSize + ' bytes';
-                } else if (fileSize < 1024 * 1024) {
-                    fileSizeFormatted = (fileSize / 1024).toFixed(2) + ' KB';
-                } else {
-                    fileSizeFormatted = (fileSize / (1024 * 1024)).toFixed(2) + ' MB';
-                }
-
-                // Get image dimensions
+                // Get image dimensions with error handling
                 const img = new Image();
+
                 img.onload = function() {
                     originalInfo.innerHTML = `
                         Size: ${fileSizeFormatted}<br>
                         Dimensions: ${this.width} × ${this.height} px<br>
                         Type: ${file.type.split('/')[1].toUpperCase()}
                     `;
+
+                    // Enable submit button now that we have a valid image
+                    document.querySelector('button[type="submit"]').disabled = false;
                 };
+
+                img.onerror = function() {
+                    originalInfo.innerHTML = `
+                        Size: ${fileSizeFormatted}<br>
+                        Type: ${file.type.split('/')[1].toUpperCase()}<br>
+                        <span style="color: #ff5252;">Error loading image dimensions</span>
+                    `;
+                };
+
                 img.src = imageUrl;
             }
         }
 
-        // Handle form submission with AJAX
+        // Handle form submission with AJAX and improved UX
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('compression-form');
+            const submitButton = form.querySelector('button[type="submit"]');
 
+            // Disable submit button initially until an image is selected
+            submitButton.disabled = true;
+
+            // Add drag and drop functionality
+            const fileInput = document.getElementById('image-input');
+            const dropArea = document.querySelector('.input-section form');
+
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            // Highlight drop area when item is dragged over it
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight() {
+                dropArea.classList.add('highlight');
+                dropArea.style.borderColor = '#3d9bf2';
+                dropArea.style.backgroundColor = 'rgba(61, 155, 242, 0.1)';
+            }
+
+            function unhighlight() {
+                dropArea.classList.remove('highlight');
+                dropArea.style.borderColor = '';
+                dropArea.style.backgroundColor = '';
+            }
+
+            // Handle dropped files
+            dropArea.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+
+                if (files.length) {
+                    fileInput.files = files;
+                    previewImage(fileInput);
+                }
+            }
+
+            // Form submission with progress indicator
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                const formData = new FormData(form);
-                const submitButton = form.querySelector('button[type="submit"]');
+                // Validate form
+                const fileInput = document.getElementById('image-input');
+                if (!fileInput.files || !fileInput.files[0]) {
+                    utils.showError('Please select an image to compress.');
+                    return;
+                }
 
-                // Change button text to show loading
-                submitButton.textContent = 'Compressing...';
+                const formData = new FormData(form);
+
+                // Change button text and show loading
+                submitButton.innerHTML = '<span class="spinner"></span> Compressing...';
                 submitButton.disabled = true;
+
+                // Add spinner style if not already in document
+                if (!document.getElementById('spinner-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'spinner-style';
+                    style.textContent = `
+                        .spinner {
+                            display: inline-block;
+                            width: 18px;
+                            height: 18px;
+                            border: 2px solid rgba(255,255,255,0.3);
+                            border-radius: 50%;
+                            border-top-color: white;
+                            animation: spin 1s ease-in-out infinite;
+                            margin-right: 8px;
+                            vertical-align: middle;
+                        }
+                        @keyframes spin {
+                            to { transform: rotate(360deg); }
+                        }
+                        @keyframes fadeIn {
+                            from { opacity: 0; }
+                            to { opacity: 1; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+
+                // Create progress indicator
+                const progressEl = document.createElement('div');
+                progressEl.style.cssText = 'width: 100%; height: 4px; background: #1a1d24; margin-top: 15px; border-radius: 2px; overflow: hidden;';
+
+                const progressBarEl = document.createElement('div');
+                progressBarEl.style.cssText = 'width: 0%; height: 100%; background: linear-gradient(90deg, #3d9bf2 0%, #0c34d2 100%); transition: width 0.3s;';
+
+                progressEl.appendChild(progressBarEl);
+                form.appendChild(progressEl);
+
+                // Simulate progress while waiting for response
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    progress += Math.random() * 5;
+                    if (progress > 90) progress = 90; // Cap at 90% until actual completion
+                    progressBarEl.style.width = `${progress}%`;
+                }, 200);
 
                 fetch('/tools/image-editing/compress-image', {
                     method: 'POST',
                     body: formData
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Server responded with status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    // Complete progress bar
+                    clearInterval(progressInterval);
+                    progressBarEl.style.width = '100%';
+
+                    // Remove progress bar after a short delay
+                    setTimeout(() => {
+                        progressEl.remove();
+                    }, 500);
+
                     if (data.success) {
-                        // Show results container
-                        document.getElementById('results-container').style.display = 'block';
+                        // Show results container with fade-in effect
+                        const resultsContainer = document.getElementById('results-container');
+                        resultsContainer.style.display = 'block';
+                        resultsContainer.style.animation = 'fadeIn 0.5s';
 
                         // Set original and compressed images
                         document.getElementById('result-original').src = data.original_image;
                         document.getElementById('result-compressed').src = data.compressed_image;
 
                         // Set download link
-                        document.getElementById('download-link').href = data.compressed_image;
+                        const downloadLink = document.getElementById('download-link');
+                        downloadLink.href = data.compressed_image;
+
+                        // Update download filename based on compression result
+                        const originalFilename = fileInput.files[0].name;
+                        const fileExt = originalFilename.split('.').pop();
+                        const baseName = originalFilename.substring(0, originalFilename.lastIndexOf('.'));
+                        downloadLink.setAttribute('download', `${baseName}_compressed.${fileExt}`);
 
                         // Set file info
                         document.getElementById('result-original-info').innerHTML = `Size: ${data.original_size}`;
@@ -337,29 +544,36 @@
                         let compressionInfo = `Size: ${data.compressed_size}<br>`;
 
                         if (data.was_compressed) {
-                            compressionInfo += `Saved: ${data.savings_percent}%`;
+                            compressionInfo += `Saved: <span style="color: #4CAF50; font-weight: bold;">${data.savings_percent}%</span>`;
                         } else {
                             compressionInfo += `<span style="color: #ffcc00;">${data.message}</span>`;
                         }
 
                         document.getElementById('result-compressed-info').innerHTML = compressionInfo;
 
-                        // Scroll to results
-                        document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+                        // Scroll to results with smooth animation
+                        resultsContainer.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     } else {
-                        alert('Error: ' + (data.error || 'Failed to compress image'));
+                        utils.showError(data.error || 'Failed to compress image');
                     }
 
                     // Reset button
-                    submitButton.textContent = 'Compress Image';
+                    submitButton.innerHTML = 'Compress Image';
                     submitButton.disabled = false;
                 })
                 .catch(error => {
+                    // Clear progress animation
+                    clearInterval(progressInterval);
+                    progressEl.remove();
+
                     console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
+                    utils.showError(`An error occurred: ${error.message}. Please try again.`);
 
                     // Reset button
-                    submitButton.textContent = 'Compress Image';
+                    submitButton.innerHTML = 'Compress Image';
                     submitButton.disabled = false;
                 });
             });
@@ -605,13 +819,78 @@
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-        <p>
-            <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
-            <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
-            <a href="/" target="_self">Home</a>
-        </p>
+    <!-- Footer -->
+    <footer class="footer" style="background-color: #0f172a; color: white; padding: 3rem 0 1rem 0; margin: 0; clear: both;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+            <div class="footer-content" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; margin-bottom: 2rem;">
+                <div class="footer-column" style="flex: 1; min-width: 250px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Free AI Tools</h3>
+                    <p style="color: #cbd5e1; margin: 0 0 1rem 0; line-height: 1.6;">We provide free, high-quality tools to help you with your everyday tasks. No registration required, no hidden fees.</p>
+                    <style>
+                        .social-link:hover {
+                            transform: translateY(-5px);
+                            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+                        }
+                    </style>
+                    <div class="social-links" style="display: flex; gap: 1rem;">
+                        <a href="https://twitter.com/willsblogger" target="_blank" class="social-link" style="background-color: #1DA1F2; color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com/willsblogger" target="_blank" class="social-link" style="background-color: #4267B2; color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://instagram.com/willsblogger" target="_blank" class="social-link" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/willsblogger" target="_blank" class="social-link" style="background-color: #FF0000; color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Image Tools</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/compress-image" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Compress Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-image" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Convert Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-webp-to-png" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">WEBP to PNG</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/image-resizer" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Resize Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/crop-image" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Crop Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/favicon-generator" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Favicon Generator</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Other Tools</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/bmi-calculator" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">BMI Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/gst-calculator" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">GST Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/keyword-research/keyword-generator" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Keyword Generator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/pdf-to-word" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">PDF to Word</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Support</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Home</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/privacy-policy.html" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Privacy Policy</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/terms-of-use.html" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Terms of Use</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Support Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom" style="border-top: 1px solid #334155; padding-top: 1.5rem; text-align: center;">
+                <p style="color: #94a3b8; margin: 0 0 0.5rem 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+                <p style="color: #94a3b8; margin: 0;">
+                    <a href="/" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Home</a> |
+                    <a href="/privacy-policy.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Privacy</a> |
+                    <a href="/terms-of-use.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Terms</a> |
+                    <a href="/sitemap.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Sitemap</a>
+                </p>
+            </div>
+        </div>
     </footer>
 </body>
 </html>

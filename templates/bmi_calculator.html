@@ -21,6 +21,30 @@
 
 {% block additional_styles %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+.hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+.hero h1 {
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-size: 2.8em;
+    margin: 0 0 15px 0;
+}
+.hero p {
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-size: 1.3em;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
 .input-group {
     margin: 30px auto 0;
     display: flex;
@@ -294,6 +318,48 @@
     width: 16px;
     height: 16px;
 }
+/* FAQ Accordion Styles */
+.faq-item {
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #23263a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.faq-question {
+    padding: 15px 20px;
+    background-color: #1a1d2e;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+.faq-question:hover {
+    background-color: #2a2e45;
+}
+.faq-question h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #ffffff;
+}
+.faq-question i {
+    color: #ffffff;
+    transition: transform 0.3s;
+}
+.faq-answer {
+    padding: 20px;
+    background-color: #23263a;
+    color: #e0e0e0;
+}
+.faq-item.active .faq-question {
+    background-color: #2a2e45;
+}
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
 @media (max-width: 768px) {
     .input-group {
         flex-direction: column;
@@ -436,33 +502,63 @@
     <h2>Frequently Asked Questions</h2>
 
     <div class="faq-item">
-        <h3 style="color: #ffffff;">Is BMI accurate for everyone?</h3>
-        <p>BMI is not a perfect measure for everyone. It may not be as accurate for athletes, elderly people, or those with high muscle mass, as it doesn't distinguish between weight from muscle and weight from fat.</p>
+        <div class="faq-question">
+            <h3>Is BMI accurate for everyone?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>BMI is not a perfect measure for everyone. It may not be as accurate for athletes, elderly people, or those with high muscle mass, as it doesn't distinguish between weight from muscle and weight from fat.</p>
+        </div>
     </div>
 
     <div class="faq-item">
-        <h3 style="color: #ffffff;">How often should I check my BMI?</h3>
-        <p>It's recommended to check your BMI every 3-6 months, or whenever there's a significant change in your weight or lifestyle. Regular monitoring can help track trends in your weight status.</p>
+        <div class="faq-question">
+            <h3>How often should I check my BMI?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>It's recommended to check your BMI every 3-6 months, or whenever there's a significant change in your weight or lifestyle. Regular monitoring can help track trends in your weight status.</p>
+        </div>
     </div>
 
     <div class="faq-item">
-        <h3 style="color: #ffffff;">Why might my BMI be high even though I exercise regularly?</h3>
-        <p>If you're very muscular, your BMI might be high even if you're not overweight. This is because muscle is denser than fat, and BMI doesn't account for body composition.</p>
+        <div class="faq-question">
+            <h3>Why might my BMI be high even though I exercise regularly?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>If you're very muscular, your BMI might be high even if you're not overweight. This is because muscle is denser than fat, and BMI doesn't account for body composition.</p>
+        </div>
     </div>
 
     <div class="faq-item">
-        <h3 style="color: #ffffff;">Can BMI predict health problems?</h3>
-        <p>While BMI can indicate potential health risks, it's just one of many factors. Other measurements like waist circumference, blood pressure, and blood sugar levels are also important indicators of overall health.</p>
+        <div class="faq-question">
+            <h3>Can BMI predict health problems?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>While BMI can indicate potential health risks, it's just one of many factors. Other measurements like waist circumference, blood pressure, and blood sugar levels are also important indicators of overall health.</p>
+        </div>
     </div>
 
     <div class="faq-item">
-        <h3 style="color: #ffffff;">Does BMI calculation differ for children?</h3>
-        <p>Yes, BMI for children and teens (aged 2-20) is calculated the same way but interpreted differently. It's compared to typical values for other children of the same age and sex using specific growth charts.</p>
+        <div class="faq-question">
+            <h3>Does BMI calculation differ for children?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Yes, BMI for children and teens (aged 2-20) is calculated the same way but interpreted differently. It's compared to typical values for other children of the same age and sex using specific growth charts.</p>
+        </div>
     </div>
 
     <div class="faq-item">
-        <h3 style="color: #ffffff;">What should I do if my BMI is outside the healthy range?</h3>
-        <p>If your BMI is outside the healthy range (18.5-24.9), it's recommended to consult with a healthcare provider. They can evaluate your individual situation and recommend appropriate lifestyle changes or medical interventions if needed.</p>
+        <div class="faq-question">
+            <h3>What should I do if my BMI is outside the healthy range?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>If your BMI is outside the healthy range (18.5-24.9), it's recommended to consult with a healthcare provider. They can evaluate your individual situation and recommend appropriate lifestyle changes or medical interventions if needed.</p>
+        </div>
     </div>
 </div>
 
@@ -479,6 +575,53 @@
 
         // Initialize the BMI gauge on page load
         updateBMIGauge(0);
+
+        // Initialize FAQ accordion
+        // Hide all answers initially
+        document.querySelectorAll('.faq-answer').forEach(answer => {
+            answer.style.display = 'none';
+        });
+
+        // Set first FAQ item as active by default
+        const firstFaqItem = document.querySelector('.faq-item');
+        if (firstFaqItem) {
+            firstFaqItem.classList.add('active');
+            const firstFaqAnswer = firstFaqItem.querySelector('.faq-answer');
+            if (firstFaqAnswer) {
+                firstFaqAnswer.style.display = 'block';
+            }
+        }
+
+        // Add click event listeners to all FAQ questions
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const faqItem = this.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
+                const icon = this.querySelector('i');
+
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        const itemAnswer = item.querySelector('.faq-answer');
+                        const itemIcon = item.querySelector('.faq-question i');
+                        if (itemAnswer) itemAnswer.style.display = 'none';
+                        if (itemIcon) itemIcon.style.transform = 'rotate(0deg)';
+                        item.classList.remove('active');
+                    }
+                });
+
+                // Toggle current FAQ item
+                if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                    faqItem.classList.remove('active');
+                } else {
+                    answer.style.display = 'block';
+                    if (icon) icon.style.transform = 'rotate(180deg)';
+                    faqItem.classList.add('active');
+                }
+            });
+        });
     });
 
     // Add input validation

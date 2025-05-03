@@ -545,6 +545,74 @@ def convert_image():
 
 @app.route('/tools/image-editing/convert-webp-to-png', methods=['GET', 'POST'])
 def convert_webp_to_png():
+    if request.method == 'POST':
+        try:
+            # Check if file was uploaded
+            if 'image' not in request.files:
+                return jsonify({'success': False, 'error': 'No file part'}), 400
+
+            file = request.files['image']
+            if file.filename == '':
+                return jsonify({'success': False, 'error': 'No selected file'}), 400
+
+            # Check if the file is a WebP image
+            if not file.filename.lower().endswith('.webp'):
+                return jsonify({'success': False, 'error': 'Please upload a WebP file'}), 400
+
+            # Create unique filenames
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            unique_id = str(uuid.uuid4())[:8]
+            original_filename = secure_filename(file.filename)
+            base_filename = os.path.splitext(original_filename)[0]
+
+            # Save the uploaded WebP file
+            webp_filename = f"temp_{timestamp}_{unique_id}_{original_filename}"
+            webp_filepath = os.path.join(UPLOAD_FOLDER, webp_filename)
+            file.save(webp_filepath)
+
+            # Create output PNG filename
+            png_filename = f"converted_{timestamp}_{unique_id}_{base_filename}.png"
+            png_filepath = os.path.join(CONVERTED_FOLDER, png_filename)
+
+            # Convert WebP to PNG using PIL
+            with Image.open(webp_filepath) as img:
+                # If the image has transparency, preserve it
+                if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
+                    # Image has transparency, save as PNG with transparency
+                    img.save(png_filepath, format="PNG")
+                else:
+                    # Convert to RGB if needed
+                    if img.mode != 'RGB':
+                        img = img.convert('RGB')
+                    img.save(png_filepath, format="PNG")
+
+            # Clean up the temporary WebP file
+            try:
+                os.remove(webp_filepath)
+            except Exception as cleanup_error:
+                print(f"Warning: Could not remove temporary file: {str(cleanup_error)}")
+
+            # Return success response with download URL
+            return jsonify({
+                'success': True,
+                'message': 'WebP successfully converted to PNG',
+                'download_url': f'/download/converted/{png_filename}'
+            })
+
+        except Exception as e:
+            print(f"Error in WebP to PNG conversion: {str(e)}")
+
+            # Clean up any temporary files
+            try:
+                if 'webp_filepath' in locals() and os.path.exists(webp_filepath):
+                    os.remove(webp_filepath)
+                if 'png_filepath' in locals() and os.path.exists(png_filepath):
+                    os.remove(png_filepath)
+            except Exception as cleanup_error:
+                print(f"Error during cleanup: {str(cleanup_error)}")
+
+            return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'}), 500
+
     return render_template('convert_webp_to_png.html')
 
 @app.route('/tools/image-editing/convert-svg-to-png', methods=['GET', 'POST'])
@@ -713,6 +781,18 @@ def gst_calculator():
             return jsonify({'success': False, 'error': f'An unexpected error occurred: {str(e)}'})
 
     return render_template('gst_calculator.html')
+
+@app.route('/gst-calculator')
+def gst_calculator_redirect():
+    return render_template('gst_calculator.html')
+
+@app.route('/gst-calculator-test')
+def gst_calculator_test():
+    return "GST Calculator Test Page - This route is working!"
+
+@app.route('/gst-calculator-test-template')
+def gst_calculator_test_template():
+    return render_template('gst_calculator_test.html')
 
 @app.route('/tools/online-calculators/currency-converter', methods=['GET', 'POST'])
 def currency_converter():
@@ -2188,55 +2268,123 @@ def keyword_position_checker():
 
 @app.route('/download/converted/<filename>', methods=['GET'])
 def download_converted_file(filename):
+    """Handle file downloads with proper security checks and cleanup"""
     try:
-        file_path = os.path.join(CONVERTED_FOLDER, filename)
+        # Sanitize filename to prevent directory traversal attacks
+        safe_filename = secure_filename(filename)
+        if safe_filename != filename:
+            print(f"Security warning: Attempted access with potentially unsafe filename: {filename}")
+            return "Invalid filename", 400
+
+        file_path = os.path.join(CONVERTED_FOLDER, safe_filename)
 
         # Check if file exists
         if not os.path.exists(file_path):
-            return f"Error: File not found", 404
+            return "File not found or has expired. Please try converting again.", 404
+
+        # Verify file is not a directory and is readable
+        if not os.path.isfile(file_path):
+            return "Invalid file request", 400
+
+        try:
+            # Check if file is accessible
+            with open(file_path, 'rb') as _:
+                pass
+        except (IOError, PermissionError):
+            return "File exists but cannot be accessed", 403
+
+        # Get file size for logging
+        file_size = os.path.getsize(file_path)
+        file_size_formatted = format_file_size(file_size)
 
         # Schedule file for deletion after sending
         @after_this_request
         def remove_file(response):
             try:
-                # Delete the file after sending
-                os.remove(file_path)
-                print(f"Deleted file after download: {file_path}")
+                # Only delete if response was successful
+                if response.status_code == 200:
+                    os.remove(file_path)
+                    print(f"Downloaded and deleted: {safe_filename} ({file_size_formatted})")
+                else:
+                    print(f"Download failed with status {response.status_code}, file not deleted: {safe_filename}")
             except Exception as error:
-                print(f"Error removing downloaded file: {error}")
+                print(f"Error removing downloaded file {safe_filename}: {error}")
             return response
 
-        return send_file(file_path, as_attachment=True)
+        # Return the file with proper content disposition
+        return send_file(
+            file_path,
+            as_attachment=True,
+            download_name=safe_filename  # Ensure consistent filename in download
+        )
     except Exception as e:
-        return f"Error: {str(e)}", 404
+        print(f"Download error for {filename}: {str(e)}")
+        return "An error occurred during download. Please try again.", 500
+
+# Helper function to format file sizes
+def format_file_size(size_in_bytes):
+    """Format file size in human-readable format"""
+    if size_in_bytes < 1024:
+        return f"{size_in_bytes} bytes"
+    elif size_in_bytes < 1024 * 1024:
+        return f"{(size_in_bytes / 1024):.2f} KB"
+    else:
+        return f"{(size_in_bytes / (1024 * 1024)):.2f} MB"
 
 # Cleanup function to remove old files
 def cleanup_old_files():
     """Remove files older than 1 hour from temporary folders"""
     folders_to_clean = [UPLOAD_FOLDER, CONVERTED_FOLDER, COMPRESSED_FOLDER, FAVICON_FOLDER]
     current_time = datetime.now()
+    cleanup_threshold = 3600  # 1 hour in seconds
+
+    # Track statistics for logging
+    total_cleaned = 0
+    total_failed = 0
+    total_size_cleaned = 0
 
     for folder in folders_to_clean:
         if not os.path.exists(folder):
             continue
 
-        for filename in os.listdir(folder):
-            file_path = os.path.join(folder, filename)
+        try:
+            # Use a list comprehension to get all files at once (more efficient)
+            files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
 
-            # Skip if not a file
-            if not os.path.isfile(file_path):
-                continue
+            for filename in files:
+                file_path = os.path.join(folder, filename)
 
-            # Get file creation/modification time
-            file_time = datetime.fromtimestamp(os.path.getmtime(file_path))
-
-            # If file is older than 1 hour, delete it
-            if (current_time - file_time).total_seconds() > 3600:  # 1 hour in seconds
                 try:
-                    os.remove(file_path)
-                    print(f"Cleaned up old file: {file_path}")
-                except Exception as e:
-                    print(f"Error removing old file {file_path}: {e}")
+                    # Get file stats in one call
+                    file_stats = os.stat(file_path)
+                    file_time = datetime.fromtimestamp(file_stats.st_mtime)
+                    file_size = file_stats.st_size
+
+                    # If file is older than threshold, delete it
+                    if (current_time - file_time).total_seconds() > cleanup_threshold:
+                        try:
+                            os.remove(file_path)
+                            total_cleaned += 1
+                            total_size_cleaned += file_size
+                            # Only print every 10 files to reduce log spam
+                            if total_cleaned % 10 == 0:
+                                print(f"Cleaned {total_cleaned} old files so far...")
+                        except (PermissionError, OSError) as e:
+                            # More specific error handling
+                            total_failed += 1
+                            print(f"Could not remove file {file_path}: {e}")
+                except (OSError, ValueError) as e:
+                    # Handle errors in getting file stats
+                    print(f"Error checking file {file_path}: {e}")
+        except (PermissionError, OSError) as e:
+            # Handle errors in listing directory contents
+            print(f"Error accessing directory {folder}: {e}")
+
+    # Log summary statistics
+    if total_cleaned > 0 or total_failed > 0:
+        size_mb = total_size_cleaned / (1024 * 1024)
+        print(f"Cleanup summary: Removed {total_cleaned} files ({size_mb:.2f} MB), Failed: {total_failed}")
+    return total_cleaned, total_size_cleaned
 
 # Run cleanup on startup
 cleanup_old_files()
@@ -2246,13 +2394,26 @@ import threading
 import time
 
 def cleanup_scheduler():
-    """Run cleanup every hour"""
+    """Run cleanup every hour with adaptive timing"""
     while True:
-        time.sleep(3600)  # Sleep for 1 hour
-        cleanup_old_files()
+        try:
+            # Sleep for 1 hour
+            time.sleep(3600)
+
+            # Run cleanup and get stats
+            files_cleaned, size_cleaned = cleanup_old_files()
+
+            # Adaptive timing - if we cleaned a lot of files or a large amount of data, run again sooner
+            if files_cleaned > 100 or size_cleaned > 100 * 1024 * 1024:  # 100+ files or 100+ MB
+                print("Large number of files cleaned, scheduling next cleanup sooner...")
+                time.sleep(1800)  # Wait only 30 minutes for next cleanup
+        except Exception as e:
+            print(f"Error in cleanup scheduler: {e}")
+            # If there's an error, wait a bit and continue
+            time.sleep(300)  # 5 minutes
 
 # Start cleanup thread
-cleanup_thread = threading.Thread(target=cleanup_scheduler)
+cleanup_thread = threading.Thread(target=cleanup_scheduler, name="FileCleanupThread")
 cleanup_thread.daemon = True  # Thread will exit when main program exits
 cleanup_thread.start()
 

@@ -20,6 +20,30 @@
 {% block support_title_color %}#0d5522{% endblock %}
 
 {% block additional_styles %}
+.hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.hero h1 {
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-size: 3em;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+.hero p {
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-size: 1.3em;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
 .calculator-container {
     background: #23263a;
     border-radius: 12px;
@@ -177,6 +201,48 @@
     width: 16px;
     height: 16px;
 }
+
+/* FAQ Accordion Styles */
+.faq-item {
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #23263a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.faq-question {
+    padding: 15px 20px;
+    background-color: #1a1d2e;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+.faq-question:hover {
+    background-color: #2a2e45;
+}
+.faq-question h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #ffffff;
+}
+.faq-question i {
+    color: #ffffff;
+    transition: transform 0.3s;
+}
+.faq-answer {
+    padding: 20px;
+    background-color: #23263a;
+    display: none;
+}
+.faq-item.active .faq-question {
+    background-color: #2a2e45;
+}
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
 {% endblock %}
 
 {% block content %}
@@ -196,7 +262,7 @@
                 <input type="number" id="loan-term" placeholder="Enter years" style="font-size: 1.1em; width: 150px;">
             </div>
         </div>
-        
+
         <button class="calculate-btn" onclick="calculateLoan()">Calculate Loan</button>
 
         <div class="results" id="results">
@@ -204,7 +270,7 @@
             <div id="result-details">
                 <!-- Results will be inserted here by JavaScript -->
             </div>
-            
+
             <button class="reset-btn" onclick="resetCalculator()">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
@@ -269,41 +335,122 @@
 
 <div class="faq">
     <h2>Frequently Asked Questions</h2>
-    
+
     <div class="faq-item">
-        <h3 style="color: #ffffff;">What is a loan calculator?</h3>
-        <p>A loan calculator is an online tool that helps you estimate your monthly payments, total interest, and the overall cost of a loan based on the loan amount, interest rate, and loan term. It's ideal for financial planning before taking out a loan.</p>
+        <div class="faq-question">
+            <h3>What is a loan calculator?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>A loan calculator is an online tool that helps you estimate your monthly payments, total interest, and the overall cost of a loan based on the loan amount, interest rate, and loan term. It's ideal for financial planning before taking out a loan.</p>
+        </div>
     </div>
 
     <div class="faq-item">
-        <h3 style="color: #ffffff;">Is your loan calculator free to use?</h3>
-        <p>Yes! Our loan calculator is 100% free to use with no sign-ups, hidden fees, or trial limitations. Just enter your details and get instant results—anytime.</p>
+        <div class="faq-question">
+            <h3>Is your loan calculator free to use?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Yes! Our loan calculator is 100% free to use with no sign-ups, hidden fees, or trial limitations. Just enter your details and get instant results—anytime.</p>
+        </div>
     </div>
 
     <div class="faq-item">
-        <h3 style="color: #ffffff;">How accurate are the loan estimates?</h3>
-        <p>Our calculator provides very accurate estimates based on standard amortization formulas. While actual lender terms may vary slightly, the results give you a solid understanding of what to expect financially.</p>
+        <div class="faq-question">
+            <h3>How accurate are the loan estimates?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Our calculator provides very accurate estimates based on standard amortization formulas. While actual lender terms may vary slightly, the results give you a solid understanding of what to expect financially.</p>
+        </div>
     </div>
 
     <div class="faq-item">
-        <h3 style="color: #ffffff;">Can I calculate loans for different time periods?</h3>
-        <p>Yes! You can set your loan duration in months or years, whether you're looking at short-term personal loans or long-term home loans. Just adjust the loan term field to your preference.</p>
+        <div class="faq-question">
+            <h3>Can I calculate loans for different time periods?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Yes! You can set your loan duration in months or years, whether you're looking at short-term personal loans or long-term home loans. Just adjust the loan term field to your preference.</p>
+        </div>
     </div>
 
     <div class="faq-item">
-        <h3 style="color: #ffffff;">Can this calculator be used for business or student loans?</h3>
-        <p>Absolutely. Our tool is flexible and can be used for personal loans, auto loans, mortgages, business loans, education loans, and more—just input the details relevant to your loan.</p>
+        <div class="faq-question">
+            <h3>Can this calculator be used for business or student loans?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Absolutely. Our tool is flexible and can be used for personal loans, auto loans, mortgages, business loans, education loans, and more—just input the details relevant to your loan.</p>
+        </div>
     </div>
 
     <div class="faq-item">
-        <h3 style="color: #ffffff;">Can I use this loan calculator on my phone?</h3>
-        <p>Yes! The calculator is fully mobile-optimized and works perfectly on all screen sizes. Whether you're at home or meeting with a lender, you can run quick calculations right from your phone.</p>
+        <div class="faq-question">
+            <h3>Can I use this loan calculator on my phone?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Yes! The calculator is fully mobile-optimized and works perfectly on all screen sizes. Whether you're at home or meeting with a lender, you can run quick calculations right from your phone.</p>
+        </div>
     </div>
 </div>
 {% endblock %}
 
 {% block body_scripts %}
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize FAQ accordion
+        // Set first FAQ item as active by default
+        const firstFaqItem = document.querySelector('.faq-item');
+        if (firstFaqItem) {
+            firstFaqItem.classList.add('active');
+            const firstFaqAnswer = firstFaqItem.querySelector('.faq-answer');
+            if (firstFaqAnswer) {
+                firstFaqAnswer.style.display = 'block';
+            }
+        }
+
+        // Add click event listeners to all FAQ questions
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                const faqItem = this.parentElement;
+
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        const itemAnswer = item.querySelector('.faq-answer');
+                        const itemIcon = item.querySelector('.faq-question i');
+                        if (itemAnswer) itemAnswer.style.display = 'none';
+                        if (itemIcon) itemIcon.style.transform = 'rotate(0deg)';
+                        item.classList.remove('active');
+                    }
+                });
+
+                // Toggle current FAQ item
+                if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                    faqItem.classList.remove('active');
+                } else {
+                    answer.style.display = 'block';
+                    if (icon) icon.style.transform = 'rotate(180deg)';
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Hide all answers initially except the first one
+        document.querySelectorAll('.faq-answer').forEach((answer, index) => {
+            if (index !== 0) {
+                answer.style.display = 'none';
+            }
+        });
+    });
+
     function calculateLoan() {
         const loanAmount = parseFloat(document.getElementById('loan-amount').value);
         const annualInterestRate = parseFloat(document.getElementById('interest-rate').value) / 100;
@@ -317,7 +464,7 @@
         const monthlyInterestRate = annualInterestRate / 12;
         const numberOfPayments = loanTerm * 12;
         const monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
-        
+
         // Calculate total payment and interest
         const totalPayment = monthlyPayment * numberOfPayments;
         const totalInterest = totalPayment - loanAmount;
@@ -325,7 +472,7 @@
         // Display results
         const resultsDiv = document.getElementById('results');
         const resultDetailsDiv = document.getElementById('result-details');
-        
+
         resultDetailsDiv.innerHTML = `
             <div class="result-item">
                 <strong>Monthly Payment:</strong>
@@ -344,7 +491,7 @@
                 <span class="result-value">$${totalPayment.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
             </div>
         `;
-        
+
         resultsDiv.classList.add('show');
     }
 
@@ -353,11 +500,11 @@
         document.getElementById('loan-amount').value = '';
         document.getElementById('interest-rate').value = '';
         document.getElementById('loan-term').value = '';
-        
+
         // Hide results
         const resultsDiv = document.getElementById('results');
         resultsDiv.classList.remove('show');
-        
+
         // Focus on loan amount input
         document.getElementById('loan-amount').focus();
     }

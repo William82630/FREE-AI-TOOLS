@@ -8,13 +8,18 @@
     <meta name="keywords" content="{% block keywords %}free tools, AI tools, online tools{% endblock %}">
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- External CSS files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <style>
+        /* Page-specific overrides */
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #181a20;
-            color: #ffffff;
             line-height: 1.6;
         }
         .container {
@@ -393,16 +398,105 @@
             </div>
         </div>
 
-        <footer>
-            <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-            <p>
-                <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
-                <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
-                <a href="/" target="_self">Home</a>
-            </p>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>Free AI Tools</h3>
+                        <p>We provide free, high-quality tools to help you with your everyday tasks. No registration required, no hidden fees.</p>
+                        <div class="social-links">
+                            <a href="https://twitter.com/willsblogger" target="_blank" class="social-link twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://facebook.com/willsblogger" target="_blank" class="social-link facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://instagram.com/willsblogger" target="_blank" class="social-link instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://youtube.com/willsblogger" target="_blank" class="social-link youtube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="footer-column">
+                        <h3>Image Tools</h3>
+                        <ul class="footer-links">
+                            <li><a href="/tools/image-editing/compress-image">Compress Image</a></li>
+                            <li><a href="/tools/image-editing/convert-image">Convert Image</a></li>
+                            <li><a href="/tools/image-editing/convert-webp-to-png">WEBP to PNG</a></li>
+                            <li><a href="/tools/image-editing/image-resizer">Resize Image</a></li>
+                            <li><a href="/tools/image-editing/crop-image">Crop Image</a></li>
+                            <li><a href="/tools/image-editing/favicon-generator">Favicon Generator</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h3>Other Tools</h3>
+                        <ul class="footer-links">
+                            <li><a href="/tools/online-calculators/bmi-calculator">BMI Calculator</a></li>
+                            <li><a href="/tools/online-calculators/gst-calculator">GST Calculator</a></li>
+                            <li><a href="/tools/keyword-research/keyword-generator">Keyword Generator</a></li>
+                            <li><a href="/tools/free-online-converter/pdf-to-word">PDF to Word</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul class="footer-links">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="/terms-of-use.html">Terms of Use</a></li>
+                            <li><a href="https://www.buymeacoffee.com/willsblogger" target="_blank">Support Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+                    <p>
+                        <a href="/">Home</a> |
+                        <a href="/privacy-policy.html">Privacy</a> |
+                        <a href="/terms-of-use.html">Terms</a> |
+                        <a href="/sitemap.html">Sitemap</a>
+                    </p>
+                </div>
+            </div>
         </footer>
     </div>
 
     {% block body_scripts %}{% endblock %}
+
+    <!-- Ensure Font Awesome icons are properly loaded -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if Font Awesome is loaded properly
+            const testIcon = document.createElement('i');
+            testIcon.className = 'fas fa-check';
+            testIcon.style.display = 'none';
+            document.body.appendChild(testIcon);
+
+            // Get computed style
+            const computedStyle = window.getComputedStyle(testIcon);
+            const fontFamily = computedStyle.getPropertyValue('font-family');
+
+            // If Font Awesome is not loaded properly, try to reload it
+            if (!fontFamily.includes('Font Awesome')) {
+                console.log('Font Awesome not loaded properly, attempting to reload...');
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+                link.integrity = 'sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==';
+                link.crossOrigin = 'anonymous';
+                link.referrerPolicy = 'no-referrer';
+                document.head.appendChild(link);
+            }
+
+            // Clean up test element
+            document.body.removeChild(testIcon);
+        });
+    </script>
 </body>
 </html>

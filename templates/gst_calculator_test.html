@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Calculator Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .calculator {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            background-color: #e9f7ef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .result-row:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>GST Calculator Test Page</h1>
+    <p>This is a simplified test page for the GST calculator functionality.</p>
+
+    <div class="calculator">
+        <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" placeholder="Enter amount" step="0.01" min="0">
+        </div>
+
+        <div class="form-group">
+            <label for="gst-rate">GST Rate:</label>
+            <select id="gst-rate">
+                <option value="5">5%</option>
+                <option value="12">12%</option>
+                <option value="18" selected>18%</option>
+                <option value="28">28%</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <input type="radio" name="tax-type" value="exclusive" checked> Exclusive (Add GST)
+            </label>
+            <label>
+                <input type="radio" name="tax-type" value="inclusive"> Inclusive (Extract GST)
+            </label>
+        </div>
+
+        <button id="calculate-btn">Calculate GST</button>
+        <button id="reset-btn">Reset</button>
+    </div>
+
+    <div class="result" id="result">
+        <h3>Results</h3>
+        <div class="result-row">
+            <span>Base Amount:</span>
+            <span id="base-amount">₹0.00</span>
+        </div>
+        <div class="result-row">
+            <span>GST Amount:</span>
+            <span id="gst-amount">₹0.00</span>
+        </div>
+        <div class="result-row">
+            <span>Total Amount:</span>
+            <span id="total-amount">₹0.00</span>
+        </div>
+    </div>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded');
+
+            // Get elements
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const amountInput = document.getElementById('amount');
+            const gstRateSelect = document.getElementById('gst-rate');
+            const baseAmountElement = document.getElementById('base-amount');
+            const gstAmountElement = document.getElementById('gst-amount');
+            const totalAmountElement = document.getElementById('total-amount');
+
+            // Add event listeners
+            calculateBtn.addEventListener('click', calculateGST);
+            resetBtn.addEventListener('click', resetCalculator);
+
+            // Calculate GST function
+            function calculateGST() {
+                console.log('Calculate GST button clicked');
+
+                // Get values
+                const amount = parseFloat(amountInput.value);
+                if (isNaN(amount) || amount <= 0) {
+                    alert('Please enter a valid positive amount');
+                    return;
+                }
+
+                const gstRate = parseFloat(gstRateSelect.value);
+                const taxType = document.querySelector('input[name="tax-type"]:checked').value;
+
+                console.log('Input values:', { amount, gstRate, taxType });
+
+                // Calculate GST
+                let baseAmount, gstAmount, totalAmount;
+
+                if (taxType === 'inclusive') {
+                    // GST inclusive calculation (extract GST)
+                    totalAmount = amount;
+                    baseAmount = amount / (1 + gstRate / 100);
+                    gstAmount = totalAmount - baseAmount;
+                } else {
+                    // GST exclusive calculation (add GST)
+                    baseAmount = amount;
+                    gstAmount = (amount * gstRate) / 100;
+                    totalAmount = baseAmount + gstAmount;
+                }
+
+                console.log('Calculated values:', { baseAmount, gstAmount, totalAmount });
+
+                // Format and display results
+                baseAmountElement.textContent = formatCurrency(baseAmount);
+                gstAmountElement.textContent = formatCurrency(gstAmount);
+                totalAmountElement.textContent = formatCurrency(totalAmount);
+            }
+
+            // Reset calculator function
+            function resetCalculator() {
+                console.log('Reset button clicked');
+                amountInput.value = '';
+                gstRateSelect.value = '18';
+                document.querySelector('input[name="tax-type"][value="exclusive"]').checked = true;
+
+                baseAmountElement.textContent = '₹0.00';
+                gstAmountElement.textContent = '₹0.00';
+                totalAmountElement.textContent = '₹0.00';
+
+                amountInput.focus();
+            }
+
+            // Format currency function
+            function formatCurrency(amount) {
+                return '₹' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            }
+        });
+    </script>
+</body>
+</html>

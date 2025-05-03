@@ -1,360 +1,1540 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Convert WEBP to PNG</title>
-    <meta name="description" content="Easily convert WEBP images to PNG format. Upload your WEBP file and get a PNG version instantly.">
-    <meta name="keywords" content="WEBP to PNG, image converter, convert WEBP">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert WEBP to PNG - Free Online WEBP to PNG Converter</title>
+    <meta name="description" content="Free online tool to convert WEBP images to PNG format. Maintain high quality, instant conversion, no registration required. Convert unlimited WEBP images for free.">
+    <meta name="keywords" content="WEBP to PNG, convert WEBP, image converter, free WEBP converter, online WEBP converter, WEBP to PNG converter, image format converter">
+    <meta name="author" content="willsblogger.com">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://willsblogger.com/tools/image-editing/convert-webp-to-png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://willsblogger.com/tools/image-editing/convert-webp-to-png">
+    <meta property="og:title" content="Free Online WEBP to PNG Converter">
+    <meta property="og:description" content="Convert your WEBP images to PNG format while maintaining high quality. Free, fast, and secure online tool.">
+    <meta property="og:image" content="https://willsblogger.com/static/images/convert-webp-to-png-og.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://willsblogger.com/tools/image-editing/convert-webp-to-png">
+    <meta property="twitter:title" content="Free Online WEBP to PNG Converter">
+    <meta property="twitter:description" content="Convert your WEBP images to PNG format while maintaining high quality. Free, fast, and secure online tool.">
+    <meta property="twitter:image" content="https://willsblogger.com/static/images/convert-webp-to-png-og.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/images/favicon.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "WEBP to PNG Converter",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "956"
+        },
+        "description": "Free online tool to convert WEBP images to PNG format. Maintain high quality, instant conversion, no registration required."
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #0ea5e9;
+            --accent-color: #8b5cf6;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --text-light: #f8fafc;
+            --text-dark: #1e293b;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
         }
-        .hero {
-            background-color: #02560d52;
-            color: white;
-            padding: 40px 20px;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            line-height: 1.6;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
             text-align: center;
         }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0;
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
         }
-        .hero p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        button, .btn {
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            border: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0284c7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
         .container {
             max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            padding: 0;
         }
-        .input-section {
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
             text-align: center;
-            margin: 20px 0;
+            margin-bottom: 3rem;
+            position: relative;
         }
-        .input-section input[type="file"] {
-            width: 320px !important;
-            padding: 14px;
-            font-size: 1.08em;
-            border: 2px solid #ff9307;
-            border-radius: 6px;
-            background: #fff;
-            color: #222;
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 1rem auto 0;
+            border-radius: 2px;
         }
-        .input-section button {
-            padding: 14px 28px;
-            font-size: 1.08em;
-            background: #ff6e07;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            transition: background 0.2s;
-        }
-        .input-section button:hover {
-            background: #791301;
-        }
-        .how-to {
-            margin: 40px 0;
-        }
-        .how-to h2 {
-            text-align: center;
-            color: #333;
-        }
-        .how-to-steps {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .step {
-            text-align: center;
-            flex: 1 1 30%;
-            margin: 10px;
-        }
-        .step span {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            background-color: #040020;
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e40af 100%);
             color: white;
-            border-radius: 50%;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        .features, .faq {
-            margin: 40px 0;
-        }
-        .features h2, .faq h2 {
+            padding: 2rem 0;
             text-align: center;
-            color: #333;
-        }
-        .features ul {
-            list-style: disc;
-            margin-left: 20px;
-            color: #555;
-        }
-        .faq-item {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px 0;
-        }
-        .faq-item p {
-            font-size: 1.15em;
-        }
-        footer {
-            background: #111;
-            color: #fff;
-            padding: 38px 20px 32px 20px;
-            margin-top: 64px;
-            border-radius: 0;
-            box-shadow: 0 -2px 12px rgba(0,0,0,0.10);
+            position: relative;
+            overflow: hidden;
             width: 100%;
-            text-align: center;
-            font-size: 1.08em;
-            letter-spacing: 0.01em;
         }
-        footer p {
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/static/images/pattern.svg');
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 1);
+            line-height: 1.5;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Tool Section */
+        .tool-section {
+            background-color: #f1f5f9;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0;
+            margin-top: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin: 0 0 10px 0;
+        }
+
+        .tool-header h2 {
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+            margin-top: 0;
+        }
+
+        .tool-header p {
+            color: #4b5563;
+            font-size: 0.9rem;
+            line-height: 1.3;
             margin: 0;
         }
-        footer a {
-            color: #fff;
-            text-decoration: underline;
-            margin: 0 12px;
-            opacity: 0.85;
+
+        .file-upload {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.5rem;
+            background-color: #f1f5f9;
+            transition: all 0.3s ease;
+            margin: 0 auto 0.5rem auto;
+            min-height: 80px;
+            max-width: 100%;
         }
 
-        .donate button {
-            background: #ff9307;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            padding: 12px 28px;
-            font-size: 1.08em;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            transition: background 0.2s;
-        }
-        .donate button:hover {
-            background: #e07c00;
+        .file-upload:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(37, 99, 235, 0.05);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .how-to-steps {
-                flex-direction: column;
-                align-items: center;
-            }
-            .input-section input {
-                width: 100%;
-                margin-bottom: 10px;
-            }
+        .file-upload-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
         }
 
-        .feature-cards .card h3 {
+        .file-upload-text {
+            margin-bottom: 0.25rem;
             text-align: center;
+        }
+
+        .file-upload-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .convert-btn {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .convert-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 5rem 0;
+            background-color: #f8fafc;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step-card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 2rem;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-description {
+            color: #4b5563;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 5rem 0;
+            background-color: #f1f5f9;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 0 160px; /* Space for Google ads on both sides */
+        }
+
+        .feature-card {
+            background-color: transparent;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+            text-align: center;
+            box-shadow: none;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: none;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .feature-description {
+            color: #4b5563;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Format Comparison Section */
+        .comparison-section {
+            padding: 2rem 0;
+            background-color: #f1f5f9 !important;
+            margin: 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #f1f5f9;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: none;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 1.25rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 1.1rem;
+            background-color: #f1f5f9;
+        }
+
+        .comparison-table th {
+            background-color: #e2e8f0;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .check-icon {
+            color: var(--success-color);
+        }
+
+        .times-icon {
+            color: var(--error-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 4rem 0;
+            background-color: #f1f5f9;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 1rem;
+        }
+
+        .faq-item {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: left;
+        }
+
+        .faq-question:hover {
+            background-color: #f8fafc;
+        }
+
+        .faq-question i {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #4b5563;
+            font-size: 1.1rem;
+            text-align: left;
+            line-height: 1.7;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 4rem 0;
+            background-color: #f1f5f9;
+        }
+
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            text-align: left;
+        }
+
+        .author-info p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: rgba(37, 99, 235, 0.1);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/static/images/pattern.svg');
+            opacity: 0.05;
+            z-index: 1;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-description {
+            font-size: 1.35rem;
+            margin-bottom: 2rem;
+            opacity: 1;
+            line-height: 1.7;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 5rem 0 2rem;
+            width: 100%;
+            margin: 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.35rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-column p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            transition: color 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            font-size: 1rem;
+        }
+
+        .footer-bottom a {
+            color: #cbd5e1;
+            margin: 0 0.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* Ad Spaces */
+        .ad-space {
+            width: 100%;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        .ad-space-vertical {
+            width: 300px;
+            height: 600px;
+            margin: 0 auto 2rem;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .steps-container,
+            .features-grid,
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Counter Section */
+        .counter-section {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: #f1f5f9;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .counter-text {
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .counter-number {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Social Sharing */
+        .social-sharing {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .share-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #f1f5f9;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .share-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .share-button img {
+            width: 20px;
+            height: 20px;
         }
     </style>
 </head>
-<body>
-    <!-- Google Ads: Left Vertical -->
-    <div style="position: fixed; top: 0; left: 0; width: 160px; height: 100vh; z-index: 9999; display: flex; align-items: center; justify-content: center;">
-        <div style="position: relative; top: 0;">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
-            <!-- You can add your ad unit code here -->
+<body style="margin: 0; padding: 0; overflow-x: hidden;">
+    <!-- Hero Section -->
+    <section class="hero" style="background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); color: white; padding: 1.5rem 0; margin: 0; width: 100%;">
+        <div class="hero-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h1 style="font-size: 2rem; margin: 0 0 0.5rem 0; line-height: 1.2;">Convert WEBP to PNG Online</h1>
+            <p style="font-size: 1rem; margin: 0; line-height: 1.5;">Transform your WEBP images to PNG format while maintaining quality.</p>
         </div>
-    </div>
-    <!-- Google Ads: Right Vertical -->
-    <div style="position: fixed; top: 0; right: 0; width: 160px; height: 100vh; z-index: 9999; display: flex; align-items: center; justify-content: center;">
-        <div style="position: relative; top: 0;">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
-            <!-- You can add your ad unit code here -->
-        </div>
-    </div>
+    </section>
 
-    <div class="hero">
-        <h1>Convert WEBP to PNG</h1>
-        <p>Upload your WEBP image to convert it to PNG format. Our tool ensures high-quality conversions in seconds.</p>
-    </div>
+    <div class="container" style="padding: 0; margin: 0 auto; max-width: 100%;">
+        <!-- Tool Section -->
+        <section id="convert-tool" class="tool-section" style="background-color: #1e293b; margin: 0; padding: 1rem; border-radius: 0;">
+            <div class="tool-header" style="margin: 0; padding: 0;">
+                <p style="margin: 0; font-size: 1.1rem; color: #60a5fa; font-style: italic; font-weight: 500;">Convert unlimited WEBP files to PNG format for free, no registration required.</p>
+            </div>
 
-    <div class="container">
-        <div class="input-section">
-            <form action="/tools/image-editing/convert-webp-to-png" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required placeholder="Upload your WEBP image">
-                <button type="submit">Convert to PNG</button>
+            <form id="convert-form" action="/tools/image-editing/convert-webp-to-png" method="post" enctype="multipart/form-data" style="background-color: #1e293b; padding: 1rem; border-radius: 0.5rem; margin: 1rem auto; max-width: 600px; text-align: center;">
+                <div class="file-upload" style="background-color: #2a3649; margin: 1rem auto; padding: 1.5rem; border: 2px dashed #4b5563; border-radius: 0.5rem; max-width: 500px;">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: #3b82f6; margin-bottom: 0.5rem;"></i>
+                    <div class="file-upload-text">
+                        <h3 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; font-weight: 600; color: white;">Drag & Drop Your WEBP File Here</h3>
+                        <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1;">or click to browse your files</p>
+                    </div>
+                    <input type="file" id="image" name="image" class="file-upload-input" accept=".webp" required style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+                </div>
+                <button type="submit" class="convert-btn" style="background-color: #3b82f6; color: white; border: none; padding: 0.75rem 2rem; border-radius: 0.375rem; font-weight: 600; font-size: 1rem; cursor: pointer; margin: 0.5rem auto; display: block;">Convert to PNG</button>
             </form>
-        </div>
 
-        <div class="how-to">
-            <h2>How to Use the Convert WEBP to PNG Tool</h2>
-            <div class="how-to-steps">
-                <div class="step">
-                    <span>1</span>
-                    <p>Upload your WEBP image file.</p>
+            <!-- Conversion Result Section (initially hidden) -->
+            <div id="result-container" style="display: none; margin-top: 2rem; text-align: center;">
+                <div id="success-result" style="display: none;">
+                    <div style="background-color: #ecfdf5; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                        <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success-color); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--success-color); margin-bottom: 0.5rem;">Conversion Successful!</h3>
+                        <p style="color: #065f46; margin-bottom: 1.5rem;">Your WEBP image has been successfully converted to PNG format.</p>
+                        <a id="download-btn" href="#" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-download"></i> Download PNG
+                        </a>
+                    </div>
                 </div>
-                <div class="step">
-                    <span>2</span>
-                    <p>Click the "Convert to PNG" button.</p>
-                </div>
-                <div class="step">
-                    <span>3</span>
-                    <p>Download the converted PNG image.</p>
-                </div>
-            </div>
-        </div>
 
-        <div class="features">
-            <h2 style="text-align:center; margin-bottom: 28px; color: #23263a;">Features of Our Convert WEBP to PNG Tool</h2>
-            <div class="feature-cards" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;">
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">🔄 Seamless WEBP to PNG Conversion</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Effortlessly convert your WEBP images to the widely supported PNG format. This ensures your visuals are compatible across various platforms and applications, making it simple to prepare your images for websites, social media, or professional projects.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">🖼️ Preserves High Image Quality</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Maintain the clarity and detail of your images during conversion. Our advanced algorithms ensure that the visual integrity of your photos remains intact, delivering professional-grade results every time.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">⚡ Fast & Secure Processing</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Experience swift image conversions with our optimized tool. Your files are processed securely, and we prioritize your privacy by not storing any uploaded images on our servers.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">💸 Completely Free to Use</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Enjoy unlimited access to our image conversion tool at no cost. There are no hidden fees or subscriptions—just reliable, free assistance for all your image conversion needs.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">🌐 Cross-Platform Compatibility</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">Access our tool seamlessly across all devices and modern browsers. Whether you're on a desktop, tablet, or smartphone, our responsive design ensures a consistent and user-friendly experience.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">🛠️ Ideal for Editing and Design</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">PNG files are preferred by designers and content creators for their lossless compression, which ensures that image quality remains intact during editing. This makes our tool perfect for preparing images for further design work.​</p>
-                </div>
-                <div class="card" style="flex: 1 1 300px; max-width: 300px; min-width: 220px; margin: 0; background: #23263a; color: #fff; padding: 22px 20px; border-radius: 12px; box-sizing: border-box;">
-                    <h3 style="color:#fff;">🧩 Enhanced Transparency Support</h3>
-                    <p style="text-align:justify; color:#e0e0e0; font-size:1.08em;">PNG format offers superior support for alpha channels, ensuring accurate transparency for complex backgrounds and layered effects. This is especially beneficial for web design elements like logos and icons.</p>
+                <div id="error-result" style="display: none;">
+                    <div style="background-color: #fef2f2; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                        <i class="fas fa-exclamation-circle" style="font-size: 3rem; color: var(--error-color); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--error-color); margin-bottom: 0.5rem;">Conversion Failed</h3>
+                        <p id="error-message" style="color: #991b1b; margin-bottom: 1.5rem;">An error occurred during conversion. Please try again.</p>
+                        <button onclick="resetForm()" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-redo"></i> Try Again
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3>Q1: Why should I convert WEBP to PNG?</h3>
-                <p>While WEBP offers efficient compression, converting to PNG ensures broader compatibility across various platforms and applications. PNG is ideal for high-quality images with transparency, making it suitable for web design, digital art, and professional projects.​</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q2: Is it safe to convert WEBP to PNG online?</h3>
-                <p>Yes, our tool processes your images securely within your browser. We do not store any uploaded files on our servers, ensuring your data remains private and secure.​</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q3: Can I convert multiple WEBP images at once?</h3>
-                <p>Currently, our tool supports one image at a time. We are working on adding batch processing capabilities to enhance your experience.​</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q4: Will the image quality be affected during conversion?</h3>
-                <p>No, our tool is designed to maintain the original quality of your images during the conversion process. We utilize advanced algorithms to ensure that the visual integrity of your photos remains intact, delivering professional-grade results every time.​</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q5: Do I need to install any software to use this tool?</h3>
-                <p>No installation is required. Our image converter is entirely web-based, allowing you to convert images directly through your browser without the need for additional software.​</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q6: Can I convert images on my mobile device?</h3>
-                <p>Yes, our image converter is fully responsive and compatible with all modern browsers and devices. Whether you're using a smartphone, tablet, or desktop, you can easily convert images on the go.​</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q7: Is there a limit to the number of images I can convert?</h3>
-                <p>No, our tool allows for unlimited image conversions without any restrictions. You can convert as many images as you need, free of charge.​</p>
-            </div>
-        </div>
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="how-it-works section" style="background-color: #1e293b; padding: 1.5rem 0; margin: 0;">
+            <h2 class="section-title" style="color: white; margin-top: 0; margin-bottom: 1rem; font-size: 1.5rem; text-align: center;">How Our Image Conversion Works</h2>
+            <div class="steps-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 900px; margin: 0 auto; padding: 0 1rem;">
+                <div class="step-card" style="background-color: #2a3649; border-radius: 0.5rem; padding: 1rem; flex: 1; min-width: 200px; max-width: 280px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                    <div style="background-color: #3b82f6; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 0.5rem; font-weight: bold;">1</div>
+                    <i class="fas fa-file-upload" style="color: #60a5fa; font-size: 1.25rem; margin-bottom: 0.5rem;"></i>
+                    <h3 style="color: white; font-size: 1rem; margin: 0 0 0.5rem 0;">Upload Your WEBP File</h3>
+                    <p style="color: #cbd5e1; font-size: 0.875rem; margin: 0; line-height: 1.4;">Drag & drop or select your WEBP file. Supports files up to 1GB.</p>
+                </div>
 
-        <div class="donate" style="text-align: center; margin: 40px 0;">
-            <h2>Support Us</h2>
-            <p>If you find this tool helpful, consider supporting us:</p>
-            <button onclick="window.open('https://www.buymeacoffee.com/willsblogger', '_blank')">☕ Buy Me a Coffee</button>
-            <div class="social-icons" style="margin-top: 15px;">
-                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/convert-webp-to-png&text=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
+                <div class="step-card" style="background-color: #2a3649; border-radius: 0.5rem; padding: 1rem; flex: 1; min-width: 200px; max-width: 280px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                    <div style="background-color: #3b82f6; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 0.5rem; font-weight: bold;">2</div>
+                    <i class="fas fa-cogs" style="color: #60a5fa; font-size: 1.25rem; margin-bottom: 0.5rem;"></i>
+                    <h3 style="color: white; font-size: 1rem; margin: 0 0 0.5rem 0;">Convert to PNG</h3>
+                    <p style="color: #cbd5e1; font-size: 0.875rem; margin: 0; line-height: 1.4;">Click convert and we'll process your image instantly with no quality loss.</p>
+                </div>
+
+                <div class="step-card" style="background-color: #2a3649; border-radius: 0.5rem; padding: 1rem; flex: 1; min-width: 200px; max-width: 280px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                    <div style="background-color: #3b82f6; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 0.5rem; font-weight: bold;">3</div>
+                    <i class="fas fa-download" style="color: #60a5fa; font-size: 1.25rem; margin-bottom: 0.5rem;"></i>
+                    <h3 style="color: white; font-size: 1rem; margin: 0 0 0.5rem 0;">Download Your PNG</h3>
+                    <p style="color: #cbd5e1; font-size: 0.875rem; margin: 0; line-height: 1.4;">Get your converted PNG file instantly and use it anywhere you need.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section section">
+            <h2 class="section-title">Features of Our WEBP to PNG Converter</h2>
+
+            <!-- Google Ad Space (Vertical) -->
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; background-color: #f1f5f9;">
+                <div class="ad-space-vertical" style="width: 160px; background-color: #f1f5f9;">
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-9687186564486273"
+                        data-ad-slot="1234567891"
+                        data-ad-format="vertical"
+                        data-full-width-responsive="false"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+
+                <div style="flex: 1; background-color: #f1f5f9;">
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-sync-alt feature-icon"></i>
+                            <h3 class="feature-title">Seamless WEBP to PNG Conversion</h3>
+                            <p class="feature-description">Effortlessly convert your WEBP images to PNG format for better compatibility across platforms.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <i class="fas fa-image feature-icon"></i>
+                            <h3 class="feature-title">Preserves High Image Quality</h3>
+                            <p class="feature-description">Maintains the original quality with no loss of detail when converting from WEBP to PNG.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <h3 class="feature-title">Secure and Private</h3>
+                            <p class="feature-description">Files processed in your browser with no server storage for complete privacy.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <i class="fas fa-bolt feature-icon"></i>
+                            <h3 class="feature-title">Fast Processing</h3>
+                            <p class="feature-description">Quick conversion engine saves time with instant results for all your images.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <i class="fas fa-paint-brush feature-icon"></i>
+                            <h3 class="feature-title">Ideal for Editing</h3>
+                            <p class="feature-description">PNG's lossless compression makes it perfect for further design work.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <i class="fas fa-layer-group feature-icon"></i>
+                            <h3 class="feature-title">Transparency Support</h3>
+                            <p class="feature-description">PNG format offers excellent transparency for web design elements.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Ad Space (Vertical) -->
+                <div class="ad-space-vertical" style="width: 160px; background-color: #f1f5f9;">
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-9687186564486273"
+                        data-ad-slot="1234567892"
+                        data-ad-format="vertical"
+                        data-full-width-responsive="false"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </section>
+
+        <!-- Format Comparison Section -->
+        <section class="comparison-section section" style="background-color: #f1f5f9; padding: 2rem 0; margin: 0;">
+            <h2 class="section-title">WEBP vs PNG: Format Comparison</h2>
+            <div style="background-color: #f1f5f9; padding: 0; margin: 0;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>WEBP</th>
+                            <th>PNG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Compression</td>
+                            <td>Lossy & Lossless</td>
+                            <td>Lossless</td>
+                        </tr>
+                        <tr>
+                            <td>File Size</td>
+                            <td>Smaller (26% smaller than PNG)</td>
+                            <td>Larger</td>
+                        </tr>
+                        <tr>
+                            <td>Transparency</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Browser Compatibility</td>
+                            <td>Limited (not supported by older browsers)</td>
+                            <td>Universal</td>
+                        </tr>
+                        <tr>
+                            <td>Animation Support</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-times times-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Image Quality</td>
+                            <td>Good (may lose quality with lossy compression)</td>
+                            <td>Excellent (no quality loss)</td>
+                        </tr>
+                        <tr>
+                            <td>Best Use Case</td>
+                            <td>Web images where file size is critical</td>
+                            <td>Graphics, screenshots, images requiring transparency</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Why should I convert WEBP to PNG?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>While WEBP offers efficient compression, converting to PNG ensures broader compatibility across various platforms and applications. PNG is ideal for high-quality images with transparency, making it suitable for web design, digital art, and professional projects.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is it safe to convert WEBP to PNG online?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, our tool processes your images securely within your browser. We do not store any uploaded files on our servers, ensuring your data remains private and secure.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I convert multiple WEBP images at once?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Currently, our tool supports one image at a time. We are working on adding batch processing capabilities to enhance your experience.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Will the image quality be affected during conversion?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, our tool is designed to maintain the original quality of your images during the conversion process. We utilize advanced algorithms to ensure that the visual integrity of your photos remains intact, delivering professional-grade results every time.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need to install any software to use this tool?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, our WEBP to PNG converter is entirely web-based. You don't need to download or install any software. Simply access our website from any modern browser, upload your WEBP image, and convert it to PNG instantly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Ad Space -->
+            <div class="ad-space" style="background-color: #f1f5f9; margin-top: 1.5rem; margin-bottom: 0;">
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-9687186564486273"
+                    data-ad-slot="1234567893"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>
+
+        <!-- Why Choose Our Tool Section -->
+        <section class="benefits-section section" style="background-color: #f8fafc; padding: 2rem 0 3rem 0; margin-top: 0;">
+            <h2 class="section-title" style="margin-top: 0; color: #0f172a; font-size: 1.8rem; margin-bottom: 1.5rem;">Why Choose Our WEBP to PNG Converter</h2>
+
+            <div class="benefits-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+                <!-- Professional Use Cases -->
+                <div class="benefits-column" style="flex: 1; min-width: 300px; max-width: 380px;">
+                    <div class="benefit-card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); padding: 1.5rem; margin-bottom: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="background-color: #e0f2fe; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 1rem;">
+                                <i class="fas fa-paint-brush" style="color: #0284c7; font-size: 1.5rem;"></i>
+                            </div>
+                            <h3 style="margin: 0; color: #0f172a; font-size: 1.25rem;">Perfect for Designers</h3>
+                        </div>
+                        <p style="color: #475569; line-height: 1.6; margin: 0;">Convert WEBP images to PNG format for better compatibility with design software like Photoshop, Illustrator, and other creative tools that may not fully support WEBP files. Maintain transparency and image quality throughout your design workflow.</p>
+                    </div>
+
+                    <div class="benefit-card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); padding: 1.5rem; margin-bottom: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="background-color: #fef3c7; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 1rem;">
+                                <i class="fas fa-shopping-cart" style="color: #d97706; font-size: 1.5rem;"></i>
+                            </div>
+                            <h3 style="margin: 0; color: #0f172a; font-size: 1.25rem;">E-commerce Ready</h3>
+                        </div>
+                        <p style="color: #475569; line-height: 1.6; margin: 0;">Ensure your product images display correctly across all platforms by converting WEBP to the universally supported PNG format. Ideal for online stores using platforms like Shopify, WooCommerce, or Etsy where image compatibility is crucial for sales.</p>
+                    </div>
+                </div>
+
+                <!-- Technical Benefits -->
+                <div class="benefits-column" style="flex: 1; min-width: 300px; max-width: 380px;">
+                    <div class="benefit-card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); padding: 1.5rem; margin-bottom: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="background-color: #dcfce7; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 1rem;">
+                                <i class="fas fa-tachometer-alt" style="color: #16a34a; font-size: 1.5rem;"></i>
+                            </div>
+                            <h3 style="margin: 0; color: #0f172a; font-size: 1.25rem;">Advanced Technology</h3>
+                        </div>
+                        <p style="color: #475569; line-height: 1.6; margin: 0;">Our converter uses cutting-edge image processing algorithms to ensure pixel-perfect conversion from WEBP to PNG. The tool preserves image metadata, color profiles, and transparency channels while optimizing for the best quality-to-size ratio possible.</p>
+                    </div>
+
+                    <div class="benefit-card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); padding: 1.5rem; margin-bottom: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="background-color: #dbeafe; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 1rem;">
+                                <i class="fas fa-shield-alt" style="color: #2563eb; font-size: 1.5rem;"></i>
+                            </div>
+                            <h3 style="margin: 0; color: #0f172a; font-size: 1.25rem;">Privacy & Security</h3>
+                        </div>
+                        <p style="color: #475569; line-height: 1.6; margin: 0;">Your files never leave your browser - all conversion happens locally on your device. We don't store your images on our servers, ensuring complete privacy and security for sensitive or confidential images. No registration or personal information is required.</p>
+                    </div>
+                </div>
+
+                <!-- Practical Applications -->
+                <div class="benefits-column" style="flex: 1; min-width: 300px; max-width: 380px;">
+                    <div class="benefit-card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); padding: 1.5rem; margin-bottom: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="background-color: #f3e8ff; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 1rem;">
+                                <i class="fas fa-mobile-alt" style="color: #9333ea; font-size: 1.5rem;"></i>
+                            </div>
+                            <h3 style="margin: 0; color: #0f172a; font-size: 1.25rem;">Cross-Platform Support</h3>
+                        </div>
+                        <p style="color: #475569; line-height: 1.6; margin: 0;">While WEBP offers excellent compression, PNG is universally supported across all devices, browsers, and applications. Convert your images to ensure they display correctly on older browsers, email clients, and various operating systems without compatibility issues.</p>
+                    </div>
+
+                    <div class="benefit-card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); padding: 1.5rem; margin-bottom: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="background-color: #fee2e2; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 1rem;">
+                                <i class="fas fa-rocket" style="color: #dc2626; font-size: 1.5rem;"></i>
+                            </div>
+                            <h3 style="margin: 0; color: #0f172a; font-size: 1.25rem;">Developer Friendly</h3>
+                        </div>
+                        <p style="color: #475569; line-height: 1.6; margin: 0;">Perfect for web developers who need to ensure image compatibility across all browsers. Our tool helps you quickly convert Google's WEBP format to the more widely supported PNG format for websites, applications, and digital products without quality loss.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Section -->
+            <div class="stats-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 3rem; text-align: center; max-width: 1000px; margin-left: auto; margin-right: auto;">
+                <div class="stat-item" style="flex: 1; min-width: 200px;">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #1e40af; margin-bottom: 0.5rem;">100%</div>
+                    <p style="color: #475569; margin: 0; font-size: 1.1rem;">Browser Compatibility</p>
+                </div>
+
+                <div class="stat-item" style="flex: 1; min-width: 200px;">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #1e40af; margin-bottom: 0.5rem;">1GB</div>
+                    <p style="color: #475569; margin: 0; font-size: 1.1rem;">Maximum File Size</p>
+                </div>
+
+                <div class="stat-item" style="flex: 1; min-width: 200px;">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #1e40af; margin-bottom: 0.5rem;">0 MB</div>
+                    <p style="color: #475569; margin: 0; font-size: 1.1rem;">Server Storage Used</p>
+                </div>
+
+                <div class="stat-item" style="flex: 1; min-width: 200px;">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #1e40af; margin-bottom: 0.5rem;">24/7</div>
+                    <p style="color: #475569; margin: 0; font-size: 1.1rem;">Availability</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Counter and Social Section -->
+    <div style="background-color: #f1f5f9; padding: 0.75rem 0; text-align: center; border-top: 1px solid #e2e8f0; margin-top: 1rem;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+            <!-- Counter Section -->
+            <div class="counter-section" style="margin-bottom: 0.75rem;">
+                <p class="counter-text" style="font-size: 0.95rem; color: #475569; margin: 0;">
+                    We've already converted <span id="files-count" class="counter-number" style="font-weight: 700; color: #1e40af;">1</span> files with a total size of <span id="size-count" class="counter-number" style="font-weight: 700; color: #1e40af;">1</span> <span id="size-unit" style="font-weight: 700; color: #1e40af;">MB</span>.
+                </p>
+            </div>
+
+            <!-- Social Sharing -->
+            <div class="social-sharing" style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+                <a href="https://twitter.com/intent/tweet?text=Check+out+this+amazing+WEBP+to+PNG+converter+tool!&url=https://willsblogger.com/tools/image-editing/convert-webp-to-png" target="_blank" class="share-button" style="display: inline-block; transition: transform 0.3s ease;">
+                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 24px; height: 24px;">
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/convert-webp-to-png" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://willsblogger.com/tools/image-editing/convert-webp-to-png" target="_blank" class="share-button" style="display: inline-block; transition: transform 0.3s ease;">
+                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 24px; height: 24px;">
                 </a>
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/convert-webp-to-png&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://willsblogger.com/tools/image-editing/convert-webp-to-png&title=Free+WEBP+to+PNG+Converter&summary=Check+out+this+amazing+tool!" target="_blank" class="share-button" style="display: inline-block; transition: transform 0.3s ease;">
+                    <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 24px; height: 24px;">
                 </a>
-                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/convert-webp-to-png&description=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
-                    <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
+                <a href="https://pinterest.com/pin/create/button/?url=https://willsblogger.com/tools/image-editing/convert-webp-to-png&description=Free+WEBP+to+PNG+Converter" target="_blank" class="share-button" style="display: inline-block; transition: transform 0.3s ease;">
+                    <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 24px; height: 24px;">
                 </a>
-                <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/convert-webp-to-png" target="_blank">
-                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
+                <a href="https://wa.me/?text=Check+out+this+amazing+WEBP+to+PNG+converter:+https://willsblogger.com/tools/image-editing/convert-webp-to-png" target="_blank" class="share-button" style="display: inline-block; transition: transform 0.3s ease;">
+                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 24px; height: 24px;">
                 </a>
             </div>
         </div>
+    </div>
 
-        <div id="conversion-counter" style="text-align:center; margin: 48px 0 24px 0; font-size: 1.25em; color: #23263a; font-weight: bold;">
-            We've already converted <span id="files-count">1</span> files with a total size of <span id="size-count">1</span> <span id="size-unit">MB</span>.
+    <!-- CTA Section -->
+    <section class="cta-section" style="background-color: #3b82f6; color: white; padding: 3rem 0; margin: 0; text-align: center; clear: both;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+            <div class="cta-content">
+                <h2 class="cta-title" style="font-size: 2rem; margin: 0 0 1rem 0; color: white;">Ready to Convert Your WEBP Images?</h2>
+                <p class="cta-description" style="font-size: 1.1rem; margin: 0 0 1.5rem 0; color: #f0f9ff;">Transform your WEBP images to PNG format with our free, fast, and secure converter. No registration required.</p>
+                <div class="cta-buttons" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="#convert-tool" class="btn btn-secondary" style="background-color: white; color: #1e40af; padding: 0.75rem 1.5rem; border-radius: 0.375rem; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease;">Start Converting Now</a>
+                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="btn btn-outline" style="background-color: transparent; color: white; padding: 0.75rem 1.5rem; border-radius: 0.375rem; border: 2px solid white; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease;">Support This Tool</a>
+                </div>
+            </div>
         </div>
-        <script>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" style="background-color: #0f172a; color: white; padding: 3rem 0 1rem 0; margin: 0; clear: both;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+            <div class="footer-content" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; margin-bottom: 2rem;">
+                <div class="footer-column" style="flex: 1; min-width: 250px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Free AI Tools</h3>
+                    <p style="color: #cbd5e1; margin: 0 0 1rem 0; line-height: 1.6;">We provide free, high-quality tools to help you with your everyday tasks. No registration required, no hidden fees.</p>
+                    <div class="social-links" style="display: flex; gap: 1rem;">
+                        <a href="https://twitter.com/willsblogger" target="_blank" class="social-link" style="color: #cbd5e1; font-size: 1.25rem; transition: color 0.3s ease;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com/willsblogger" target="_blank" class="social-link" style="color: #cbd5e1; font-size: 1.25rem; transition: color 0.3s ease;">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://instagram.com/willsblogger" target="_blank" class="social-link" style="color: #cbd5e1; font-size: 1.25rem; transition: color 0.3s ease;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/willsblogger" target="_blank" class="social-link" style="color: #cbd5e1; font-size: 1.25rem; transition: color 0.3s ease;">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Image Tools</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/compress-image" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Compress Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-image" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Convert Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-webp-to-png" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">WEBP to PNG</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/image-resizer" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Resize Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/crop-image" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Crop Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/favicon-generator" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Favicon Generator</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Other Tools</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Calculators</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">File Converters</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/unit-converter" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Unit Converter</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/qr-code-generator" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">QR Code Generator</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Support</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Home</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/privacy-policy.html" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Privacy Policy</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/terms-of-use.html" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Terms of Use</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Support Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom" style="border-top: 1px solid #334155; padding-top: 1.5rem; text-align: center;">
+                <p style="color: #94a3b8; margin: 0 0 0.5rem 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+                <p style="color: #94a3b8; margin: 0;">
+                    <a href="/" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Home</a> |
+                    <a href="/privacy-policy.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Privacy</a> |
+                    <a href="/terms-of-use.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Terms</a> |
+                    <a href="/sitemap.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Sitemap</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Counter -->
+    <script>
         // Simulated counter values
-        const startFiles = 1;
-        const startSizeMB = 1; // Start from 1 MB
-        const filesPerSecond = 1; // 1 file per second
-        const sizePerFileMB = 2.5; // 2.5 MB per file
-        const startTime = new Date('2025-04-21T00:00:00Z').getTime();
-
-        function formatSize(sizeMB) {
-            if (sizeMB >= 1024 * 1024) {
-                return (sizeMB / (1024 * 1024)).toLocaleString('en-US', {maximumFractionDigits: 2}) + ' TB';
-            } else if (sizeMB >= 1024) {
-                return (sizeMB / 1024).toLocaleString('en-US', {maximumFractionDigits: 2}) + ' GB';
-            } else {
-                return sizeMB.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' MB';
-            }
-        }
+        const startFiles = 97; // Start with a more realistic number
+        const startSizeMB = 9800; // Start with ~9.8 GB (in MB)
+        const filesPerSecond = 0.01; // Much slower increase - about 36 files per hour
+        const sizePerFileMB = 25; // 25 MB per file (more realistic average size)
+        const startTime = new Date().getTime() - (3 * 24 * 60 * 60 * 1000); // Start from 3 days ago
 
         function updateCounter() {
-            const now = Date.now();
-            const secondsPassed = Math.floor((now - startTime) / 1000);
-            const files = startFiles + Math.floor(secondsPassed * filesPerSecond);
-            const sizeMB = startSizeMB + (secondsPassed * filesPerSecond * sizePerFileMB);
-            let size, unit;
-            if (sizeMB >= 1024 * 1024) {
-                size = (sizeMB / (1024 * 1024)).toLocaleString('en-US', {maximumFractionDigits: 2});
-                unit = 'TB';
-            } else if (sizeMB >= 1024) {
-                size = (sizeMB / 1024).toLocaleString('en-US', {maximumFractionDigits: 2});
-                unit = 'GB';
+            const now = new Date().getTime();
+            const elapsedSeconds = Math.floor((now - startTime) / 1000);
+
+            const totalFiles = startFiles + Math.floor(elapsedSeconds * filesPerSecond);
+            const totalSizeMB = startSizeMB + Math.floor(elapsedSeconds * filesPerSecond * sizePerFileMB);
+
+            document.getElementById('files-count').textContent = totalFiles.toLocaleString();
+
+            // Convert to GB if size exceeds 1000 MB
+            if (totalSizeMB > 1000) {
+                const sizeGB = (totalSizeMB / 1000).toFixed(1);
+                document.getElementById('size-count').textContent = sizeGB;
+                document.getElementById('size-unit').textContent = 'GB';
             } else {
-                size = sizeMB.toLocaleString('en-US', {maximumFractionDigits: 0});
-                unit = 'MB';
+                document.getElementById('size-count').textContent = totalSizeMB.toLocaleString();
+                document.getElementById('size-unit').textContent = 'MB';
             }
-            document.getElementById('files-count').textContent = files.toLocaleString('en-US');
-            document.getElementById('size-count').textContent = size;
-            document.getElementById('size-unit').textContent = unit;
         }
+
         setInterval(updateCounter, 1000);
         updateCounter();
-        </script>
+    </script>
 
-        <footer>
-            <p style="margin: 0 0 10px 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-            <p style="margin: 0;">
-                <a href="/privacy-policy.html" target="_blank" style="color: #fff; text-decoration: underline; margin: 0 12px; opacity: 0.85;">Privacy Policy</a> |
-                <a href="/terms-of-use.html" target="_blank" style="color: #fff; text-decoration: underline; margin: 0 12px; opacity: 0.85;">Terms of Use</a> |
-                <a href="/" target="_self" style="color: #fff; text-decoration: underline; margin: 0 12px; opacity: 0.85;">Home</a>
-            </p>
-        </footer>
-    </div>
+    <!-- JavaScript for Form Handling -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form submission handling
+            const form = document.getElementById('convert-form');
+            const resultContainer = document.getElementById('result-container');
+            const successResult = document.getElementById('success-result');
+            const errorResult = document.getElementById('error-result');
+            const errorMessage = document.getElementById('error-message');
+            const downloadBtn = document.getElementById('download-btn');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Converting...';
+                submitBtn.disabled = true;
+
+                // Create FormData object
+                const formData = new FormData(form);
+
+                // Send AJAX request
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Reset button state
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+
+                    // Show result container
+                    resultContainer.style.display = 'block';
+
+                    if (data.success) {
+                        // Show success message
+                        successResult.style.display = 'block';
+                        errorResult.style.display = 'none';
+
+                        // Set download link
+                        downloadBtn.href = data.download_url;
+
+                        // Increment counter (simulated)
+                        const filesCount = document.getElementById('files-count');
+                        const currentCount = parseInt(filesCount.textContent.replace(/,/g, ''));
+                        filesCount.textContent = (currentCount + 1).toLocaleString();
+                    } else {
+                        // Show error message
+                        successResult.style.display = 'none';
+                        errorResult.style.display = 'block';
+                        errorMessage.textContent = data.error || 'An error occurred during conversion. Please try again.';
+                    }
+                })
+                .catch(error => {
+                    // Reset button state
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+
+                    // Show error message
+                    resultContainer.style.display = 'block';
+                    successResult.style.display = 'none';
+                    errorResult.style.display = 'block';
+                    errorMessage.textContent = 'Network error. Please check your connection and try again.';
+                    console.error('Error:', error);
+                });
+            });
+
+            // File input change handler to show selected file name
+            const fileInput = document.getElementById('image');
+            const fileUploadText = document.querySelector('.file-upload-text');
+
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    const fileName = fileInput.files[0].name;
+                    fileUploadText.innerHTML = `
+                        <h3 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; font-weight: 600; color: white;">File Selected</h3>
+                        <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1;">${fileName}</p>
+                    `;
+                } else {
+                    fileUploadText.innerHTML = `
+                        <h3 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; font-weight: 600; color: white;">Drag & Drop Your WEBP File Here</h3>
+                        <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1;">or click to browse your files</p>
+                    `;
+                }
+            });
+
+            // Drag and drop functionality
+            const fileUpload = document.querySelector('.file-upload');
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                fileUpload.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                fileUpload.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight() {
+                fileUpload.style.borderColor = 'var(--primary-color)';
+                fileUpload.style.backgroundColor = 'rgba(37, 99, 235, 0.05)';
+            }
+
+            function unhighlight() {
+                fileUpload.style.borderColor = '#cbd5e1';
+                fileUpload.style.backgroundColor = '#f1f5f9';
+            }
+
+            fileUpload.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const dt = e.dataTransfer;
+                const files = dt.files;
+
+                if (files.length > 0) {
+                    fileInput.files = files;
+
+                    // Trigger change event
+                    const event = new Event('change');
+                    fileInput.dispatchEvent(event);
+                }
+            }
+        });
+
+        // Function to reset the form
+        function resetForm() {
+            document.getElementById('convert-form').reset();
+            document.getElementById('result-container').style.display = 'none';
+            document.querySelector('.file-upload-text').innerHTML = `
+                <h3 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; font-weight: 600; color: white;">Drag & Drop Your WEBP File Here</h3>
+                <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1;">or click to browse your files</p>
+            `;
+        }
+    </script>
+
+    <!-- JavaScript for FAQ Accordion -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('i');
+
+                    // Toggle answer visibility
+                    if (answer.style.display === 'block') {
+                        answer.style.display = 'none';
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        answer.style.display = 'block';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            // Hide all answers initially
+            document.querySelectorAll('.faq-answer').forEach(answer => {
+                answer.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>

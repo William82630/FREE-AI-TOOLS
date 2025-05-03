@@ -97,7 +97,8 @@
         .category-header i {
             font-size: 1.8em;
             margin-right: 15px;
-            color: #0066cc;
+            /* Default color removed to allow for custom colors */
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
         }
         .category-header h2 {
             font-size: 1.8em;
@@ -136,10 +137,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: transform 0.3s ease;
+        }
+        .tool-card:hover .tool-icon {
+            transform: scale(1.1);
         }
         .tool-icon i {
             font-size: 2.5em;
-            color: #0066cc;
+            /* Default color removed to allow for custom colors */
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
         }
         .tool-info {
             padding: 20px;
@@ -311,14 +317,14 @@
 
         <div class="tool-category">
             <div class="category-header">
-                <i class="fas fa-image"></i>
+                <i class="fas fa-image" style="color: #FF6B6B;"></i>
                 <h2>Image Editing Tools</h2>
             </div>
             <div class="tool-grid">
                 <div class="tool-card">
                     <a href="/tools/image-editing/compress-image" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-compress"></i>
+                            <i class="fas fa-compress" style="color: #FF6B6B;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Compress Image</h3>
@@ -329,7 +335,7 @@
                 <div class="tool-card">
                     <a href="/tools/image-editing/favicon-generator" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-bookmark"></i>
+                            <i class="fas fa-bookmark" style="color: #4ECDC4;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Favicon Generator</h3>
@@ -340,7 +346,7 @@
                 <div class="tool-card">
                     <a href="/tools/image-editing/convert-image" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-exchange-alt"></i>
+                            <i class="fas fa-exchange-alt" style="color: #FFD166;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Convert Image Formats</h3>
@@ -351,7 +357,7 @@
                 <div class="tool-card">
                     <a href="/tools/image-editing/convert-webp-to-png" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-file-image"></i>
+                            <i class="fas fa-file-image" style="color: #06D6A0;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Convert WEBP to PNG</h3>
@@ -362,7 +368,7 @@
                 <div class="tool-card">
                     <a href="/tools/image-editing/convert-svg-to-png" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-vector-square"></i>
+                            <i class="fas fa-vector-square" style="color: #118AB2;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Convert SVG to PNG</h3>
@@ -373,7 +379,7 @@
                 <div class="tool-card">
                     <a href="/tools/image-editing/image-resizer" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-expand"></i>
+                            <i class="fas fa-expand" style="color: #9C89B8;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Image Resizer</h3>
@@ -384,7 +390,7 @@
                 <div class="tool-card">
                     <a href="/tools/image-editing/crop-image" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-crop"></i>
+                            <i class="fas fa-crop" style="color: #F4A261;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Crop Image</h3>
@@ -395,7 +401,7 @@
                 <div class="tool-card">
                     <a href="/tools/image-editing/reverse-image-search" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-search"></i>
+                            <i class="fas fa-search" style="color: #EF476F;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Reverse Image Search</h3>
@@ -406,7 +412,7 @@
                 <div class="tool-card">
                     <a href="/tools/image-editing/face-search" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-user" style="color: #26547C;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Face Search</h3>
@@ -419,14 +425,14 @@
 
         <div class="tool-category">
             <div class="category-header">
-                <i class="fas fa-calculator"></i>
+                <i class="fas fa-calculator" style="color: #3A86FF;"></i>
                 <h2>Online Calculators</h2>
             </div>
             <div class="tool-grid">
                 <div class="tool-card">
                     <a href="/tools/online-calculators/simple-calculator" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-calculator"></i>
+                            <i class="fas fa-calculator" style="color: #3A86FF;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Simple Calculator</h3>
@@ -437,7 +443,7 @@
                 <div class="tool-card">
                     <a href="/tools/online-calculators/age-calculator" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-birthday-cake"></i>
+                            <i class="fas fa-birthday-cake" style="color: #FF70A6;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Age Calculator</h3>
@@ -448,7 +454,7 @@
                 <div class="tool-card">
                     <a href="/tools/online-calculators/bmi-calculator" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-weight"></i>
+                            <i class="fas fa-weight" style="color: #43AA8B;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">BMI Calculator</h3>
@@ -459,7 +465,7 @@
                 <div class="tool-card">
                     <a href="/tools/online-calculators/loan-calculator" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-money-bill-wave"></i>
+                            <i class="fas fa-money-bill-wave" style="color: #90BE6D;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Loan Calculator</h3>
@@ -470,7 +476,7 @@
                 <div class="tool-card">
                     <a href="/tools/online-calculators/gst-calculator" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-percent"></i>
+                            <i class="fas fa-percent" style="color: #F9C74F;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">GST Calculator</h3>
@@ -481,7 +487,7 @@
                 <div class="tool-card">
                     <a href="/tools/online-calculators/currency-converter" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-exchange-alt"></i>
+                            <i class="fas fa-exchange-alt" style="color: #F8961E;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Currency Converter</h3>
@@ -492,7 +498,7 @@
                 <div class="tool-card">
                     <a href="/tools/online-calculators/password-generator" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-key"></i>
+                            <i class="fas fa-key" style="color: #F94144;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Password Generator</h3>
@@ -503,7 +509,7 @@
                 <div class="tool-card">
                     <a href="/tools/online-calculators/unit-converter" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-ruler-combined"></i>
+                            <i class="fas fa-ruler-combined" style="color: #577590;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Unit Converter</h3>
@@ -514,7 +520,7 @@
                 <div class="tool-card">
                     <a href="/tools/online-calculators/qr-code-generator" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-qrcode"></i>
+                            <i class="fas fa-qrcode" style="color: #277DA1;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">QR Code Generator</h3>
@@ -527,14 +533,14 @@
 
         <div class="tool-category">
             <div class="category-header">
-                <i class="fas fa-file-alt"></i>
+                <i class="fas fa-file-alt" style="color: #4285F4;"></i>
                 <h2>Free Online Converter</h2>
             </div>
             <div class="tool-grid">
                 <div class="tool-card">
                     <a href="/tools/free-online-converter/pdf-to-word" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-file-word"></i>
+                            <i class="fas fa-file-word" style="color: #4285F4;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">PDF to Word</h3>
@@ -545,7 +551,7 @@
                 <div class="tool-card">
                     <a href="/tools/free-online-converter/word-to-pdf" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-file-pdf"></i>
+                            <i class="fas fa-file-pdf" style="color: #EA4335;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Word to PDF</h3>
@@ -556,7 +562,7 @@
                 <div class="tool-card">
                     <a href="/tools/free-online-converter/image-to-pdf" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-file-image"></i>
+                            <i class="fas fa-file-image" style="color: #34A853;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Image to PDF</h3>
@@ -567,7 +573,7 @@
                 <div class="tool-card">
                     <a href="/tools/free-online-converter/compress-pdf" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-compress-arrows-alt"></i>
+                            <i class="fas fa-compress-arrows-alt" style="color: #FBBC05;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">Compress PDF</h3>
@@ -578,7 +584,7 @@
                 <div class="tool-card">
                     <a href="/tools/free-online-converter/mp3-to-mp4" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-film"></i>
+                            <i class="fas fa-film" style="color: #8E44AD;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">MP3 to MP4</h3>
@@ -589,7 +595,7 @@
                 <div class="tool-card">
                     <a href="/tools/free-online-converter/mp4-to-mp3" target="_blank">
                         <div class="tool-icon">
-                            <i class="fas fa-music"></i>
+                            <i class="fas fa-music" style="color: #E74C3C;"></i>
                         </div>
                         <div class="tool-info">
                             <h3 class="tool-name">MP4 to MP3</h3>

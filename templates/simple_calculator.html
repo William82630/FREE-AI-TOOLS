@@ -98,6 +98,47 @@
     padding: 5px;
     border-bottom: 1px solid #333;
 }
+/* FAQ Accordion Styles */
+.faq-item {
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #23263a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.faq-question {
+    padding: 15px 20px;
+    background-color: #1a1d2e;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+.faq-question:hover {
+    background-color: #2a2e45;
+}
+.faq-question h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #00703a;
+}
+.faq-question i {
+    color: #00703a;
+    transition: transform 0.3s;
+}
+.faq-answer {
+    padding: 20px;
+    background-color: #23263a;
+    display: none;
+}
+.faq-item.active .faq-question {
+    background-color: #2a2e45;
+}
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
 @media (max-width: 700px) {
     .calculator-container {
         flex-direction: column;
@@ -208,32 +249,67 @@
 <div class="faq">
     <h2>Frequently Asked Questions (FAQs)</h2>
     <div class="faq-item">
-        <strong>1. What is this calculator used for?</strong>
-        <p>This calculator is designed for basic arithmetic operations such as addition, subtraction, multiplication, and division. It is simple and easy to use for quick calculations.</p>
+        <div class="faq-question">
+            <h3>What is this calculator used for?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>This calculator is designed for basic arithmetic operations such as addition, subtraction, multiplication, and division. It is simple and easy to use for quick calculations.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <strong>2. Can I use this calculator on my mobile device?</strong>
-        <p>Yes, this calculator is fully responsive and works seamlessly on mobile devices, tablets, and desktops.</p>
+        <div class="faq-question">
+            <h3>Can I use this calculator on my mobile device?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Yes, this calculator is fully responsive and works seamlessly on mobile devices, tablets, and desktops.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <strong>3. Does this calculator support advanced functions?</strong>
-        <p>Yes, the calculator now includes scientific functions like square root, sine, cosine, and tangent.</p>
+        <div class="faq-question">
+            <h3>Does this calculator support advanced functions?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Yes, the calculator now includes scientific functions like square root, sine, cosine, and tangent.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <strong>4. How accurate are the calculations?</strong>
-        <p>The calculator provides results with up to 10 digits of precision, ensuring high accuracy for most calculations.</p>
+        <div class="faq-question">
+            <h3>How accurate are the calculations?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>The calculator provides results with up to 10 digits of precision, ensuring high accuracy for most calculations.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <strong>5. Can I use the keyboard to operate the calculator?</strong>
-        <p>Yes, you can use your keyboard's number pad and basic arithmetic keys (+, -, *, /) to perform calculations.</p>
+        <div class="faq-question">
+            <h3>Can I use the keyboard to operate the calculator?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Yes, you can use your keyboard's number pad and basic arithmetic keys (+, -, *, /) to perform calculations.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <strong>6. Is there a way to clear the display?</strong>
-        <p>Yes, you can use the "AC" button to clear all entries and reset the calculator.</p>
+        <div class="faq-question">
+            <h3>Is there a way to clear the display?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Yes, you can use the "AC" button to clear all entries and reset the calculator.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <strong>7. How does the memory function work?</strong>
-        <p>The memory buttons allow you to store (M+), recall (MR), clear (MC), and subtract (M-) values for enhanced calculations.</p>
+        <div class="faq-question">
+            <h3>How does the memory function work?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>The memory buttons allow you to store (M+), recall (MR), clear (MC), and subtract (M-) values for enhanced calculations.</p>
+        </div>
     </div>
 </div>
 <!-- Support section is already included in the base template -->
@@ -314,6 +390,57 @@ window.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') calculate();
     if (e.key === 'Backspace') backspace();
     if (e.key === 'Escape') clearDisplay();
+});
+
+// Initialize FAQ accordion
+document.addEventListener('DOMContentLoaded', function() {
+    // Set first FAQ item as active by default
+    const firstFaqItem = document.querySelector('.faq-item');
+    if (firstFaqItem) {
+        firstFaqItem.classList.add('active');
+        const firstFaqAnswer = firstFaqItem.querySelector('.faq-answer');
+        if (firstFaqAnswer) {
+            firstFaqAnswer.style.display = 'block';
+        }
+    }
+
+    // Add click event listeners to all FAQ questions
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function() {
+            const answer = this.nextElementSibling;
+            const icon = this.querySelector('i');
+            const faqItem = this.parentElement;
+
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    const itemAnswer = item.querySelector('.faq-answer');
+                    const itemIcon = item.querySelector('.faq-question i');
+                    if (itemAnswer) itemAnswer.style.display = 'none';
+                    if (itemIcon) itemIcon.style.transform = 'rotate(0deg)';
+                    item.classList.remove('active');
+                }
+            });
+
+            // Toggle current FAQ item
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                if (icon) icon.style.transform = 'rotate(0deg)';
+                faqItem.classList.remove('active');
+            } else {
+                answer.style.display = 'block';
+                if (icon) icon.style.transform = 'rotate(180deg)';
+                faqItem.classList.add('active');
+            }
+        });
+    });
+
+    // Hide all answers initially except the first one
+    document.querySelectorAll('.faq-answer').forEach((answer, index) => {
+        if (index !== 0) {
+            answer.style.display = 'none';
+        }
+    });
 });
 </script>
 {% endblock %}

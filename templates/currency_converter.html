@@ -5,6 +5,8 @@
     <meta name="description" content="Free currency converter with real-time exchange rates. Convert between 170+ world currencies with live rates. Accurate, reliable, and easy to use.">
     <meta name="keywords" content="currency converter, exchange rates, currency calculator, forex converter, live exchange rates, USD, EUR, GBP, JPY">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -161,20 +163,49 @@
             margin: 40px 0;
         }
         .faq-item {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #23263a;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .faq-question {
+            padding: 15px 20px;
+            background-color: #1a1d2e;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .faq-question:hover {
+            background-color: #2a2e45;
+        }
+        .faq-question h3 {
+            margin: 0;
+            font-size: 1.1em;
+            color: #0d5522;
+        }
+        .faq-question i {
+            color: #0d5522;
+            transition: transform 0.3s;
+        }
+        .faq-answer {
             padding: 20px;
-            background: #23263a;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: 1px solid rgba(13,85,34,0.1);
+            background-color: #23263a;
+            display: none;
         }
-        .faq-item h3 {
-            color: #ffffff;
-            margin-bottom: 10px;
+        .faq-item.active .faq-question {
+            background-color: #2a2e45;
         }
-        .faq-item p {
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        .faq-answer p {
             color: #e0e0e0;
             line-height: 1.5;
+            margin: 0;
         }
         .support-section {
             text-align: center;
@@ -403,24 +434,49 @@
             <h2 style="text-align: center; margin-bottom: 30px; color: #fff;">Frequently Asked Questions</h2>
             <div style="display: flex; flex-direction: column; gap: 15px;">
                 <div class="faq-item">
-                    <h3>How accurate are the exchange rates?</h3>
-                    <p>Our exchange rates are updated in real-time from reliable financial data providers, ensuring high accuracy for your currency conversions.</p>
+                    <div class="faq-question">
+                        <h3>How accurate are the exchange rates?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our exchange rates are updated in real-time from reliable financial data providers, ensuring high accuracy for your currency conversions.</p>
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <h3>How often are the rates updated?</h3>
-                    <p>Exchange rates are updated every hour to reflect the latest market movements and ensure accuracy in your conversions.</p>
+                    <div class="faq-question">
+                        <h3>How often are the rates updated?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Exchange rates are updated every hour to reflect the latest market movements and ensure accuracy in your conversions.</p>
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <h3>Is there a limit to how many conversions I can do?</h3>
-                    <p>No, you can perform as many currency conversions as you need, completely free of charge.</p>
+                    <div class="faq-question">
+                        <h3>Is there a limit to how many conversions I can do?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, you can perform as many currency conversions as you need, completely free of charge.</p>
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <h3>Can I trust these exchange rates for business transactions?</h3>
-                    <p>While our rates are highly accurate, for business transactions we recommend consulting with financial institutions as actual transaction rates may vary.</p>
+                    <div class="faq-question">
+                        <h3>Can I trust these exchange rates for business transactions?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>While our rates are highly accurate, for business transactions we recommend consulting with financial institutions as actual transaction rates may vary.</p>
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <h3>Why do exchange rates fluctuate?</h3>
-                    <p>Exchange rates change due to various factors including economic indicators, political events, and market sentiment.</p>
+                    <div class="faq-question">
+                        <h3>Why do exchange rates fluctuate?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Exchange rates change due to various factors including economic indicators, political events, and market sentiment.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -458,6 +514,57 @@
     </footer>
 
     <script>
+        // Initialize FAQ accordion
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set first FAQ item as active by default
+            const firstFaqItem = document.querySelector('.faq-item');
+            if (firstFaqItem) {
+                firstFaqItem.classList.add('active');
+                const firstFaqAnswer = firstFaqItem.querySelector('.faq-answer');
+                if (firstFaqAnswer) {
+                    firstFaqAnswer.style.display = 'block';
+                }
+            }
+
+            // Add click event listeners to all FAQ questions
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    const faqItem = this.parentElement;
+
+                    // Close all other FAQ items
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        if (item !== faqItem) {
+                            const itemAnswer = item.querySelector('.faq-answer');
+                            const itemIcon = item.querySelector('.faq-question i');
+                            if (itemAnswer) itemAnswer.style.display = 'none';
+                            if (itemIcon) itemIcon.style.transform = 'rotate(0deg)';
+                            item.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle current FAQ item
+                    if (answer.style.display === 'block') {
+                        answer.style.display = 'none';
+                        if (icon) icon.style.transform = 'rotate(0deg)';
+                        faqItem.classList.remove('active');
+                    } else {
+                        answer.style.display = 'block';
+                        if (icon) icon.style.transform = 'rotate(180deg)';
+                        faqItem.classList.add('active');
+                    }
+                });
+            });
+
+            // Hide all answers initially except the first one
+            document.querySelectorAll('.faq-answer').forEach((answer, index) => {
+                if (index !== 0) {
+                    answer.style.display = 'none';
+                }
+            });
+        });
+
         const currencies = {
             'AED': { name: 'United Arab Emirates Dirham', flag: '🇦🇪' },
             'AFN': { name: 'Afghan Afghani', flag: '🇦🇫' },

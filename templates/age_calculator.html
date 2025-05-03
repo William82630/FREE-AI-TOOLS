@@ -202,6 +202,48 @@
     height: 4px;
     background: linear-gradient(90deg, #28a745, #2ecc71);
 }
+/* FAQ Accordion Styles */
+.faq-item {
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #23263a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.faq-question {
+    padding: 15px 20px;
+    background-color: #1a1d2e;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+.faq-question:hover {
+    background-color: #2a2e45;
+}
+.faq-question h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #28a745;
+}
+.faq-question i {
+    color: #28a745;
+    transition: transform 0.3s;
+}
+.faq-answer {
+    padding: 20px;
+    background-color: #23263a;
+    display: none;
+}
+.faq-item.active .faq-question {
+    background-color: #2a2e45;
+}
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
 @media (max-width: 768px) {
     .input-group {
         grid-template-columns: 1fr;
@@ -290,32 +332,67 @@
 <div class="faq">
     <h2>Frequently Asked Questions</h2>
     <div class="faq-item">
-        <h3>How accurate is this age calculator?</h3>
-        <p>Our age calculator is extremely accurate, taking into account leap years and the exact number of days in each month. It calculates down to the second for precise results.</p>
+        <div class="faq-question">
+            <h3>How accurate is this age calculator?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Our age calculator is extremely accurate, taking into account leap years and the exact number of days in each month. It calculates down to the second for precise results.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <h3>Can I calculate my age on a future date?</h3>
-        <p>Yes! Simply set the "Calculate Age On" date to any future date, and the calculator will show how old you will be on that date.</p>
+        <div class="faq-question">
+            <h3>Can I calculate my age on a future date?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Yes! Simply set the "Calculate Age On" date to any future date, and the calculator will show how old you will be on that date.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <h3>How does the calculator handle leap years?</h3>
-        <p>Our calculator automatically accounts for leap years in its calculations, ensuring accuracy even when your birthday falls on or around February 29th.</p>
+        <div class="faq-question">
+            <h3>How does the calculator handle leap years?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Our calculator automatically accounts for leap years in its calculations, ensuring accuracy even when your birthday falls on or around February 29th.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <h3>Can I use this to calculate time between any two dates?</h3>
-        <p>Absolutely! Switch to the "Days Until..." tab, and you can calculate the exact time between any two dates, not just for age calculation.</p>
+        <div class="faq-question">
+            <h3>Can I use this to calculate time between any two dates?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Absolutely! Switch to the "Days Until..." tab, and you can calculate the exact time between any two dates, not just for age calculation.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <h3>Why do I need to know my age in different formats?</h3>
-        <p>Different age formats are useful for various purposes. For example, medical professionals often use weeks for infants, while legal documents typically use years. Having all formats available gives you flexibility.</p>
+        <div class="faq-question">
+            <h3>Why do I need to know my age in different formats?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Different age formats are useful for various purposes. For example, medical professionals often use weeks for infants, while legal documents typically use years. Having all formats available gives you flexibility.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <h3>Is my data saved when I use this calculator?</h3>
-        <p>No, all calculations are performed in your browser. We don't store or transmit your birth date or any other personal information.</p>
+        <div class="faq-question">
+            <h3>Is my data saved when I use this calculator?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>No, all calculations are performed in your browser. We don't store or transmit your birth date or any other personal information.</p>
+        </div>
     </div>
     <div class="faq-item">
-        <h3>How is the "Days Until Next Birthday" calculated?</h3>
-        <p>The calculator finds the date of your next birthday based on the current year (or the year of your "Calculate Age On" date), and then calculates the number of days remaining until that date.</p>
+        <div class="faq-question">
+            <h3>How is the "Days Until Next Birthday" calculated?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>The calculator finds the date of your next birthday based on the current year (or the year of your "Calculate Age On" date), and then calculates the number of days remaining until that date.</p>
+        </div>
     </div>
 </div>
 
@@ -334,6 +411,55 @@
     // Set today's date as default for "Calculate Age On" field
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('calculateDate').valueAsDate = new Date();
+
+        // Initialize FAQ accordion
+        // Set first FAQ item as active by default
+        const firstFaqItem = document.querySelector('.faq-item');
+        if (firstFaqItem) {
+            firstFaqItem.classList.add('active');
+            const firstFaqAnswer = firstFaqItem.querySelector('.faq-answer');
+            if (firstFaqAnswer) {
+                firstFaqAnswer.style.display = 'block';
+            }
+        }
+
+        // Add click event listeners to all FAQ questions
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                const faqItem = this.parentElement;
+
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        const itemAnswer = item.querySelector('.faq-answer');
+                        const itemIcon = item.querySelector('.faq-question i');
+                        if (itemAnswer) itemAnswer.style.display = 'none';
+                        if (itemIcon) itemIcon.style.transform = 'rotate(0deg)';
+                        item.classList.remove('active');
+                    }
+                });
+
+                // Toggle current FAQ item
+                if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                    faqItem.classList.remove('active');
+                } else {
+                    answer.style.display = 'block';
+                    if (icon) icon.style.transform = 'rotate(180deg)';
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Hide all answers initially except the first one
+        document.querySelectorAll('.faq-answer').forEach((answer, index) => {
+            if (index !== 0) {
+                answer.style.display = 'none';
+            }
+        });
     });
 
     function calculateAge() {
