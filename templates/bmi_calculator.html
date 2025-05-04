@@ -19,8 +19,11 @@
 {% block faq_title_color %}#0d5522{% endblock %}
 {% block support_title_color %}#0d5522{% endblock %}
 
-{% block additional_styles %}
+{% block head_scripts %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block additional_styles %}
 .hero {
     text-align: center;
     display: flex;
@@ -48,15 +51,18 @@
 .input-group {
     margin: 30px auto 0;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
     gap: 20px;
-    max-width: 180px;
+    max-width: 500px;
 }
 .input-field {
     width: 100%;
     margin-bottom: 10px;
     text-align: center;
+    min-width: 180px;
+    max-width: 220px;
 }
 .input-field label {
     display: block;
@@ -100,6 +106,8 @@
     background-position: right 10px center;
     background-size: 16px;
     padding-right: 30px;
+    position: relative;
+    z-index: 10;
 }
 .input-field input:hover, .input-field select:hover {
     border-color: #0d5522;
@@ -152,6 +160,7 @@
     text-align: center;
     border: 1px solid rgba(40,167,69,0.15);
     max-width: 500px;
+    overflow: visible;
 }
 .results.show {
     display: block;
@@ -255,6 +264,7 @@
     padding: 38px 32px 40px 32px;
     margin: 0 auto;
     max-width: 600px;
+    min-width: 320px;
     border: 1px solid rgba(40,167,69,0.1);
     position: relative;
     overflow: hidden;
@@ -273,6 +283,7 @@
     position: relative;
     width: 100%;
     max-width: 300px;
+    height: 150px;
     margin: 0 auto 20px;
 }
 .bmi-pointer {
@@ -378,8 +389,8 @@
         <div class="input-group">
             <div class="input-field">
                 <label>Height:</label>
-                <input type="number" id="height" placeholder="Enter height" style="font-size: 1.1em; width: 150px;">
-                <select id="heightUnit" style="width: 150px;">
+                <input type="number" id="height" placeholder="Enter height" style="font-size: 1.1em; width: 100%;">
+                <select id="heightUnit" style="width: 100%;">
                     <option value="cm">Centimeters</option>
                     <option value="feet">Feet</option>
                     <option value="inches">Inches</option>
@@ -387,17 +398,17 @@
             </div>
             <div class="input-field">
                 <label>Weight:</label>
-                <input type="number" id="weight" placeholder="Enter weight" style="font-size: 1.1em; width: 150px;">
-                <select id="weightUnit" style="width: 150px;">
+                <input type="number" id="weight" placeholder="Enter weight" style="font-size: 1.1em; width: 100%;">
+                <select id="weightUnit" style="width: 100%;">
                     <option value="kg">Kilograms</option>
                     <option value="pounds">Pounds</option>
                 </select>
             </div>
         </div>
 
-        <div id="inchesField" class="input-field" style="display: none; margin: -10px auto 20px; max-width: 180px;">
+        <div id="inchesField" class="input-field" style="display: none; margin: 0 auto 20px; max-width: 220px;">
             <label>Additional inches:</label>
-            <input type="number" id="heightInches" placeholder="Inches" style="font-size: 1.1em; width: 150px;">
+            <input type="number" id="heightInches" placeholder="Inches" style="font-size: 1.1em; width: 100%;">
         </div>
 
         <div id="inputError" class="error-message"></div>
@@ -693,12 +704,17 @@
         const healthAdvice = document.getElementById('healthAdvice');
         const detailedMetrics = document.getElementById('detailedMetrics');
 
+        // Make sure results are visible
+        results.style.display = 'block';
+
         // Add show class for animation
         results.classList.add('show');
 
         // Update BMI gauge and pointer
-        updateBMIGauge(bmi);
-        updateBMIPointer(bmi);
+        setTimeout(() => {
+            updateBMIGauge(bmi);
+            updateBMIPointer(bmi);
+        }, 100);
 
         // Calculate additional metrics
         const heightInMeters = getHeightInMeters();
@@ -810,6 +826,7 @@
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 cutout: '70%',
                 plugins: {
                     legend: {

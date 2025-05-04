@@ -6,6 +6,8 @@
     <title>PDF Merger – Merge PDF Files Online Free</title>
     <meta name="description" content="Merge multiple PDF files into one document instantly with our free online PDF Merger. No registration, no watermark, unlimited merges. Secure and easy to use.">
     <link rel="stylesheet" href="/static/style.css">
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
         /* Additional PDF Merger specific styles if needed */
         .pdf-merger-section input[type="file"] {
@@ -77,6 +79,15 @@
             border-top: 1px solid #222a36;
         }
     </style>
+    <script>
+        // Ensure all footer links open in new tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('footer a').forEach(function(link) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -135,10 +146,10 @@
         </div>
         <footer class="footer-section">
             <div class="footer-links">
-                <a href="/privacy-policy.html">Privacy Policy</a> |
-                <a href="/terms-of-use.html">Terms of Use</a> |
+                <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+                <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
                 <a href="/">Home</a> |
-                <a href="/contact.html">Contact</a>
+                <a href="https://willsblogger.com/contact-us/" target="_blank">Contact</a>
             </div>
             <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
         </footer>

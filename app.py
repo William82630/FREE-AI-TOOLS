@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, send_file, after_this_request
+from flask import Flask, render_template, request, jsonify, send_file, after_this_request, redirect
 from werkzeug.utils import secure_filename
 import requests
 from PIL import Image, ImageDraw, ImageFont
@@ -37,11 +37,15 @@ def index():
 
 @app.route('/privacy-policy.html')
 def privacy_policy():
-    return render_template('privacy_policy.html')
+    return send_file('privacy-policy.html')
 
 @app.route('/terms-of-use.html')
 def terms_of_use():
-    return render_template('terms_of_use.html')
+    return send_file('terms-of-use.html')
+
+@app.route('/sitemap.html')
+def sitemap():
+    return send_file('sitemap.html')
 
 @app.route('/api/ai', methods=['POST'])
 def ai_tool():
@@ -1108,8 +1112,226 @@ def qr_code_generator():
     return render_template('qr_code_generator.html')
 
 # Free Online Converter
+@app.route('/tools/free-online-converter')
+def free_online_converter():
+    # Redirect to the PDF to Word converter as the main converter tool
+    return redirect('/tools/free-online-converter/pdf-to-word')
+
 @app.route('/tools/free-online-converter/pdf-to-word', methods=['GET', 'POST'])
 def pdf_to_word():
+    if request.method == 'POST':
+        try:
+            # Check if file was uploaded
+            if 'file' not in request.files:
+                return jsonify({'success': False, 'error': 'No file part'})
+
+            file = request.files['file']
+
+            if file.filename == '':
+                return jsonify({'success': False, 'error': 'No selected file'})
+
+            # Check if the file is a PDF
+            if not file.filename.lower().endswith('.pdf'):
+                return jsonify({'success': False, 'error': 'File must be a PDF'})
+
+            # Create unique filenames
+            original_filename = secure_filename(file.filename)
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            unique_id = str(uuid.uuid4())[:8]
+
+            # Save the uploaded PDF file
+            pdf_filename = f"temp_{timestamp}_{unique_id}_{original_filename}"
+            pdf_filepath = os.path.join(UPLOAD_FOLDER, pdf_filename)
+            file.save(pdf_filepath)
+
+            # Create output Word filename
+            word_filename = f"converted_{timestamp}_{unique_id}_{os.path.splitext(original_filename)[0]}.docx"
+            word_filepath = os.path.join(CONVERTED_FOLDER, word_filename)
+
+            try:
+                # Import required libraries
+                import PyPDF2
+                import docx
+                import io
+
+                # Try to import pdf2docx for better layout preservation
+                try:
+                    from pdf2docx import Converter
+                    pdf2docx_available = True
+                except ImportError:
+                    print("pdf2docx not available, falling back to PyMuPDF/PyPDF2")
+                    pdf2docx_available = False
+
+                # Try to import PyMuPDF as a fallback
+                try:
+                    import fitz  # PyMuPDF
+                    pymupdf_available = True
+                except ImportError:
+                    print("PyMuPDF not available, falling back to PyPDF2")
+                    pymupdf_available = False
+
+                # First try using pdf2docx which preserves layout much better
+                conversion_successful = False
+                if pdf2docx_available:
+                    try:
+                        print("Using pdf2docx for conversion with layout preservation")
+                        # Convert PDF to DOCX with layout preservation
+                        cv = Converter(pdf_filepath)
+                        cv.convert(word_filepath, start=0, end=None)
+                        cv.close()
+
+                        # Check if conversion was successful
+                        if os.path.exists(word_filepath) and os.path.getsize(word_filepath) > 0:
+                            print("pdf2docx conversion successful")
+                            conversion_successful = True
+                        else:
+                            print("pdf2docx conversion failed or produced empty file")
+                            conversion_successful = False
+                    except Exception as pdf2docx_error:
+                        print(f"pdf2docx conversion failed: {str(pdf2docx_error)}")
+                        conversion_successful = False
+
+                # If pdf2docx failed or isn't available, try PyMuPDF with improved layout handling
+                if not conversion_successful and pymupdf_available:
+                    try:
+                        print("Using PyMuPDF with improved layout handling")
+                        # Create a new Word document
+                        doc = docx.Document()
+
+                        # Open the PDF with PyMuPDF
+                        pdf_document = fitz.open(pdf_filepath)
+
+                        # Process each page
+                        for page_num in range(len(pdf_document)):
+                            page = pdf_document[page_num]
+
+                            # Add a page break if not the first page
+                            if page_num > 0:
+                                doc.add_page_break()
+
+                            # Get page dimensions
+                            page_width = page.rect.width
+                            page_height = page.rect.height
+
+                            # Extract text blocks with position information
+                            blocks = page.get_text("dict")["blocks"]
+
+                            # Process text blocks to maintain layout
+                            for block in blocks:
+                                if block["type"] == 0:  # Text block
+                                    # Create a new paragraph for each block
+                                    block_para = doc.add_paragraph()
+
+                                    # Process each line in the block
+                                    for line in block["lines"]:
+                                        line_text = ""
+
+                                        # Get all spans in the line
+                                        for span in line["spans"]:
+                                            line_text += span["text"] + " "
+
+                                        # Add the line text with a line break
+                                        if line_text.strip():
+                                            block_para.add_run(line_text.strip())
+                                            block_para.add_run().add_break()
+
+                            # Extract images if available
+                            try:
+                                # Get images from the page
+                                image_list = page.get_images(full=True)
+
+                                for img_index, img_info in enumerate(image_list):
+                                    xref = img_info[0]  # Get the image reference
+                                    base_image = pdf_document.extract_image(xref)
+                                    image_bytes = base_image["image"]
+
+                                    # Save the image to a temporary file
+                                    img_ext = base_image["ext"]
+                                    temp_img_filename = f"temp_img_{timestamp}_{unique_id}_{page_num}_{img_index}.{img_ext}"
+                                    temp_img_path = os.path.join(UPLOAD_FOLDER, temp_img_filename)
+
+                                    with open(temp_img_path, "wb") as img_file:
+                                        img_file.write(image_bytes)
+
+                                    # Add the image to the Word document
+                                    from docx.shared import Inches
+                                    doc.add_picture(temp_img_path, width=Inches(6))
+
+                                    # Clean up the temporary image file
+                                    try:
+                                        os.remove(temp_img_path)
+                                    except Exception as img_cleanup_error:
+                                        print(f"Warning: Could not remove temporary image file: {img_cleanup_error}")
+                            except Exception as img_error:
+                                print(f"Warning: Could not extract images from page {page_num}: {str(img_error)}")
+
+                        # Close the PDF document
+                        pdf_document.close()
+
+                        # Save the Word document
+                        doc.save(word_filepath)
+                        conversion_successful = True
+                    except Exception as fitz_error:
+                        print(f"PyMuPDF extraction failed: {str(fitz_error)}")
+                        conversion_successful = False
+
+                # If both pdf2docx and PyMuPDF failed, fall back to PyPDF2
+                if not conversion_successful:
+                    try:
+                        print("Falling back to PyPDF2 for basic text extraction")
+                        # Create a new Word document
+                        doc = docx.Document()
+
+                        # Use PyPDF2 for basic text extraction
+                        reader = PyPDF2.PdfReader(pdf_filepath)
+
+                        # Process each page
+                        for page_num, page in enumerate(reader.pages):
+                            # Extract text from the page
+                            text = page.extract_text()
+
+                            # Add a page break if not the first page
+                            if page_num > 0:
+                                doc.add_page_break()
+
+                            # Add the text to the Word document
+                            if text:
+                                doc.add_paragraph(text)
+                            else:
+                                doc.add_paragraph(f"[Page {page_num + 1} - No extractable text]")
+
+                        # Save the Word document
+                        doc.save(word_filepath)
+                    except Exception as pypdf_error:
+                        print(f"PyPDF2 extraction failed: {str(pypdf_error)}")
+                        raise Exception("All conversion methods failed")
+
+                # Verify the output file was created
+                if not os.path.exists(word_filepath):
+                    return jsonify({'success': False, 'error': 'Failed to create output file'}), 500
+
+                # Clean up the temporary PDF file
+                try:
+                    os.remove(pdf_filepath)
+                except Exception as cleanup_error:
+                    print(f"Warning: Could not remove temporary file: {str(cleanup_error)}")
+
+                # Return success response with download URL
+                return jsonify({
+                    'success': True,
+                    'download_url': f'/download/converted/{word_filename}'
+                })
+
+            except ImportError as import_error:
+                return jsonify({'success': False, 'error': f'Required libraries not installed: {str(import_error)}'})
+            except Exception as e:
+                print(f"Error in PDF to Word conversion: {str(e)}")
+                return jsonify({'success': False, 'error': f'An error occurred during conversion: {str(e)}'})
+
+        except Exception as e:
+            print(f"Error in PDF to Word conversion: {str(e)}")
+            return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'})
+
     return render_template('pdf_to_word.html')
 
 @app.route('/tools/free-online-converter/word-to-pdf', methods=['GET', 'POST'])
@@ -2122,149 +2344,7 @@ def mp4_converter():
 def mp3_converter():
     return render_template('mp3_converter.html')
 
-# Keyword Research Tools
-@app.route('/tools/keyword-research/keyword-generator', methods=['GET', 'POST'])
-def keyword_generator():
-    if request.method == 'POST':
-        try:
-            # Get the seed keyword from the form
-            seed_keyword = request.form.get('seed_keyword', '').strip()
-
-            if not seed_keyword:
-                return jsonify({'success': False, 'error': 'Please enter a seed keyword'})
-
-            # Use the OpenRouter API to generate related keywords
-            headers = {
-                'Authorization': f'Bearer {API_KEY}',
-                'Content-Type': 'application/json'
-            }
-
-            prompt = f"""Generate 20 related keywords for SEO based on the seed keyword: "{seed_keyword}".
-            Include a mix of:
-            - Short-tail keywords
-            - Long-tail keywords
-            - Question-based keywords
-            - Commercial intent keywords
-
-            Format the response as a simple list with one keyword per line, without numbering or bullet points.
-            """
-
-            payload = {
-                'model': 'google-gemini-2.5-pro',
-                'prompt': prompt,
-                'max_tokens': 500
-            }
-
-            response = requests.post(API_URL, headers=headers, json=payload)
-            response.raise_for_status()
-            ai_response = response.json()
-
-            # Extract the generated keywords from the response
-            keywords_text = ai_response.get('choices', [{}])[0].get('text', '')
-
-            # Split the text into individual keywords
-            related_keywords = [keyword.strip() for keyword in keywords_text.split('\n') if keyword.strip()]
-
-            # Render the results template with the generated keywords
-            return render_template('keyword_generator_results.html',
-                                  seed_keyword=seed_keyword,
-                                  related_keywords=related_keywords)
-
-        except Exception as e:
-            return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'}), 500
-
-    return render_template('keyword_generator.html')
-
-@app.route('/tools/keyword-research/keyword-density-checker', methods=['GET', 'POST'])
-def keyword_density_checker():
-    if request.method == 'POST':
-        try:
-            # Get the content from the form
-            content = request.form.get('content', '').strip()
-
-            if not content:
-                return jsonify({'success': False, 'error': 'Please enter some content to analyze'})
-
-            # Process the content
-            # Remove punctuation and convert to lowercase
-            import re
-            from collections import Counter
-
-            # Clean the text
-            cleaned_text = re.sub(r'[^\w\s]', '', content.lower())
-
-            # Split into words
-            words = cleaned_text.split()
-
-            # Count total words
-            total_words = len(words)
-
-            # Count word frequencies
-            word_counts = Counter(words)
-
-            # Get one-word keywords
-            one_word_keywords = {word: {'count': count, 'density': (count / total_words) * 100}
-                               for word, count in word_counts.most_common(20) if len(word) > 2}
-
-            # Get two-word phrases
-            two_word_phrases = []
-            for i in range(len(words) - 1):
-                two_word_phrases.append(f"{words[i]} {words[i+1]}")
-
-            two_word_counts = Counter(two_word_phrases)
-            two_word_keywords = {phrase: {'count': count, 'density': (count / (total_words - 1)) * 100}
-                               for phrase, count in two_word_counts.most_common(15)}
-
-            # Get three-word phrases
-            three_word_phrases = []
-            for i in range(len(words) - 2):
-                three_word_phrases.append(f"{words[i]} {words[i+1]} {words[i+2]}")
-
-            three_word_counts = Counter(three_word_phrases)
-            three_word_keywords = {phrase: {'count': count, 'density': (count / (total_words - 2)) * 100}
-                                 for phrase, count in three_word_counts.most_common(10)}
-
-            # Return the results
-            return jsonify({
-                'success': True,
-                'total_words': total_words,
-                'one_word_keywords': one_word_keywords,
-                'two_word_keywords': two_word_keywords,
-                'three_word_keywords': three_word_keywords
-            })
-
-        except Exception as e:
-            return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'}), 500
-
-    return render_template('keyword_density_checker.html')
-
-@app.route('/tools/keyword-research/related-keywords-finder', methods=['GET', 'POST'])
-def related_keywords_finder():
-    return render_template('related_keywords_finder.html')
-
-@app.route('/tools/keyword-research/long-tail-keyword-generator', methods=['GET', 'POST'])
-def long_tail_keyword_generator():
-    return render_template('long_tail_keyword_generator.html')
-
-@app.route('/tools/keyword-research/keyword-competition-analyzer', methods=['GET', 'POST'])
-def keyword_competition_analyzer():
-    return render_template('keyword_competition_analyzer.html')
-
-@app.route('/tools/keyword-research/word-counter', methods=['GET', 'POST'])
-def word_counter():
-    return render_template('word_counter.html')
-
-@app.route('/tools/keyword-research/youtube-keyword-generator', methods=['GET', 'POST'])
-def youtube_keyword_generator():
-    return render_template('youtube_keyword_generator.html')
-
-@app.route('/tools/keyword-research/email-subject-line-tester', methods=['GET', 'POST'])
-def email_subject_line_tester():
-    return render_template('email_subject_line_tester.html')
-
-@app.route('/tools/keyword-research/keyword-position-checker', methods=['GET', 'POST'])
-def keyword_position_checker():
-    return render_template('keyword_position_checker.html')
+# Keyword Research Tools section removed for future implementation
 
 @app.route('/download/converted/<filename>', methods=['GET'])
 def download_converted_file(filename):

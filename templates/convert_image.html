@@ -921,7 +921,7 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/tools/image-editing">Image Tools</a></li>
                     <li><a href="/tools/online-calculators">Calculators</a></li>
-                    <li><a href="/tools/free-online-converter">Converters</a></li>
+                    <li><a href="/tools/free-online-converter/pdf-to-word">Converters</a></li>
                 </ul>
             </nav>
         </div>
@@ -1249,7 +1249,7 @@
                 <p class="cta-description">Transform your images between formats with our free, fast, and secure converter. No registration required.</p>
                 <div class="cta-buttons">
                     <a href="#convert-tool" class="btn btn-secondary">Start Converting Now</a>
-                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="btn btn-outline">Support This Tool</a>
+                    <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="btn btn-outline" style="background-color: #ffffff; color: #0066cc; border: 2px solid #0066cc;">Support This Tool</a>
                 </div>
             </div>
         </div>
@@ -1281,30 +1281,30 @@
                 <div class="footer-column">
                     <h3>Image Tools</h3>
                     <ul class="footer-links">
-                        <li><a href="/tools/image-editing/compress-image">Compress Image</a></li>
-                        <li><a href="/tools/image-editing/convert-image">Convert Image</a></li>
-                        <li><a href="/tools/image-editing/image-resizer">Resize Image</a></li>
-                        <li><a href="/tools/image-editing/crop-image">Crop Image</a></li>
-                        <li><a href="/tools/image-editing/favicon-generator">Favicon Generator</a></li>
+                        <li><a href="/tools/image-editing/compress-image" target="_blank">Compress Image</a></li>
+                        <li><a href="/tools/image-editing/convert-image" target="_blank">Convert Image</a></li>
+                        <li><a href="/tools/image-editing/image-resizer" target="_blank">Resize Image</a></li>
+                        <li><a href="/tools/image-editing/crop-image" target="_blank">Crop Image</a></li>
+                        <li><a href="/tools/image-editing/favicon-generator" target="_blank">Favicon Generator</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-column">
                     <h3>Other Tools</h3>
                     <ul class="footer-links">
-                        <li><a href="/tools/online-calculators">Calculators</a></li>
-                        <li><a href="/tools/free-online-converter">File Converters</a></li>
-                        <li><a href="/tools/online-calculators/unit-converter">Unit Converter</a></li>
-                        <li><a href="/tools/online-calculators/qr-code-generator">QR Code Generator</a></li>
+                        <li><a href="/tools/online-calculators/gst-calculator" target="_blank">GST Calculator</a></li>
+                        <li><a href="/tools/free-online-converter/pdf-to-word" target="_blank">PDF to Word</a></li>
+                        <li><a href="/tools/online-calculators/unit-converter" target="_blank">Unit Converter</a></li>
+                        <li><a href="/tools/online-calculators/qr-code-generator" target="_blank">QR Code Generator</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-column">
                     <h3>Support</h3>
                     <ul class="footer-links">
-                        <li><a href="/contact">Contact Us</a></li>
-                        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="/terms-of-use.html">Terms of Use</a></li>
+                        <li><a href="https://willsblogger.com/contact-us/" target="_blank">Contact Us</a></li>
+                        <li><a href="/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="/terms-of-use.html" target="_blank">Terms of Use</a></li>
                         <li><a href="https://www.buymeacoffee.com/willsblogger" target="_blank">Support Us</a></li>
                     </ul>
                 </div>
@@ -1313,9 +1313,9 @@
             <div class="footer-bottom">
                 <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
                 <p>
-                    <a href="/privacy-policy.html">Privacy</a> |
-                    <a href="/terms-of-use.html">Terms</a> |
-                    <a href="/sitemap.xml">Sitemap</a>
+                    <a href="/privacy-policy.html" target="_blank">Privacy</a> |
+                    <a href="/terms-of-use.html" target="_blank">Terms</a> |
+                    <a href="/sitemap.html" target="_blank">Sitemap</a>
                 </p>
             </div>
         </div>
@@ -1324,6 +1324,12 @@
     <!-- JavaScript for interactivity -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Ensure all footer links open in new tabs
+            document.querySelectorAll('footer a').forEach(function(link) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+            });
+
             // File upload preview
             const fileUpload = document.querySelector('.file-upload');
             const fileInput = document.querySelector('.file-upload-input');

@@ -1,9 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Convert SVG to PNG</title>
     <meta name="description" content="Easily convert SVG images to PNG format. Upload your SVG file and get a PNG version instantly.">
     <meta name="keywords" content="SVG to PNG, image converter, convert SVG">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -287,13 +291,98 @@
         <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="display:inline-block;background:#ffdd00;color:#23263a;font-weight:bold;padding:12px 28px;border-radius:6px;text-decoration:none;font-size:1.15em;box-shadow:0 2px 8px rgba(0,0,0,0.10);transition:background 0.2s;">☕ Buy Me a Coffee</a>
     </div>
 
-    <footer>
-        <p style="margin: 0 0 10px 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-        <p style="margin: 0;">
-            <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
-            <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
-            <a href="/" target="_self">Home</a>
-        </p>
+    <!-- Footer -->
+    <footer class="footer" style="background-color: #0f172a; color: white; padding: 3rem 0 1rem 0; margin: 0; clear: both;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+            <div class="footer-content" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; margin-bottom: 2rem;">
+                <div class="footer-column" style="flex: 1; min-width: 250px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Free AI Tools</h3>
+                    <p style="color: #cbd5e1; margin: 0 0 1rem 0; line-height: 1.6;">We provide free, high-quality tools to help you with your everyday tasks. No registration required, no hidden fees.</p>
+                    <style>
+                        .social-link:hover {
+                            transform: translateY(-5px);
+                            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+                        }
+                    </style>
+                    <div class="social-links" style="display: flex; gap: 1rem;">
+                        <a href="https://twitter.com/willsblogger" target="_blank" class="social-link" style="background-color: #1DA1F2; color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com/willsblogger" target="_blank" class="social-link" style="background-color: #4267B2; color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://instagram.com/willsblogger" target="_blank" class="social-link" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/willsblogger" target="_blank" class="social-link" style="background-color: #FF0000; color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Image Tools</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/compress-image" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Compress Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-image" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Convert Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-webp-to-png" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">WEBP to PNG</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/image-resizer" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Resize Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/crop-image" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Crop Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/favicon-generator" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Favicon Generator</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Other Tools</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/bmi-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">BMI Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/gst-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">GST Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/pdf-to-word" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">PDF to Word</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/mp4-to-mp3" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">MP4 to MP3</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/compress-pdf" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">PDF Compressor</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/image-to-pdf" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Image to PDF</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Support</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/" target="_self" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Home</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/privacy-policy.html" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Privacy Policy</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/terms-of-use.html" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Terms of Use</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Support Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom" style="border-top: 1px solid #334155; padding-top: 1.5rem; text-align: center;">
+                <p style="color: #94a3b8; margin: 0 0 0.5rem 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+                <p style="color: #94a3b8; margin: 0;">
+                    <a href="/" target="_self" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Home</a> |
+                    <a href="/privacy-policy.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Privacy</a> |
+                    <a href="/terms-of-use.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Terms</a> |
+                    <a href="/sitemap.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Sitemap</a>
+                </p>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // Ensure all footer links have proper attributes
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('footer a').forEach(function(link) {
+                // Skip links that already have target attribute set
+                if (!link.hasAttribute('target')) {
+                    // Home links should open in the same tab
+                    if (link.getAttribute('href') === '/') {
+                        link.setAttribute('target', '_self');
+                    } else {
+                        link.setAttribute('target', '_blank');
+                        link.setAttribute('rel', 'noopener noreferrer');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

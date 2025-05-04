@@ -178,6 +178,15 @@
             margin: 0 10px;
         }
     </style>
+    <script>
+        // Ensure all footer links open in new tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('footer a').forEach(function(link) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="ads-layout">
@@ -259,7 +268,7 @@
                 <h2>Are you a happy user?</h2>
                 <p>If you enjoy this PDF to Text Converter, please consider sharing it or supporting us!</p>
                 <div class="happy-user-links">
-                    <a href="/" class="home-link">🏠 Home</a>
+                    <a href="/" class="home-link" target="_blank">🏠 Home</a>
                     <a href="https://www.buymeacoffee.com/willsblogger" target="_blank">☕ Buy Me a Coffee</a>
                     <a href="https://twitter.com/intent/tweet" target="_blank">🐦 Share on Twitter</a>
                 </div>
@@ -267,12 +276,12 @@
             <!-- Footer Section -->
             <footer class="footer-section">
                 <div class="footer-links">
-                    <a href="/privacy-policy.html">Privacy Policy</a> |
-                    <a href="/terms-of-use.html">Terms of Use</a> |
-                    <a href="/">Home</a> |
-                    <a href="/contact.html">Contact</a>
+                    <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+                    <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
+                    <a href="/" target="_blank">Home</a> |
+                    <a href="https://willsblogger.com/contact-us/" target="_blank">Contact</a>
                 </div>
-                <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+                <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
             </footer>
         </div>
         <div class="ad-corner ad-right">

@@ -606,8 +606,12 @@
             </div>
 
             <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
-              <a href="#" id="whatsappShare" target="_blank" style="background-color: #25D366; color: white; text-decoration: none; padding: 10px 15px; border-radius: 4px; font-size: 1.05em;">Share on WhatsApp</a>
-              <a href="#" class="email-share" id="emailShare" target="_blank" style="background-color: #0072c6; color: white; text-decoration: none; padding: 10px 15px; border-radius: 4px; font-size: 1.05em;">Share via Email</a>
+              <a href="#" id="whatsappShare" target="_blank" style="background-color: #25D366; color: white; text-decoration: none; padding: 10px 15px; border-radius: 4px; font-size: 1.05em; display: flex; align-items: center;">
+                <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 20px; height: 20px; margin-right: 5px;"> Share on WhatsApp
+              </a>
+              <a href="#" class="email-share" id="emailShare" target="_blank" style="background-color: #0072c6; color: white; text-decoration: none; padding: 10px 15px; border-radius: 4px; font-size: 1.05em; display: flex; align-items: center;">
+                <i class="fas fa-envelope" style="margin-right: 5px;"></i> Share via Email
+              </a>
             </div>
         </div>
 
@@ -786,19 +790,19 @@
             <p>If you find this tool helpful, consider supporting us:</p>
             <button onclick="window.open('https://www.buymeacoffee.com/yourlink', '_blank')" style="background-color: #004aad; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1.2em; cursor: pointer;">☕ Buy Me a Coffee</button>
             <div class="social-icons" style="margin-top: 15px;">
-                <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000/gst-calculator&text=Check+out+this+amazing+tool!" target="_blank" style="margin-right: 10px;">
+                <a href="https://twitter.com/intent/tweet?url=https://willsblogger.com/tools/online-calculators/gst-calculator&text=Check+out+this+free+GST+Calculator+with+CGST/SGST+breakdown!" target="_blank" style="margin-right: 10px;">
                     <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000/gst-calculator" target="_blank" style="margin-right: 10px;">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://willsblogger.com/tools/online-calculators/gst-calculator" target="_blank" style="margin-right: 10px;">
                     <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
                 </a>
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000/gst-calculator&title=Amazing+Tool&summary=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://willsblogger.com/tools/online-calculators/gst-calculator&title=Free+GST+Calculator+Tool&summary=Calculate+GST+easily+with+CGST/SGST+breakdown+using+this+free+online+tool!" target="_blank" style="margin-right: 10px;">
                     <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
                 </a>
-                <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000/gst-calculator&description=Check+out+this+tool!" target="_blank" style="margin-right: 10px;">
+                <a href="https://pinterest.com/pin/create/button/?url=https://willsblogger.com/tools/online-calculators/gst-calculator&description=Free+GST+Calculator+with+CGST/SGST+breakdown" target="_blank" style="margin-right: 10px;">
                     <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
                 </a>
-                <a href="https://wa.me/?text=Check+out+this+amazing+tool:+http://127.0.0.1:5000/gst-calculator" target="_blank">
+                <a href="https://wa.me/?text=Check+out+this+free+GST+Calculator+with+CGST/SGST+breakdown:+https://willsblogger.com/tools/online-calculators/gst-calculator" target="_blank">
                     <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
                 </a>
             </div>
@@ -830,27 +834,27 @@
 
                 <div style="flex: 1; min-width: 150px;">
                     <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/gst-calculator" style="color: #cbd5e1; text-decoration: none;">GST Calculator</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/bmi-calculator" style="color: #cbd5e1; text-decoration: none;">BMI Calculator</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/simple-calculator" style="color: #cbd5e1; text-decoration: none;">Simple Calculator</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/age-calculator" style="color: #cbd5e1; text-decoration: none;">Age Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/gst-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none;">GST Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/bmi-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none;">BMI Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/simple-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none;">Simple Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/age-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none;">Age Calculator</a></li>
                     </ul>
                 </div>
 
                 <div style="flex: 1; min-width: 150px;">
                     <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/compress-image" style="color: #cbd5e1; text-decoration: none;">Compress Image</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/pdf-to-word" style="color: #cbd5e1; text-decoration: none;">PDF to Word</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/keyword-research/keyword-generator" style="color: #cbd5e1; text-decoration: none;">Keyword Generator</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/favicon-generator" style="color: #cbd5e1; text-decoration: none;">Favicon Generator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/compress-image" target="_blank" style="color: #cbd5e1; text-decoration: none;">Compress Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/pdf-to-word" target="_blank" style="color: #cbd5e1; text-decoration: none;">PDF to Word</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/keyword-research/keyword-generator" target="_blank" style="color: #cbd5e1; text-decoration: none;">Keyword Generator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/favicon-generator" target="_blank" style="color: #cbd5e1; text-decoration: none;">Favicon Generator</a></li>
                     </ul>
                 </div>
 
                 <div style="flex: 1; min-width: 150px;">
                     <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="margin-bottom: 0.5rem;"><a href="/" style="color: #cbd5e1; text-decoration: none;">Home</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/privacy-policy.html" style="color: #cbd5e1; text-decoration: none;">Privacy Policy</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/terms-of-use.html" style="color: #cbd5e1; text-decoration: none;">Terms of Use</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/" target="_blank" style="color: #cbd5e1; text-decoration: none;">Home</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/privacy-policy.html" target="_blank" style="color: #cbd5e1; text-decoration: none;">Privacy Policy</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/terms-of-use.html" target="_blank" style="color: #cbd5e1; text-decoration: none;">Terms of Use</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="color: #cbd5e1; text-decoration: none;">Support Us</a></li>
                     </ul>
                 </div>
@@ -861,10 +865,10 @@
             <div style="text-align: center;">
                 <p style="color: #94a3b8; margin: 0 0 0.5rem 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
                 <p style="color: #94a3b8; margin: 0;">
-                    <a href="/" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Home</a> |
-                    <a href="/privacy-policy.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Privacy</a> |
-                    <a href="/terms-of-use.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Terms</a> |
-                    <a href="/sitemap.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Sitemap</a>
+                    <a href="/" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Home</a> |
+                    <a href="/privacy-policy.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Privacy</a> |
+                    <a href="/terms-of-use.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Terms</a> |
+                    <a href="/sitemap.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Sitemap</a>
                 </p>
             </div>
         </div>
@@ -959,7 +963,7 @@
             const gst = document.getElementById("gstAmount").textContent;
             const total = document.getElementById("totalAmount").textContent;
             const breakdown = document.getElementById("taxBreakdown").textContent;
-            const text = encodeURIComponent(`GST Calculation:\nActual Amount: ₹${actual}\nGST Amount: ₹${gst}\nTotal Amount: ₹${total}\n${breakdown}`);
+            const text = encodeURIComponent(`GST Calculation:\nActual Amount: ₹${actual}\nGST Amount: ₹${gst}\nTotal Amount: ₹${total}\n${breakdown}\n\nCalculate your own GST at: https://willsblogger.com/tools/online-calculators/gst-calculator`);
             document.getElementById("whatsappShare").href = `https://wa.me/?text=${text}`;
             document.getElementById("emailShare").href = `mailto:?subject=GST%20Calculation&body=${text}`;
         }

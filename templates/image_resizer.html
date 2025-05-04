@@ -1,9 +1,20 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Image Resizer Tool</title>
-    <meta name="description" content="Resize your images quickly and easily. Upload, set your dimensions, and download your perfectly resized image.">
-    <meta name="keywords" content="image resizer, resize images, online image resizer">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Online Image Resizer Tool - Resize Images Without Losing Quality</title>
+    <meta name="description" content="Resize your images quickly and easily with our free online tool. Maintain aspect ratio, preserve quality, and get perfect dimensions for web, social media, or print. No registration required.">
+    <meta name="keywords" content="image resizer, resize images, online image resizer, free image resizer, resize photos online, change image size, resize pictures, maintain aspect ratio, resize without losing quality">
+    <meta property="og:title" content="Free Online Image Resizer Tool">
+    <meta property="og:description" content="Resize your images quickly and easily while maintaining quality. Perfect for web, social media, and print projects.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://willsblogger.com/tools/image-editing/image-resizer">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Online Image Resizer Tool">
+    <meta name="twitter:description" content="Resize your images quickly and easily while maintaining quality. Perfect for web, social media, and print projects.">
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -69,12 +80,391 @@
             background: linear-gradient(90deg, #3d9bf2 0%, #0c34d2 100%);
             color: #23263a;
         }
+        .converter-container {
+            background: #23263a;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            padding: 38px 32px 40px 32px;
+            margin: 40px auto;
+            max-width: 600px;
+            border: 1px solid rgba(255,224,102,0.1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .converter-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ffe066, #ffdd00);
+        }
+        .file-upload-container {
+            position: relative;
+            margin: 30px auto;
+            max-width: 450px;
+        }
+        .file-upload-area {
+            border: 2px dashed #ffe066;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            background: #1a1d2e;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .file-upload-area:hover {
+            border-color: #ffdd00;
+            background: #1e2235;
+        }
+        .file-upload-area.dragover {
+            border-color: #ffdd00;
+            background: #1e2235;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255,224,102,0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255,224,102,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,224,102,0); }
+        }
+        .file-upload-icon {
+            font-size: 48px;
+            color: #ffe066;
+            margin-bottom: 15px;
+        }
+        .file-upload-text {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .file-upload-subtext {
+            color: #9e9e9e;
+            font-size: 0.9em;
+        }
+        .file-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .file-info {
+            background: #1a1d2e;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 450px;
+            display: none;
+        }
+        .file-info.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .file-name {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            word-break: break-all;
+            margin-bottom: 5px;
+        }
+        .file-size {
+            color: #9e9e9e;
+            font-size: 0.9em;
+        }
+        .file-actions {
+            margin-top: 10px;
+        }
+        .file-remove {
+            background: none;
+            border: none;
+            color: #f44336;
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        .file-remove:hover {
+            background: rgba(244,67,54,0.1);
+        }
+        .resize-options {
+            margin: 20px auto;
+            max-width: 450px;
+        }
+        .option-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .option-group {
+            flex: 1;
+        }
+        .dimension-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e0e0e0;
+            font-size: 0.95em;
+            text-align: left;
+        }
+        .dimension-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background: #1a1d2e;
+            color: #e0e0e0;
+            font-size: 1em;
+        }
+        .aspect-ratio-option {
+            text-align: left;
+            margin-top: 10px;
+        }
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            color: #e0e0e0;
+            user-select: none;
+        }
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #1a1d2e;
+            border: 1px solid #ffe066;
+            border-radius: 4px;
+        }
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: #1e2235;
+        }
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: #ffe066;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .checkbox-container .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid #1a1d2e;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .button-container {
+            margin: 25px auto;
+            text-align: center;
+        }
+        .convert-button {
+            background: linear-gradient(90deg, #ffe066 0%, #ffdd00 100%);
+            color: #23263a;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(255,224,102,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+            min-width: 180px;
+        }
+        .convert-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255,224,102,0.25);
+        }
+        .progress-container {
+            margin: 20px auto;
+            max-width: 450px;
+            display: none;
+        }
+        .progress-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .progress-bar-container {
+            background: #1a1d2e;
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ffe066, #ffdd00);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            color: #e0e0e0;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .result-container {
+            margin: 20px auto;
+            max-width: 450px;
+            display: none;
+        }
+        .result-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .result-success {
+            background: #1a1d2e;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #4caf50;
+        }
+        .result-error {
+            background: #1a1d2e;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #f44336;
+        }
+        .result-title {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .result-message {
+            color: #9e9e9e;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        .download-button {
+            background: linear-gradient(90deg, #43a047 0%, #2e7d32 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(67,160,71,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(67,160,71,0.25);
+        }
+        .try-again-button {
+            background: none;
+            border: 1px solid #e0e0e0;
+            color: #e0e0e0;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 15px;
+            transition: background 0.2s;
+        }
+        .try-again-button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .refresh-button {
+            background: none;
+            border: 1px solid #e0e0e0;
+            color: #e0e0e0;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-left: 10px;
+            transition: background 0.2s;
+        }
+        .refresh-button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .option-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        .how-it-works {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .how-it-works h2 {
+            text-align: center;
+            color: #fff;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+        }
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .step {
+            background: #23263a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 25px 20px 20px;
+            flex: 1 1 40%;
+            min-width: 250px;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background: #ffdd00;
+            color: #23263a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #ffe066;
+            margin-bottom: 10px;
+        }
+        .step p {
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
         .features, .faq {
-            margin: 40px 0;
+            margin: 60px auto;
+            max-width: 900px;
+            padding: 0 20px;
         }
         .features h2, .faq h2 {
             text-align: center;
             color: #fff;
+            font-size: 1.8em;
+            margin-bottom: 30px;
         }
         .features .feature-cards {
             display: flex;
@@ -170,6 +560,11 @@
             margin: 0 12px;
             opacity: 0.85;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 768px) {
             .features .feature-cards {
                 flex-direction: column;
@@ -179,80 +574,190 @@
                 width: 100%;
                 margin-bottom: 10px;
             }
+            .option-row {
+                flex-direction: column;
+            }
+            .option-group {
+                margin-bottom: 15px;
+            }
+            .converter-container {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="hero">
-        <h1>Image Resizer Tool</h1>
-        <p>Resize your images quickly and easily. Upload, set your dimensions, and download your perfectly resized image.</p>
+        <h1>Free Online Image Resizer Tool</h1>
+        <p>Resize your images quickly and easily while maintaining quality. Perfect for websites, social media, and print projects. No registration required, 100% free.</p>
     </div>
-    <div class="input-section">
-        <form action="/tools/image-editing/image-resizer" method="post" enctype="multipart/form-data">
-            <input type="file" id="image" name="image" required placeholder="Upload your image">
-            <input type="number" name="width" placeholder="Width (px)" style="width:120px;">
-            <input type="number" name="height" placeholder="Height (px)" style="width:120px;">
-            <button type="submit">Resize Image</button>
+    <div class="converter-container">
+        <h2 style="color: #ffffff; margin-top: 0;">Resize Your Images</h2>
+        <p style="color: #e0e0e0; margin-bottom: 25px;">Transform your images to any size while maintaining quality with our free online resizer</p>
+
+        <form action="/tools/image-editing/image-resizer" method="post" enctype="multipart/form-data" id="resize-form">
+            <div class="file-upload-container">
+                <div id="drop-area" class="file-upload-area">
+                    <div class="file-upload-icon">🖼️</div>
+                    <div class="file-upload-text">Drag & drop your image here</div>
+                    <div class="file-upload-subtext">or click to browse files</div>
+                    <input type="file" id="image" name="image" required accept="image/*" class="file-input">
+                </div>
+            </div>
+
+            <div id="file-info" class="file-info">
+                <div class="file-name" id="file-name"></div>
+                <div class="file-size" id="file-size"></div>
+                <div class="file-actions">
+                    <button type="button" class="file-remove" id="file-remove">Remove</button>
+                </div>
+            </div>
+
+            <div class="resize-options">
+                <div class="option-row">
+                    <div class="option-group">
+                        <label for="width" class="dimension-label">Width (px)</label>
+                        <input type="number" id="width" name="width" placeholder="Width" class="dimension-input">
+                    </div>
+                    <div class="option-group">
+                        <label for="height" class="dimension-label">Height (px)</label>
+                        <input type="number" id="height" name="height" placeholder="Height" class="dimension-input">
+                    </div>
+                </div>
+                <div class="aspect-ratio-option">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="maintain-ratio" name="maintain_ratio" checked>
+                        <span class="checkmark"></span>
+                        Maintain aspect ratio
+                    </label>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button type="submit" id="resize-button" class="convert-button">Resize Image</button>
+            </div>
         </form>
+
+        <div class="progress-container" id="progress-container">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="progress-text" id="progress-text">Resizing... 0%</div>
+        </div>
+
+        <div class="result-container" id="result-success">
+            <div class="result-success">
+                <div class="result-title">Resizing Successful!</div>
+                <div class="result-message">Your image has been successfully resized.</div>
+                <button class="download-button" id="download-button">Download Resized Image</button>
+            </div>
+        </div>
+
+        <div class="result-container" id="result-error">
+            <div class="result-error">
+                <div class="result-title">Resizing Failed</div>
+                <div class="result-message" id="error-message">There was an error resizing your image. Please try again.</div>
+                <button class="try-again-button" id="try-again-button">Try Again</button>
+                <button class="refresh-button" id="refresh-button">Refresh</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="how-it-works">
+        <h2>How to Use Our Image Resizer</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Upload Your Image</h3>
+                <p>Click the upload area or drag and drop your image into the designated box. Our tool accepts all common image formats including JPG, PNG, WebP, GIF, and BMP.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Set Your Dimensions</h3>
+                <p>Enter your desired width and height in pixels. If you want to maintain the original aspect ratio of your image, leave the "Maintain aspect ratio" checkbox selected, and our tool will automatically calculate the proportional dimensions.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Resize Your Image</h3>
+                <p>Click the "Resize Image" button to start the process. Our advanced algorithms will resize your image while preserving quality and clarity.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Download Your Resized Image</h3>
+                <p>Once the resizing is complete, you'll see a preview of your resized image. Click the "Download" button to save it to your device. Your resized image is ready to use for your website, social media, or any other project.</p>
+            </div>
+        </div>
     </div>
     <div class="features">
         <h2>Features of Our Image Resizer Tool</h2>
         <div class="feature-cards">
             <div class="feature-card">
                 <h3>🔄 Effortless Image Resizing</h3>
-                <p>Easily resize your images to any dimension you need. Perfect for web, social media, or print projects.</p>
+                <p>Easily resize your images to any dimension you need with our intuitive interface. Simply upload your image, specify your desired dimensions, and our tool handles the rest. Perfect for web, social media, or print projects that require specific image sizes.</p>
             </div>
             <div class="feature-card">
                 <h3>🖼️ Maintains Image Quality</h3>
-                <p>Our tool uses advanced algorithms to ensure your resized images remain sharp and clear.</p>
+                <p>Our tool uses advanced interpolation algorithms to ensure your resized images remain sharp and clear. Unlike basic resizing tools that can produce pixelated or blurry results, our technology preserves details and clarity even when significantly changing dimensions.</p>
             </div>
             <div class="feature-card">
                 <h3>⚡ Fast & Secure Processing</h3>
-                <p>Resize images in seconds. All processing is secure and your files are never stored on our servers.</p>
+                <p>Resize images in seconds with our optimized processing engine. All operations are performed securely, and your files are never stored permanently on our servers. Your privacy is our priority, with all uploads automatically deleted after processing.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔒 Aspect Ratio Preservation</h3>
+                <p>Maintain the original proportions of your images with our aspect ratio lock feature. This prevents distortion and ensures your resized images look natural and professional. You can also choose to unlock the aspect ratio for complete customization.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📱 Cross-Platform Compatibility</h3>
+                <p>Our image resizer works flawlessly on all devices and browsers. Whether you're using a desktop computer, tablet, or smartphone, you can resize images on the go without installing any software. The responsive design adapts perfectly to any screen size.</p>
             </div>
             <div class="feature-card">
                 <h3>💸 Completely Free to Use</h3>
-                <p>Enjoy unlimited resizing at no cost. No hidden fees or subscriptions.</p>
-            </div>
-            <div class="feature-card">
-                <h3>🌐 Cross-Platform Compatibility</h3>
-                <p>Works on all devices and browsers. Resize images on desktop, tablet, or mobile.</p>
+                <p>Enjoy unlimited image resizing without any cost. There are no hidden fees, no subscriptions, and no watermarks on your resized images. Our tool is completely free to use for both personal and commercial projects, with no limitations on the number of images you can process.</p>
             </div>
             <div class="feature-card">
                 <h3>🧩 Custom Size Options</h3>
-                <p>Set exact width and height for your images, giving you full control over the output.</p>
+                <p>Set exact width and height for your images, giving you full control over the output. Whether you need specific dimensions for website thumbnails, social media posts, or print materials, our tool allows you to customize your image size with pixel-perfect precision.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔄 Batch Processing Coming Soon</h3>
+                <p>We're working on adding batch processing capabilities to our image resizer. Soon you'll be able to resize multiple images simultaneously, saving you valuable time when working with large collections of photos or graphics.</p>
             </div>
         </div>
     </div>
     <div class="faq">
         <h2>Frequently Asked Questions</h2>
         <div class="faq-item">
-            <h3>Q1: Why should I resize my images?</h3>
-            <p>Resizing images helps optimize them for different platforms, improves loading times, and ensures they fit perfectly in your projects.</p>
+            <h3>Why should I resize my images?</h3>
+            <p>Resizing images is essential for various reasons. First, properly sized images improve website loading speed, which is crucial for user experience and SEO rankings. Second, different platforms (social media, websites, email) have specific image size requirements - using correctly sized images ensures optimal display without cropping or distortion. Third, smaller images reduce bandwidth usage, which is particularly important for mobile users or those with limited data plans. Finally, consistent image sizes create a more professional and polished appearance in your projects.</p>
         </div>
         <div class="faq-item">
-            <h3>Q2: Is it safe to resize images online?</h3>
-            <p>Yes, our tool processes your images securely within your browser. We do not store any uploaded files on our servers, ensuring your data remains private and secure.</p>
+            <h3>Is it safe to resize images online?</h3>
+            <p>Yes, our image resizer tool is designed with security and privacy as top priorities. All image processing occurs securely, and we implement strict data protection measures. We do not store your original or resized images permanently on our servers - files are automatically deleted after processing or a very short period. Additionally, we don't require account creation or personal information to use our tool, further protecting your privacy.</p>
         </div>
         <div class="faq-item">
-            <h3>Q3: Can I resize multiple images at once?</h3>
-            <p>Currently, our tool supports one image at a time. We are working on adding batch processing capabilities to enhance your experience.</p>
+            <h3>What image formats does your resizer support?</h3>
+            <p>Our image resizer supports all major image formats including JPEG/JPG, PNG, WebP, GIF, and BMP. The resized output maintains the same format as your original image by default, ensuring compatibility with your existing workflows. If you need to convert between formats while resizing, we recommend using our Image Converter tool which offers both resizing and format conversion capabilities.</p>
         </div>
         <div class="faq-item">
-            <h3>Q4: Will the image quality be affected during resizing?</h3>
-            <p>No, our tool is designed to maintain the original quality of your images during the resizing process. We utilize advanced algorithms to ensure that the visual integrity of your images remains intact.</p>
+            <h3>Will the image quality be affected during resizing?</h3>
+            <p>Our tool uses advanced interpolation algorithms specifically designed to maintain image quality during resizing. When reducing image dimensions, we carefully preserve details and sharpness. When enlarging images, our algorithms minimize pixelation and blurring that typically occur with basic resizing methods. However, it's important to note that significantly enlarging a low-resolution image beyond its original dimensions may result in some quality loss - this is a fundamental limitation of digital imaging rather than our tool.</p>
         </div>
         <div class="faq-item">
-            <h3>Q5: Do I need to install any software to use this tool?</h3>
-            <p>No installation is required. Our image resizer is entirely web-based, allowing you to resize images directly through your browser without the need for additional software.</p>
+            <h3>What's the maximum file size and resolution I can process?</h3>
+            <p>Our free image resizer can handle images up to 50MB in size and resolutions up to 50 megapixels (e.g., 7000×7000 pixels). This covers most standard photography and design needs. For extremely large images or professional photography files, you may need to reduce the file size first using our Image Compression tool before resizing.</p>
         </div>
         <div class="faq-item">
-            <h3>Q6: Can I resize images on my mobile device?</h3>
-            <p>Yes, our image resizer is fully responsive and compatible with all modern browsers and devices. Whether you're using a smartphone, tablet, or desktop, you can easily resize images on the go.</p>
+            <h3>How does the "Maintain aspect ratio" option work?</h3>
+            <p>The "Maintain aspect ratio" option preserves the proportional relationship between your image's width and height. When enabled, you only need to enter either the desired width or height, and our tool automatically calculates the other dimension to maintain the original proportions. This prevents distortion and stretching, ensuring your resized image looks natural. If you disable this option, you can set custom width and height independently, which may change the image's proportions.</p>
         </div>
         <div class="faq-item">
-            <h3>Q7: Is there a limit to the number of images I can resize?</h3>
-            <p>No, our tool allows for unlimited image resizing without any restrictions. You can resize as many images as you need, free of charge.</p>
+            <h3>Can I resize images on my mobile device?</h3>
+            <p>Yes, our image resizer is fully responsive and works perfectly on mobile devices. The interface automatically adapts to smaller screens, making it easy to upload, resize, and download images directly from your smartphone or tablet. This makes our tool convenient for on-the-go image editing without requiring desktop access or specialized apps.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is there a limit to how many images I can resize?</h3>
+            <p>No, there are no limits on the number of images you can resize with our tool. You can process as many images as you need, completely free of charge. We don't impose daily or monthly quotas, and there's no requirement to create an account or subscribe to a premium plan. Our service remains free and unlimited for all users.</p>
         </div>
     </div>
     <div class="support-us">
@@ -277,6 +782,264 @@
             </a>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropArea = document.getElementById('drop-area');
+            const fileInput = document.getElementById('image');
+            const fileInfo = document.getElementById('file-info');
+            const fileName = document.getElementById('file-name');
+            const fileSize = document.getElementById('file-size');
+            const fileRemove = document.getElementById('file-remove');
+            const widthInput = document.getElementById('width');
+            const heightInput = document.getElementById('height');
+            const maintainRatio = document.getElementById('maintain-ratio');
+            const resizeForm = document.getElementById('resize-form');
+            const resizeButton = document.getElementById('resize-button');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const resultSuccess = document.getElementById('result-success');
+            const resultError = document.getElementById('result-error');
+            const downloadButton = document.getElementById('download-button');
+            const tryAgainButton = document.getElementById('try-again-button');
+            const refreshButton = document.getElementById('refresh-button');
+            const errorMessage = document.getElementById('error-message');
+
+            let selectedFile = null;
+            let aspectRatio = 1;
+
+            // Make the drop area clickable
+            dropArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+
+            // Highlight drop area when item is dragged over it
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            // Handle dropped files
+            dropArea.addEventListener('drop', handleDrop, false);
+
+            // Handle selected files from file input
+            fileInput.addEventListener('change', handleFiles);
+
+            // Handle remove file button
+            fileRemove.addEventListener('click', removeFile);
+
+            // Handle width/height inputs for aspect ratio
+            widthInput.addEventListener('input', function() {
+                if (maintainRatio.checked && selectedFile && aspectRatio) {
+                    heightInput.value = Math.round(widthInput.value / aspectRatio);
+                }
+            });
+
+            heightInput.addEventListener('input', function() {
+                if (maintainRatio.checked && selectedFile && aspectRatio) {
+                    widthInput.value = Math.round(heightInput.value * aspectRatio);
+                }
+            });
+
+            // Handle form submission
+            resizeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (!selectedFile) {
+                    showError('Please select an image to resize.');
+                    return;
+                }
+
+                if (!widthInput.value && !heightInput.value) {
+                    showError('Please specify at least one dimension (width or height).');
+                    return;
+                }
+
+                // Show progress
+                fileInfo.style.display = 'none';
+                resizeButton.style.display = 'none';
+                progressContainer.classList.add('show');
+                progressBar.style.width = '0%';
+
+                // Simulate progress while waiting for response
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    progress += Math.random() * 5;
+                    if (progress > 90) progress = 90; // Cap at 90% until actual completion
+                    progressBar.style.width = `${progress}%`;
+                    progressText.textContent = `Resizing... ${Math.round(progress)}%`;
+                }, 200);
+
+                // Submit the form
+                const formData = new FormData(resizeForm);
+
+                fetch('/tools/image-editing/image-resizer', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Server responded with status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Complete progress bar
+                    clearInterval(progressInterval);
+                    progressBar.style.width = '100%';
+                    progressText.textContent = 'Resizing... 100%';
+
+                    setTimeout(() => {
+                        progressContainer.classList.remove('show');
+
+                        if (data.success) {
+                            resultSuccess.classList.add('show');
+                            // Set download link
+                            downloadButton.setAttribute('data-url', data.download_url);
+                        } else {
+                            showError(data.error || 'An unknown error occurred');
+                        }
+                    }, 500);
+                })
+                .catch(error => {
+                    clearInterval(progressInterval);
+                    progressContainer.classList.remove('show');
+                    showError(`An error occurred: ${error.message}. Please try again.`);
+                });
+            });
+
+            // Handle try again button
+            if (tryAgainButton) {
+                tryAgainButton.addEventListener('click', resetResizer);
+            }
+
+            // Handle refresh button
+            if (refreshButton) {
+                refreshButton.addEventListener('click', function() {
+                    window.location.reload();
+                });
+            }
+
+            // Handle download button
+            if (downloadButton) {
+                downloadButton.addEventListener('click', function() {
+                    const downloadUrl = downloadButton.getAttribute('data-url');
+                    if (downloadUrl) {
+                        window.location.href = downloadUrl;
+                    }
+                });
+            }
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            function highlight() {
+                dropArea.classList.add('dragover');
+            }
+
+            function unhighlight() {
+                dropArea.classList.remove('dragover');
+            }
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles({ target: { files } });
+            }
+
+            function handleFiles(e) {
+                const files = e.target.files;
+                if (files.length) {
+                    selectedFile = files[0];
+
+                    // Check if file is an image
+                    if (!selectedFile.type.match('image.*')) {
+                        showError('Please select a valid image file.');
+                        removeFile();
+                        return;
+                    }
+
+                    // Check file size (max 50MB)
+                    if (selectedFile.size > 50 * 1024 * 1024) {
+                        showError('File size exceeds the 50MB limit. Please select a smaller file.');
+                        removeFile();
+                        return;
+                    }
+
+                    // Display file info
+                    fileName.textContent = selectedFile.name;
+                    fileSize.textContent = formatFileSize(selectedFile.size);
+                    fileInfo.classList.add('show');
+
+                    // Get image dimensions for aspect ratio
+                    const img = new Image();
+                    const objectUrl = URL.createObjectURL(selectedFile);
+
+                    img.onload = function() {
+                        aspectRatio = this.width / this.height;
+
+                        // Set initial width/height values
+                        widthInput.value = this.width;
+                        heightInput.value = this.height;
+
+                        // Clean up
+                        URL.revokeObjectURL(objectUrl);
+                    };
+
+                    img.src = objectUrl;
+                }
+            }
+
+            function removeFile() {
+                selectedFile = null;
+                fileInput.value = '';
+                fileInfo.classList.remove('show');
+                widthInput.value = '';
+                heightInput.value = '';
+            }
+
+            function showError(message) {
+                resultError.classList.add('show');
+                if (errorMessage) {
+                    errorMessage.textContent = message;
+                }
+            }
+
+            function resetResizer() {
+                // Reset everything
+                removeFile();
+                progressContainer.classList.remove('show');
+                resultSuccess.classList.remove('show');
+                resultError.classList.remove('show');
+
+                // Show form elements again
+                resizeButton.style.display = 'inline-block';
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+        });
+    </script>
+
     <!-- Footer -->
     <footer class="footer" style="background-color: #0f172a; color: white; padding: 3rem 0 1rem 0; margin: 0; clear: both;">
         <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
@@ -309,31 +1072,33 @@
                 <div class="footer-column" style="flex: 1; min-width: 200px;">
                     <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Image Tools</h3>
                     <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/compress-image" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Compress Image</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-image" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Convert Image</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-webp-to-png" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">WEBP to PNG</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/image-resizer" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Resize Image</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/crop-image" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Crop Image</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/favicon-generator" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Favicon Generator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/compress-image" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Compress Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-image" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Convert Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-webp-to-png" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">WEBP to PNG</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/image-resizer" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Resize Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/crop-image" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Crop Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/favicon-generator" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Favicon Generator</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-column" style="flex: 1; min-width: 200px;">
                     <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Other Tools</h3>
                     <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/bmi-calculator" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">BMI Calculator</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/gst-calculator" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">GST Calculator</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/keyword-research/keyword-generator" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Keyword Generator</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/pdf-to-word" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">PDF to Word</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/bmi-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">BMI Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/gst-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">GST Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/mp4-to-mp3" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">MP4 to MP3</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/pdf-to-word" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">PDF to Word</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/compress-pdf" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">PDF Compressor</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/image-to-pdf" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Image to PDF</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-column" style="flex: 1; min-width: 200px;">
                     <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Support</h3>
                     <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
-                        <li style="margin-bottom: 0.5rem;"><a href="/" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Home</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/privacy-policy.html" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Privacy Policy</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/terms-of-use.html" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Terms of Use</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Home</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/privacy-policy.html" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Privacy Policy</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/terms-of-use.html" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Terms of Use</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Support Us</a></li>
                     </ul>
                 </div>
@@ -342,10 +1107,10 @@
             <div class="footer-bottom" style="border-top: 1px solid #334155; padding-top: 1.5rem; text-align: center;">
                 <p style="color: #94a3b8; margin: 0 0 0.5rem 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
                 <p style="color: #94a3b8; margin: 0;">
-                    <a href="/" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Home</a> |
-                    <a href="/privacy-policy.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Privacy</a> |
-                    <a href="/terms-of-use.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Terms</a> |
-                    <a href="/sitemap.html" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Sitemap</a>
+                    <a href="/" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Home</a> |
+                    <a href="/privacy-policy.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Privacy</a> |
+                    <a href="/terms-of-use.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Terms</a> |
+                    <a href="/sitemap.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Sitemap</a>
                 </p>
             </div>
         </div>

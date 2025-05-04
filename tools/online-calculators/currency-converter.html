@@ -122,6 +122,15 @@
             color: #00ff9d;
         }
     </style>
+    <script>
+        // Ensure all footer links open in new tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('footer a').forEach(function(link) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="ads-layout">
@@ -208,10 +217,10 @@
             <!-- Footer Section -->
             <footer class="footer-section">
                 <div class="footer-links">
-                    <a href="/privacy-policy.html">Privacy Policy</a> |
-                    <a href="/terms-of-use.html">Terms of Use</a> |
+                    <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
+                    <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
                     <a href="/">Home</a> |
-                    <a href="/contact.html">Contact</a>
+                    <a href="https://willsblogger.com/contact-us/" target="_blank">Contact</a>
                 </div>
                 <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
             </footer>

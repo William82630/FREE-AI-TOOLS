@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Face Search Tool</title>
     <meta name="description" content="Find similar faces or detect faces in images using our free Face Search tool.">
     <meta name="keywords" content="face search, find similar faces, face detection, image search tool">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -196,6 +199,15 @@
             }
         }
     </style>
+    <script>
+        // Ensure all footer links open in new tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('footer a').forEach(function(link) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="hero">
@@ -204,6 +216,12 @@
     </div>
     <div class="input-section">
         <form action="/tools/image-editing/face-search" method="post" enctype="multipart/form-data" style="display: inline-block; text-align: left; background: #23263a; padding: 28px 32px 24px 32px; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.10);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                <h3 style="color: #ffffff; margin: 0; text-align: left;">Search for Faces</h3>
+                <button id="refresh-button" type="button" style="background: #1a1d2e; border: 1px solid #2c2f45; color: #e0e0e0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;" title="Start Over">
+                    <i class="fas fa-redo-alt"></i>
+                </button>
+            </div>
             <div style="margin-bottom: 18px; text-align: center;">
                 <input type="file" id="image" name="image" placeholder="Upload your image" style="width: 100%; max-width: 340px; margin-right: 0; display: inline-block;">
             </div>
@@ -234,6 +252,48 @@
             </div>
         </div>
         {% endif %}
+    </div>
+
+    <div style="max-width: 900px; margin: 60px auto 40px; padding: 0 20px; color: #fff;">
+        <h2 style="text-align: center; margin-bottom: 30px; font-size: 1.8em;">How to Use Our Face Search Tool</h2>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div style="text-align: left; background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; margin-bottom: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); color: #fff; transition: background-color 0.2s;">
+                <h3 style="color: #ffe066; margin-top: 0; margin-bottom: 8px; font-size: 1.4em; display: flex; align-items: center;">
+                    <span style="display: inline-flex; justify-content: center; align-items: center; width: 32px; height: 32px; background-color: #ffe066; color: #23263a; border-radius: 50%; font-size: 0.8em; margin-right: 12px; font-weight: bold;">1</span>
+                    Upload Your Image
+                </h3>
+                <p style="font-size: 1.15em; line-height: 1.5; margin: 0; padding-left: 44px; padding-right: 10px; text-align: justify;">
+                    Click the "Choose File" button to upload an image containing faces from your device. Our tool accepts common image formats like JPG, PNG, GIF, and WebP. Alternatively, you can paste a direct URL to an image if it's already online.
+                </p>
+            </div>
+            <div style="text-align: left; background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; margin-bottom: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); color: #fff; transition: background-color 0.2s;">
+                <h3 style="color: #ffe066; margin-top: 0; margin-bottom: 8px; font-size: 1.4em; display: flex; align-items: center;">
+                    <span style="display: inline-flex; justify-content: center; align-items: center; width: 32px; height: 32px; background-color: #ffe066; color: #23263a; border-radius: 50%; font-size: 0.8em; margin-right: 12px; font-weight: bold;">2</span>
+                    Initiate the Search
+                </h3>
+                <p style="font-size: 1.15em; line-height: 1.5; margin: 0; padding-left: 44px; padding-right: 10px; text-align: justify;">
+                    Click the "Search for Faces" button to start the process. Our advanced AI algorithms will analyze your image to detect faces and find similar faces across the web using Google's Vision API technology.
+                </p>
+            </div>
+            <div style="text-align: left; background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; margin-bottom: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); color: #fff; transition: background-color 0.2s;">
+                <h3 style="color: #ffe066; margin-top: 0; margin-bottom: 8px; font-size: 1.4em; display: flex; align-items: center;">
+                    <span style="display: inline-flex; justify-content: center; align-items: center; width: 32px; height: 32px; background-color: #ffe066; color: #23263a; border-radius: 50%; font-size: 0.8em; margin-right: 12px; font-weight: bold;">3</span>
+                    Review the Results
+                </h3>
+                <p style="font-size: 1.15em; line-height: 1.5; margin: 0; padding-left: 44px; padding-right: 10px; text-align: justify;">
+                    Browse through the search results to see detected faces and similar faces found online. Each result includes a thumbnail image and relevant information. The tool highlights faces in the image and provides details about potential matches.
+                </p>
+            </div>
+            <div style="text-align: left; background: #23263a; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; margin-bottom: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); color: #fff; transition: background-color 0.2s;">
+                <h3 style="color: #ffe066; margin-top: 0; margin-bottom: 8px; font-size: 1.4em; display: flex; align-items: center;">
+                    <span style="display: inline-flex; justify-content: center; align-items: center; width: 32px; height: 32px; background-color: #ffe066; color: #23263a; border-radius: 50%; font-size: 0.8em; margin-right: 12px; font-weight: bold;">4</span>
+                    Start a New Search
+                </h3>
+                <p style="font-size: 1.15em; line-height: 1.5; margin: 0; padding-left: 44px; padding-right: 10px; text-align: justify;">
+                    To perform another search, click the refresh button in the top-right corner of the search form. This will clear the current results and allow you to upload a new image or paste a different URL for a fresh face search.
+                </p>
+            </div>
+        </div>
     </div>
     <div class="features">
         <h2>Features of Our Face Search Tool</h2>
@@ -317,13 +377,122 @@
             </a>
         </div>
     </div>
-    <footer>
-        <p style="margin: 0 0 10px 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
-        <p style="margin: 0;">
-            <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> |
-            <a href="/terms-of-use.html" target="_blank">Terms of Use</a> |
-            <a href="/" target="_self">Home</a>
-        </p>
+    <!-- Footer -->
+    <footer class="footer" style="background-color: #0f172a; color: white; padding: 3rem 0 1rem 0; margin: 0; clear: both;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+            <div class="footer-content" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; margin-bottom: 2rem;">
+                <div class="footer-column" style="flex: 1; min-width: 250px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Free AI Tools</h3>
+                    <p style="color: #cbd5e1; margin: 0 0 1rem 0; line-height: 1.6;">We provide free, high-quality tools to help you with your everyday tasks. No registration required, no hidden fees.</p>
+                    <style>
+                        .social-link:hover {
+                            transform: translateY(-5px);
+                            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+                        }
+                    </style>
+                    <div class="social-links" style="display: flex; gap: 1rem;">
+                        <a href="https://twitter.com/willsblogger" target="_blank" class="social-link" style="background-color: #1DA1F2; color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com/willsblogger" target="_blank" class="social-link" style="background-color: #4267B2; color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://instagram.com/willsblogger" target="_blank" class="social-link" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/willsblogger" target="_blank" class="social-link" style="background-color: #FF0000; color: white; font-size: 1.25rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Image Tools</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/compress-image" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Compress Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-image" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Convert Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/convert-webp-to-png" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">WEBP to PNG</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/image-resizer" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Resize Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/crop-image" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Crop Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/favicon-generator" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Favicon Generator</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Other Tools</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/bmi-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">BMI Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/gst-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">GST Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/pdf-to-word" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">PDF to Word</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/mp4-to-mp3" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">MP4 to MP3</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/compress-pdf" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">PDF Compressor</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/image-to-pdf" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Image to PDF</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column" style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.25rem; margin: 0 0 1rem 0;">Support</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/" target="_self" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Home</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/privacy-policy.html" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Privacy Policy</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/terms-of-use.html" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Terms of Use</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: color 0.3s ease;">Support Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom" style="border-top: 1px solid #334155; padding-top: 1.5rem; text-align: center;">
+                <p style="color: #94a3b8; margin: 0 0 0.5rem 0;">&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
+                <p style="color: #94a3b8; margin: 0;">
+                    <a href="/" target="_self" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Home</a> |
+                    <a href="/privacy-policy.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Privacy</a> |
+                    <a href="/terms-of-use.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Terms</a> |
+                    <a href="/sitemap.html" target="_blank" style="color: #94a3b8; text-decoration: none; margin: 0 0.5rem;">Sitemap</a>
+                </p>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // Ensure all footer links have proper attributes
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('footer a').forEach(function(link) {
+                // Skip links that already have target attribute set
+                if (!link.hasAttribute('target')) {
+                    // Home links should open in the same tab
+                    if (link.getAttribute('href') === '/') {
+                        link.setAttribute('target', '_self');
+                    } else {
+                        link.setAttribute('target', '_blank');
+                        link.setAttribute('rel', 'noopener noreferrer');
+                    }
+                }
+            });
+
+            // Add refresh button functionality
+            document.getElementById('refresh-button').addEventListener('click', function() {
+                // Clear file input
+                document.getElementById('image').value = '';
+
+                // Clear URL input
+                document.querySelector('input[type="url"]').value = '';
+
+                // Hide results if they exist
+                const resultsContainer = document.querySelector('[style*="margin: 32px auto 0 auto; max-width: 700px;"]');
+                if (resultsContainer) {
+                    resultsContainer.style.display = 'none';
+                }
+
+                // Hide error message if it exists
+                const errorMessage = document.querySelector('[style*="color: #ff6f61; text-align: center;"]');
+                if (errorMessage) {
+                    errorMessage.style.display = 'none';
+                }
+
+                // Scroll back to the form
+                document.querySelector('form').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
 </body>
 </html>

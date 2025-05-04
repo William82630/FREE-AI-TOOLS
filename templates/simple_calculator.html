@@ -1,5 +1,39 @@
 {% extends 'base.html' %}
 
+{% block head_scripts %}
+<!-- Structured Data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free Online Calculator",
+  "url": "https://willsblogger.com/tools/online-calculators/simple-calculator",
+  "description": "A powerful yet easy-to-use online calculator with scientific functions, memory capabilities, and calculation history.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Basic arithmetic operations",
+    "Scientific functions (square root, sine, cosine, tangent)",
+    "Memory functions",
+    "Calculation history",
+    "Responsive design for all devices"
+  ],
+  "screenshot": "https://willsblogger.com/static/images/calculator-screenshot.jpg",
+  "softwareVersion": "1.0",
+  "author": {
+    "@type": "Organization",
+    "name": "Free AI Tools",
+    "url": "https://willsblogger.com"
+  }
+}
+</script>
+{% endblock %}
+
 {% block title %}Free Online Calculator - Easy Scientific Calculator with Memory Functions{% endblock %}
 {% block description %}Free online calculator with basic arithmetic, scientific functions, and memory capabilities. Easy to use with calculation history and mobile support.{% endblock %}
 {% block keywords %}free calculator, online calculator, scientific calculator, calculator with memory, easy calculator, math tool, web calculator{% endblock %}
@@ -122,10 +156,10 @@
 .faq-question h3 {
     margin: 0;
     font-size: 1.1em;
-    color: #00703a;
+    color: #ffffff;
 }
 .faq-question i {
-    color: #00703a;
+    color: #ffffff;
     transition: transform 0.3s;
 }
 .faq-answer {
@@ -312,6 +346,100 @@
         </div>
     </div>
 </div>
+<!-- Embed Code Section -->
+<div class="embed-section" style="margin-top: 40px; background-color: #23263a; padding: 30px; border-radius: 10px; text-align: center;">
+    <h2 style="color: #ffffff; margin-bottom: 20px;">Embed This Calculator On Your Website</h2>
+    <p style="color: #e0e0e0; margin-bottom: 20px;">Add this calculator to your website by copying the code below:</p>
+    <div style="background-color: #181a20; padding: 15px; border-radius: 6px; margin-bottom: 15px; text-align: left; overflow-x: auto;">
+        <code style="color: #ffe066; font-family: monospace; white-space: nowrap;">
+            &lt;iframe src="https://willsblogger.com/tools/online-calculators/simple-calculator" width="100%" height="600px" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"&gt;&lt;/iframe&gt;
+        </code>
+    </div>
+    <button onclick="copyEmbedCode()" style="background: linear-gradient(90deg, #004f1e 0%, #00703a 100%); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 1em; display: inline-flex; align-items: center; gap: 8px;">
+        <i class="fas fa-copy"></i> Copy Code
+    </button>
+    <p style="color: #e0e0e0; margin-top: 15px; font-size: 0.9em;">By embedding our calculator, you agree to our <a href="/terms-of-use.html" style="color: #00703a; text-decoration: none;">Terms of Use</a>.</p>
+</div>
+
+<!-- Why Choose Our Calculator Section -->
+<div class="why-choose-section" style="margin-top: 40px; padding: 30px 0;">
+    <h2 style="text-align: center; color: #ffffff; margin-bottom: 30px;">Why Choose Our Free Online Calculator</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+        <div style="flex: 1 1 250px; max-width: 280px; background-color: #23263a; padding: 25px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <div style="width: 70px; height: 70px; margin: 0 auto 20px; background: linear-gradient(135deg, #ffdd00 0%, #ff5722 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);">
+                <i class="fas fa-bolt" style="font-size: 2em; color: white;"></i>
+            </div>
+            <h3 style="color: #ffffff; margin-bottom: 10px;">Fast & Reliable</h3>
+            <p style="color: #e0e0e0;">Instant calculations with high precision results. No delays, no errors.</p>
+        </div>
+        <div style="flex: 1 1 250px; max-width: 280px; background-color: #23263a; padding: 25px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <div style="width: 70px; height: 70px; margin: 0 auto 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(79, 172, 254, 0.3);">
+                <i class="fas fa-mobile-alt" style="font-size: 2em; color: white;"></i>
+            </div>
+            <h3 style="color: #ffffff; margin-bottom: 10px;">Works Everywhere</h3>
+            <p style="color: #e0e0e0;">Fully responsive design works perfectly on desktops, tablets, and mobile devices.</p>
+        </div>
+        <div style="flex: 1 1 250px; max-width: 280px; background-color: #23263a; padding: 25px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <div style="width: 70px; height: 70px; margin: 0 auto 20px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(67, 233, 123, 0.3);">
+                <i class="fas fa-lock" style="font-size: 2em; color: white;"></i>
+            </div>
+            <h3 style="color: #ffffff; margin-bottom: 10px;">100% Private</h3>
+            <p style="color: #e0e0e0;">All calculations are performed locally in your browser. Your data never leaves your device.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Related Tools Section -->
+<div class="related-tools" style="margin-top: 40px; padding: 30px 0;">
+    <h2 style="text-align: center; color: #ffffff; margin-bottom: 30px;">Related Calculator Tools</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+        <a href="/tools/online-calculators/age-calculator" style="flex: 1 1 200px; max-width: 220px; text-decoration: none; background-color: #23263a; padding: 20px; border-radius: 10px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 8px 16px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)';">
+            <div style="width: 60px; height: 60px; margin: 0 auto 15px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(250, 112, 154, 0.3);">
+                <i class="fas fa-birthday-cake" style="font-size: 1.8em; color: white;"></i>
+            </div>
+            <h3 style="color: #ffffff; margin-bottom: 10px;">Age Calculator</h3>
+            <p style="color: #e0e0e0;">Calculate exact age between any two dates with precision.</p>
+        </a>
+        <a href="/tools/online-calculators/loan-calculator" style="flex: 1 1 200px; max-width: 220px; text-decoration: none; background-color: #23263a; padding: 20px; border-radius: 10px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 8px 16px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)';">
+            <div style="width: 60px; height: 60px; margin: 0 auto 15px; background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(132, 250, 176, 0.3);">
+                <i class="fas fa-money-bill-wave" style="font-size: 1.8em; color: white;"></i>
+            </div>
+            <h3 style="color: #ffffff; margin-bottom: 10px;">Loan Calculator</h3>
+            <p style="color: #e0e0e0;">Calculate loan payments, interest, and amortization schedules.</p>
+        </a>
+        <a href="/tools/online-calculators/gst-calculator" style="flex: 1 1 200px; max-width: 220px; text-decoration: none; background-color: #23263a; padding: 20px; border-radius: 10px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 8px 16px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)';">
+            <div style="width: 60px; height: 60px; margin: 0 auto 15px; background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(161, 140, 209, 0.3);">
+                <i class="fas fa-percentage" style="font-size: 1.8em; color: white;"></i>
+            </div>
+            <h3 style="color: #ffffff; margin-bottom: 10px;">GST Calculator</h3>
+            <p style="color: #e0e0e0;">Calculate GST with CGST/SGST breakdown for Indian taxes.</p>
+        </a>
+    </div>
+</div>
+
+<!-- Share This Tool Section -->
+<div class="share-tool-section" style="margin-top: 40px; background-color: #23263a; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+    <h2 style="color: #ffffff; margin-bottom: 20px;">Share This Calculator</h2>
+    <p style="color: #e0e0e0; margin-bottom: 20px;">Found this calculator useful? Share it with your friends and colleagues!</p>
+    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://willsblogger.com/tools/online-calculators/simple-calculator" target="_blank" style="background: linear-gradient(45deg, #3b5998, #1877f2); color: white; width: 50px; height: 50px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; text-decoration: none; box-shadow: 0 4px 8px rgba(24, 119, 242, 0.4); transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 12px rgba(24, 119, 242, 0.5)';" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 8px rgba(24, 119, 242, 0.4)';">
+            <i class="fab fa-facebook-f" style="font-size: 1.2em;"></i>
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=https://willsblogger.com/tools/online-calculators/simple-calculator&text=Check%20out%20this%20free%20online%20calculator%20with%20scientific%20functions!" target="_blank" style="background: linear-gradient(45deg, #1da1f2, #0d8ecf); color: white; width: 50px; height: 50px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; text-decoration: none; box-shadow: 0 4px 8px rgba(29, 161, 242, 0.4); transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 12px rgba(29, 161, 242, 0.5)';" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 8px rgba(29, 161, 242, 0.4)';">
+            <i class="fab fa-twitter" style="font-size: 1.2em;"></i>
+        </a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://willsblogger.com/tools/online-calculators/simple-calculator&title=Free%20Online%20Calculator&summary=A%20powerful%20yet%20easy-to-use%20calculator%20with%20scientific%20functions" target="_blank" style="background: linear-gradient(45deg, #0077b5, #00a0dc); color: white; width: 50px; height: 50px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; text-decoration: none; box-shadow: 0 4px 8px rgba(0, 119, 181, 0.4); transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 12px rgba(0, 119, 181, 0.5)';" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 8px rgba(0, 119, 181, 0.4)';">
+            <i class="fab fa-linkedin-in" style="font-size: 1.2em;"></i>
+        </a>
+        <a href="https://api.whatsapp.com/send?text=Check%20out%20this%20free%20online%20calculator:%20https://willsblogger.com/tools/online-calculators/simple-calculator" target="_blank" style="background: linear-gradient(45deg, #25d366, #128c7e); color: white; width: 50px; height: 50px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; text-decoration: none; box-shadow: 0 4px 8px rgba(37, 211, 102, 0.4); transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 12px rgba(37, 211, 102, 0.5)';" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 8px rgba(37, 211, 102, 0.4)';">
+            <i class="fab fa-whatsapp" style="font-size: 1.2em;"></i>
+        </a>
+        <a href="mailto:?subject=Free%20Online%20Calculator&body=I%20found%20this%20great%20free%20online%20calculator.%20Check%20it%20out:%20https://willsblogger.com/tools/online-calculators/simple-calculator" style="background: linear-gradient(45deg, #ea4335, #c5221f); color: white; width: 50px; height: 50px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; text-decoration: none; box-shadow: 0 4px 8px rgba(234, 67, 53, 0.4); transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 12px rgba(234, 67, 53, 0.5)';" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 8px rgba(234, 67, 53, 0.4)';">
+            <i class="fas fa-envelope" style="font-size: 1.2em;"></i>
+        </a>
+    </div>
+</div>
+
 <!-- Support section is already included in the base template -->
 {% endblock %}
 
@@ -391,6 +519,24 @@ window.addEventListener('keydown', function(e) {
     if (e.key === 'Backspace') backspace();
     if (e.key === 'Escape') clearDisplay();
 });
+
+// Function to copy embed code
+function copyEmbedCode() {
+    const embedCode = document.querySelector('.embed-section code').innerText.trim();
+    navigator.clipboard.writeText(embedCode)
+        .then(() => {
+            const button = document.querySelector('.embed-section button');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => {
+                button.innerHTML = originalText;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy: ', err);
+            alert('Failed to copy code. Please try again or copy manually.');
+        });
+}
 
 // Initialize FAQ accordion
 document.addEventListener('DOMContentLoaded', function() {
