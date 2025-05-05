@@ -198,11 +198,131 @@
 
     <div class="container">
         <div class="input-section">
-            <form action="/tools/image-editing/convert-svg-to-png" method="post" enctype="multipart/form-data">
-                <input type="file" id="image" name="image" required>
-                <button type="submit">Convert to PNG</button>
+            <form id="convertForm" action="/tools/image-editing/convert-svg-to-png" method="post" enctype="multipart/form-data">
+                <input type="file" id="image" name="image" accept=".svg" required>
+                <button type="submit" id="convertBtn">Convert to PNG</button>
             </form>
+            <div id="file-error" style="color: #ff6b6b; margin-top: 10px; display: none;">
+                Please select a valid SVG file (.svg extension)
+            </div>
+
+            <div id="loading" style="display: none; margin-top: 20px; text-align: center;">
+                <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #6f42c1; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                <p style="margin-top: 10px; color: #fff;">Converting your SVG file...</p>
+            </div>
+
+            <div id="result" style="display: none; margin-top: 20px; text-align: center;">
+                <div id="success-message" style="background-color: #28a745; color: white; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                    Your SVG has been successfully converted to PNG!
+                </div>
+                <a id="download-link" href="#" class="btn" style="display: inline-block; background: linear-gradient(90deg, #ffdd00 0%, #ffb300 100%); color: #23263a; padding: 12px 32px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 1.13em;">
+                    <i class="fas fa-download" style="margin-right: 8px;"></i> Download PNG
+                </a>
+                <button id="convert-another" class="btn" style="display: inline-block; background: #6f42c1; color: white; padding: 12px 32px; border-radius: 6px; border: none; margin-left: 10px; cursor: pointer; font-weight: bold; font-size: 1.13em;">
+                    <i class="fas fa-redo" style="margin-right: 8px;"></i> Convert Another
+                </button>
+            </div>
         </div>
+
+        <style>
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const fileInput = document.getElementById('image');
+                const fileError = document.getElementById('file-error');
+                const form = document.getElementById('convertForm');
+                const convertBtn = document.getElementById('convertBtn');
+                const loading = document.getElementById('loading');
+                const result = document.getElementById('result');
+                const successMessage = document.getElementById('success-message');
+                const downloadLink = document.getElementById('download-link');
+                const convertAnother = document.getElementById('convert-another');
+
+                fileInput.addEventListener('change', function() {
+                    if (this.files.length > 0) {
+                        const fileName = this.files[0].name.toLowerCase();
+                        if (!fileName.endsWith('.svg')) {
+                            fileError.style.display = 'block';
+                            this.value = ''; // Clear the file input
+                        } else {
+                            fileError.style.display = 'none';
+                        }
+                    }
+                });
+
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    if (fileInput.files.length === 0 || !fileInput.files[0].name.toLowerCase().endsWith('.svg')) {
+                        fileError.style.display = 'block';
+                        return;
+                    }
+
+                    // Hide form and show loading
+                    form.style.display = 'none';
+                    fileError.style.display = 'none';
+                    loading.style.display = 'block';
+
+                    // Create FormData object
+                    const formData = new FormData(form);
+
+                    // Send AJAX request
+                    fetch('/tools/image-editing/convert-svg-to-png', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Hide loading
+                        loading.style.display = 'none';
+
+                        if (data.success) {
+                            // Show success message
+                            if (data.warning) {
+                                successMessage.style.backgroundColor = '#ffc107';
+                                successMessage.style.color = '#212529';
+                                successMessage.textContent = data.warning;
+                            } else {
+                                successMessage.textContent = data.message || 'Your SVG has been successfully converted to PNG!';
+                            }
+
+                            // Set download link
+                            downloadLink.href = data.download_url;
+
+                            // Show result
+                            result.style.display = 'block';
+                        } else {
+                            // Show error message
+                            fileError.textContent = data.error || 'An error occurred during conversion. Please try again.';
+                            fileError.style.display = 'block';
+                            form.style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        loading.style.display = 'none';
+                        fileError.textContent = 'An error occurred during conversion. Please try again.';
+                        fileError.style.display = 'block';
+                        form.style.display = 'block';
+                    });
+                });
+
+                // Convert another button
+                convertAnother.addEventListener('click', function() {
+                    // Reset form
+                    form.reset();
+
+                    // Hide result and show form
+                    result.style.display = 'none';
+                    form.style.display = 'block';
+                });
+            });
+        </script>
 
         <div class="how-to">
             <h2>How to Use the Convert SVG to PNG Tool</h2>
