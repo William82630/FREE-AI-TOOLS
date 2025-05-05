@@ -6,11 +6,11 @@
     <title>{% block title %}Free AI Tools{% endblock %}</title>
     <meta name="description" content="{% block description %}Free AI tools for image editing, text processing, and more.{% endblock %}">
     <meta name="keywords" content="{% block keywords %}free tools, AI tools, online tools{% endblock %}">
-    <!-- Google AdSense with defer for better performance -->
-    <script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
-    <!-- Font Awesome for icons with preload for better performance -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9687186564486273" crossorigin="anonymous"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- External CSS files -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
@@ -33,7 +33,10 @@
             color: white;
             padding: 40px 20px;
             text-align: center;
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .hero h1 {
             font-size: 2.5em;
@@ -43,7 +46,7 @@
         }
         .hero p {
             font-size: 1.2em;
-            margin: 10px auto 0;
+            margin: 10px 0 0;
             text-align: center;
             max-width: 800px;
             width: 100%;
@@ -300,6 +303,39 @@
             text-decoration: underline;
             opacity: 1;
         }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        .social-link.twitter {
+            background-color: #1DA1F2;
+        }
+        .social-link.facebook {
+            background-color: #4267B2;
+        }
+        .social-link.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+        .social-link.youtube {
+            background-color: #FF0000;
+        }
         .ads.left, .ads.right {
             min-width: 160px;
             width: 160px;
@@ -386,20 +422,20 @@
                 <p>If you find this tool helpful, you can support us by buying a coffee! Your support helps us keep these tools free and updated.</p>
                 <a href="https://www.buymeacoffee.com/willsblogger" target="_blank" class="coffee-btn">☕ Buy Me a Coffee</a>
                 <div class="social-icons">
-                    <a href="https://twitter.com/intent/tweet?url=https://willsblogger.com{% block twitter_path %}/{% endblock %}&text={% block twitter_text %}Check+out+this+amazing+free+tool!{% endblock %}" target="_blank">
-                        <img loading="lazy" src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
+                    <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:5000{% block twitter_path %}/{% endblock %}&text={% block twitter_text %}Check+out+this+amazing+tool!{% endblock %}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" style="width: 30px; height: 30px;">
                     </a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://willsblogger.com{% block facebook_path %}/{% endblock %}" target="_blank">
-                        <img loading="lazy" src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5000{% block facebook_path %}/{% endblock %}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
                     </a>
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://willsblogger.com{% block linkedin_path %}/{% endblock %}&title={% block linkedin_title %}Free+AI+Tools{% endblock %}&summary={% block linkedin_summary %}Check+out+this+amazing+free+tool!{% endblock %}" target="_blank">
-                        <img loading="lazy" src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:5000{% block linkedin_path %}/{% endblock %}&title={% block linkedin_title %}Free+AI+Tools{% endblock %}&summary={% block linkedin_summary %}Check+out+this+amazing+tool!{% endblock %}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/linkedIn.png') }}" alt="LinkedIn" style="width: 30px; height: 30px;">
                     </a>
-                    <a href="https://pinterest.com/pin/create/button/?url=https://willsblogger.com{% block pinterest_path %}/{% endblock %}&description={% block pinterest_description %}Free+AI+Tools{% endblock %}" target="_blank">
-                        <img loading="lazy" src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
+                    <a href="https://pinterest.com/pin/create/button/?url=http://127.0.0.1:5000{% block pinterest_path %}/{% endblock %}&description={% block pinterest_description %}Free+AI+Tools{% endblock %}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/pinterest.png') }}" alt="Pinterest" style="width: 30px; height: 30px;">
                     </a>
-                    <a href="https://wa.me/?text={% block whatsapp_text %}Check+out+this+amazing+free+tool:+https://willsblogger.com/{% endblock %}" target="_blank">
-                        <img loading="lazy" src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
+                    <a href="https://wa.me/?text={% block whatsapp_text %}Check+out+this+amazing+tool:+http://127.0.0.1:5000/{% endblock %}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp" style="width: 30px; height: 30px;">
                     </a>
                 </div>
             </div>
@@ -410,7 +446,7 @@
             <div class="container">
                 <div class="footer-content">
                     <div class="footer-column">
-                        <h3>Wills Blogger</h3>
+                        <h3>Free AI Tools</h3>
                         <p>We provide free, high-quality tools to help you with your everyday tasks. No registration required, no hidden fees.</p>
                         <div class="social-links">
                             <a href="https://twitter.com/willsblogger" target="_blank" class="social-link twitter">
@@ -446,9 +482,9 @@
                             <li><a href="/tools/online-calculators/bmi-calculator" target="_blank">BMI Calculator</a></li>
                             <li><a href="/tools/online-calculators/gst-calculator" target="_blank">GST Calculator</a></li>
                             <li><a href="/tools/free-online-converter/pdf-to-word" target="_blank">PDF to Word</a></li>
+                            <li><a href="/tools/free-online-converter/word-to-pdf" target="_blank">Word to PDF</a></li>
                             <li><a href="/tools/free-online-converter/mp4-to-mp3" target="_blank">MP4 to MP3</a></li>
-                            <li><a href="/tools/free-online-converter/compress-pdf" target="_blank">PDF Compressor</a></li>
-                            <li><a href="/tools/free-online-converter/image-to-pdf" target="_blank">Image to PDF</a></li>
+                            <li><a href="/tools/free-online-converter/mp3-to-mp4" target="_blank">MP3 to MP4</a></li>
                         </ul>
                     </div>
 
@@ -464,7 +500,7 @@
                 </div>
 
                 <div class="footer-bottom">
-                    <p>&copy; 2025 willsblogger.com. All rights reserved.</p>
+                    <p>&copy; 2025 willsblogger.com Free AI Tools. All rights reserved.</p>
                     <p>
                         <a href="/" target="_blank">Home</a> |
                         <a href="/privacy-policy.html" target="_blank">Privacy</a> |
@@ -478,34 +514,33 @@
 
     {% block body_scripts %}{% endblock %}
 
-    <!-- Font Awesome fallback script (simplified for better performance) -->
+    <!-- Ensure Font Awesome icons are properly loaded -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Only run this check if icons appear to be missing
-            setTimeout(function() {
-                const testIcon = document.querySelector('.fa, .fas, .fab');
-                if (testIcon) {
-                    const computedStyle = window.getComputedStyle(testIcon);
-                    const fontFamily = computedStyle.getPropertyValue('font-family');
+            // Check if Font Awesome is loaded properly
+            const testIcon = document.createElement('i');
+            testIcon.className = 'fas fa-check';
+            testIcon.style.display = 'none';
+            document.body.appendChild(testIcon);
 
-                    if (!fontFamily.includes('Font Awesome')) {
-                        console.log('Font Awesome not loaded properly, attempting to reload...');
-                        const link = document.createElement('link');
-                        link.rel = 'stylesheet';
-                        link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
-                        link.integrity = 'sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==';
-                        link.crossOrigin = 'anonymous';
-                        link.referrerPolicy = 'no-referrer';
-                        document.head.appendChild(link);
-                    }
-                }
-            }, 500); // Check after a short delay to allow normal loading
+            // Get computed style
+            const computedStyle = window.getComputedStyle(testIcon);
+            const fontFamily = computedStyle.getPropertyValue('font-family');
 
-            // Ensure all footer links open in new tabs
-            document.querySelectorAll('footer a').forEach(function(link) {
-                link.setAttribute('target', '_blank');
-                link.setAttribute('rel', 'noopener noreferrer');
-            });
+            // If Font Awesome is not loaded properly, try to reload it
+            if (!fontFamily.includes('Font Awesome')) {
+                console.log('Font Awesome not loaded properly, attempting to reload...');
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+                link.integrity = 'sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==';
+                link.crossOrigin = 'anonymous';
+                link.referrerPolicy = 'no-referrer';
+                document.head.appendChild(link);
+            }
+
+            // Clean up test element
+            document.body.removeChild(testIcon);
         });
     </script>
 </body>
