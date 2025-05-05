@@ -1439,26 +1439,39 @@
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    return response.blob();
+                    return response.json();
                 })
-                .then(blob => {
-                    // Create object URL for the blob
-                    const url = URL.createObjectURL(blob);
+                .then(data => {
+                    if (data.success) {
+                        // Set download link to the provided URL
+                        downloadLink.href = data.download_url;
 
-                    // Set download link
-                    downloadLink.href = url;
+                        // Set filename based on original filename and selected format
+                        const originalFilename = fileInput.files[0].name;
+                        const filenameWithoutExt = originalFilename.substring(0, originalFilename.lastIndexOf('.')) || originalFilename;
+                        const downloadFilename = `${filenameWithoutExt}.${selectedFormat.toLowerCase()}`;
 
-                    // Set filename based on original filename and selected format
-                    const originalFilename = fileInput.files[0].name;
-                    const filenameWithoutExt = originalFilename.substring(0, originalFilename.lastIndexOf('.')) || originalFilename;
-                    downloadLink.download = `${filenameWithoutExt}.${selectedFormat.toLowerCase()}`;
+                        // Show conversion result
+                        conversionMessage.textContent = data.message || `Your image has been successfully converted to ${selectedFormat}!`;
+                        conversionResult.style.display = 'block';
 
-                    // Show conversion result
-                    conversionMessage.textContent = `Your image has been successfully converted to ${selectedFormat}!`;
-                    conversionResult.style.display = 'block';
+                        // Make the download link trigger a direct download
+                        downloadLink.onclick = function() {
+                            // Create a hidden form to submit for download
+                            const form = document.createElement('form');
+                            form.method = 'GET';
+                            form.action = data.download_url;
+                            document.body.appendChild(form);
+                            form.submit();
+                            document.body.removeChild(form);
+                            return false; // Prevent default link behavior
+                        };
 
-                    // Scroll to result
-                    conversionResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        // Scroll to result
+                        conversionResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        throw new Error(data.error || 'Unknown error occurred');
+                    }
 
                     // Reset button state
                     submitBtn.innerHTML = originalBtnText;

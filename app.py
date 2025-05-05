@@ -118,17 +118,14 @@ def convert_image():
             # Clean up the temporary file
             os.remove(original_path)
 
-            # Return the converted image as a response
-            @after_this_request
-            def remove_file(response):
-                try:
-                    # Delete the converted file after sending
-                    os.remove(converted_path)
-                except Exception as e:
-                    print(f"Error removing file: {e}")
-                return response
+            # Return a JSON response with the download URL
+            download_url = f'/download/converted/{unique_filename}'
 
-            return send_file(converted_path, as_attachment=True, download_name=unique_filename)
+            return jsonify({
+                'success': True,
+                'message': f'Image successfully converted to {target_format}',
+                'download_url': download_url
+            })
 
         except Exception as e:
             return jsonify({'success': False, 'error': str(e)}), 500
