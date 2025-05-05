@@ -1170,10 +1170,6 @@ def gst_calculator_redirect():
 def gst_calculator_test():
     return "GST Calculator Test Page - This route is working!"
 
-@app.route('/gst-calculator-test-template')
-def gst_calculator_test_template():
-    return render_template('gst_calculator_test.html')
-
 @app.route('/tools/online-calculators/currency-converter', methods=['GET', 'POST'])
 def currency_converter():
     if request.method == 'POST':
