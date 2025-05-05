@@ -231,6 +231,12 @@
             }
         </style>
 
+        <!-- Hidden elements for client-side conversion -->
+        <div style="display: none;">
+            <div id="svg-container"></div>
+            <canvas id="canvas"></canvas>
+        </div>
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const fileInput = document.getElementById('image');
@@ -242,6 +248,77 @@
                 const successMessage = document.getElementById('success-message');
                 const downloadLink = document.getElementById('download-link');
                 const convertAnother = document.getElementById('convert-another');
+                const svgContainer = document.getElementById('svg-container');
+                const canvas = document.getElementById('canvas');
+
+                // Function to convert SVG to PNG client-side
+                function convertSvgToPng(svgData, filename) {
+                    return new Promise((resolve, reject) => {
+                        try {
+                            // Create a blob URL from the SVG data
+                            const svgBlob = new Blob([svgData], {type: 'image/svg+xml'});
+                            const url = URL.createObjectURL(svgBlob);
+
+                            // Create an image element
+                            const img = new Image();
+
+                            // Set up image load handler
+                            img.onload = function() {
+                                try {
+                                    // Set canvas dimensions to match the SVG
+                                    canvas.width = img.width;
+                                    canvas.height = img.height;
+
+                                    // Draw the image on the canvas
+                                    const ctx = canvas.getContext('2d');
+                                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                    ctx.drawImage(img, 0, 0);
+
+                                    // Convert canvas to PNG data URL
+                                    const pngDataUrl = canvas.toDataURL('image/png');
+
+                                    // Clean up
+                                    URL.revokeObjectURL(url);
+
+                                    // Create a FormData object to send the PNG data
+                                    const formData = new FormData();
+
+                                    // Convert data URL to blob
+                                    const byteString = atob(pngDataUrl.split(',')[1]);
+                                    const mimeString = pngDataUrl.split(',')[0].split(':')[1].split(';')[0];
+                                    const ab = new ArrayBuffer(byteString.length);
+                                    const ia = new Uint8Array(ab);
+                                    for (let i = 0; i < byteString.length; i++) {
+                                        ia[i] = byteString.charCodeAt(i);
+                                    }
+                                    const blob = new Blob([ab], {type: mimeString});
+
+                                    // Add the PNG blob to the FormData
+                                    formData.append('png_data', blob, filename.replace('.svg', '.png'));
+                                    formData.append('client_converted', 'true');
+                                    formData.append('original_filename', filename);
+
+                                    resolve(formData);
+                                } catch (error) {
+                                    console.error('Error in canvas conversion:', error);
+                                    reject(error);
+                                }
+                            };
+
+                            // Set up error handler
+                            img.onerror = function() {
+                                URL.revokeObjectURL(url);
+                                reject(new Error('Failed to load SVG'));
+                            };
+
+                            // Set the source to the blob URL
+                            img.src = url;
+                        } catch (error) {
+                            console.error('Error in SVG preparation:', error);
+                            reject(error);
+                        }
+                    });
+                }
 
                 fileInput.addEventListener('change', function() {
                     if (this.files.length > 0) {
@@ -268,48 +345,106 @@
                     fileError.style.display = 'none';
                     loading.style.display = 'block';
 
-                    // Create FormData object
-                    const formData = new FormData(form);
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
 
-                    // Send AJAX request
-                    fetch('/tools/image-editing/convert-svg-to-png', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Hide loading
+                    reader.onload = function(e) {
+                        const svgData = e.target.result;
+
+                        // Try client-side conversion first
+                        convertSvgToPng(svgData, file.name)
+                            .then(formData => {
+                                // Send the PNG data to the server
+                                return fetch('/tools/image-editing/convert-svg-to-png', {
+                                    method: 'POST',
+                                    body: formData
+                                });
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                // Hide loading
+                                loading.style.display = 'none';
+
+                                if (data.success) {
+                                    // Show success message
+                                    if (data.warning) {
+                                        successMessage.style.backgroundColor = '#ffc107';
+                                        successMessage.style.color = '#212529';
+                                        successMessage.textContent = data.warning;
+                                    } else {
+                                        successMessage.style.backgroundColor = '#28a745';
+                                        successMessage.style.color = 'white';
+                                        successMessage.textContent = data.message || 'Your SVG has been successfully converted to PNG!';
+                                    }
+
+                                    // Set download link
+                                    downloadLink.href = data.download_url;
+
+                                    // Show result
+                                    result.style.display = 'block';
+                                } else {
+                                    // Show error message
+                                    fileError.textContent = data.error || 'An error occurred during conversion. Please try again.';
+                                    fileError.style.display = 'block';
+                                    form.style.display = 'block';
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Client-side conversion failed, falling back to server-side:', error);
+
+                                // Fall back to server-side conversion
+                                const formData = new FormData(form);
+
+                                fetch('/tools/image-editing/convert-svg-to-png', {
+                                    method: 'POST',
+                                    body: formData
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    // Hide loading
+                                    loading.style.display = 'none';
+
+                                    if (data.success) {
+                                        // Show success message
+                                        if (data.warning) {
+                                            successMessage.style.backgroundColor = '#ffc107';
+                                            successMessage.style.color = '#212529';
+                                            successMessage.textContent = data.warning;
+                                        } else {
+                                            successMessage.textContent = data.message || 'Your SVG has been successfully converted to PNG!';
+                                        }
+
+                                        // Set download link
+                                        downloadLink.href = data.download_url;
+
+                                        // Show result
+                                        result.style.display = 'block';
+                                    } else {
+                                        // Show error message
+                                        fileError.textContent = data.error || 'An error occurred during conversion. Please try again.';
+                                        fileError.style.display = 'block';
+                                        form.style.display = 'block';
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    loading.style.display = 'none';
+                                    fileError.textContent = 'An error occurred during conversion. Please try again.';
+                                    fileError.style.display = 'block';
+                                    form.style.display = 'block';
+                                });
+                            });
+                    };
+
+                    reader.onerror = function() {
                         loading.style.display = 'none';
-
-                        if (data.success) {
-                            // Show success message
-                            if (data.warning) {
-                                successMessage.style.backgroundColor = '#ffc107';
-                                successMessage.style.color = '#212529';
-                                successMessage.textContent = data.warning;
-                            } else {
-                                successMessage.textContent = data.message || 'Your SVG has been successfully converted to PNG!';
-                            }
-
-                            // Set download link
-                            downloadLink.href = data.download_url;
-
-                            // Show result
-                            result.style.display = 'block';
-                        } else {
-                            // Show error message
-                            fileError.textContent = data.error || 'An error occurred during conversion. Please try again.';
-                            fileError.style.display = 'block';
-                            form.style.display = 'block';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        loading.style.display = 'none';
-                        fileError.textContent = 'An error occurred during conversion. Please try again.';
+                        fileError.textContent = 'Failed to read the SVG file. Please try again.';
                         fileError.style.display = 'block';
                         form.style.display = 'block';
-                    });
+                    };
+
+                    // Read the SVG file as text
+                    reader.readAsText(file);
                 });
 
                 // Convert another button

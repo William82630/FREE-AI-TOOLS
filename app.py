@@ -681,7 +681,34 @@ def convert_webp_to_png():
 def convert_svg_to_png():
     if request.method == 'POST':
         try:
-            # Check if file was uploaded
+            # Create unique identifiers for filenames
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            unique_id = str(uuid.uuid4())[:8]
+
+            # Check if this is a client-side converted PNG
+            if 'client_converted' in request.form and request.form['client_converted'] == 'true' and 'png_data' in request.files:
+                # Get the client-converted PNG data
+                png_file = request.files['png_data']
+                original_filename = request.form.get('original_filename', 'image.svg')
+                base_filename = os.path.splitext(secure_filename(original_filename))[0]
+
+                # Create output PNG filename
+                png_filename = f"converted_{timestamp}_{unique_id}_{base_filename}.png"
+                png_filepath = os.path.join(CONVERTED_FOLDER, png_filename)
+
+                # Save the PNG file
+                png_file.save(png_filepath)
+
+                print("Saved client-side converted PNG")
+
+                # Return success response with download URL
+                return jsonify({
+                    'success': True,
+                    'message': 'SVG successfully converted to PNG',
+                    'download_url': f'/download/converted/{png_filename}'
+                })
+
+            # If not client-converted, proceed with server-side conversion
             if 'image' not in request.files:
                 return jsonify({'success': False, 'error': 'No file part'}), 400
 
@@ -693,9 +720,7 @@ def convert_svg_to_png():
             if not file.filename.lower().endswith('.svg'):
                 return jsonify({'success': False, 'error': 'Please upload an SVG file'}), 400
 
-            # Create unique filenames
-            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-            unique_id = str(uuid.uuid4())[:8]
+            # Process the SVG file
             original_filename = secure_filename(file.filename)
             base_filename = os.path.splitext(original_filename)[0]
 
@@ -709,54 +734,92 @@ def convert_svg_to_png():
             png_filepath = os.path.join(CONVERTED_FOLDER, png_filename)
 
             try:
-                # Use cairosvg for conversion if available
+                # Use a subprocess to call Inkscape for conversion if available
                 try:
-                    import cairosvg
-                    cairosvg.svg2png(url=svg_filepath, write_to=png_filepath)
-                    conversion_successful = True
-                except (ImportError, Exception) as e:
-                    print(f"CairoSVG conversion failed: {str(e)}")
+                    import subprocess
+
+                    # Check if Inkscape is installed
+                    try:
+                        subprocess.run(['inkscape', '--version'], capture_output=True, check=True)
+                        has_inkscape = True
+                    except (subprocess.SubprocessError, FileNotFoundError):
+                        has_inkscape = False
+
+                    if has_inkscape:
+                        # Use Inkscape for conversion
+                        subprocess.run([
+                            'inkscape',
+                            '--export-filename=' + png_filepath,
+                            svg_filepath
+                        ], capture_output=True, check=True)
+                        conversion_successful = True
+                        print("Converted using Inkscape")
+                    else:
+                        conversion_successful = False
+                except Exception as inkscape_error:
+                    print(f"Inkscape conversion failed: {str(inkscape_error)}")
                     conversion_successful = False
 
-                # If cairosvg fails, try using PIL
+                # If Inkscape fails, try using svglib and reportlab
                 if not conversion_successful:
                     try:
-                        from PIL import Image
-                        import io
-                        import base64
-                        import re
+                        from svglib.svglib import svg2rlg
+                        from reportlab.graphics import renderPM
 
-                        # Read SVG file
+                        drawing = svg2rlg(svg_filepath)
+                        renderPM.drawToFile(drawing, png_filepath, fmt="PNG")
+                        conversion_successful = True
+                        print("Converted using svglib and reportlab")
+                    except Exception as svglib_error:
+                        print(f"svglib conversion failed: {str(svglib_error)}")
+                        conversion_successful = False
+
+                # If svglib fails, try using cairosvg
+                if not conversion_successful:
+                    try:
+                        import cairosvg
+                        cairosvg.svg2png(url=svg_filepath, write_to=png_filepath)
+                        conversion_successful = True
+                        print("Converted using cairosvg")
+                    except (ImportError, Exception) as cairo_error:
+                        print(f"CairoSVG conversion failed: {str(cairo_error)}")
+                        conversion_successful = False
+
+                # If all conversion methods fail, create a simple message image
+                if not conversion_successful:
+                    from PIL import Image, ImageDraw, ImageFont
+
+                    # Create a new image with white background
+                    img = Image.new('RGB', (800, 600), (255, 255, 255))
+                    draw = ImageDraw.Draw(img)
+
+                    # Add text explaining the issue
+                    message = "SVG conversion failed. Please try a different SVG file."
+                    draw.text((50, 50), message, fill=(0, 0, 0))
+
+                    # Add the SVG content as text for debugging
+                    try:
                         with open(svg_filepath, 'r') as f:
                             svg_content = f.read()
 
-                        # Extract width and height from SVG
-                        width_match = re.search(r'width="(\d+)', svg_content)
-                        height_match = re.search(r'height="(\d+)', svg_content)
+                        # Truncate if too long
+                        if len(svg_content) > 500:
+                            svg_content = svg_content[:500] + "..."
 
-                        width = int(width_match.group(1)) if width_match else 800
-                        height = int(height_match.group(1)) if height_match else 600
+                        draw.text((50, 100), "SVG Content:", fill=(0, 0, 0))
 
-                        # Create a blank image with white background
-                        img = Image.new('RGBA', (width, height), (255, 255, 255, 255))
+                        # Draw the SVG content, line by line
+                        y_position = 120
+                        for line in svg_content.split('\n')[:20]:  # Limit to 20 lines
+                            draw.text((50, y_position), line, fill=(0, 0, 0))
+                            y_position += 20
+                    except Exception as read_error:
+                        draw.text((50, 100), f"Could not read SVG file: {str(read_error)}", fill=(0, 0, 0))
 
-                        # Save as PNG
-                        img.save(png_filepath, format='PNG')
-                        conversion_successful = True
+                    # Save the image
+                    img.save(png_filepath)
 
-                        print("Created a blank PNG as fallback")
-                    except Exception as pil_error:
-                        print(f"PIL conversion failed: {str(pil_error)}")
-                        conversion_successful = False
-
-                # If all conversion methods fail, create a minimal valid PNG file
-                if not conversion_successful:
-                    # Create a simple 1x1 pixel PNG file
-                    with open(png_filepath, 'wb') as f:
-                        # PNG header and minimal IHDR chunk for a 1x1 transparent pixel
-                        f.write(b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15\xc4\x89\x00\x00\x00\nIDATx\x9cc\x00\x01\x00\x00\x05\x00\x01\r\n-\xb4\x00\x00\x00\x00IEND\xaeB`\x82')
-
-                    print("Created a minimal PNG file as last resort")
+                    print("Created a message image as fallback")
 
                     # Return a warning to the user
                     return jsonify({

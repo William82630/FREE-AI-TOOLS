@@ -1,0 +1,22 @@
+# Python virtual environment
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary files
+uploads/
+compressed/
+converted/
+favicons/
+temp_image.png
+
+# Development files
+.vscode/
+*.code-workspace
+reset_vscode.bat
+test_tools.py
+tool_testing_guide.html
+supabase_example.py
+supabase_flask_example.py
+supabase_integration_guide.md
