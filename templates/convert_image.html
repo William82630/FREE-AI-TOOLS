@@ -849,6 +849,16 @@
         .mb-4 { margin-bottom: 1.5rem; }
         .mb-5 { margin-bottom: 3rem; }
 
+        /* Refresh button animation */
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .rotating {
+            animation: rotate 0.5s ease-in-out;
+        }
+
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero h1 {
@@ -981,9 +991,14 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary submit-btn">
-                    <i class="fas fa-sync-alt"></i> Convert Image
-                </button>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button type="submit" class="btn btn-primary submit-btn" style="flex: 1;">
+                        <i class="fas fa-sync-alt"></i> Convert Image
+                    </button>
+                    <button type="button" id="refreshBtn" class="btn btn-outline" style="width: 46px; height: 46px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center;" title="Reset Form">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
             </form>
 
             <div id="conversionResult" style="display: none; margin-top: 2rem; text-align: center;">
@@ -1352,6 +1367,7 @@
             const conversionResult = document.getElementById('conversionResult');
             const conversionMessage = document.getElementById('conversionMessage');
             const downloadLink = document.getElementById('downloadLink');
+            const refreshBtn = document.getElementById('refreshBtn');
 
             fileInput.addEventListener('change', function(e) {
                 if (this.files && this.files[0]) {
@@ -1404,6 +1420,43 @@
                     const radio = this.querySelector('input[type="radio"]');
                     radio.checked = true;
                 });
+            });
+
+            // Refresh button functionality
+            refreshBtn.addEventListener('click', function() {
+                // Reset the form
+                convertForm.reset();
+
+                // Reset the file upload area
+                fileUploadText.innerHTML = `
+                    <h3>Drag & Drop Your Image Here</h3>
+                    <p>or click to browse your files</p>
+                    <p class="mb-1"><small>Supports JPG, PNG, WEBP, GIF, BMP, and more</small></p>
+                    <p><small>Maximum file size: 10MB</small></p>
+                `;
+
+                // Remove active class from file upload area
+                fileUpload.classList.remove('active');
+
+                // Reset format selection to PNG (first option)
+                formatOptions.forEach((opt, index) => {
+                    if (index === 0) {
+                        opt.classList.add('active');
+                        opt.querySelector('input[type="radio"]').checked = true;
+                    } else {
+                        opt.classList.remove('active');
+                        opt.querySelector('input[type="radio"]').checked = false;
+                    }
+                });
+
+                // Hide conversion result
+                conversionResult.style.display = 'none';
+
+                // Add a small animation to the refresh button
+                this.classList.add('rotating');
+                setTimeout(() => {
+                    this.classList.remove('rotating');
+                }, 500);
             });
 
             // Handle form submission
