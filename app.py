@@ -72,6 +72,69 @@ def ai_tool():
     except requests.exceptions.RequestException as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/tools/image-editing/convert-image', methods=['GET', 'POST'])
+def convert_image():
+    if request.method == 'POST':
+        if 'image' not in request.files:
+            return jsonify({'success': False, 'error': 'No file part'}), 400
+
+        file = request.files['image']
+        if file.filename == '':
+            return jsonify({'success': False, 'error': 'No selected file'}), 400
+
+        # Get the target format from the form
+        target_format = request.form.get('format', 'PNG').upper()
+
+        try:
+            # Generate unique filename
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            filename_base, file_ext = os.path.splitext(file.filename)
+            unique_filename = f"{filename_base}_{timestamp}.{target_format.lower()}"
+
+            # Save original image temporarily
+            original_path = os.path.join(UPLOAD_FOLDER, f"temp_{timestamp}{file_ext}")
+            file.save(original_path)
+
+            # Convert the image to the target format
+            converted_path = os.path.join(CONVERTED_FOLDER, unique_filename)
+
+            with Image.open(original_path) as img:
+                # If converting to JPG/JPEG, convert to RGB mode (remove alpha channel)
+                if target_format in ['JPG', 'JPEG']:
+                    if img.mode in ['RGBA', 'LA'] or (img.mode == 'P' and 'transparency' in img.info):
+                        # Create a white background image
+                        background = Image.new('RGB', img.size, (255, 255, 255))
+                        # Paste the image on the background
+                        if img.mode == 'P':
+                            img = img.convert('RGBA')
+                        background.paste(img, mask=img.split()[3] if img.mode == 'RGBA' else None)
+                        img = background
+                    else:
+                        img = img.convert('RGB')
+
+                # Save the converted image
+                img.save(converted_path, format=target_format)
+
+            # Clean up the temporary file
+            os.remove(original_path)
+
+            # Return the converted image as a response
+            @after_this_request
+            def remove_file(response):
+                try:
+                    # Delete the converted file after sending
+                    os.remove(converted_path)
+                except Exception as e:
+                    print(f"Error removing file: {e}")
+                return response
+
+            return send_file(converted_path, as_attachment=True, download_name=unique_filename)
+
+        except Exception as e:
+            return jsonify({'success': False, 'error': str(e)}), 500
+
+    return render_template('convert_image.html')
+
 @app.route('/tools/image-editing/compress-image', methods=['GET', 'POST'])
 def compress_image():
     if request.method == 'POST':

@@ -9,6 +9,8 @@
     <meta name="author" content="willsblogger.com">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://willsblogger.com/tools/image-editing/convert-image">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -919,8 +921,8 @@
                 <a href="/" class="logo">Free<span>AI</span>Tools</a>
                 <ul class="nav-links">
                     <li><a href="/">Home</a></li>
-                    <li><a href="/tools/image-editing">Image Tools</a></li>
-                    <li><a href="/tools/online-calculators">Calculators</a></li>
+                    <li><a href="/tools/image-editing/compress-image">Image Tools</a></li>
+                    <li><a href="/tools/online-calculators/bmi-calculator">Calculators</a></li>
                     <li><a href="/tools/free-online-converter/pdf-to-word">Converters</a></li>
                 </ul>
             </nav>
@@ -947,7 +949,7 @@
                 <p>Upload any image and select your desired output format. Our tool supports PNG, JPG, and JPEG conversions.</p>
             </div>
 
-            <form action="/tools/image-editing/convert-image" method="post" enctype="multipart/form-data" class="tool-form">
+            <form action="/tools/image-editing/convert-image" method="post" enctype="multipart/form-data" class="tool-form" id="convertForm">
                 <div class="form-group">
                     <div class="file-upload">
                         <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
@@ -983,6 +985,18 @@
                     <i class="fas fa-sync-alt"></i> Convert Image
                 </button>
             </form>
+
+            <div id="conversionResult" style="display: none; margin-top: 2rem; text-align: center;">
+                <div class="alert alert-success" style="background-color: #d1fae5; color: #065f46; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                    <i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>
+                    <span id="conversionMessage">Your image has been successfully converted!</span>
+                </div>
+                <div id="downloadContainer" style="margin-top: 1.5rem;">
+                    <a id="downloadLink" href="#" class="btn btn-primary" download>
+                        <i class="fas fa-download" style="margin-right: 0.5rem;"></i> Download Converted Image
+                    </a>
+                </div>
+            </div>
         </section>
 
         <!-- How It Works Section -->
@@ -1334,6 +1348,10 @@
             const fileUpload = document.querySelector('.file-upload');
             const fileInput = document.querySelector('.file-upload-input');
             const fileUploadText = document.querySelector('.file-upload-text');
+            const convertForm = document.getElementById('convertForm');
+            const conversionResult = document.getElementById('conversionResult');
+            const conversionMessage = document.getElementById('conversionMessage');
+            const downloadLink = document.getElementById('downloadLink');
 
             fileInput.addEventListener('change', function(e) {
                 if (this.files && this.files[0]) {
@@ -1385,6 +1403,74 @@
                     // Select the radio button
                     const radio = this.querySelector('input[type="radio"]');
                     radio.checked = true;
+                });
+            });
+
+            // Handle form submission
+            convertForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Check if a file is selected
+                if (!fileInput.files || !fileInput.files[0]) {
+                    alert('Please select an image to convert.');
+                    return;
+                }
+
+                // Get the selected format
+                const selectedFormat = document.querySelector('input[name="format"]:checked').value;
+
+                // Create FormData object
+                const formData = new FormData();
+                formData.append('image', fileInput.files[0]);
+                formData.append('format', selectedFormat);
+
+                // Show loading state
+                const submitBtn = document.querySelector('.submit-btn');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Converting...';
+                submitBtn.disabled = true;
+
+                // Send AJAX request
+                fetch('/tools/image-editing/convert-image', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    // Create object URL for the blob
+                    const url = URL.createObjectURL(blob);
+
+                    // Set download link
+                    downloadLink.href = url;
+
+                    // Set filename based on original filename and selected format
+                    const originalFilename = fileInput.files[0].name;
+                    const filenameWithoutExt = originalFilename.substring(0, originalFilename.lastIndexOf('.')) || originalFilename;
+                    downloadLink.download = `${filenameWithoutExt}.${selectedFormat.toLowerCase()}`;
+
+                    // Show conversion result
+                    conversionMessage.textContent = `Your image has been successfully converted to ${selectedFormat}!`;
+                    conversionResult.style.display = 'block';
+
+                    // Scroll to result
+                    conversionResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // Reset button state
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred during conversion. Please try again.');
+
+                    // Reset button state
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
                 });
             });
 
