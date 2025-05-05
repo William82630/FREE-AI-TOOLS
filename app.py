@@ -864,10 +864,148 @@ def convert_svg_to_png():
 # Image Editing Tools
 @app.route('/tools/image-editing/image-resizer', methods=['GET', 'POST'])
 def image_resizer():
+    if request.method == 'POST':
+        try:
+            # Check if file was uploaded
+            if 'image' not in request.files:
+                return jsonify({'success': False, 'error': 'No file part'}), 400
+
+            file = request.files['image']
+            if file.filename == '':
+                return jsonify({'success': False, 'error': 'No selected file'}), 400
+
+            # Get dimensions from form
+            width = request.form.get('width')
+            height = request.form.get('height')
+            maintain_ratio = request.form.get('maintain_ratio') == 'on'
+
+            # Validate dimensions
+            if not width and not height:
+                return jsonify({'success': False, 'error': 'Please specify at least one dimension'}), 400
+
+            try:
+                width = int(width) if width else None
+                height = int(height) if height else None
+            except ValueError:
+                return jsonify({'success': False, 'error': 'Dimensions must be valid numbers'}), 400
+
+            # Create unique filename
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            filename_base, file_ext = os.path.splitext(secure_filename(file.filename))
+            unique_filename = f"{filename_base}_resized_{timestamp}{file_ext}"
+
+            # Save original image temporarily
+            original_path = os.path.join(UPLOAD_FOLDER, f"temp_{unique_filename}")
+            file.save(original_path)
+
+            # Open the image with PIL
+            with Image.open(original_path) as img:
+                # Get original dimensions
+                orig_width, orig_height = img.size
+
+                # Calculate new dimensions
+                new_width, new_height = orig_width, orig_height
+
+                if width and height:
+                    new_width, new_height = width, height
+                elif width:
+                    if maintain_ratio:
+                        ratio = orig_height / orig_width
+                        new_height = int(width * ratio)
+                    new_width = width
+                elif height:
+                    if maintain_ratio:
+                        ratio = orig_width / orig_height
+                        new_width = int(height * ratio)
+                    new_height = height
+
+                # Resize the image
+                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
+
+                # Save the resized image
+                resized_path = os.path.join(CONVERTED_FOLDER, unique_filename)
+                resized_img.save(resized_path)
+
+                # Clean up the temporary file
+                os.remove(original_path)
+
+                # Return success response with download URL
+                return jsonify({
+                    'success': True,
+                    'message': 'Image successfully resized',
+                    'download_url': f'/download/converted/{unique_filename}'
+                })
+
+        except Exception as e:
+            return jsonify({'success': False, 'error': str(e)}), 500
+
     return render_template('image_resizer.html')
 
 @app.route('/tools/image-editing/crop-image', methods=['GET', 'POST'])
 def crop_image():
+    if request.method == 'POST':
+        try:
+            # Check if file was uploaded
+            if 'image' not in request.files:
+                return jsonify({'success': False, 'error': 'No file part'}), 400
+
+            file = request.files['image']
+            if file.filename == '':
+                return jsonify({'success': False, 'error': 'No selected file'}), 400
+
+            # Get crop coordinates from form
+            try:
+                # Print form data for debugging
+                print("Form data:", dict(request.form))
+
+                # Get crop coordinates with fallbacks
+                x = max(0, int(float(request.form.get('crop_x', 0))))
+                y = max(0, int(float(request.form.get('crop_y', 0))))
+                width = max(1, int(float(request.form.get('crop_width', 10))))
+                height = max(1, int(float(request.form.get('crop_height', 10))))
+
+                print(f"Crop coordinates: x={x}, y={y}, width={width}, height={height}")
+            except (ValueError, TypeError) as e:
+                print(f"Error parsing crop dimensions: {str(e)}")
+                # Use default values if parsing fails
+                x, y = 0, 0
+                width, height = 100, 100
+
+            # Ensure dimensions are positive
+            width = max(1, width)
+            height = max(1, height)
+
+            # Create unique filename
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            filename_base, file_ext = os.path.splitext(secure_filename(file.filename))
+            unique_filename = f"{filename_base}_cropped_{timestamp}{file_ext}"
+
+            # Save original image temporarily
+            original_path = os.path.join(UPLOAD_FOLDER, f"temp_{unique_filename}")
+            file.save(original_path)
+
+            # Open the image with PIL
+            with Image.open(original_path) as img:
+                # Crop the image
+                cropped_img = img.crop((x, y, x + width, y + height))
+
+                # Save the cropped image
+                cropped_path = os.path.join(CONVERTED_FOLDER, unique_filename)
+                cropped_img.save(cropped_path)
+
+                # Clean up the temporary file
+                os.remove(original_path)
+
+                # Return success response with download URL
+                return jsonify({
+                    'success': True,
+                    'message': 'Image successfully cropped',
+                    'download_url': f'/download/converted/{unique_filename}'
+                })
+
+        except Exception as e:
+            return jsonify({'success': False, 'error': str(e)}), 500
+
     return render_template('crop_image.html')
 
 @app.route('/tools/image-editing/reverse-image-search', methods=['GET', 'POST'])

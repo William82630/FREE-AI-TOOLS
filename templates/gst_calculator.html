@@ -565,11 +565,16 @@
               <div style="flex: 1; min-width: 100px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 1.05em;">GST %:</label>
                 <select id="gstRate" style="width: 100%; padding: 8px; border: 1px solid #d0d7de; border-radius: 4px; font-size: 1em;">
+                  <option value="3">3%</option>
                   <option value="5">5%</option>
                   <option value="12">12%</option>
                   <option value="18" selected>18%</option>
                   <option value="28">28%</option>
+                  <option value="custom">Custom %</option>
                 </select>
+                <div id="customRateContainer" style="display: none; margin-top: 10px;">
+                  <input type="number" id="customRate" placeholder="Enter custom rate %" style="width: 100%; padding: 8px; border: 1px solid #d0d7de; border-radius: 4px; font-size: 1em;" />
+                </div>
               </div>
             </div>
 
@@ -833,30 +838,45 @@
                 </div>
 
                 <div style="flex: 1; min-width: 150px;">
+                    <h4 style="color: white; margin-top: 0; margin-bottom: 15px; font-size: 1.1em;">Calculators</h4>
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/gst-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none;">GST Calculator</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/bmi-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none;">BMI Calculator</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/simple-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none;">Simple Calculator</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/age-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none;">Age Calculator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/online-calculators/loan-calculator" target="_blank" style="color: #cbd5e1; text-decoration: none;">Loan Calculator</a></li>
                     </ul>
                 </div>
 
                 <div style="flex: 1; min-width: 150px;">
+                    <h4 style="color: white; margin-top: 0; margin-bottom: 15px; font-size: 1.1em;">Image Tools</h4>
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/compress-image" target="_blank" style="color: #cbd5e1; text-decoration: none;">Compress Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/crop-image" target="_blank" style="color: #cbd5e1; text-decoration: none;">Crop Image</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/favicon-generator" target="_blank" style="color: #cbd5e1; text-decoration: none;">Favicon Generator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/image-resizer" target="_blank" style="color: #cbd5e1; text-decoration: none;">Image Resizer</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/image-to-text" target="_blank" style="color: #cbd5e1; text-decoration: none;">Image to Text</a></li>
+                    </ul>
+                </div>
+
+                <div style="flex: 1; min-width: 150px;">
+                    <h4 style="color: white; margin-top: 0; margin-bottom: 15px; font-size: 1.1em;">Converters</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
                         <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/pdf-to-word" target="_blank" style="color: #cbd5e1; text-decoration: none;">PDF to Word</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/word-to-pdf" target="_blank" style="color: #cbd5e1; text-decoration: none;">Word to PDF</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/mp4-to-mp3" target="_blank" style="color: #cbd5e1; text-decoration: none;">MP4 to MP3</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/mp3-to-mp4" target="_blank" style="color: #cbd5e1; text-decoration: none;">MP3 to MP4</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="/tools/image-editing/favicon-generator" target="_blank" style="color: #cbd5e1; text-decoration: none;">Favicon Generator</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="/tools/free-online-converter/jpg-to-png" target="_blank" style="color: #cbd5e1; text-decoration: none;">JPG to PNG</a></li>
                     </ul>
                 </div>
 
                 <div style="flex: 1; min-width: 150px;">
+                    <h4 style="color: white; margin-top: 0; margin-bottom: 15px; font-size: 1.1em;">About</h4>
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         <li style="margin-bottom: 0.5rem;"><a href="/" target="_blank" style="color: #cbd5e1; text-decoration: none;">Home</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="/privacy-policy.html" target="_blank" style="color: #cbd5e1; text-decoration: none;">Privacy Policy</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="/terms-of-use.html" target="_blank" style="color: #cbd5e1; text-decoration: none;">Terms of Use</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="https://willsblogger.com/contact-us/" target="_blank" style="color: #cbd5e1; text-decoration: none;">Contact Us</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="https://www.buymeacoffee.com/willsblogger" target="_blank" style="color: #cbd5e1; text-decoration: none;">Support Us</a></li>
                     </ul>
                 </div>
@@ -877,25 +897,160 @@
     </footer>
 
     <script>
+        // Expanded GST map with more products and categories
         const gstMap = {
-            electronics: 18,
-            textile: 5,
-            gold: 3,
-            footwear: 12,
-            cosmetics: 28,
+            // 0% GST
+            "fresh fruits": 0,
+            "vegetables": 0,
+            "milk": 0,
+            "curd": 0,
+            "lassi": 0,
+            "education": 0,
+            "healthcare": 0,
+
+            // 3% GST
+            "gold": 3,
+            "silver": 3,
+            "jewelry": 3,
+            "precious stones": 3,
+            "diamonds": 3,
+
+            // 5% GST
+            "textile": 5,
+            "fabrics": 5,
+            "cloth": 5,
+            "clothing": 5,
+            "apparel": 5,
+            "garments": 5,
+            "cotton": 5,
+            "silk": 5,
+            "wool": 5,
+            "packaged food": 5,
+            "tea": 5,
+            "coffee": 5,
+            "sugar": 5,
+            "spices": 5,
+            "transport": 5,
+            "economy air tickets": 5,
+            "restaurants": 5,
+            "coal": 5,
+            "fertilizers": 5,
+
+            // 12% GST
+            "footwear": 12,
+            "shoes": 12,
+            "processed food": 12,
+            "butter": 12,
+            "ghee": 12,
+            "frozen meat": 12,
+            "business hotels": 12,
+            "work contracts": 12,
+            "mobile phones": 12,
+            "stationery": 12,
+
+            // 18% GST
+            "electronics": 18,
+            "computers": 18,
+            "laptops": 18,
+            "tv": 18,
+            "television": 18,
+            "refrigerator": 18,
+            "washing machine": 18,
+            "ac": 18,
+            "air conditioner": 18,
+            "it services": 18,
+            "telecom": 18,
+            "financial services": 18,
+            "banking": 18,
+            "insurance": 18,
+            "restaurant ac": 18,
+            "hotel rooms": 18,
+
+            // 28% GST
+            "cosmetics": 28,
+            "makeup": 28,
+            "perfumes": 28,
+            "luxury cars": 28,
+            "premium cars": 28,
+            "tobacco": 28,
+            "cigarettes": 28,
+            "aerated drinks": 28,
+            "soft drinks": 28,
+            "motorcycles": 28,
+            "luxury hotels": 28,
+            "cement": 28,
+            "paint": 28
         };
 
+        // Function to search for products and set GST rate
         function searchProduct() {
-            const keyword = document.getElementById("productSearch").value.toLowerCase();
-            const rate = gstMap[keyword];
-            if (rate !== undefined) {
-                document.getElementById("gstRate").value = rate;
+            const keyword = document.getElementById("productSearch").value.toLowerCase().trim();
+
+            // If the search field is empty, don't change anything
+            if (!keyword) return;
+
+            // Check for exact match first
+            if (gstMap[keyword] !== undefined) {
+                document.getElementById("gstRate").value = gstMap[keyword];
+                calculateGST(); // Auto-calculate when a match is found
+                return;
             }
+
+            // Check for partial matches
+            for (const product in gstMap) {
+                if (product.includes(keyword) || keyword.includes(product)) {
+                    document.getElementById("gstRate").value = gstMap[product];
+                    calculateGST(); // Auto-calculate when a match is found
+                    return;
+                }
+            }
+
+            // If no match found, don't change the rate
+            console.log("No matching product found for: " + keyword);
         }
+
+        // Handle custom rate selection
+        document.addEventListener('DOMContentLoaded', function() {
+            const gstRateSelect = document.getElementById("gstRate");
+            const customRateContainer = document.getElementById("customRateContainer");
+            const customRateInput = document.getElementById("customRate");
+
+            // Show/hide custom rate input based on selection
+            gstRateSelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customRateContainer.style.display = 'block';
+                    customRateInput.focus();
+                    // Set default value in custom input
+                    if (!customRateInput.value) {
+                        customRateInput.value = "18";
+                    }
+                } else {
+                    customRateContainer.style.display = 'none';
+                }
+                calculateGST();
+            });
+
+            // Update calculation when custom rate changes
+            customRateInput.addEventListener('input', function() {
+                calculateGST();
+            });
+        });
 
         function calculateGST() {
             let amount = parseFloat(document.getElementById("amount").value);
-            let gstPercent = parseFloat(document.getElementById("gstRate").value);
+            let gstRateElement = document.getElementById("gstRate");
+            let gstPercent;
+
+            // Handle custom rate
+            if (gstRateElement.value === 'custom') {
+                gstPercent = parseFloat(document.getElementById("customRate").value);
+                if (isNaN(gstPercent)) {
+                    gstPercent = 0; // Default to 0 if invalid input
+                }
+            } else {
+                gstPercent = parseFloat(gstRateElement.value);
+            }
+
             let type = document.getElementById("taxType").value;
             let state = document.getElementById("stateType").value;
 

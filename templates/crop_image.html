@@ -8,6 +8,7 @@
     <meta name="keywords" content="crop image, image cropping tool, online image cropper">
     <!-- Font Awesome for social media icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -206,21 +207,142 @@
         <p>Upload your image, select the area, and crop it instantly with our easy-to-use tool.</p>
     </div>
     <div class="input-section">
-        <form action="/tools/image-editing/crop-image" method="post" enctype="multipart/form-data" style="display: inline-block; text-align: left; background: #23263a; padding: 28px 32px 24px 32px; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.10);">
-            <div style="margin-bottom: 18px; text-align: center;">
-                <input type="file" id="image" name="image" required placeholder="Upload your image" style="width: 100%; max-width: 340px; margin-right: 0; display: inline-block;">
+        <div class="crop-tool-container" style="max-width: 800px; margin: 0 auto; background: #23263a; padding: 28px 32px 24px 32px; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.10);">
+            <div class="upload-section" style="text-align: center; margin-bottom: 20px;">
+                <label for="imageInput" style="font-size: 1.13em; font-weight: bold; padding: 12px 32px; background: linear-gradient(90deg, #019286 0%, #017a70 100%); color: white; box-shadow: 0 2px 8px rgba(1,146,134,0.3); border: none; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; display: inline-block;">Choose Image</label>
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
             </div>
-            <div style="display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;">
-                <input type="number" name="crop_x" placeholder="X (start)" style="width: 100px; min-width: 80px;">
-                <input type="number" name="crop_y" placeholder="Y (start)" style="width: 100px; min-width: 80px;">
-                <input type="number" name="crop_width" placeholder="Width (px)" style="width: 120px; min-width: 90px;" required>
-                <input type="number" name="crop_height" placeholder="Height (px)" style="width: 120px; min-width: 90px;" required>
+
+            <div class="img-container" style="max-width: 100%; margin-bottom: 20px; text-align: center;">
+                <img id="image" src="" style="display:none; max-width: 100%; max-height: 500px;" />
             </div>
-            <div style="text-align: center;">
-                <button type="submit">Crop Image</button>
+
+            <div class="controls" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 10px;">
+                <input type="number" id="cropWidth" placeholder="Width (px)" style="padding: 10px; border: 1px solid #019286; border-radius: 5px; font-size: 15px; background: #1a1d2e; color: white;">
+                <input type="number" id="cropHeight" placeholder="Height (px)" style="padding: 10px; border: 1px solid #019286; border-radius: 5px; font-size: 15px; background: #1a1d2e; color: white;">
+                <input type="number" id="cropX" placeholder="Position X (px)" style="padding: 10px; border: 1px solid #019286; border-radius: 5px; font-size: 15px; background: #1a1d2e; color: white;">
+                <input type="number" id="cropY" placeholder="Position Y (px)" style="padding: 10px; border: 1px solid #019286; border-radius: 5px; font-size: 15px; background: #1a1d2e; color: white;">
             </div>
-        </form>
+
+            <div class="controls-full" style="text-align: center;">
+                <button onclick="cropImage()" style="font-size: 1.13em; font-weight: bold; padding: 12px 32px; background: linear-gradient(90deg, #019286 0%, #017a70 100%); color: white; box-shadow: 0 2px 8px rgba(1,146,134,0.3); border: none; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; margin-top: 10px;">Crop Image</button>
+            </div>
+
+            <div class="result-section" style="text-align: center; margin-top: 20px;">
+                <h3 style="color: #fff;">Cropped Image:</h3>
+                <div id="croppedResult"></div>
+                <div class="download-buttons" style="margin-top: 15px;">
+                    <a id="downloadLink" download="cropped-image.png" style="text-decoration: none;">
+                        <button id="downloadBtn" style="font-size: 1.13em; font-weight: bold; padding: 12px 32px; background: linear-gradient(90deg, #4caf50 0%, #388e3c 100%); color: white; box-shadow: 0 2px 8px rgba(76,175,80,0.3); border: none; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; margin: 5px;">Download</button>
+                    </a>
+                    <button id="shareBtn" style="font-size: 1.13em; font-weight: bold; padding: 12px 32px; background: linear-gradient(90deg, #3f51b5 0%, #303f9f 100%); color: white; box-shadow: 0 2px 8px rgba(63,81,181,0.3); border: none; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; margin: 5px;">Share</button>
+                    <button id="refreshBtn" style="font-size: 1.13em; font-weight: bold; padding: 12px; width: 48px; height: 48px; background: linear-gradient(90deg, #ff9800 0%, #f57c00 100%); color: white; box-shadow: 0 2px 8px rgba(255,152,0,0.3); border: none; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; margin: 5px; display: inline-flex; align-items: center; justify-content: center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 4v6h-6"></path>
+                            <path d="M1 20v-6h6"></path>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
+                            <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- How to Use Section with a modern design -->
+    <div class="how-to-use" style="padding: 60px 20px; background: linear-gradient(135deg, #1a2a6c, #2a3d66); color: white; text-align: center;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <h2 style="font-size: 2.2em; margin-bottom: 40px; position: relative; display: inline-block;">
+                How to Use This Tool
+                <span style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #ff9800;"></span>
+            </h2>
+
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 30px;">
+                <div style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 25px; text-align: left; backdrop-filter: blur(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <div style="font-size: 24px; font-weight: bold; color: #ff9800; margin-bottom: 15px; display: flex; align-items: center;">
+                        <span style="background: #ff9800; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 12px;">1</span>
+                        Upload Your Image
+                    </div>
+                    <p style="color: #e0e0e0; line-height: 1.6;">Click the "Choose Image" button to select an image from your device. Our tool supports all common image formats including JPG, PNG, GIF, and BMP. The image will be loaded directly in your browser without being uploaded to any server.</p>
+                </div>
+
+                <div style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 25px; text-align: left; backdrop-filter: blur(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <div style="font-size: 24px; font-weight: bold; color: #ff9800; margin-bottom: 15px; display: flex; align-items: center;">
+                        <span style="background: #ff9800; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 12px;">2</span>
+                        Select Crop Area
+                    </div>
+                    <p style="color: #e0e0e0; line-height: 1.6;">Once your image is loaded, you'll see a cropping interface with handles on the corners and edges. Drag these handles to adjust the crop area. You can also drag the entire selection to reposition it. The dimensions of your selection are displayed in real-time.</p>
+                </div>
+
+                <div style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 25px; text-align: left; backdrop-filter: blur(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <div style="font-size: 24px; font-weight: bold; color: #ff9800; margin-bottom: 15px; display: flex; align-items: center;">
+                        <span style="background: #ff9800; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 12px;">3</span>
+                        Crop and Download
+                    </div>
+                    <p style="color: #e0e0e0; line-height: 1.6;">After selecting the perfect crop area, click the "Crop Image" button. You'll see a preview of your cropped image. If you're satisfied with the result, click "Download" to save it to your device. If not, use the refresh button to start over.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; background: rgba(1,146,134,0.2); border-left: 4px solid #019286; padding: 20px; text-align: left; border-radius: 5px;">
+                <h3 style="color: #019286; margin-top: 0;">Pro Tips:</h3>
+                <ul style="color: #e0e0e0; line-height: 1.6; padding-left: 20px;">
+                    <li>Double-click on the image to toggle between move and crop modes</li>
+                    <li>Use the input fields to enter precise pixel dimensions for your crop</li>
+                    <li>For perfect squares, hold the Shift key while dragging the corner handles</li>
+                    <li>Use the refresh button if you want to start over with a new selection</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why Use This Tool Section with a different modern design -->
+    <div class="why-use" style="padding: 60px 20px; background: #23263a; color: white;">
+        <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+            <h2 style="font-size: 2.2em; margin-bottom: 40px; position: relative; display: inline-block;">
+                Why Use Our Image Cropping Tool
+                <span style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #019286;"></span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px;">
+                <div style="text-align: left; padding: 0 15px; border-left: 3px solid #019286;">
+                    <h3 style="color: #019286; font-size: 1.5em;">Enhanced Visual Focus</h3>
+                    <p style="color: #e0e0e0; line-height: 1.6;">Cropping allows you to remove distracting elements and focus attention on the subject of your image. This is essential for social media posts, profile pictures, and product photography where the main subject needs to stand out.</p>
+                </div>
+
+                <div style="text-align: left; padding: 0 15px; border-left: 3px solid #019286;">
+                    <h3 style="color: #019286; font-size: 1.5em;">Perfect Aspect Ratios</h3>
+                    <p style="color: #e0e0e0; line-height: 1.6;">Different platforms require different image dimensions. Our tool helps you create perfectly sized images for Instagram (1:1), Facebook cover photos (2.7:1), Twitter headers (3:1), or any custom dimension you need.</p>
+                </div>
+
+                <div style="text-align: left; padding: 0 15px; border-left: 3px solid #019286;">
+                    <h3 style="color: #019286; font-size: 1.5em;">Improved Composition</h3>
+                    <p style="color: #e0e0e0; line-height: 1.6;">Cropping helps you apply composition principles like the rule of thirds, leading lines, or symmetry. By adjusting the framing, you can transform an ordinary photo into a visually compelling image with professional appeal.</p>
+                </div>
+
+                <div style="text-align: left; padding: 0 15px; border-left: 3px solid #019286;">
+                    <h3 style="color: #019286; font-size: 1.5em;">File Size Optimization</h3>
+                    <p style="color: #e0e0e0; line-height: 1.6;">Removing unnecessary parts of an image reduces file size, which improves loading times on websites and saves storage space. This is particularly important for e-commerce sites where image performance affects conversion rates.</p>
+                </div>
+
+                <div style="text-align: left; padding: 0 15px; border-left: 3px solid #019286;">
+                    <h3 style="color: #019286; font-size: 1.5em;">Privacy Protection</h3>
+                    <p style="color: #e0e0e0; line-height: 1.6;">Cropping allows you to remove sensitive information or unwanted people from photos before sharing them online. This helps protect your privacy and ensures you only share what you intend to.</p>
+                </div>
+
+                <div style="text-align: left; padding: 0 15px; border-left: 3px solid #019286;">
+                    <h3 style="color: #019286; font-size: 1.5em;">Browser-Based Security</h3>
+                    <p style="color: #e0e0e0; line-height: 1.6;">Our tool processes images directly in your browser without uploading them to any server. This ensures complete privacy and security for your sensitive images, making it ideal for both personal and professional use.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 50px; background: rgba(255,255,255,0.05); border-radius: 10px; padding: 30px; text-align: center;">
+                <h3 style="color: #ff9800; font-size: 1.8em; margin-bottom: 20px;">Ready to Transform Your Images?</h3>
+                <p style="color: #e0e0e0; line-height: 1.6; max-width: 800px; margin: 0 auto 25px auto;">Whether you're a professional photographer, social media manager, e-commerce store owner, or just someone who wants to improve their personal photos, our image cropping tool provides the perfect balance of simplicity and precision.</p>
+                <a href="#top" style="display: inline-block; padding: 12px 30px; background: linear-gradient(90deg, #019286 0%, #017a70 100%); color: white; text-decoration: none; border-radius: 6px; font-weight: bold; transition: all 0.3s ease;">Start Cropping Now</a>
+            </div>
+        </div>
+    </div>
+
     <div class="features">
         <h2>Features of Our Crop Image Tool</h2>
         <div class="feature-cards">
@@ -379,7 +501,161 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
+        let cropper;
+        const image = document.getElementById('image');
+        const imageInput = document.getElementById('imageInput');
+
+        const inputX = document.getElementById('cropX');
+        const inputY = document.getElementById('cropY');
+        const inputW = document.getElementById('cropWidth');
+        const inputH = document.getElementById('cropHeight');
+
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                image.src = reader.result;
+                image.style.display = 'block';
+
+                if (cropper) cropper.destroy();
+
+                cropper = new Cropper(image, {
+                    viewMode: 1,
+                    autoCropArea: 1, // Start with full image selected
+                    responsive: true,
+                    background: false,
+                    modal: true,
+                    guides: true,
+                    highlight: true,
+                    cropBoxMovable: true,
+                    cropBoxResizable: true,
+                    toggleDragModeOnDblclick: true,
+                    crop(event) {
+                        inputX.value = Math.round(event.detail.x);
+                        inputY.value = Math.round(event.detail.y);
+                        inputW.value = Math.round(event.detail.width);
+                        inputH.value = Math.round(event.detail.height);
+                    }
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+
+        [inputX, inputY, inputW, inputH].forEach(input => {
+            input.addEventListener('input', () => {
+                if (cropper) {
+                    cropper.setData({
+                        x: parseFloat(inputX.value) || 0,
+                        y: parseFloat(inputY.value) || 0,
+                        width: parseFloat(inputW.value) || 100,
+                        height: parseFloat(inputH.value) || 100,
+                    });
+                }
+            });
+        });
+
+        function cropImage() {
+            if (!cropper) {
+                alert('Please select an image first');
+                return;
+            }
+
+            const canvas = cropper.getCroppedCanvas({
+                width: parseInt(inputW.value) || undefined,
+                height: parseInt(inputH.value) || undefined,
+                imageSmoothingEnabled: true,
+                imageSmoothingQuality: 'high',
+            });
+
+            if (!canvas) {
+                alert('Cropping failed. Please try again with different dimensions.');
+                return;
+            }
+
+            const croppedResult = document.getElementById('croppedResult');
+            croppedResult.innerHTML = '';
+            const croppedImage = document.createElement('img');
+            croppedImage.id = 'croppedImg';
+            croppedImage.src = canvas.toDataURL('image/png');
+            croppedImage.style.maxWidth = '100%';
+            croppedImage.style.border = '1px solid #333';
+            croppedImage.style.borderRadius = '4px';
+            croppedImage.style.marginTop = '10px';
+            croppedResult.appendChild(croppedImage);
+
+            // Set download link
+            document.getElementById('downloadLink').href = canvas.toDataURL('image/png');
+        }
+
+        document.getElementById('shareBtn').addEventListener('click', () => {
+            const croppedImg = document.getElementById('croppedImg');
+            if (!croppedImg) {
+                alert('Please crop an image first.');
+                return;
+            }
+
+            try {
+                fetch(croppedImg.src)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const file = new File([blob], 'cropped-image.png', { type: blob.type });
+
+                        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                            navigator.share({
+                                files: [file],
+                                title: 'Cropped Image',
+                                text: 'Check out this cropped image!'
+                            });
+                        } else {
+                            alert('Sharing is not supported in this browser or device. You can download the image instead.');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error sharing:', err);
+                        alert('An error occurred while preparing the image to share. You can download the image instead.');
+                    });
+            } catch (error) {
+                console.error('Share error:', error);
+                alert('Sharing failed. You can download the image instead.');
+            }
+        });
+
+        // Refresh button functionality
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+            // Reset the cropper and start over
+            if (confirm('Are you sure you want to start over? This will clear your current crop.')) {
+                // Reset the cropper
+                if (cropper) {
+                    cropper.destroy();
+                    cropper = null;
+                }
+
+                // Clear the image
+                image.src = '';
+                image.style.display = 'none';
+
+                // Clear the cropped result
+                const croppedResult = document.getElementById('croppedResult');
+                croppedResult.innerHTML = '';
+
+                // Reset the input fields
+                inputX.value = '';
+                inputY.value = '';
+                inputW.value = '';
+                inputH.value = '';
+
+                // Reset the file input to allow selecting the same file again
+                imageInput.value = '';
+
+                // Show a message
+                alert('Ready to start over! Please select a new image.');
+            }
+        });
+
         // Ensure all footer links have proper attributes
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('footer a').forEach(function(link) {

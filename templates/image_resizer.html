@@ -649,7 +649,20 @@
             <div class="result-success">
                 <div class="result-title">Resizing Successful!</div>
                 <div class="result-message">Your image has been successfully resized.</div>
-                <button class="download-button" id="download-button">Download Resized Image</button>
+                <div class="button-group" style="display: flex; gap: 10px; justify-content: center;">
+                    <button class="download-button" id="download-button">Download Resized Image</button>
+                    <button class="refresh-button" id="success-refresh-button" style="background: none; border: 1px solid #4caf50; color: #4caf50; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 1.1em; transition: background 0.2s;">
+                        <span style="display: inline-flex; align-items: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;">
+                                <path d="M23 4v6h-6"></path>
+                                <path d="M1 20v-6h6"></path>
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
+                                <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
+                            </svg>
+                            Resize Another
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -727,37 +740,86 @@
     </div>
     <div class="faq">
         <h2>Frequently Asked Questions</h2>
-        <div class="faq-item">
-            <h3>Why should I resize my images?</h3>
-            <p>Resizing images is essential for various reasons. First, properly sized images improve website loading speed, which is crucial for user experience and SEO rankings. Second, different platforms (social media, websites, email) have specific image size requirements - using correctly sized images ensures optimal display without cropping or distortion. Third, smaller images reduce bandwidth usage, which is particularly important for mobile users or those with limited data plans. Finally, consistent image sizes create a more professional and polished appearance in your projects.</p>
-        </div>
-        <div class="faq-item">
-            <h3>Is it safe to resize images online?</h3>
-            <p>Yes, our image resizer tool is designed with security and privacy as top priorities. All image processing occurs securely, and we implement strict data protection measures. We do not store your original or resized images permanently on our servers - files are automatically deleted after processing or a very short period. Additionally, we don't require account creation or personal information to use our tool, further protecting your privacy.</p>
-        </div>
-        <div class="faq-item">
-            <h3>What image formats does your resizer support?</h3>
-            <p>Our image resizer supports all major image formats including JPEG/JPG, PNG, WebP, GIF, and BMP. The resized output maintains the same format as your original image by default, ensuring compatibility with your existing workflows. If you need to convert between formats while resizing, we recommend using our Image Converter tool which offers both resizing and format conversion capabilities.</p>
-        </div>
-        <div class="faq-item">
-            <h3>Will the image quality be affected during resizing?</h3>
-            <p>Our tool uses advanced interpolation algorithms specifically designed to maintain image quality during resizing. When reducing image dimensions, we carefully preserve details and sharpness. When enlarging images, our algorithms minimize pixelation and blurring that typically occur with basic resizing methods. However, it's important to note that significantly enlarging a low-resolution image beyond its original dimensions may result in some quality loss - this is a fundamental limitation of digital imaging rather than our tool.</p>
-        </div>
-        <div class="faq-item">
-            <h3>What's the maximum file size and resolution I can process?</h3>
-            <p>Our free image resizer can handle images up to 50MB in size and resolutions up to 50 megapixels (e.g., 7000×7000 pixels). This covers most standard photography and design needs. For extremely large images or professional photography files, you may need to reduce the file size first using our Image Compression tool before resizing.</p>
-        </div>
-        <div class="faq-item">
-            <h3>How does the "Maintain aspect ratio" option work?</h3>
-            <p>The "Maintain aspect ratio" option preserves the proportional relationship between your image's width and height. When enabled, you only need to enter either the desired width or height, and our tool automatically calculates the other dimension to maintain the original proportions. This prevents distortion and stretching, ensuring your resized image looks natural. If you disable this option, you can set custom width and height independently, which may change the image's proportions.</p>
-        </div>
-        <div class="faq-item">
-            <h3>Can I resize images on my mobile device?</h3>
-            <p>Yes, our image resizer is fully responsive and works perfectly on mobile devices. The interface automatically adapts to smaller screens, making it easy to upload, resize, and download images directly from your smartphone or tablet. This makes our tool convenient for on-the-go image editing without requiring desktop access or specialized apps.</p>
-        </div>
-        <div class="faq-item">
-            <h3>Is there a limit to how many images I can resize?</h3>
-            <p>No, there are no limits on the number of images you can resize with our tool. You can process as many images as you need, completely free of charge. We don't impose daily or monthly quotas, and there's no requirement to create an account or subscribe to a premium plan. Our service remains free and unlimited for all users.</p>
+        <div class="faq-container" style="max-width: 900px; margin: 0 auto;">
+            <div class="faq-item" style="background: #1e2235; border-radius: 12px; padding: 24px 30px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 4px solid #ffe066;">
+                <div class="faq-question" style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <div class="question-number" style="background: #ffe066; color: #1a1d2e; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 14px; flex-shrink: 0;">1</div>
+                    <h3 style="margin: 0; font-size: 1.2em; font-weight: 600; color: #ffe066;">Why should I resize my images?</h3>
+                </div>
+                <div class="faq-answer" style="margin-left: 42px; color: #e0e0e0; line-height: 1.6;">
+                    <p>Resizing images is essential for various reasons. First, properly sized images improve website loading speed, which is crucial for user experience and SEO rankings. Second, different platforms (social media, websites, email) have specific image size requirements - using correctly sized images ensures optimal display without cropping or distortion. Third, smaller images reduce bandwidth usage, which is particularly important for mobile users or those with limited data plans. Finally, consistent image sizes create a more professional and polished appearance in your projects.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="background: #1e2235; border-radius: 12px; padding: 24px 30px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 4px solid #ffe066;">
+                <div class="faq-question" style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <div class="question-number" style="background: #ffe066; color: #1a1d2e; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 14px; flex-shrink: 0;">2</div>
+                    <h3 style="margin: 0; font-size: 1.2em; font-weight: 600; color: #ffe066;">Is it safe to resize images online?</h3>
+                </div>
+                <div class="faq-answer" style="margin-left: 42px; color: #e0e0e0; line-height: 1.6;">
+                    <p>Yes, our image resizer tool is designed with security and privacy as top priorities. All image processing occurs securely, and we implement strict data protection measures. We do not store your original or resized images permanently on our servers - files are automatically deleted after processing or a very short period. Additionally, we don't require account creation or personal information to use our tool, further protecting your privacy.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="background: #1e2235; border-radius: 12px; padding: 24px 30px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 4px solid #ffe066;">
+                <div class="faq-question" style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <div class="question-number" style="background: #ffe066; color: #1a1d2e; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 14px; flex-shrink: 0;">3</div>
+                    <h3 style="margin: 0; font-size: 1.2em; font-weight: 600; color: #ffe066;">What image formats does your resizer support?</h3>
+                </div>
+                <div class="faq-answer" style="margin-left: 42px; color: #e0e0e0; line-height: 1.6;">
+                    <p>Our image resizer supports all major image formats including JPEG/JPG, PNG, WebP, GIF, and BMP. The resized output maintains the same format as your original image by default, ensuring compatibility with your existing workflows. If you need to convert between formats while resizing, we recommend using our Image Converter tool which offers both resizing and format conversion capabilities.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="background: #1e2235; border-radius: 12px; padding: 24px 30px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 4px solid #ffe066;">
+                <div class="faq-question" style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <div class="question-number" style="background: #ffe066; color: #1a1d2e; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 14px; flex-shrink: 0;">4</div>
+                    <h3 style="margin: 0; font-size: 1.2em; font-weight: 600; color: #ffe066;">Will the image quality be affected during resizing?</h3>
+                </div>
+                <div class="faq-answer" style="margin-left: 42px; color: #e0e0e0; line-height: 1.6;">
+                    <p>Our tool uses advanced interpolation algorithms specifically designed to maintain image quality during resizing. When reducing image dimensions, we carefully preserve details and sharpness. When enlarging images, our algorithms minimize pixelation and blurring that typically occur with basic resizing methods. However, it's important to note that significantly enlarging a low-resolution image beyond its original dimensions may result in some quality loss - this is a fundamental limitation of digital imaging rather than our tool.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="background: #1e2235; border-radius: 12px; padding: 24px 30px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 4px solid #ffe066;">
+                <div class="faq-question" style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <div class="question-number" style="background: #ffe066; color: #1a1d2e; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 14px; flex-shrink: 0;">5</div>
+                    <h3 style="margin: 0; font-size: 1.2em; font-weight: 600; color: #ffe066;">What's the maximum file size and resolution I can process?</h3>
+                </div>
+                <div class="faq-answer" style="margin-left: 42px; color: #e0e0e0; line-height: 1.6;">
+                    <p>Our free image resizer can handle images up to 50MB in size and resolutions up to 50 megapixels (e.g., 7000×7000 pixels). This covers most standard photography and design needs. For extremely large images or professional photography files, you may need to reduce the file size first using our Image Compression tool before resizing.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="background: #1e2235; border-radius: 12px; padding: 24px 30px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 4px solid #ffe066;">
+                <div class="faq-question" style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <div class="question-number" style="background: #ffe066; color: #1a1d2e; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 14px; flex-shrink: 0;">6</div>
+                    <h3 style="margin: 0; font-size: 1.2em; font-weight: 600; color: #ffe066;">How does the "Maintain aspect ratio" option work?</h3>
+                </div>
+                <div class="faq-answer" style="margin-left: 42px; color: #e0e0e0; line-height: 1.6;">
+                    <p>The "Maintain aspect ratio" option preserves the proportional relationship between your image's width and height. When enabled, you only need to enter either the desired width or height, and our tool automatically calculates the other dimension to maintain the original proportions. This prevents distortion and stretching, ensuring your resized image looks natural. If you disable this option, you can set custom width and height independently, which may change the image's proportions.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="background: #1e2235; border-radius: 12px; padding: 24px 30px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 4px solid #ffe066;">
+                <div class="faq-question" style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <div class="question-number" style="background: #ffe066; color: #1a1d2e; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 14px; flex-shrink: 0;">7</div>
+                    <h3 style="margin: 0; font-size: 1.2em; font-weight: 600; color: #ffe066;">Can I resize images on my mobile device?</h3>
+                </div>
+                <div class="faq-answer" style="margin-left: 42px; color: #e0e0e0; line-height: 1.6;">
+                    <p>Yes, our image resizer is fully responsive and works perfectly on mobile devices. The interface automatically adapts to smaller screens, making it easy to upload, resize, and download images directly from your smartphone or tablet. This makes our tool convenient for on-the-go image editing without requiring desktop access or specialized apps.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="background: #1e2235; border-radius: 12px; padding: 24px 30px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 4px solid #ffe066;">
+                <div class="faq-question" style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <div class="question-number" style="background: #ffe066; color: #1a1d2e; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 14px; flex-shrink: 0;">8</div>
+                    <h3 style="margin: 0; font-size: 1.2em; font-weight: 600; color: #ffe066;">Is there a limit to how many images I can resize?</h3>
+                </div>
+                <div class="faq-answer" style="margin-left: 42px; color: #e0e0e0; line-height: 1.6;">
+                    <p>No, there are no limits on the number of images you can resize with our tool. You can process as many images as you need, completely free of charge. We don't impose daily or monthly quotas, and there's no requirement to create an account or subscribe to a premium plan. Our service remains free and unlimited for all users.</p>
+                </div>
+            </div>
         </div>
     </div>
     <div class="support-us">
@@ -923,11 +985,17 @@
                 tryAgainButton.addEventListener('click', resetResizer);
             }
 
-            // Handle refresh button
+            // Handle error refresh button
             if (refreshButton) {
                 refreshButton.addEventListener('click', function() {
                     window.location.reload();
                 });
+            }
+
+            // Handle success refresh button
+            const successRefreshButton = document.getElementById('success-refresh-button');
+            if (successRefreshButton) {
+                successRefreshButton.addEventListener('click', resetResizer);
             }
 
             // Handle download button
