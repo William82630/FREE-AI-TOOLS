@@ -36,6 +36,10 @@ os.makedirs(CONVERTED_FOLDER, exist_ok=True)
 def index():
     return render_template('index.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory('static', 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 @app.route('/privacy-policy.html')
 def privacy_policy():
     return send_from_directory('.', 'privacy-policy.html')
@@ -2511,6 +2515,7 @@ def download_converted_file(filename):
             print(f"Security warning: Attempted access with potentially unsafe filename: {filename}")
             return "Invalid filename", 400
 
+        # Use the /tmp directory for Vercel serverless environment
         file_path = os.path.join(CONVERTED_FOLDER, safe_filename)
 
         # Check if file exists
