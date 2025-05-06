@@ -22,10 +22,11 @@ app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 1024  # 1GB
 API_KEY = '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'
 API_URL = 'https://api.openrouter.ai/v1/completions'
 
-UPLOAD_FOLDER = 'uploads/'
-COMPRESSED_FOLDER = 'compressed/'
-FAVICON_FOLDER = 'favicons/'
-CONVERTED_FOLDER = 'converted/'
+# Use /tmp directory for Vercel serverless functions
+UPLOAD_FOLDER = '/tmp/uploads/'
+COMPRESSED_FOLDER = '/tmp/compressed/'
+FAVICON_FOLDER = '/tmp/favicons/'
+CONVERTED_FOLDER = '/tmp/converted/'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(COMPRESSED_FOLDER, exist_ok=True)
 os.makedirs(FAVICON_FOLDER, exist_ok=True)
@@ -2570,7 +2571,7 @@ def cleanup_old_files():
     """Remove files older than 1 hour from temporary folders"""
     folders_to_clean = [UPLOAD_FOLDER, CONVERTED_FOLDER, COMPRESSED_FOLDER, FAVICON_FOLDER]
     current_time = datetime.now()
-    cleanup_threshold = 3600  # 1 hour in seconds
+    cleanup_threshold = 1800  # 30 minutes in seconds for serverless environment
 
     # Track statistics for logging
     total_cleaned = 0
@@ -2628,19 +2629,19 @@ import threading
 import time
 
 def cleanup_scheduler():
-    """Run cleanup every hour with adaptive timing"""
+    """Run cleanup more frequently in serverless environment"""
     while True:
         try:
-            # Sleep for 1 hour
-            time.sleep(3600)
+            # Sleep for 15 minutes - more frequent cleanup for serverless
+            time.sleep(900)
 
             # Run cleanup and get stats
             files_cleaned, size_cleaned = cleanup_old_files()
 
             # Adaptive timing - if we cleaned a lot of files or a large amount of data, run again sooner
-            if files_cleaned > 100 or size_cleaned > 100 * 1024 * 1024:  # 100+ files or 100+ MB
+            if files_cleaned > 50 or size_cleaned > 50 * 1024 * 1024:  # 50+ files or 50+ MB
                 print("Large number of files cleaned, scheduling next cleanup sooner...")
-                time.sleep(1800)  # Wait only 30 minutes for next cleanup
+                time.sleep(300)  # Wait only 5 minutes for next cleanup
         except Exception as e:
             print(f"Error in cleanup scheduler: {e}")
             # If there's an error, wait a bit and continue
