@@ -5,3 +5,4 @@ requests
 qrcode
 python-dateutil
 reportlab
+werkzeug
