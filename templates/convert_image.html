@@ -1508,16 +1508,24 @@
                         conversionMessage.textContent = data.message || `Your image has been successfully converted to ${selectedFormat}!`;
                         conversionResult.style.display = 'block';
 
-                        // Make the download link trigger a direct download
+                        // Set up the download link with the correct attributes
+                        downloadLink.setAttribute('href', data.download_url);
+                        downloadLink.setAttribute('download', downloadFilename);
+
+                        // Add a direct click handler for better compatibility
                         downloadLink.onclick = function() {
-                            // Create a hidden form to submit for download
-                            const form = document.createElement('form');
-                            form.method = 'GET';
-                            form.action = data.download_url;
-                            document.body.appendChild(form);
-                            form.submit();
-                            document.body.removeChild(form);
-                            return false; // Prevent default link behavior
+                            // Create a hidden iframe to handle the download
+                            const iframe = document.createElement('iframe');
+                            iframe.style.display = 'none';
+                            iframe.src = data.download_url;
+                            document.body.appendChild(iframe);
+
+                            // Remove the iframe after a short delay
+                            setTimeout(() => {
+                                document.body.removeChild(iframe);
+                            }, 2000);
+
+                            return true; // Allow default link behavior as fallback
                         };
 
                         // Scroll to result
@@ -1532,7 +1540,19 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('An error occurred during conversion. Please try again.');
+
+                    // Create a more user-friendly error message
+                    let errorMessage = 'An error occurred during conversion. Please try again.';
+
+                    // Show error in the conversion result area instead of an alert
+                    conversionResult.style.display = 'block';
+                    conversionMessage.innerHTML = `<span style="color: #ef4444;"><i class="fas fa-exclamation-circle"></i> ${errorMessage}</span>`;
+
+                    // Hide the download button
+                    document.getElementById('downloadContainer').style.display = 'none';
+
+                    // Scroll to the error message
+                    conversionResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
                     // Reset button state
                     submitBtn.innerHTML = originalBtnText;

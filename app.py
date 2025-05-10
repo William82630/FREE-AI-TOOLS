@@ -91,14 +91,24 @@ def convert_image():
         target_format = request.form.get('format', 'PNG').upper()
 
         try:
-            # Generate unique filename
+            # Ensure directories exist
+            os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+            os.makedirs(CONVERTED_FOLDER, exist_ok=True)
+
+            # Generate unique filename with random component to avoid collisions
             timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-            filename_base, file_ext = os.path.splitext(file.filename)
-            unique_filename = f"{filename_base}_{timestamp}.{target_format.lower()}"
+            random_id = str(uuid.uuid4())[:8]  # Add random component
+            filename_base, file_ext = os.path.splitext(secure_filename(file.filename))
+            unique_filename = f"{filename_base}_{timestamp}_{random_id}.{target_format.lower()}"
 
             # Save original image temporarily
-            original_path = os.path.join(UPLOAD_FOLDER, f"temp_{timestamp}{file_ext}")
+            original_path = os.path.join(UPLOAD_FOLDER, f"temp_{timestamp}_{random_id}{file_ext}")
             file.save(original_path)
+
+            # Verify the file was saved
+            if not os.path.exists(original_path):
+                print(f"Error: Failed to save uploaded file to {original_path}")
+                return jsonify({'success': False, 'error': 'Failed to save uploaded file'}), 500
 
             # Convert the image to the target format
             converted_path = os.path.join(CONVERTED_FOLDER, unique_filename)
@@ -120,11 +130,26 @@ def convert_image():
                 # Save the converted image
                 img.save(converted_path, format=target_format)
 
+                # Verify the converted file was created
+                if not os.path.exists(converted_path):
+                    print(f"Error: Failed to save converted file to {converted_path}")
+                    return jsonify({'success': False, 'error': 'Failed to save converted file'}), 500
+
+                print(f"Successfully converted image and saved to {converted_path}")
+
             # Clean up the temporary file
-            os.remove(original_path)
+            try:
+                os.remove(original_path)
+                print(f"Removed temporary file: {original_path}")
+            except Exception as cleanup_error:
+                print(f"Warning: Could not remove temporary file: {str(cleanup_error)}")
 
             # Return a JSON response with the download URL
             download_url = f'/download/converted/{unique_filename}'
+
+            # Log the download URL for debugging
+            print(f"Generated download URL: {download_url}")
+            print(f"Full file path: {converted_path}")
 
             return jsonify({
                 'success': True,
@@ -133,6 +158,16 @@ def convert_image():
             })
 
         except Exception as e:
+            print(f"Error in image conversion: {str(e)}")
+            # Clean up any temporary files
+            try:
+                if 'original_path' in locals() and os.path.exists(original_path):
+                    os.remove(original_path)
+                if 'converted_path' in locals() and os.path.exists(converted_path):
+                    os.remove(converted_path)
+            except Exception as cleanup_error:
+                print(f"Error during cleanup: {str(cleanup_error)}")
+
             return jsonify({'success': False, 'error': str(e)}), 500
 
     return render_template('convert_image.html')
@@ -2515,27 +2550,45 @@ def download_converted_file(filename):
             print(f"Security warning: Attempted access with potentially unsafe filename: {filename}")
             return "Invalid filename", 400
 
+        # Ensure the converted folder exists
+        os.makedirs(CONVERTED_FOLDER, exist_ok=True)
+
         # Use the /tmp directory for Vercel serverless environment
         file_path = os.path.join(CONVERTED_FOLDER, safe_filename)
+        print(f"Looking for file at path: {file_path}")
 
         # Check if file exists
         if not os.path.exists(file_path):
+            print(f"File not found: {file_path}")
+            # Check if the directory exists
+            if not os.path.exists(CONVERTED_FOLDER):
+                print(f"Directory does not exist: {CONVERTED_FOLDER}")
+                return "Converted files directory not found. Please try again.", 500
+            # List files in the directory for debugging
+            try:
+                files_in_dir = os.listdir(CONVERTED_FOLDER)
+                print(f"Files in directory: {files_in_dir}")
+            except Exception as dir_error:
+                print(f"Error listing directory: {str(dir_error)}")
             return "File not found or has expired. Please try converting again.", 404
 
         # Verify file is not a directory and is readable
         if not os.path.isfile(file_path):
+            print(f"Path exists but is not a file: {file_path}")
             return "Invalid file request", 400
 
         try:
             # Check if file is accessible
             with open(file_path, 'rb') as _:
                 pass
-        except (IOError, PermissionError):
+        except (IOError, PermissionError) as access_error:
+            print(f"File exists but cannot be accessed: {str(access_error)}")
             return "File exists but cannot be accessed", 403
 
         # Get file size for logging
         file_size = os.path.getsize(file_path)
         file_size_formatted = format_file_size(file_size)
+        print(f"File size: {file_size_formatted}")
 
         # Schedule file for deletion after sending
         @after_this_request
@@ -2552,6 +2605,7 @@ def download_converted_file(filename):
             return response
 
         # Return the file with proper content disposition
+        print(f"Sending file: {file_path}")
         return send_file(
             file_path,
             as_attachment=True,
@@ -2574,15 +2628,19 @@ def format_file_size(size_in_bytes):
 # Cleanup function to remove old files
 def cleanup_old_files():
     """Remove files older than 1 hour from temporary folders"""
-    folders_to_clean = [UPLOAD_FOLDER, CONVERTED_FOLDER, COMPRESSED_FOLDER, FAVICON_FOLDER]
+    folders_to_clean = [UPLOAD_FOLDER, COMPRESSED_FOLDER, FAVICON_FOLDER]  # Exclude CONVERTED_FOLDER to keep files longer
     current_time = datetime.now()
-    cleanup_threshold = 1800  # 30 minutes in seconds for serverless environment
+    cleanup_threshold = 3600  # 60 minutes in seconds for serverless environment
+
+    # Use a longer threshold for converted files to ensure they're available for download
+    converted_cleanup_threshold = 7200  # 2 hours in seconds
 
     # Track statistics for logging
     total_cleaned = 0
     total_failed = 0
     total_size_cleaned = 0
 
+    # Process regular folders first
     for folder in folders_to_clean:
         if not os.path.exists(folder):
             continue
@@ -2620,6 +2678,36 @@ def cleanup_old_files():
             # Handle errors in listing directory contents
             print(f"Error accessing directory {folder}: {e}")
 
+    # Now handle the converted files folder with a longer threshold
+    if os.path.exists(CONVERTED_FOLDER):
+        try:
+            # Use a list comprehension to get all files at once
+            files = [f for f in os.listdir(CONVERTED_FOLDER) if os.path.isfile(os.path.join(CONVERTED_FOLDER, f))]
+
+            for filename in files:
+                file_path = os.path.join(CONVERTED_FOLDER, filename)
+
+                try:
+                    # Get file stats in one call
+                    file_stats = os.stat(file_path)
+                    file_time = datetime.fromtimestamp(file_stats.st_mtime)
+                    file_size = file_stats.st_size
+
+                    # Use the longer threshold for converted files
+                    if (current_time - file_time).total_seconds() > converted_cleanup_threshold:
+                        try:
+                            os.remove(file_path)
+                            total_cleaned += 1
+                            total_size_cleaned += file_size
+                            print(f"Cleaned converted file: {filename}")
+                        except (PermissionError, OSError) as e:
+                            total_failed += 1
+                            print(f"Could not remove converted file {file_path}: {e}")
+                except (OSError, ValueError) as e:
+                    print(f"Error checking converted file {file_path}: {e}")
+        except (PermissionError, OSError) as e:
+            print(f"Error accessing converted directory: {e}")
+
     # Log summary statistics
     if total_cleaned > 0 or total_failed > 0:
         size_mb = total_size_cleaned / (1024 * 1024)
@@ -2634,11 +2722,11 @@ import threading
 import time
 
 def cleanup_scheduler():
-    """Run cleanup more frequently in serverless environment"""
+    """Run cleanup at appropriate intervals in serverless environment"""
     while True:
         try:
-            # Sleep for 15 minutes - more frequent cleanup for serverless
-            time.sleep(900)
+            # Sleep for 30 minutes - less frequent cleanup to ensure files remain available
+            time.sleep(1800)
 
             # Run cleanup and get stats
             files_cleaned, size_cleaned = cleanup_old_files()
@@ -2646,11 +2734,15 @@ def cleanup_scheduler():
             # Adaptive timing - if we cleaned a lot of files or a large amount of data, run again sooner
             if files_cleaned > 50 or size_cleaned > 50 * 1024 * 1024:  # 50+ files or 50+ MB
                 print("Large number of files cleaned, scheduling next cleanup sooner...")
-                time.sleep(300)  # Wait only 5 minutes for next cleanup
+                time.sleep(900)  # Wait 15 minutes for next cleanup
+            else:
+                # If few files were cleaned, wait longer before next cleanup
+                print(f"Few files cleaned ({files_cleaned}), waiting longer before next cleanup")
+                time.sleep(1800)  # Wait 30 minutes
         except Exception as e:
             print(f"Error in cleanup scheduler: {e}")
             # If there's an error, wait a bit and continue
-            time.sleep(300)  # 5 minutes
+            time.sleep(900)  # 15 minutes
 
 # Start cleanup thread
 cleanup_thread = threading.Thread(target=cleanup_scheduler, name="FileCleanupThread")
