@@ -1,598 +1,767 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favicon Generator Tool - Free AI Tools</title>
-    <meta name="description" content="Generate a favicon for your website easily. Upload an image and convert it to a .ico file in seconds. Free online favicon generator tool.">
-    <meta name="keywords" content="favicon generator, create favicon, ico generator, website favicon, free favicon maker">
-    <!-- Font Awesome for social media icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #181a20;
-        }
-        .hero {
-            background-color: #4a1d96;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .hero p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-        }
-        .input-section {
-            text-align: center;
-            margin: 48px 0 20px 0;
-            padding: 0 20px;
-        }
-        .input-section form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #23263a;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .input-section input[type="file"] {
-            padding: 10px;
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 20px;
-            border: 2px solid #8b5cf6;
-            border-radius: 4px;
-            background: #23263a;
-            color: #fff;
-            font-size: 1.13em;
-            box-sizing: border-box;
-        }
-        .input-section button {
-            font-size: 1.13em;
-            font-weight: bold;
-            padding: 12px 32px;
-            background: linear-gradient(90deg, #8b5cf6 0%, #4c1d95 100%);
-            color: #fff;
-            box-shadow: 0 2px 8px rgba(139,92,246,0.3);
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .input-section button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(139,92,246,0.4);
-        }
-        .how-it-works {
-            max-width: 900px;
-            margin: 60px auto 40px;
-            padding: 0 20px;
-            color: #fff;
-        }
-        .how-it-works h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.8em;
-        }
-        .steps {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .step {
-            flex: 1 1 250px;
-            background: #23263a;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        .step-number {
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            width: 40px;
-            height: 40px;
-            background: #8b5cf6;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .step h3 {
-            margin-top: 0;
-            color: #8b5cf6;
-        }
-        .features, .faq {
-            margin: 60px auto;
-            max-width: 900px;
-            padding: 0 20px;
-        }
-        .features h2, .faq h2 {
-            text-align: center;
-            color: #fff;
-            font-size: 1.8em;
-            margin-bottom: 30px;
-        }
-        .features .feature-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 18px;
-            justify-content: center;
-        }
-        .features .feature-card {
-            background: #23263a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 20px;
-            flex: 1 1 28%;
-            min-width: 220px;
-            max-width: 280px;
-            box-sizing: border-box;
-            color: #fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .features .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-        }
-        .features .feature-card h3 {
-            text-align: center;
-            color: #8b5cf6;
-        }
-        .features .feature-card p {
-            text-align: justify;
-            font-size: 1.05em;
-            line-height: 1.5;
-        }
-        .faq {
-            max-width: 900px;
-            margin: 60px auto;
-        }
-        .faq-item {
-            background: #23263a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 15px 0;
-            color: #fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .faq-item h3 {
-            color: #8b5cf6;
-            margin-top: 0;
-        }
-        .faq-item p {
-            font-size: 1.05em;
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
-        .support-us {
-            max-width: 600px;
-            margin: 60px auto;
-            padding: 32px 20px 24px 20px;
-            background: #23263a;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            color: #fff;
-        }
-        .support-us h2 {
-            margin-top: 0;
-            color: #8b5cf6;
-        }
-        .support-us a.coffee-btn {
-            display: inline-block;
-            background: linear-gradient(90deg, #8b5cf6 0%, #4c1d95 100%);
-            color: #fff;
-            font-weight: bold;
-            padding: 12px 28px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 1.15em;
-            box-shadow: 0 2px 8px rgba(139,92,246,0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-bottom: 15px;
-        }
-        .support-us a.coffee-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(139,92,246,0.4);
-        }
-        footer {
-            background: #000;
-            color: #fff;
-            padding: 38px 20px 32px 20px;
-            margin-top: 64px;
-            width: 100%;
-            text-align: center;
-            font-size: 1.08em;
-            letter-spacing: 0.01em;
-            box-sizing: border-box;
-        }
-        footer p {
-            margin: 0 0 10px 0;
-        }
-        footer a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 12px;
-            opacity: 0.85;
-        }
-        footer a:hover {
-            text-decoration: underline;
-            opacity: 1;
-        }
-        .social-icons a {
-            display: inline-block;
-            margin: 0 5px;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-        .social-icons a:hover {
-            opacity: 1;
-        }
-        @media (max-width: 768px) {
-            .features .feature-cards {
-                flex-direction: column;
-                align-items: center;
-            }
-            .steps {
-                flex-direction: column;
-            }
-            .step {
-                margin-bottom: 30px;
-            }
-        }
-    </style>
-    <script>
-        // Global variables to store data
-        let originalImagePath = '';
-        let textConfig = {};
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Favicon Generator Tool – Create Your Website Favicon from Image or Text</title>
+  <meta name="description" content="Generate your own favicon instantly using our free favicon generator. Upload an image or enter text to create favicons for your website. Easy, fast, and professional!" />
+  <meta name="keywords" content="favicon generator, create favicon, free favicon tool, favicon creator, favicon maker, convert image to favicon, favicon from text, website icon" />
+  <meta name="author" content="Wills Blogger" />
+  <link rel="canonical" href="https://yourdomain.com/favicon-generator" />
+  <meta property="og:title" content="Free Favicon Generator Tool – Image & Text Based Favicon Creator" />
+  <meta property="og:description" content="Create favicons online using this fast and free favicon generator. Upload an image or type initials to design a favicon instantly!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourdomain.com/favicon-generator" />
+  <meta property="og:image" content="https://yourdomain.com/preview.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #121212;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background-color: #1e1e2f;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      width: 60%;
+      max-width: 800px;
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #444;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      color: #ccc;
+      border-bottom: 3px solid transparent;
+    }
+    .tab.active {
+      color: #a78bfa;
+      border-color: #a78bfa;
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+    input[type="file"],
+    input[type="text"],
+    input[type="color"],
+    select {
+      background: #121212;
+      border: 2px solid #a78bfa;
+      border-radius: 8px;
+      padding: 10px;
+      color: #fff;
+      width: 100%;
+      margin: 10px 0;
+    }
+    .preview-sizes {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .preview-sizes img {
+      border: 1px solid #333;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #a78bfa;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      padding: 10px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    #loading {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border-left-color: #a78bfa;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
-        // Switch between tabs
-        function switchTab(tabName) {
-            // Update tab styling
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-                tab.style.color = '#aaa';
-                tab.style.borderBottom = 'none';
-            });
+    /* New styles for the updated favicon generator */
+    .tool-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #23263a;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
 
-            document.getElementById('tab-' + tabName).classList.add('active');
-            document.getElementById('tab-' + tabName).style.color = '#8b5cf6';
-            document.getElementById('tab-' + tabName).style.borderBottom = '2px solid #8b5cf6';
+    .favicon-tabs {
+      display: flex;
+      margin-bottom: 25px;
+      border-bottom: 1px solid #444;
+    }
 
-            // Show/hide forms
-            document.querySelectorAll('.form-container').forEach(form => {
-                form.style.display = 'none';
-            });
+    .favicon-tabs .tab {
+      padding: 12px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #aaa;
+      transition: all 0.3s ease;
+    }
 
-            document.getElementById('form-' + tabName).style.display = 'block';
-        }
+    .favicon-tabs .tab.active {
+      color: #8b5cf6;
+      border-bottom: 2px solid #8b5cf6;
+    }
 
-        // Preview image favicon
-        function previewImageFavicon(input) {
-            if (input.files && input.files[0]) {
-                const formData = new FormData();
-                formData.append('image', input.files[0]);
-                formData.append('action', 'preview');
-                formData.append('favicon_type', 'image');
+    .section-description {
+      margin-bottom: 20px;
+      color: #ccc;
+      line-height: 1.5;
+    }
 
-                // Show loading state
-                const previewContainer = document.getElementById('image-preview-container');
-                previewContainer.style.display = 'block';
-                const previewSizes = previewContainer.querySelector('.preview-sizes');
-                previewSizes.innerHTML = '<div style="text-align: center; padding: 20px;">Generating previews...</div>';
+    .file-upload-container {
+      margin-bottom: 20px;
+      text-align: center;
+    }
 
-                // Send AJAX request
-                fetch('/tools/image-editing/favicon-generator', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Store original path for later use
-                        originalImagePath = data.original_path;
+    .file-upload-label {
+      display: inline-block;
+      padding: 12px 24px;
+      background: linear-gradient(90deg, #8b5cf6 0%, #4c1d95 100%);
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
 
-                        // Display previews
-                        displayPreviews(data.preview_images, previewSizes);
-                    } else {
-                        previewSizes.innerHTML = `<div style="color: #ff6b6b; text-align: center; padding: 20px;">Error: ${data.error}</div>`;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    previewSizes.innerHTML = '<div style="color: #ff6b6b; text-align: center; padding: 20px;">An error occurred. Please try again.</div>';
-                });
-            }
-        }
+    .file-upload-label:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139,92,246,0.3);
+    }
 
-        // Preview text favicon
-        function previewTextFavicon() {
-            const text = document.getElementById('favicon-text').value || 'F';
-            const bgColor = document.getElementById('bg-color').value;
-            const textColor = document.getElementById('text-color').value;
-            const shapeElements = document.getElementsByName('shape');
-            let shape = 'square';
+    .file-upload-input {
+      display: none;
+    }
 
-            for (let i = 0; i < shapeElements.length; i++) {
-                if (shapeElements[i].checked) {
-                    shape = shapeElements[i].value;
-                    break;
-                }
-            }
+    .file-name {
+      margin-top: 10px;
+      color: #aaa;
+      font-size: 0.9em;
+    }
 
-            const formData = new FormData();
-            formData.append('action', 'preview');
-            formData.append('favicon_type', 'text');
-            formData.append('text', text);
-            formData.append('bg_color', bgColor);
-            formData.append('text_color', textColor);
-            formData.append('shape', shape);
+    .preview-container {
+      margin: 25px 0;
+    }
 
-            // Show loading state
-            const previewContainer = document.getElementById('text-preview-container');
-            previewContainer.style.display = 'block';
-            const previewSizes = previewContainer.querySelector('.preview-sizes');
-            previewSizes.innerHTML = '<div style="text-align: center; padding: 20px;">Generating previews...</div>';
+    .preview-title {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #fff;
+      font-size: 1.2em;
+    }
 
-            // Send AJAX request
-            fetch('/tools/image-editing/favicon-generator', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Store text config for later use
-                    textConfig = data.text_config;
+    .option-container {
+      margin: 20px 0;
+    }
 
-                    // Display previews
-                    displayPreviews(data.preview_images, previewSizes);
-                } else {
-                    previewSizes.innerHTML = `<div style="color: #ff6b6b; text-align: center; padding: 20px;">Error: ${data.error}</div>`;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                previewSizes.innerHTML = '<div style="color: #ff6b6b; text-align: center; padding: 20px;">An error occurred. Please try again.</div>';
-            });
-        }
+    .option-label {
+      display: block;
+      margin-bottom: 10px;
+      color: #fff;
+      font-weight: 500;
+    }
 
-        // Display preview images
-        function displayPreviews(previewImages, container) {
-            container.innerHTML = '';
+    .option-select {
+      width: 100%;
+      max-width: 200px;
+      padding: 10px;
+      background: #181a20;
+      border: 2px solid #8b5cf6;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 1.1em;
+    }
 
-            // Sort sizes from smallest to largest
-            const sizes = Object.keys(previewImages).sort((a, b) => {
-                const sizeA = parseInt(a.split('x')[0]);
-                const sizeB = parseInt(b.split('x')[0]);
-                return sizeA - sizeB;
-            });
+    .option-note {
+      color: #aaa;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
 
-            // Create preview elements
-            sizes.forEach(size => {
-                const previewDiv = document.createElement('div');
-                previewDiv.style.textAlign = 'center';
+    .buttons-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
 
-                const previewImg = document.createElement('img');
-                previewImg.src = previewImages[size];
-                previewImg.alt = `Favicon preview at ${size}`;
-                previewImg.style.display = 'block';
-                previewImg.style.margin = '0 auto 8px auto';
+    .primary-button {
+      font-size: 1.13em;
+      font-weight: bold;
+      padding: 12px 32px;
+      background: linear-gradient(90deg, #8b5cf6 0%, #4c1d95 100%);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(139,92,246,0.3);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
 
-                // For small icons, display them larger but with pixelated rendering
-                if (parseInt(size.split('x')[0]) <= 32) {
-                    previewImg.style.width = '64px';
-                    previewImg.style.height = '64px';
-                    previewImg.style.imageRendering = 'pixelated';
-                } else {
-                    previewImg.style.width = `${parseInt(size.split('x')[0])}px`;
-                    previewImg.style.height = `${parseInt(size.split('x')[1])}px`;
-                }
+    .primary-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139,92,246,0.4);
+    }
 
-                const sizeLabel = document.createElement('div');
-                sizeLabel.textContent = size;
-                sizeLabel.style.color = '#aaa';
-                sizeLabel.style.fontSize = '0.9em';
+    .secondary-button {
+      font-size: 1.13em;
+      font-weight: bold;
+      padding: 12px 32px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
 
-                previewDiv.appendChild(previewImg);
-                previewDiv.appendChild(sizeLabel);
-                container.appendChild(previewDiv);
-            });
-        }
+    .secondary-button:hover {
+      background: #444;
+    }
 
-        // Generate favicon package
-        function generateFaviconPackage(type) {
-            const formData = new FormData();
-            formData.append('favicon_type', type);
+    .loading-container {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
 
-            if (type === 'image') {
-                if (!originalImagePath) {
-                    alert('Please upload an image first.');
-                    return;
-                }
-                formData.append('original_path', originalImagePath);
+    .loading-container .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border-left-color: #a78bfa;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
 
-                // Get selected size
-                const sizeSelect = document.getElementById('image-favicon-size');
-                formData.append('primary_size', sizeSelect.value);
+    .loading-container p {
+      color: #ccc;
+      margin-top: 10px;
+    }
 
-                // Update button state
-                const button = document.getElementById('generate-image-btn');
-                button.textContent = 'Generating...';
-                button.disabled = true;
-            } else if (type === 'text') {
-                if (!textConfig.text) {
-                    alert('Please enter text for your favicon.');
-                    return;
-                }
+    .text-input-container {
+      margin-bottom: 20px;
+    }
 
-                formData.append('text', textConfig.text);
-                formData.append('bg_color', textConfig.bg_color);
-                formData.append('text_color', textConfig.text_color);
-                formData.append('shape', textConfig.shape);
+    .text-input {
+      width: 100%;
+      padding: 10px;
+      background: #181a20;
+      border: 2px solid #8b5cf6;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 1.1em;
+    }
 
-                // Get selected size
-                const sizeSelect = document.getElementById('text-favicon-size');
-                formData.append('primary_size', sizeSelect.value);
+    .color-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
 
-                // Update button state
-                const button = document.getElementById('generate-text-btn');
-                button.textContent = 'Generating...';
-                button.disabled = true;
-            }
+    .color-option {
+      flex: 1;
+      min-width: 200px;
+    }
 
-            // Create a form and submit it to trigger file download
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/tools/image-editing/favicon-generator';
+    .color-picker-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-            for (const [key, value] of formData.entries()) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = value;
-                form.appendChild(input);
-            }
+    .color-picker {
+      width: 80%;
+      height: 40px;
+      border: 1px solid #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
-            document.body.appendChild(form);
-            form.submit();
-            document.body.removeChild(form);
+    .color-value {
+      color: #aaa;
+      font-family: monospace;
+    }
 
-            // Reset button state after a delay
-            setTimeout(() => {
-                if (type === 'image') {
-                    const button = document.getElementById('generate-image-btn');
-                    button.textContent = 'Generate Favicon Package';
-                    button.disabled = false;
-                } else if (type === 'text') {
-                    const button = document.getElementById('generate-text-btn');
-                    button.textContent = 'Generate Favicon Package';
-                    button.disabled = false;
-                }
-            }, 3000);
-        }
+    .shape-options {
+      margin-bottom: 20px;
+    }
 
-        // Initialize text preview when the page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // Trigger text preview on page load
-            setTimeout(previewTextFavicon, 500);
+    .shape-selector {
+      display: flex;
+      gap: 20px;
+    }
+
+    .shape-option {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .shape-icon {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin: 0 8px;
+      background-color: #8b5cf6;
+    }
+
+    .shape-icon.square {
+      border-radius: 2px;
+    }
+
+    .shape-icon.circle {
+      border-radius: 50%;
+    }
+  </style>
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    function handleImageUpload(event) {
+      const file = event.target.files[0];
+      const preview = document.getElementById('imagePreview');
+      const fileNameDisplay = document.querySelector('.file-name');
+
+      preview.innerHTML = '';
+
+      if (!file) {
+        fileNameDisplay.textContent = 'No file chosen';
+        return;
+      }
+
+      // Update file name display
+      fileNameDisplay.textContent = file.name;
+
+      // Create preview heading
+      const previewHeading = document.createElement('h3');
+      previewHeading.className = 'preview-title';
+      previewHeading.textContent = 'Preview at Different Sizes';
+      preview.appendChild(previewHeading);
+
+      // Create preview container
+      const previewContainer = document.createElement('div');
+      previewContainer.style.display = 'flex';
+      previewContainer.style.flexWrap = 'wrap';
+      previewContainer.style.justifyContent = 'center';
+      previewContainer.style.gap = '15px';
+      preview.appendChild(previewContainer);
+
+      const sizes = [16, 32, 48, 64, 128];
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        sizes.forEach(size => {
+          // Create preview wrapper
+          const previewWrapper = document.createElement('div');
+          previewWrapper.style.textAlign = 'center';
+
+          // Create and add image to preview
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.width = size;
+          img.height = size;
+          img.alt = `Favicon preview ${size}x${size}`;
+          img.style.border = '1px solid #333';
+          previewWrapper.appendChild(img);
+
+          // Add size label
+          const sizeLabel = document.createElement('div');
+          sizeLabel.textContent = `${size}x${size}`;
+          sizeLabel.style.fontSize = '12px';
+          sizeLabel.style.color = '#aaa';
+          sizeLabel.style.marginTop = '5px';
+          previewWrapper.appendChild(sizeLabel);
+
+          previewContainer.appendChild(previewWrapper);
         });
-    </script>
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Update color value display when color picker changes
+    document.addEventListener('DOMContentLoaded', function() {
+      const bgColorPicker = document.getElementById('bgColor');
+      const textColorPicker = document.getElementById('textColor');
+      const bgColorValue = document.querySelector('.color-option:nth-child(1) .color-value');
+      const textColorValue = document.querySelector('.color-option:nth-child(2) .color-value');
+
+      bgColorPicker.addEventListener('input', function() {
+        bgColorValue.textContent = this.value;
+      });
+
+      textColorPicker.addEventListener('input', function() {
+        textColorValue.textContent = this.value;
+      });
+    });
+
+    function generateFavicon() {
+      const input = document.getElementById('imageInput').files[0];
+      const size = parseInt(document.getElementById('faviconSize').value);
+      if (!input) {
+        alert('Please upload an image.');
+        return;
+      }
+
+      // Show loading spinner
+      document.getElementById('image-loading').style.display = 'block';
+
+      // Create FormData to send to server
+      const formData = new FormData();
+      formData.append('image', input);
+      formData.append('favicon_type', 'image');
+      formData.append('primary_size', size + 'x' + size);
+
+      // Send to server
+      fetch('/tools/image-editing/favicon-generator', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.blob();
+        }
+        throw new Error('Network response was not ok.');
+      })
+      .then(blob => {
+        // Create download link
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'favicon-package.zip';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        // Hide loading spinner
+        document.getElementById('image-loading').style.display = 'none';
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to generate favicon. Please try again.');
+        document.getElementById('image-loading').style.display = 'none';
+      });
+    }
+
+    function generateTextFavicon() {
+      const text = document.getElementById('textInput').value.trim();
+      if (!text) {
+        alert('Please enter text to generate favicon.');
+        return;
+      }
+
+      // Get color values from color pickers
+      const bgColor = document.getElementById('bgColor').value;
+      const textColor = document.getElementById('textColor').value;
+
+      // Get shape value from radio buttons
+      const shape = document.querySelector('input[name="shape"]:checked').value;
+
+      const sizes = [16, 32, 48, 64, 128];
+      const container = document.getElementById('textPreview');
+      container.innerHTML = '';
+
+      // Create a heading for the preview section
+      const previewHeading = document.createElement('div');
+      previewHeading.style.width = '100%';
+      previewHeading.style.textAlign = 'center';
+      previewHeading.style.marginBottom = '15px';
+      previewHeading.style.fontSize = '18px';
+      previewHeading.style.fontWeight = 'bold';
+      previewHeading.textContent = 'Preview at Different Sizes';
+      container.appendChild(previewHeading);
+
+      // Create a container for the preview images
+      const previewContainer = document.createElement('div');
+      previewContainer.style.display = 'flex';
+      previewContainer.style.flexWrap = 'wrap';
+      previewContainer.style.justifyContent = 'center';
+      previewContainer.style.gap = '15px';
+      container.appendChild(previewContainer);
+
+      sizes.forEach(size => {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+
+        // Set background
+        ctx.fillStyle = bgColor;
+
+        // Draw shape (square or circle)
+        if (shape === 'circle') {
+          ctx.beginPath();
+          ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillRect(0, 0, size, size);
+        }
+
+        // Draw text
+        ctx.fillStyle = textColor;
+        ctx.font = `bold ${Math.floor(size / 2)}px Inter`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text.toUpperCase(), size / 2, size / 2);
+
+        // Create preview wrapper
+        const previewWrapper = document.createElement('div');
+        previewWrapper.style.textAlign = 'center';
+
+        // Create and add image to preview
+        const img = new Image();
+        img.src = canvas.toDataURL('image/png');
+        img.width = size;
+        img.height = size;
+        img.alt = `Text favicon preview ${size}x${size}`;
+        img.style.border = '1px solid #333';
+        previewWrapper.appendChild(img);
+
+        // Add size label
+        const sizeLabel = document.createElement('div');
+        sizeLabel.textContent = `${size}x${size}`;
+        sizeLabel.style.fontSize = '12px';
+        sizeLabel.style.color = '#aaa';
+        sizeLabel.style.marginTop = '5px';
+        previewWrapper.appendChild(sizeLabel);
+
+        previewContainer.appendChild(previewWrapper);
+
+        // Create download link
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = `favicon-text-${size}x${size}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+
+      // Show loading spinner
+      document.getElementById('text-loading').style.display = 'block';
+
+      // Create FormData to send to server
+      const formData = new FormData();
+      formData.append('favicon_type', 'text');
+      formData.append('text', text);
+      formData.append('bg_color', bgColor);
+      formData.append('text_color', textColor);
+      formData.append('shape', shape);
+      formData.append('primary_size', '64x64');
+
+      // Send to server
+      fetch('/tools/image-editing/favicon-generator', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.blob();
+        }
+        throw new Error('Network response was not ok.');
+      })
+      .then(blob => {
+        // Create download link
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'favicon-package.zip';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        // Hide loading spinner
+        document.getElementById('text-loading').style.display = 'none';
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to generate favicon. Please try again.');
+        document.getElementById('text-loading').style.display = 'none';
+      });
+    }
+
+    function resetForm() {
+      document.getElementById('imageInput').value = '';
+      document.getElementById('imagePreview').innerHTML = '';
+      document.getElementById('textInput').value = '';
+      document.getElementById('textPreview').innerHTML = '';
+    }
+  </script>
 </head>
 <body>
     <div class="hero">
-        <h1>Professional Favicon Generator</h1>
-        <p>Create complete, cross-platform favicon packages for modern websites. Choose between image upload or text-based creation, customize with live previews, and download a comprehensive set of optimized files ready for any device or browser.</p>
+        <h1>Simple Favicon Generator</h1>
+        <p>Create complete, cross-platform favicon packages for your websites. Choose between image upload or text-based creation, check the live previews, and download a comprehensive set of optimized files ready for any device or browser.</p>
     </div>
 
     <div class="input-section">
-        <div style="max-width: 800px; margin: 0 auto; background: #23263a; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+        <div class="tool-container">
             <!-- Tabs for different favicon types -->
-            <div class="favicon-tabs" style="display: flex; margin-bottom: 25px; border-bottom: 1px solid #444;">
-                <div id="tab-image" class="tab active" onclick="switchTab('image')" style="padding: 12px 20px; cursor: pointer; font-weight: bold; color: #8b5cf6; border-bottom: 2px solid #8b5cf6;">
-                    Upload Image
+            <div class="favicon-tabs">
+                <div class="tab active" onclick="switchTab('upload')">
+                    <i class="fas fa-upload"></i> Upload Image
                 </div>
-                <div id="tab-text" class="tab" onclick="switchTab('text')" style="padding: 12px 20px; cursor: pointer; font-weight: bold; color: #aaa;">
-                    Create from Text
+                <div class="tab" onclick="switchTab('text')">
+                    <i class="fas fa-font"></i> Create from Text
                 </div>
             </div>
 
             <!-- Image Upload Form -->
-            <div id="form-image" class="form-container">
-                <p style="margin-bottom: 20px; color: #ccc;">Upload an image to convert into a complete favicon package. Square images work best.</p>
-                <div style="margin-bottom: 20px;">
-                    <input type="file" id="image-input" name="image" accept="image/*" onchange="previewImageFavicon(this)">
+            <div id="upload" class="section active">
+                <p class="section-description">Upload a square image (PNG, JPG, SVG) and choose a size to generate your favicon.</p>
+                <div class="file-upload-container">
+                    <label for="imageInput" class="file-upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Choose an image</span>
+                    </label>
+                    <input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)" class="file-upload-input">
+                    <p class="file-name">No file chosen</p>
                 </div>
-                <div id="image-preview-container" style="display: none; margin-top: 25px;">
-                    <h3 style="color: #fff; margin-bottom: 15px;">Preview at Different Sizes</h3>
-                    <div class="preview-sizes" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 25px;">
+
+                <div class="preview-container">
+                    <h3 class="preview-title">Preview at Different Sizes</h3>
+                    <div class="preview-sizes" id="imagePreview">
                         <!-- Preview images will be inserted here -->
                     </div>
+                </div>
 
-                    <div style="margin: 20px 0;">
-                        <label style="display: block; margin-bottom: 10px; color: #fff;">Primary Favicon Size</label>
-                        <select id="image-favicon-size" style="width: 100%; max-width: 200px; padding: 10px; background: #181a20; border: 2px solid #8b5cf6; border-radius: 4px; color: #fff; font-size: 1.1em;">
-                            <option value="16x16">16x16 (Standard Favicon)</option>
-                            <option value="32x32" selected>32x32 (High-DPI Favicon)</option>
-                            <option value="48x48">48x48 (Windows Site Icon)</option>
-                            <option value="64x64">64x64 (Touch Icon)</option>
-                            <option value="128x128">128x128 (Chrome Web Store)</option>
-                        </select>
-                        <p style="color: #aaa; font-size: 0.9em; margin-top: 5px;">Note: All sizes will be included in the package, this just sets the primary size.</p>
-                    </div>
+                <div class="option-container">
+                    <label for="faviconSize" class="option-label">Select Primary Favicon Size</label>
+                    <select id="faviconSize" class="option-select">
+                        <option value="16">16x16 (Standard Favicon)</option>
+                        <option value="32" selected>32x32 (High-DPI Favicon)</option>
+                        <option value="48">48x48 (Windows Site Icon)</option>
+                        <option value="64">64x64 (Touch Icon)</option>
+                        <option value="128">128x128 (Chrome Web Store)</option>
+                    </select>
+                    <p class="option-note">Note: All sizes will be included in the package, this just sets the primary size.</p>
+                </div>
 
-                    <button id="generate-image-btn" onclick="generateFaviconPackage('image')" style="font-size: 1.13em; font-weight: bold; padding: 12px 32px; background: linear-gradient(90deg, #8b5cf6 0%, #4c1d95 100%); color: #fff; box-shadow: 0 2px 8px rgba(139,92,246,0.3); border: none; border-radius: 6px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
-                        Generate Favicon Package
+                <div class="buttons-container">
+                    <button onclick="generateFavicon()" class="primary-button">
+                        <i class="fas fa-magic"></i> Generate Favicon Package
                     </button>
+                    <button onclick="resetForm()" class="secondary-button">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+
+                <div id="image-loading" class="loading-container">
+                    <div class="spinner"></div>
+                    <p>Generating favicon package...</p>
                 </div>
             </div>
 
             <!-- Text Form -->
-            <div id="form-text" class="form-container" style="display: none;">
-                <p style="margin-bottom: 20px; color: #ccc;">Create a favicon from text. Great for simple letter-based logos.</p>
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; color: #fff;">Text (1-2 characters recommended)</label>
-                    <input type="text" id="favicon-text" maxlength="2" value="F" style="width: 100%; padding: 10px; background: #181a20; border: 2px solid #8b5cf6; border-radius: 4px; color: #fff; font-size: 1.1em;" oninput="previewTextFavicon()">
+            <div id="text" class="section">
+                <p class="section-description">Enter initials or a single character to automatically generate a favicon with styled typography.</p>
+
+                <div class="text-input-container">
+                    <label for="textInput" class="option-label">Text (1-2 characters recommended)</label>
+                    <input type="text" id="textInput" maxlength="2" value="F" class="text-input">
                 </div>
-                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 20px;">
-                    <div style="flex: 1; min-width: 200px;">
-                        <label style="display: block; margin-bottom: 8px; color: #fff;">Background Color</label>
-                        <input type="color" id="bg-color" value="#4a1d96" style="width: 100%; height: 40px; border: none; border-radius: 4px; cursor: pointer;" oninput="previewTextFavicon()">
+
+                <div class="color-options">
+                    <div class="color-option">
+                        <label for="bgColor" class="option-label">Background Color</label>
+                        <div class="color-picker-container">
+                            <input type="color" id="bgColor" value="#4a1d96" class="color-picker">
+                            <span class="color-value">#4a1d96</span>
+                        </div>
                     </div>
-                    <div style="flex: 1; min-width: 200px;">
-                        <label style="display: block; margin-bottom: 8px; color: #fff;">Text Color</label>
-                        <input type="color" id="text-color" value="#ffffff" style="width: 100%; height: 40px; border: none; border-radius: 4px; cursor: pointer;" oninput="previewTextFavicon()">
+
+                    <div class="color-option">
+                        <label for="textColor" class="option-label">Text Color</label>
+                        <div class="color-picker-container">
+                            <input type="color" id="textColor" value="#ffffff" class="color-picker">
+                            <span class="color-value">#ffffff</span>
+                        </div>
                     </div>
                 </div>
-                <div style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 8px; color: #fff;">Shape</label>
-                    <div style="display: flex; gap: 15px;">
-                        <label style="display: flex; align-items: center; color: #ccc; cursor: pointer;">
-                            <input type="radio" name="shape" value="square" checked onchange="previewTextFavicon()">
-                            <span style="margin-left: 8px;">Square</span>
+
+                <div class="shape-options">
+                    <label class="option-label">Shape</label>
+                    <div class="shape-selector">
+                        <label class="shape-option">
+                            <input type="radio" name="shape" value="square" checked>
+                            <span class="shape-icon square"></span>
+                            <span>Square</span>
                         </label>
-                        <label style="display: flex; align-items: center; color: #ccc; cursor: pointer;">
-                            <input type="radio" name="shape" value="circle" onchange="previewTextFavicon()">
-                            <span style="margin-left: 8px;">Circle</span>
+                        <label class="shape-option">
+                            <input type="radio" name="shape" value="circle">
+                            <span class="shape-icon circle"></span>
+                            <span>Circle</span>
                         </label>
                     </div>
                 </div>
-                <div id="text-preview-container" style="display: none; margin-top: 25px;">
-                    <h3 style="color: #fff; margin-bottom: 15px;">Preview at Different Sizes</h3>
-                    <div class="preview-sizes" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 25px;">
+
+                <div class="preview-container">
+                    <h3 class="preview-title">Preview at Different Sizes</h3>
+                    <div class="preview-sizes" id="textPreview">
                         <!-- Preview images will be inserted here -->
                     </div>
+                </div>
 
-                    <div style="margin: 20px 0;">
-                        <label style="display: block; margin-bottom: 10px; color: #fff;">Primary Favicon Size</label>
-                        <select id="text-favicon-size" style="width: 100%; max-width: 200px; padding: 10px; background: #181a20; border: 2px solid #8b5cf6; border-radius: 4px; color: #fff; font-size: 1.1em;">
-                            <option value="16x16">16x16 (Standard Favicon)</option>
-                            <option value="32x32" selected>32x32 (High-DPI Favicon)</option>
-                            <option value="48x48">48x48 (Windows Site Icon)</option>
-                            <option value="64x64">64x64 (Touch Icon)</option>
-                            <option value="128x128">128x128 (Chrome Web Store)</option>
-                        </select>
-                        <p style="color: #aaa; font-size: 0.9em; margin-top: 5px;">Note: All sizes will be included in the package, this just sets the primary size.</p>
-                    </div>
-
-                    <button id="generate-text-btn" onclick="generateFaviconPackage('text')" style="font-size: 1.13em; font-weight: bold; padding: 12px 32px; background: linear-gradient(90deg, #8b5cf6 0%, #4c1d95 100%); color: #fff; box-shadow: 0 2px 8px rgba(139,92,246,0.3); border: none; border-radius: 6px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
-                        Generate Favicon Package
+                <div class="buttons-container">
+                    <button onclick="generateTextFavicon()" class="primary-button">
+                        <i class="fas fa-magic"></i> Generate Favicon Package
                     </button>
+                    <button onclick="resetForm()" class="secondary-button">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+
+                <div id="text-loading" class="loading-container">
+                    <div class="spinner"></div>
+                    <p>Generating favicon package...</p>
                 </div>
             </div>
         </div>
@@ -630,7 +799,7 @@
     </div>
 
     <div class="features">
-        <h2>Advanced Features of Our Professional Favicon Generator</h2>
+        <h2>Advanced Features of Our Free Favicon Generator</h2>
         <div class="feature-cards">
             <div class="feature-card">
                 <h3>🎨 Dual Creation Methods</h3>
