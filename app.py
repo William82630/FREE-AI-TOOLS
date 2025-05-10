@@ -114,21 +114,43 @@ def convert_image():
             converted_path = os.path.join(CONVERTED_FOLDER, unique_filename)
 
             with Image.open(original_path) as img:
+                # Make a copy of the image to avoid modifying the original
+                converted_img = img.copy()
+
                 # If converting to JPG/JPEG, convert to RGB mode (remove alpha channel)
                 if target_format in ['JPG', 'JPEG']:
-                    if img.mode in ['RGBA', 'LA'] or (img.mode == 'P' and 'transparency' in img.info):
-                        # Create a white background image
-                        background = Image.new('RGB', img.size, (255, 255, 255))
-                        # Paste the image on the background
-                        if img.mode == 'P':
-                            img = img.convert('RGBA')
-                        background.paste(img, mask=img.split()[3] if img.mode == 'RGBA' else None)
-                        img = background
-                    else:
-                        img = img.convert('RGB')
+                    print(f"Converting to {target_format}, original mode: {converted_img.mode}")
 
-                # Save the converted image
-                img.save(converted_path, format=target_format)
+                    # Always convert to RGB for JPG/JPEG
+                    if converted_img.mode in ['RGBA', 'LA'] or (converted_img.mode == 'P' and 'transparency' in converted_img.info):
+                        # Create a white background image
+                        background = Image.new('RGB', converted_img.size, (255, 255, 255))
+
+                        # Convert to RGBA if needed
+                        if converted_img.mode == 'P':
+                            converted_img = converted_img.convert('RGBA')
+
+                        # Paste the image on the background
+                        if converted_img.mode == 'RGBA':
+                            background.paste(converted_img, mask=converted_img.split()[3])
+                        else:
+                            background.paste(converted_img)
+
+                        converted_img = background
+                    else:
+                        # For non-transparent images, just convert to RGB
+                        converted_img = converted_img.convert('RGB')
+
+                    print(f"Converted mode: {converted_img.mode}")
+
+                    # Explicitly set format to JPEG for JPG files
+                    save_format = 'JPEG' if target_format == 'JPG' else target_format
+
+                    # Save with quality parameter for JPG/JPEG
+                    converted_img.save(converted_path, format=save_format, quality=95)
+                else:
+                    # For other formats, use default parameters
+                    converted_img.save(converted_path, format=target_format)
 
                 # Verify the converted file was created
                 if not os.path.exists(converted_path):
