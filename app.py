@@ -22,15 +22,30 @@ app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 1024  # 1GB
 API_KEY = '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'
 API_URL = 'https://api.openrouter.ai/v1/completions'
 
-# Use /tmp directory for Vercel serverless functions
-UPLOAD_FOLDER = '/tmp/uploads/'
-COMPRESSED_FOLDER = '/tmp/compressed/'
-FAVICON_FOLDER = '/tmp/favicons/'
-CONVERTED_FOLDER = '/tmp/converted/'
+# Use appropriate directories for both local development and Vercel serverless functions
+# Check if we're on Windows or Linux/Vercel
+if os.name == 'nt':  # Windows
+    # Use local directories for Windows
+    UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
+    COMPRESSED_FOLDER = os.path.join(os.getcwd(), 'compressed')
+    FAVICON_FOLDER = os.path.join(os.getcwd(), 'favicons')
+    CONVERTED_FOLDER = os.path.join(os.getcwd(), 'converted')
+else:  # Linux/Vercel
+    # Use /tmp directory for Vercel serverless functions
+    UPLOAD_FOLDER = '/tmp/uploads/'
+    COMPRESSED_FOLDER = '/tmp/compressed/'
+    FAVICON_FOLDER = '/tmp/favicons/'
+    CONVERTED_FOLDER = '/tmp/converted/'
+
+# Ensure all directories exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(COMPRESSED_FOLDER, exist_ok=True)
 os.makedirs(FAVICON_FOLDER, exist_ok=True)
 os.makedirs(CONVERTED_FOLDER, exist_ok=True)
+
+# Print folder paths for debugging
+print(f"UPLOAD_FOLDER: {UPLOAD_FOLDER}")
+print(f"FAVICON_FOLDER: {FAVICON_FOLDER}")
 
 @app.route('/')
 def index():
@@ -326,105 +341,232 @@ def favicon_generator():
                 favicon_type = request.form.get('favicon_type', 'image')
 
                 if favicon_type == 'image' and 'image' in request.files:
-                    # Process image upload for preview
-                    file = request.files['image']
-                    if file.filename == '':
-                        return jsonify({'success': False, 'error': 'No selected file'})
+                    try:
+                        # Process image upload for preview
+                        file = request.files['image']
+                        if file.filename == '':
+                            return jsonify({'success': False, 'error': 'No selected file'})
 
-                    # Save the uploaded image
-                    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-                    filename_base, file_ext = os.path.splitext(file.filename)
-                    unique_filename = f"{filename_base}_{timestamp}{file_ext}"
-                    filepath = os.path.join(UPLOAD_FOLDER, unique_filename)
-                    file.save(filepath)
+                        # Check file extension
+                        allowed_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
+                        _, file_ext = os.path.splitext(file.filename.lower())
+                        if file_ext not in allowed_extensions:
+                            return jsonify({
+                                'success': False,
+                                'error': f'Unsupported file format. Please use: {", ".join(allowed_extensions)}'
+                            })
 
-                    # Create preview images
-                    preview_sizes = [(16, 16), (32, 32), (48, 48), (64, 64), (128, 128)]
-                    preview_images = {}
+                        # Save the uploaded image
+                        timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+                        filename_base, file_ext = os.path.splitext(file.filename)
+                        unique_filename = f"{filename_base}_{timestamp}{file_ext}"
+                        filepath = os.path.join(UPLOAD_FOLDER, unique_filename)
 
-                    with Image.open(filepath) as img:
-                        # Convert to RGBA if not already
-                        if img.mode != 'RGBA':
-                            img = img.convert('RGBA')
+                        # Ensure directory exists
+                        os.makedirs(os.path.dirname(filepath), exist_ok=True)
 
-                        # Generate previews at different sizes
+                        # Save file and verify it was saved
+                        file.save(filepath)
+                        if not os.path.exists(filepath):
+                            return jsonify({'success': False, 'error': 'Failed to save uploaded file'})
+
+                        print(f"Image saved to: {filepath}")
+
+                        # Create preview images
+                        preview_sizes = [(16, 16), (32, 32), (48, 48), (64, 64), (128, 128)]
+                        preview_images = {}
+
+                        with Image.open(filepath) as img:
+                            # Convert to RGBA if not already
+                            if img.mode != 'RGBA':
+                                img = img.convert('RGBA')
+
+                            # Generate previews at different sizes
+                            for size in preview_sizes:
+                                size_key = f"{size[0]}x{size[1]}"
+                                resized_img = img.resize(size, Image.LANCZOS)
+
+                                # Save to buffer and convert to base64
+                                buffer = io.BytesIO()
+                                resized_img.save(buffer, format="PNG")
+                                buffer.seek(0)
+                                preview_images[size_key] = f"data:image/png;base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
+
+                        return jsonify({
+                            'success': True,
+                            'preview_images': preview_images,
+                            'original_path': filepath
+                        })
+                    except Exception as e:
+                        import traceback
+                        print(f"Error in image favicon preview: {str(e)}")
+                        print(traceback.format_exc())
+                        return jsonify({'success': False, 'error': f'Error processing image: {str(e)}'})
+
+                elif favicon_type == 'text':
+                    try:
+                        # Process text favicon for preview
+                        text = request.form.get('text', 'F')
+                        bg_color = request.form.get('bg_color', '#4a1d96')
+                        text_color = request.form.get('text_color', '#ffffff')
+                        shape = request.form.get('shape', 'square')
+
+                        # Validate inputs
+                        if not text:
+                            text = 'F'  # Default text if empty
+
+                        # Validate colors (simple check for hex format)
+                        if not bg_color.startswith('#') or len(bg_color) not in [4, 7]:
+                            bg_color = '#4a1d96'  # Default purple if invalid
+
+                        if not text_color.startswith('#') or len(text_color) not in [4, 7]:
+                            text_color = '#ffffff'  # Default white if invalid
+
+                        # Validate shape
+                        if shape not in ['square', 'circle']:
+                            shape = 'square'  # Default to square if invalid
+
+                        print(f"Generating text favicon with: text='{text}', bg={bg_color}, text={text_color}, shape={shape}")
+
+                        # Create preview images
+                        preview_sizes = [(16, 16), (32, 32), (48, 48), (64, 64), (128, 128)]
+                        preview_images = {}
+
                         for size in preview_sizes:
                             size_key = f"{size[0]}x{size[1]}"
-                            resized_img = img.resize(size, Image.LANCZOS)
+
+                            # Create image with background color
+                            img = Image.new('RGBA', size, bg_color)
+                            draw = ImageDraw.Draw(img)
+
+                            # For text rendering, we need a better approach for small sizes
+                            should_draw_text = True  # Default to drawing text unless we use the fallback method
+
+                            # Create a font that's appropriate for the image size
+                            # For very small sizes, we need to adjust positioning more carefully
+                            # Try to use a proportionally sized font based on the image size
+                            font_size = max(int(size[0] * 0.6), 8)  # Scale font with image size, minimum 8px
+
+                            # Try multiple font options to ensure we get a good result
+                            font_options = [
+                                "arial.ttf",
+                                "Arial.ttf",
+                                "DejaVuSans.ttf",
+                                "Verdana.ttf",
+                                "Tahoma.ttf",
+                                "Roboto-Regular.ttf",
+                                "OpenSans-Regular.ttf"
+                            ]
+
+                            # Try each font until one works
+                            font = None
+                            for font_name in font_options:
+                                try:
+                                    font = ImageFont.truetype(font_name, size=font_size)
+                                    break
+                                except IOError:
+                                    continue
+
+                            # If no font worked, create a custom large version of the default font
+                            if font is None:
+                                # Use default font but make the text very large and bold
+                                default_font = ImageFont.load_default()
+                                # Create a much larger image to draw text
+                                temp_img = Image.new('RGBA', (size[0] * 2, size[1] * 2), (0, 0, 0, 0))
+                                temp_draw = ImageDraw.Draw(temp_img)
+
+                                # Draw text multiple times to make it bold
+                                for offset_x in range(-2, 3, 1):
+                                    for offset_y in range(-2, 3, 1):
+                                        temp_draw.text(
+                                            (size[0] + offset_x, size[1] + offset_y),
+                                            text,
+                                            fill=text_color,
+                                            font=default_font
+                                        )
+
+                                # Resize back down to get a larger, bolder version of the default font
+                                temp_img = temp_img.resize(size, Image.LANCZOS)
+                                # Paste this onto our base image
+                                img.paste(temp_img, (0, 0), temp_img)
+
+                                # Skip the normal text drawing since we've already done it
+                                position = (0, 0)  # Dummy position
+                                font = default_font  # Use default font for size calculations
+                                should_draw_text = False
+                            else:
+                                # Get text size to calculate position
+                                # For small images, we need to center more precisely
+                                text_width = font.getbbox(text)[2] - font.getbbox(text)[0]
+                                text_height = font.getbbox(text)[3] - font.getbbox(text)[1]
+
+                                # Calculate position to center the text
+                                position = (
+                                    (size[0] - text_width) // 2,
+                                    (size[1] - text_height) // 2
+                                )
+                                should_draw_text = True
+
+                            # Debug info
+                            print(f"Size: {size}, Text: '{text}', Position: {position}, Text dimensions: {text_width}x{text_height}")
+
+                            # Only draw text if we haven't already drawn it in the custom font fallback case
+                            if font is not None and should_draw_text:
+                                # Draw text with a more visible approach
+                                # For small sizes, we need to make sure the text is visible
+                                # First, draw a slightly larger text in a contrasting color as an outline
+                                outline_color = "white" if text_color != "white" else "black"
+
+                                # Draw text multiple times with slight offsets for an outline effect
+                                for offset_x, offset_y in [(-1, -1), (-1, 1), (1, -1), (1, 1)]:
+                                    draw.text(
+                                        (position[0] + offset_x, position[1] + offset_y),
+                                        text,
+                                        fill=outline_color,
+                                        font=font
+                                    )
+
+                                # Then draw the main text
+                                draw.text(position, text, fill=text_color, font=font)
+
+                            # Print debug info
+                            print(f"Drew text '{text}' at position {position} with color {text_color}")
+
+                            # Apply shape if not square
+                            if shape == 'circle':
+                                # Create a circular mask
+                                mask = Image.new('L', size, 0)
+                                mask_draw = ImageDraw.Draw(mask)
+                                mask_draw.ellipse((0, 0, size[0], size[1]), fill=255)
+
+                                # Create a transparent image
+                                circle_img = Image.new('RGBA', size, (0, 0, 0, 0))
+
+                                # Paste the original image using the mask
+                                circle_img.paste(img, (0, 0), mask)
+                                img = circle_img
 
                             # Save to buffer and convert to base64
                             buffer = io.BytesIO()
-                            resized_img.save(buffer, format="PNG")
+                            img.save(buffer, format="PNG")
                             buffer.seek(0)
                             preview_images[size_key] = f"data:image/png;base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
 
-                    return jsonify({
-                        'success': True,
-                        'preview_images': preview_images,
-                        'original_path': filepath
-                    })
-
-                elif favicon_type == 'text':
-                    # Process text favicon for preview
-                    text = request.form.get('text', 'F')
-                    bg_color = request.form.get('bg_color', '#4a1d96')
-                    text_color = request.form.get('text_color', '#ffffff')
-                    shape = request.form.get('shape', 'square')
-
-                    # Create preview images
-                    preview_sizes = [(16, 16), (32, 32), (48, 48), (64, 64), (128, 128)]
-                    preview_images = {}
-
-                    for size in preview_sizes:
-                        size_key = f"{size[0]}x{size[1]}"
-
-                        # Create image with background color
-                        img = Image.new('RGBA', size, bg_color)
-                        draw = ImageDraw.Draw(img)
-
-                        # Calculate font size (approximately 60% of the image height)
-                        font_size = int(size[1] * 0.6)
-
-                        # Use default font for simplicity and compatibility
-                        font = ImageFont.load_default()
-
-                        # Simple centering approach - place text in the middle
-                        # This is a simplified approach that works across all Pillow versions
-                        position = (size[0] // 2 - font_size // 3 * len(text), size[1] // 2 - font_size // 2)
-
-                        # Draw text
-                        draw.text(position, text, fill=text_color, font=font)
-
-                        # Apply shape if not square
-                        if shape == 'circle':
-                            # Create a circular mask
-                            mask = Image.new('L', size, 0)
-                            mask_draw = ImageDraw.Draw(mask)
-                            mask_draw.ellipse((0, 0, size[0], size[1]), fill=255)
-
-                            # Create a transparent image
-                            circle_img = Image.new('RGBA', size, (0, 0, 0, 0))
-
-                            # Paste the original image using the mask
-                            circle_img.paste(img, (0, 0), mask)
-                            img = circle_img
-
-                        # Save to buffer and convert to base64
-                        buffer = io.BytesIO()
-                        img.save(buffer, format="PNG")
-                        buffer.seek(0)
-                        preview_images[size_key] = f"data:image/png;base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
-
-                    return jsonify({
-                        'success': True,
-                        'preview_images': preview_images,
-                        'text_config': {
-                            'text': text,
-                            'bg_color': bg_color,
-                            'text_color': text_color,
-                            'shape': shape
-                        }
-                    })
+                        return jsonify({
+                            'success': True,
+                            'preview_images': preview_images,
+                            'text_config': {
+                                'text': text,
+                                'bg_color': bg_color,
+                                'text_color': text_color,
+                                'shape': shape
+                            }
+                        })
+                    except Exception as e:
+                        import traceback
+                        print(f"Error in text favicon preview: {str(e)}")
+                        print(traceback.format_exc())
+                        return jsonify({'success': False, 'error': f'Error generating text favicon: {str(e)}'})
 
                 return jsonify({'success': False, 'error': 'Invalid favicon type or missing data'})
 
@@ -447,8 +589,29 @@ def favicon_generator():
             zip_path = os.path.join(FAVICON_FOLDER, zip_filename)
 
             with zipfile.ZipFile(zip_path, 'w') as favicon_zip:
-                if favicon_type == 'image' and original_path and os.path.exists(original_path):
-                    with Image.open(original_path) as img:
+                if (favicon_type == 'image' and original_path and os.path.exists(original_path)) or favicon_type == 'image_with_previews':
+                    # For image_with_previews, we'll use the preview images directly
+                    if favicon_type == 'image_with_previews':
+                        # Check if we have preview images
+                        preview_images = {}
+                        for size in [16, 32, 48, 64, 128]:
+                            size_key = f"{size}x{size}"
+                            if f"image_{size_key}" in request.files:
+                                preview_file = request.files[f"image_{size_key}"]
+                                preview_path = os.path.join(FAVICON_FOLDER, f"preview_{size_key}.png")
+                                preview_file.save(preview_path)
+                                preview_images[size_key] = preview_path
+
+                        # If we have preview images, use the largest one as the base image
+                        if preview_images:
+                            largest_size = max(preview_images.keys(), key=lambda x: int(x.split('x')[0]))
+                            img = Image.open(preview_images[largest_size])
+                        else:
+                            # Fallback to original image if no previews
+                            img = Image.open(request.files['original_image'])
+                    else:
+                        # Regular image favicon
+                        img = Image.open(original_path)
                         # Convert to RGBA if not already
                         if img.mode != 'RGBA':
                             img = img.convert('RGBA')
@@ -520,45 +683,151 @@ def favicon_generator():
                             resized.save(mstile_path, format="PNG")
                             favicon_zip.write(mstile_path, f"mstile-{size_str}.png")
 
-                elif favicon_type == 'text':
+                elif favicon_type == 'text' or favicon_type == 'text_with_images':
                     # Get text favicon configuration
                     text = request.form.get('text', 'F')
                     bg_color = request.form.get('bg_color', '#4a1d96')
                     text_color = request.form.get('text_color', '#ffffff')
                     shape = request.form.get('shape', 'square')
 
-                    # Generate all the same files as for image favicons
-                    # First, create the base image at a large size
-                    base_size = (512, 512)
-                    base_img = Image.new('RGBA', base_size, bg_color)
-                    draw = ImageDraw.Draw(base_img)
+                    # Check if we have preview images (for text_with_images type)
+                    preview_images = {}
+                    if favicon_type == 'text_with_images':
+                        for size in [16, 32, 48, 64, 128]:
+                            size_key = f"{size}x{size}"
+                            if f"image_{size_key}" in request.files:
+                                preview_file = request.files[f"image_{size_key}"]
+                                preview_path = os.path.join(FAVICON_FOLDER, f"preview_text_{size_key}.png")
+                                preview_file.save(preview_path)
+                                preview_images[size_key] = preview_path
 
-                    # Calculate font size (approximately 60% of the image height)
-                    font_size = int(base_size[1] * 0.6)
+                    # If we have preview images, use them directly
+                    if preview_images:
+                        # Use the largest preview image as the base image
+                        largest_size = max(preview_images.keys(), key=lambda x: int(x.split('x')[0]))
+                        base_img = Image.open(preview_images[largest_size])
+                        base_size = base_img.size
+                        # Create a draw object even though we won't use it for drawing text
+                        # (to avoid errors in the code below)
+                        draw = ImageDraw.Draw(base_img)
+                    else:
+                        # Generate all the same files as for image favicons
+                        # First, create the base image at a large size
+                        base_size = (512, 512)
+                        base_img = Image.new('RGBA', base_size, bg_color)
+                        draw = ImageDraw.Draw(base_img)
 
-                    # Use default font for simplicity and compatibility
-                    font = ImageFont.load_default()
+                    # Skip text rendering if we're using preview images
+                    if preview_images:
+                        print(f"Using preview images for text favicon, skipping text rendering")
+                        # Set position to a dummy value for later code that might reference it
+                        position = (0, 0)
+                        font = None
+                    else:
+                        # For text rendering, we need a better approach
 
-                    # Simple centering approach - place text in the middle
-                    # This is a simplified approach that works across all Pillow versions
-                    position = (base_size[0] // 2 - font_size // 3 * len(text), base_size[1] // 2 - font_size // 2)
+                        # Calculate a font size proportional to the base image size
+                        font_size = int(base_size[1] * 0.5)  # 50% of the image height
 
-                    # Draw text
-                    draw.text(position, text, fill=text_color, font=font)
+                        # Try multiple font options to ensure we get a good result
+                        font_options = [
+                            "arial.ttf",
+                            "Arial.ttf",
+                            "DejaVuSans.ttf",
+                            "Verdana.ttf",
+                            "Tahoma.ttf",
+                            "Roboto-Regular.ttf",
+                            "OpenSans-Regular.ttf"
+                        ]
 
-                    # Apply shape if not square
-                    if shape == 'circle':
-                        # Create a circular mask
-                        mask = Image.new('L', base_size, 0)
-                        mask_draw = ImageDraw.Draw(mask)
-                        mask_draw.ellipse((0, 0, base_size[0], base_size[1]), fill=255)
+                        # Try each font until one works
+                        font = None
+                        for font_name in font_options:
+                            try:
+                                font = ImageFont.truetype(font_name, size=font_size)
+                                print(f"Successfully loaded font: {font_name}")
+                                break
+                            except IOError:
+                                continue
 
-                        # Create a transparent image
-                        circle_img = Image.new('RGBA', base_size, (0, 0, 0, 0))
+                        # If no font worked, create a custom large version of the default font
+                        if font is None:
+                            print("No TrueType fonts available, using default font")
+                            # Use default font but make the text very large and bold
+                            default_font = ImageFont.load_default()
+                            # Create a much larger base image to draw text
+                            temp_img = Image.new('RGBA', (base_size[0] * 2, base_size[1] * 2), (0, 0, 0, 0))
+                            temp_draw = ImageDraw.Draw(temp_img)
 
-                        # Paste the original image using the mask
-                        circle_img.paste(base_img, (0, 0), mask)
-                        base_img = circle_img
+                            # Draw text multiple times to make it bold
+                            for offset_x in range(-5, 6, 2):
+                                for offset_y in range(-5, 6, 2):
+                                    temp_draw.text(
+                                        (base_size[0] + offset_x, base_size[1] + offset_y),
+                                        text,
+                                        fill=text_color,
+                                        font=default_font
+                                    )
+
+                            # Resize back down to get a larger, bolder version of the default font
+                            temp_img = temp_img.resize(base_size, Image.LANCZOS)
+                            # Paste this onto our base image
+                            base_img.paste(temp_img, (0, 0), temp_img)
+
+                            # Skip the normal text drawing since we've already done it
+                            position = (0, 0)  # Dummy position
+                            font = default_font  # Use default font for size calculations
+                        else:
+                            # Get text size with the font
+                            text_width = font.getbbox(text)[2] - font.getbbox(text)[0]
+                            text_height = font.getbbox(text)[3] - font.getbbox(text)[1]
+
+                            # Calculate position to center the text
+                            position = (
+                                (base_size[0] - text_width) // 2,
+                                (base_size[1] - text_height) // 2
+                            )
+
+                        if font is None:
+                            print(f"Base size: {base_size}, Text: '{text}', Using default font with special rendering")
+                        else:
+                            print(f"Base size: {base_size}, Text: '{text}', Position: {position}, Text dimensions: {text_width}x{text_height}")
+
+                        # Only draw text if we haven't already drawn it in the custom font fallback case
+                        if font is not None:
+                            # Draw text with a more visible approach
+                            # For the base image, we need to make sure the text is very visible
+                            # First, draw a slightly larger text in a contrasting color as an outline
+                            outline_color = "white" if text_color != "white" else "black"
+
+                            # Draw text multiple times with slight offsets for an outline effect
+                            for offset_x, offset_y in [(-2, -2), (-2, 2), (2, -2), (2, 2)]:
+                                draw.text(
+                                    (position[0] + offset_x, position[1] + offset_y),
+                                    text,
+                                    fill=outline_color,
+                                    font=font
+                                )
+
+                            # Then draw the main text
+                            draw.text(position, text, fill=text_color, font=font)
+
+                        # Print debug info
+                        print(f"Drew base image text '{text}' at position {position} with color {text_color}")
+
+                        # Apply shape if not square
+                        if shape == 'circle':
+                            # Create a circular mask
+                            mask = Image.new('L', base_size, 0)
+                            mask_draw = ImageDraw.Draw(mask)
+                            mask_draw.ellipse((0, 0, base_size[0], base_size[1]), fill=255)
+
+                            # Create a transparent image
+                            circle_img = Image.new('RGBA', base_size, (0, 0, 0, 0))
+
+                            # Paste the original image using the mask
+                            circle_img.paste(base_img, (0, 0), mask)
+                            base_img = circle_img
 
                     # Now resize this base image for all the required sizes
                     # Generate favicon.ico (16x16, 32x32, 48x48)
@@ -577,11 +846,25 @@ def favicon_generator():
 
                     # Save favicon.ico
                     favicon_ico_path = os.path.join(FAVICON_FOLDER, 'favicon.ico')
-                    ico_images[0].save(
-                        favicon_ico_path,
-                        format='ICO',
-                        sizes=ico_sizes
-                    )
+
+                    # Make sure we have proper images for the ICO file
+                    # The ICO format requires specific handling
+                    try:
+                        # Save with multiple sizes embedded in the ICO file
+                        ico_images[0].save(
+                            favicon_ico_path,
+                            format='ICO',
+                            sizes=ico_sizes
+                        )
+                        print(f"Successfully created favicon.ico with sizes: {ico_sizes}")
+                    except Exception as ico_error:
+                        print(f"Error creating ICO file: {str(ico_error)}")
+                        # Fallback to simpler approach with just one size
+                        ico_images[0].save(
+                            favicon_ico_path,
+                            format='ICO'
+                        )
+                        print("Created favicon.ico with fallback method")
                     favicon_zip.write(favicon_ico_path, 'favicon.ico')
 
                     # Generate PNG favicons in various sizes
@@ -629,27 +912,25 @@ def favicon_generator():
                         favicon_zip.write(mstile_path, f"mstile-{size_str}.png")
 
                 # Add HTML code file
-                html_code = """
-                <!-- Place these tags in the <head> section of your HTML -->
-                <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
-                <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
-                <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
-                <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
-                <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
-                <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
-                <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
-                <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
-                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
-                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-                <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-                <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-                <link rel="shortcut icon" href="/favicon.ico">
-                <meta name="msapplication-TileColor" content="#ffffff">
-                <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-                <meta name="msapplication-config" content="/browserconfig.xml">
-                <meta name="theme-color" content="#ffffff">
-                """
+                html_code = """<!-- Place these tags in the <head> section of your HTML -->
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">"""
 
                 html_file_path = os.path.join(FAVICON_FOLDER, 'favicon_html_code.txt')
                 with open(html_file_path, 'w') as html_file:
@@ -660,8 +941,23 @@ def favicon_generator():
             return send_file(zip_path, as_attachment=True, download_name=zip_filename)
 
         except Exception as e:
+            import traceback
+            error_traceback = traceback.format_exc()
             print(f"Error in favicon generation: {str(e)}")
-            return jsonify({'success': False, 'error': f'An error occurred: {str(e)}'}), 500
+            print(f"Traceback: {error_traceback}")
+
+            # Provide more detailed error message
+            error_message = f"An error occurred: {str(e)}"
+            if "No such file or directory" in str(e):
+                error_message = "File access error. This might be due to incorrect file paths or permissions."
+            elif "cannot identify image file" in str(e):
+                error_message = "Cannot process the image file. Please try a different image format."
+
+            return jsonify({
+                'success': False,
+                'error': error_message,
+                'details': str(e)
+            }), 500
 
     return render_template('favicon_generator.html')
 
