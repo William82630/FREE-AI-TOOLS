@@ -245,6 +245,7 @@
       color: #e0e0e0;
       font-size: 0.95rem;
       line-height: 1.6;
+      text-align: justify;
     }
 
     .features {
@@ -311,6 +312,7 @@
       color: #e0e0e0;
       font-size: 0.95rem;
       line-height: 1.6;
+      text-align: justify;
     }
 
     .faq {
@@ -361,6 +363,7 @@
       color: #e0e0e0;
       font-size: 0.95rem;
       line-height: 1.7;
+      text-align: justify;
     }
 
     .support-us {
@@ -520,7 +523,8 @@
 
     .buttons-container {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 20px;
       margin-top: 25px;
     }
 
@@ -584,13 +588,16 @@
     }
 
     .text-input {
-      width: 100%;
+      width: 60%;
+      max-width: 300px;
       padding: 10px;
       background: #181a20;
       border: 2px solid #8b5cf6;
       border-radius: 4px;
       color: #fff;
       font-size: 1.1em;
+      margin: 0 auto;
+      display: block;
     }
 
     .color-options {
@@ -686,10 +693,12 @@
       .buttons-container {
         flex-direction: column;
         gap: 15px;
+        align-items: center;
       }
 
       .primary-button, .secondary-button {
-        width: 100%;
+        width: 80%;
+        max-width: 300px;
       }
 
       .how-it-works h2, .features h2, .faq h2 {
@@ -764,11 +773,8 @@
       // Update file name display
       fileNameDisplay.textContent = file.name;
 
-      // Create preview heading
-      const previewHeading = document.createElement('h3');
-      previewHeading.className = 'preview-title';
-      previewHeading.textContent = 'Preview at Different Sizes';
-      preview.appendChild(previewHeading);
+      // Clear the preview container but don't add a new heading
+      // The heading is already in the HTML
 
       // Create preview container
       const previewContainer = document.createElement('div');
@@ -893,15 +899,7 @@
       const container = document.getElementById('textPreview');
       container.innerHTML = '';
 
-      // Create a heading for the preview section
-      const previewHeading = document.createElement('div');
-      previewHeading.style.width = '100%';
-      previewHeading.style.textAlign = 'center';
-      previewHeading.style.marginBottom = '15px';
-      previewHeading.style.fontSize = '18px';
-      previewHeading.style.fontWeight = 'bold';
-      previewHeading.textContent = 'Preview at Different Sizes';
-      container.appendChild(previewHeading);
+      // Don't create a new heading - it's already in the HTML
 
       // Create a container for the preview images
       const previewContainer = document.createElement('div');
@@ -959,13 +957,7 @@
 
         previewContainer.appendChild(previewWrapper);
 
-        // Create download link
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png');
-        link.download = `favicon-text-${size}x${size}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        // Don't download individual files, just show preview
       });
 
       // Show loading spinner
