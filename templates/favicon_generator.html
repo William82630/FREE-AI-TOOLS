@@ -16,6 +16,7 @@
   <meta property="og:image" content="https://yourdomain.com/preview.jpg" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -83,10 +84,15 @@
       gap: 15px;
       flex-wrap: wrap;
       margin-top: 20px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
     .preview-sizes img {
       border: 1px solid #333;
       border-radius: 4px;
+      margin: 0 auto;
+      display: block;
     }
     button {
       background-color: #a78bfa;
@@ -773,15 +779,15 @@
       // Update file name display
       fileNameDisplay.textContent = file.name;
 
-      // Clear the preview container but don't add a new heading
-      // The heading is already in the HTML
-
-      // Create preview container
+      // Create preview container with better centering
       const previewContainer = document.createElement('div');
       previewContainer.style.display = 'flex';
       previewContainer.style.flexWrap = 'wrap';
       previewContainer.style.justifyContent = 'center';
-      previewContainer.style.gap = '15px';
+      previewContainer.style.alignItems = 'center';
+      previewContainer.style.gap = '20px';
+      previewContainer.style.margin = '0 auto';
+      previewContainer.style.textAlign = 'center';
       preview.appendChild(previewContainer);
 
       const sizes = [16, 32, 48, 64, 128];
@@ -791,6 +797,8 @@
           // Create preview wrapper
           const previewWrapper = document.createElement('div');
           previewWrapper.style.textAlign = 'center';
+          previewWrapper.style.display = 'inline-block';
+          previewWrapper.style.margin = '10px';
 
           // Create and add image to preview
           const img = document.createElement('img');
@@ -799,6 +807,8 @@
           img.height = size;
           img.alt = `Favicon preview ${size}x${size}`;
           img.style.border = '1px solid #333';
+          img.style.display = 'block';
+          img.style.margin = '0 auto';
           previewWrapper.appendChild(img);
 
           // Add size label
@@ -809,105 +819,74 @@
           sizeLabel.style.marginTop = '5px';
           previewWrapper.appendChild(sizeLabel);
 
+          // Add download button for each preview
+          const downloadBtn = document.createElement('button');
+          downloadBtn.textContent = 'Download';
+          downloadBtn.className = 'download-preview-btn';
+          downloadBtn.style.fontSize = '10px';
+          downloadBtn.style.padding = '3px 6px';
+          downloadBtn.style.marginTop = '5px';
+          downloadBtn.style.backgroundColor = '#4c1d95';
+          downloadBtn.style.color = 'white';
+          downloadBtn.style.border = 'none';
+          downloadBtn.style.borderRadius = '3px';
+          downloadBtn.style.cursor = 'pointer';
+
+          downloadBtn.onclick = function() {
+            // Create a canvas to get the image data at the correct size
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            // Create a temporary image to ensure proper sizing
+            const tempImg = new Image();
+            tempImg.onload = function() {
+              ctx.drawImage(tempImg, 0, 0, size, size);
+
+              // Create download link
+              const dataURL = canvas.toDataURL('image/png');
+              const a = document.createElement('a');
+              a.href = dataURL;
+              a.download = `favicon-${size}x${size}.png`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+            };
+            tempImg.src = e.target.result;
+          };
+
+          previewWrapper.appendChild(downloadBtn);
           previewContainer.appendChild(previewWrapper);
         });
       };
       reader.readAsDataURL(file);
     }
 
-    // Update color value display when color picker changes
-    document.addEventListener('DOMContentLoaded', function() {
-      const bgColorPicker = document.getElementById('bgColor');
-      const textColorPicker = document.getElementById('textColor');
-      const bgColorValue = document.querySelector('.color-option:nth-child(1) .color-value');
-      const textColorValue = document.querySelector('.color-option:nth-child(2) .color-value');
-
-      bgColorPicker.addEventListener('input', function() {
-        bgColorValue.textContent = this.value;
-      });
-
-      textColorPicker.addEventListener('input', function() {
-        textColorValue.textContent = this.value;
-      });
-    });
-
-    function generateFavicon() {
-      const input = document.getElementById('imageInput').files[0];
-      const size = parseInt(document.getElementById('faviconSize').value);
-      if (!input) {
-        alert('Please upload an image.');
-        return;
-      }
-
-      // Show loading spinner
-      document.getElementById('image-loading').style.display = 'block';
-
-      // Create FormData to send to server
-      const formData = new FormData();
-      formData.append('image', input);
-      formData.append('favicon_type', 'image');
-      formData.append('primary_size', size + 'x' + size);
-
-      // Send to server
-      fetch('/tools/image-editing/favicon-generator', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => {
-        if (response.ok) {
-          return response.blob();
-        }
-        throw new Error('Network response was not ok.');
-      })
-      .then(blob => {
-        // Create download link
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = 'favicon-package.zip';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-
-        // Hide loading spinner
-        document.getElementById('image-loading').style.display = 'none';
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to generate favicon. Please try again.');
-        document.getElementById('image-loading').style.display = 'none';
-      });
-    }
-
-    function generateTextFavicon() {
-      const text = document.getElementById('textInput').value.trim();
-      if (!text) {
-        alert('Please enter text to generate favicon.');
-        return;
-      }
-
-      // Get color values from color pickers
+    // Function to generate text-based favicon previews
+    function updateTextFaviconPreview() {
+      const text = document.getElementById('textInput').value.trim() || 'F';
       const bgColor = document.getElementById('bgColor').value;
       const textColor = document.getElementById('textColor').value;
-
-      // Get shape value from radio buttons
       const shape = document.querySelector('input[name="shape"]:checked').value;
 
       const sizes = [16, 32, 48, 64, 128];
       const container = document.getElementById('textPreview');
       container.innerHTML = '';
 
-      // Don't create a new heading - it's already in the HTML
-
-      // Create a container for the preview images
+      // Create a container for the preview images with better centering
       const previewContainer = document.createElement('div');
       previewContainer.style.display = 'flex';
       previewContainer.style.flexWrap = 'wrap';
       previewContainer.style.justifyContent = 'center';
-      previewContainer.style.gap = '15px';
+      previewContainer.style.alignItems = 'center';
+      previewContainer.style.gap = '20px';
+      previewContainer.style.margin = '0 auto';
+      previewContainer.style.textAlign = 'center';
       container.appendChild(previewContainer);
+
+      // Store canvas data URLs for server submission
+      const faviconImages = {};
 
       sizes.forEach(size => {
         const canvas = document.createElement('canvas');
@@ -932,19 +911,27 @@
         ctx.font = `bold ${Math.floor(size / 2)}px Inter`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(text.toUpperCase(), size / 2, size / 2);
+        ctx.fillText(text.toUpperCase().substring(0, 2), size / 2, size / 2);
+
+        // Store the canvas data URL for this size
+        const dataUrl = canvas.toDataURL('image/png');
+        faviconImages[`${size}x${size}`] = dataUrl;
 
         // Create preview wrapper
         const previewWrapper = document.createElement('div');
         previewWrapper.style.textAlign = 'center';
+        previewWrapper.style.display = 'inline-block';
+        previewWrapper.style.margin = '10px';
 
         // Create and add image to preview
         const img = new Image();
-        img.src = canvas.toDataURL('image/png');
+        img.src = dataUrl;
         img.width = size;
         img.height = size;
         img.alt = `Text favicon preview ${size}x${size}`;
         img.style.border = '1px solid #333';
+        img.style.display = 'block';
+        img.style.margin = '0 auto';
         previewWrapper.appendChild(img);
 
         // Add size label
@@ -955,54 +942,292 @@
         sizeLabel.style.marginTop = '5px';
         previewWrapper.appendChild(sizeLabel);
 
-        previewContainer.appendChild(previewWrapper);
+        // Add download button for each preview
+        const downloadBtn = document.createElement('button');
+        downloadBtn.textContent = 'Download';
+        downloadBtn.className = 'download-preview-btn';
+        downloadBtn.style.fontSize = '10px';
+        downloadBtn.style.padding = '3px 6px';
+        downloadBtn.style.marginTop = '5px';
+        downloadBtn.style.backgroundColor = '#4c1d95';
+        downloadBtn.style.color = 'white';
+        downloadBtn.style.border = 'none';
+        downloadBtn.style.borderRadius = '3px';
+        downloadBtn.style.cursor = 'pointer';
 
-        // Don't download individual files, just show preview
+        downloadBtn.onclick = function() {
+          // Create download link
+          const a = document.createElement('a');
+          a.href = dataUrl;
+          a.download = `favicon-${size}x${size}.png`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        };
+
+        previewWrapper.appendChild(downloadBtn);
+        previewContainer.appendChild(previewWrapper);
       });
+
+      return faviconImages;
+    }
+
+    // Update color value display and preview when color picker changes
+    document.addEventListener('DOMContentLoaded', function() {
+      const bgColorPicker = document.getElementById('bgColor');
+      const textColorPicker = document.getElementById('textColor');
+      const textInput = document.getElementById('textInput');
+      const shapeRadios = document.querySelectorAll('input[name="shape"]');
+      const bgColorValue = document.querySelector('.color-option:nth-child(1) .color-value');
+      const textColorValue = document.querySelector('.color-option:nth-child(2) .color-value');
+
+      // Initialize text preview on page load
+      updateTextFaviconPreview();
+
+      // Update preview when text changes
+      textInput.addEventListener('input', function() {
+        updateTextFaviconPreview();
+      });
+
+      // Update preview when background color changes
+      bgColorPicker.addEventListener('input', function() {
+        bgColorValue.textContent = this.value;
+        updateTextFaviconPreview();
+      });
+
+      // Update preview when text color changes
+      textColorPicker.addEventListener('input', function() {
+        textColorValue.textContent = this.value;
+        updateTextFaviconPreview();
+      });
+
+      // Update preview when shape changes
+      shapeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          updateTextFaviconPreview();
+        });
+      });
+    });
+
+    function generateFavicon() {
+      const input = document.getElementById('imageInput').files[0];
+      const size = parseInt(document.getElementById('faviconSize').value);
+      if (!input) {
+        alert('Please upload an image.');
+        return;
+      }
+
+      // Get the preview images that were already generated
+      const previewContainer = document.getElementById('imagePreview');
+      const previewImages = previewContainer.querySelectorAll('img');
+
+      if (previewImages.length === 0) {
+        alert('Please wait for the preview to load before generating.');
+        return;
+      }
+
+      // Show loading spinner
+      document.getElementById('image-loading').style.display = 'block';
+
+      // Create a zip file client-side using JSZip
+      const zip = new JSZip();
+      const sizes = [16, 32, 48, 64, 128];
+      let completedImages = 0;
+
+      // Function to convert data URL to blob
+      const dataURLtoBlob = function(dataURL) {
+        const binary = atob(dataURL.split(',')[1]);
+        const array = [];
+        for(let i = 0; i < binary.length; i++) {
+          array.push(binary.charCodeAt(i));
+        }
+        return new Blob([new Uint8Array(array)], {type: 'image/png'});
+      };
+
+      // Process each image size
+      previewImages.forEach((img, index) => {
+        if (index < sizes.length) {
+          // Create a canvas to get the image data
+          const canvas = document.createElement('canvas');
+          const currentSize = sizes[index];
+          canvas.width = currentSize;
+          canvas.height = currentSize;
+          const ctx = canvas.getContext('2d');
+
+          try {
+            ctx.drawImage(img, 0, 0, currentSize, currentSize);
+
+            // Get data URL
+            const dataURL = canvas.toDataURL('image/png');
+
+            // Add to zip
+            zip.file(`favicon-${currentSize}x${currentSize}.png`, dataURLtoBlob(dataURL));
+
+            completedImages++;
+
+            // When all images are processed, generate the zip file
+            if (completedImages === sizes.length) {
+              // Add HTML code file with implementation instructions
+              const htmlCode = `<!-- Add these lines to your HTML <head> section -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png">
+<link rel="icon" type="image/png" sizes="128x128" href="/favicon-128x128.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- End of favicon code -->`;
+
+              zip.file('favicon-implementation.html', htmlCode);
+
+              // Generate the zip file
+              zip.generateAsync({type: 'blob'})
+                .then(function(content) {
+                  // Create download link
+                  const url = window.URL.createObjectURL(content);
+                  const a = document.createElement('a');
+                  a.style.display = 'none';
+                  a.href = url;
+                  a.download = 'favicon-package.zip';
+                  document.body.appendChild(a);
+                  a.click();
+                  window.URL.revokeObjectURL(url);
+                  document.body.removeChild(a);
+
+                  // Hide loading spinner
+                  document.getElementById('image-loading').style.display = 'none';
+                })
+                .catch(function(error) {
+                  console.error('Error creating zip file:', error);
+                  alert('Failed to create favicon package. Please try downloading individual images instead.');
+                  document.getElementById('image-loading').style.display = 'none';
+                });
+            }
+          } catch (error) {
+            console.error('Error processing image:', error);
+            alert('Error processing image. Please try a different image or download individual previews.');
+            document.getElementById('image-loading').style.display = 'none';
+          }
+        }
+      });
+    }
+
+    function generateTextFavicon() {
+      const text = document.getElementById('textInput').value.trim() || 'F';
+
+      // Get color values from color pickers
+      const bgColor = document.getElementById('bgColor').value;
+      const textColor = document.getElementById('textColor').value;
+
+      // Get shape value from radio buttons
+      const shape = document.querySelector('input[name="shape"]:checked').value;
 
       // Show loading spinner
       document.getElementById('text-loading').style.display = 'block';
 
-      // Create FormData to send to server
-      const formData = new FormData();
-      formData.append('favicon_type', 'text');
-      formData.append('text', text);
-      formData.append('bg_color', bgColor);
-      formData.append('text_color', textColor);
-      formData.append('shape', shape);
-      formData.append('primary_size', '64x64');
+      // Get the preview images that were already generated
+      const previewContainer = document.getElementById('textPreview');
+      const previewImages = previewContainer.querySelectorAll('img');
 
-      // Send to server
-      fetch('/tools/image-editing/favicon-generator', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => {
-        if (response.ok) {
-          return response.blob();
+      if (previewImages.length === 0) {
+        // If no previews exist yet, generate them first
+        updateTextFaviconPreview();
+
+        // Get the newly created previews
+        const newPreviewImages = document.getElementById('textPreview').querySelectorAll('img');
+        if (newPreviewImages.length === 0) {
+          alert('Failed to generate preview images. Please try again.');
+          document.getElementById('text-loading').style.display = 'none';
+          return;
         }
-        throw new Error('Network response was not ok.');
-      })
-      .then(blob => {
-        // Create download link
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = 'favicon-package.zip';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
+      }
 
-        // Hide loading spinner
+      // Create a zip file client-side using JSZip
+      const zip = new JSZip();
+      const sizes = [16, 32, 48, 64, 128];
+
+      try {
+        // Generate all favicon sizes
+        sizes.forEach(size => {
+          const canvas = document.createElement('canvas');
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext('2d');
+
+          // Set background
+          ctx.fillStyle = bgColor;
+
+          // Draw shape (square or circle)
+          if (shape === 'circle') {
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            ctx.fillRect(0, 0, size, size);
+          }
+
+          // Draw text
+          ctx.fillStyle = textColor;
+          ctx.font = `bold ${Math.floor(size / 2)}px Inter`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(text.toUpperCase().substring(0, 2), size / 2, size / 2);
+
+          // Get data URL and convert to blob
+          const dataUrl = canvas.toDataURL('image/png');
+
+          // Function to convert data URL to blob
+          const dataURLtoBlob = function(dataURL) {
+            const binary = atob(dataURL.split(',')[1]);
+            const array = [];
+            for(let i = 0; i < binary.length; i++) {
+              array.push(binary.charCodeAt(i));
+            }
+            return new Blob([new Uint8Array(array)], {type: 'image/png'});
+          };
+
+          // Add to zip
+          zip.file(`favicon-${size}x${size}.png`, dataURLtoBlob(dataUrl));
+        });
+
+        // Add HTML code file with implementation instructions
+        const htmlCode = `<!-- Add these lines to your HTML <head> section -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png">
+<link rel="icon" type="image/png" sizes="128x128" href="/favicon-128x128.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- End of favicon code -->`;
+
+        zip.file('favicon-implementation.html', htmlCode);
+
+        // Generate the zip file
+        zip.generateAsync({type: 'blob'})
+          .then(function(content) {
+            // Create download link
+            const url = window.URL.createObjectURL(content);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'favicon-package.zip';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+
+            // Hide loading spinner
+            document.getElementById('text-loading').style.display = 'none';
+          })
+          .catch(function(error) {
+            console.error('Error creating zip file:', error);
+            alert('Failed to create favicon package. Please try downloading individual images instead.');
+            document.getElementById('text-loading').style.display = 'none';
+          });
+      } catch (error) {
+        console.error('Error generating favicons:', error);
+        alert('Error generating favicons. Please try again with different settings.');
         document.getElementById('text-loading').style.display = 'none';
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to generate favicon. Please try again.');
-        document.getElementById('text-loading').style.display = 'none';
-      });
+      }
     }
 
     function resetForm() {
